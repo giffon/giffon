@@ -1,0 +1,11 @@
+image: alpine:latest
+
+pages:
+  stage: deploy
+  script:
+    - cp -r www public
+  artifacts:
+    paths:
+      - public
+  only:
+    - master
