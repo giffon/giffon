@@ -17,9 +17,9 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    background-color: yellowgreen;
+    background-color: grey;
     padding: 5em 0;
-    color: azure;
+    color: white;
     text-shadow: grey 3px 3px 6px;
 }
 
@@ -41,6 +41,10 @@ body {
 
 .coolness {
     padding: 1em;
+}
+
+.coolness i.fas {
+    color: yellowgreen;
 }
 
 .coolness .col-sm {
