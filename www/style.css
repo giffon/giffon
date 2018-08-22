@@ -65,6 +65,21 @@ body {
     border-radius: 0.25em;
 }
 
+.request-access {
+    background-color: deeppink;
+    border-radius: 2em;
+    padding: 0.5em 1em 0.25em 1em;
+    margin: 1em;
+    color: white;
+    text-decoration: underline;
+    display: inline-block;
+}
+
+.request-access:hover {
+    color: white;
+    text-decoration: none;
+}
+
 .workflow h2 {
     padding-bottom: 0.5em;
     font-size: larger;
