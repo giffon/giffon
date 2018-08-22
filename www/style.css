@@ -9,12 +9,17 @@ html {
 
 body {
     margin: 0 0 3em 0; /* bottom has to be the same as footer height */
+    color: #333;
+}
+
+.inline-icon {
+    height: 1em;
 }
 
 .banner {
     text-align: center;
     background-image: url(david-svihovec-701536-unsplash.jpg);
-    background-position: center;
+    background-position: center 46%;
     background-repeat: no-repeat;
     background-size: cover;
     background-color: grey;
@@ -37,6 +42,20 @@ body {
     background-color: rgba(80, 80, 80, 0.6);
     display: inline-block;
     padding: 0.5em 1em;
+}
+
+.workflow h2 {
+    padding-bottom: 0.5em;
+    font-size: larger;
+    font-weight: bold;
+}
+
+.workflow {
+    font-size: large;
+}
+
+.workflow i {
+    font-size: medium;
 }
 
 .coolness {
