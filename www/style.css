@@ -136,3 +136,10 @@ img.emoji {
     background-color: #f5f5f5;
     text-align: center;
 }
+
+.footer img.emoji {
+    height: 0.75em;
+    width: 0.75em;
+    margin: 0;
+    vertical-align: 0;
+}
