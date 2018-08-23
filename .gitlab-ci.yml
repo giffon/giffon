@@ -1,4 +1,4 @@
-pages:
+deploy-s3:
   stage: deploy
   image: python:3-alpine
   script:
