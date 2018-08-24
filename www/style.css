@@ -32,6 +32,7 @@ img.emoji {
     background-color: grey;
     padding: 5em 0;
     color: white;
+    margin-bottom: 1em;
 }
 
 .banner i {
@@ -87,32 +88,24 @@ img.emoji {
     text-decoration: none;
 }
 
-.workflow h2 {
+h2 {
+    padding-top: 0.5em;
     padding-bottom: 0.5em;
-    font-size: larger;
+    font-size: 1.25em;
     font-weight: bold;
-}
-
-.workflow {
-    font-size: large;
-}
-
-.workflow i {
-    font-size: medium;
-    vertical-align: top;
-}
-
-.coolness {
-    padding: 1em;
 }
 
 .coolness i.fas {
     color: yellowgreen;
 }
 
-.coolness .col-sm {
+.container {
     font-size: 1.2em;
-    padding: 1em 1.5em;
+}
+
+.items .col-sm {
+    padding-bottom: 1.5em;
+    /* padding: 1em 1.5em 1em 0; */
 }
 
 .coolness .title {
