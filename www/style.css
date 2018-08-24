@@ -30,9 +30,16 @@ img.emoji {
     background-repeat: no-repeat;
     background-size: cover;
     background-color: grey;
-    padding: 5em 0;
+    padding: 5em 0 1em 0;
     color: white;
     margin-bottom: 1em;
+}
+
+.banner .logo {
+    background-color: rgba(80, 80, 80, 0.6);
+    display: inline-block;
+    padding: 1em 4em;
+    border-radius: 0.25em;
 }
 
 .banner i {
@@ -67,17 +74,14 @@ img.emoji {
        0.5px  0.5px 0 grey;
     /* font-weight: bold; */
     letter-spacing: 0.02em;
-    background-color: rgba(80, 80, 80, 0.6);
-    display: inline-block;
-    padding: 0.5em 1em;
-    border-radius: 0.25em;
+    margin-bottom: 0;
 }
 
 .request-access {
     background-color: deeppink;
     border-radius: 2em;
     padding: 0.5em 1em 0.25em 1em;
-    margin: 1em;
+    margin: 2em 0 0 0;
     color: white;
     text-decoration: underline;
     display: inline-block;
