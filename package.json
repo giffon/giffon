@@ -1,0 +1,20 @@
+{
+  "name": "giffon",
+  "version": "0.0.0",
+  "description": "crowd-gifting",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/andyli/giffon.git"
+  },
+  "author": "Andy Li",
+  "license": "UNLICENSED",
+  "private": true,
+  "bugs": {
+    "url": "https://gitlab.com/andyli/giffon/issues"
+  },
+  "homepage": "https://gitlab.com/andyli/giffon#README"
+}
