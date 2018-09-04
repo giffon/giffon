@@ -18,7 +18,12 @@
   },
   "homepage": "https://gitlab.com/andyli/giffon#README",
   "dependencies": {
+    "@serverless-chrome/lambda": "^1.0.0-54",
+    "chrome-remote-interface": "^0.26.1",
     "express": "^4.16.3",
     "serverless-http": "^1.6.0"
+  },
+  "devDependencies": {
+    "chrome-launcher": "^0.10.2"
   }
 }
