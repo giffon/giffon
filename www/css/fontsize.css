@@ -1,0 +1,98 @@
+@charset "UTF-8";
+/* CSS Document */
+
+
+/***************************************************/
+/* Text Setting */
+/***************************************************/
+
+html, body {
+    font-size: 16px !important; /*1em*/
+}
+
+
+
+/***************************************************/
+/* Font Size Setting */
+/***************************************************/
+.font_xs_xs{
+    font-size: 0.75rem; /*12px*/
+}
+.font_xs_s{
+    font-size: 0.875rem; /*14px*/
+}
+.font_xs_m{
+    font-size: 1rem; /*16px*/
+}
+.font_xs_l{
+    font-size: 1.125rem; /*18px*/
+}
+.font_xs_xl{
+    font-size: 1.5rem; /*24px*/
+}
+.font_xs_xxl{
+	font-size: 2rem; /*32px*/
+}
+
+@media (min-width: 768px) {
+	.font_sm_xs{
+	    font-size: 0.75rem; /*12px*/
+	}
+	.font_sm_s{
+	    font-size: 0.875rem; /*14px*/
+	}
+	.font_sm_m{
+	    font-size: 1rem; /*16px*/
+	}
+	.font_sm_l{
+	    font-size: 1.125rem; /*18px*/
+	}
+	.font_sm_xl{
+	    font-size: 1.5rem; /*24px*/
+	}
+	.font_sm_xxl{
+	    font-size: 2rem; /*32px*/
+	}
+}
+
+@media (min-width: 992px) {
+	.font_md_xs{
+	    font-size: 0.75rem; /*12px*/
+	}
+	.font_md_s{
+	    font-size: 0.875rem; /*14px*/
+	}
+	.font_md_m{
+	    font-size: 1rem; /*16px*/
+	}
+	.font_md_l{
+	    font-size: 1.125rem; /*18px*/
+	}
+	.font_md_xl{
+	    font-size: 1.5rem; /*24px*/
+	}
+	.font_md_xxl{
+	    font-size: 2rem; /*32px*/
+	}
+}
+
+@media (min-width: 1200px) {
+	.font_lg_xs{
+	    font-size: 0.75rem; /*12px*/
+	}
+	.font_lg_s{
+	    font-size: 0.875rem; /*14px*/
+	}
+	.font_lg_m{
+	    font-size: 1rem; /*16px*/
+	}
+	.font_lg_l{
+	    font-size: 1.125rem; /*18px*/
+	}
+	.font_lg_xl{
+	    font-size: 1.5rem; /*24px*/
+	}
+	.font_lg_xxl{
+	    font-size: 2rem; /*32px*/
+	}
+}
