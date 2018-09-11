@@ -4,7 +4,7 @@
 	<meta charset="UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
-	<title>Giffon</title>
+	<title>Giffon: A crowd-gifting platform</title>
 	<link rel="shortcut icon" href="../favicon.ico">
 	<link href="https://fonts.googleapis.com/css?family=Nothing+You+Could+Do|Work+Sans" rel="stylesheet">
 
@@ -17,10 +17,6 @@
 	<style type="text/css">
 		body {
 			font-family: 'Work Sans', Arial, sans-serif;
-			/*background-image: linear-gradient(-45deg, #FFC796 0%, #FF6B95 100%);*/
-			/*background-image: linear-gradient(-225deg, #CBBACC 0%, #2580B3 100%);*/
-			/*background-image: linear-gradient(-225deg, #FFE29F 0%, #FFA99F 48%, #FF719A 100%);*/
-			/*background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);*/
 			background-image: linear-gradient(-225deg, #B7F8DB 0%, #50A7C2 100%);
 			color: white;
 			background-attachment: fixed;
@@ -78,13 +74,14 @@
 			border-radius: 0.5em;
 		}
 
-		.corner_s {
-			/*border-radius: 1em;*/
-		}
-
 		.intro {
 			width: 100%;
 			height: auto;
+			line-height: 1.8rem;
+		}
+
+		img.emoji, .inline-icon {
+			height: 1.5rem;
 		}
 
 		.flex_container_v_xs {
@@ -110,8 +107,12 @@
 			background-image: linear-gradient(to right, #f83600 0%, #f9d423 100%);
 		}
 
-		.bg3 {
-			background-image: linear-gradient(-225deg, rgba(0,0,0,0.1) 0%, #50A7C2 100%);
+		.bg4  {
+			background-image: linear-gradient(120deg, #a6c0fe 0%, #f68084 100%);
+		}
+
+		.bg5 {
+			background-image: linear-gradient(120deg, #59d7ff 0%, #747dfd 100%);
 		}
 
 		.feature {
@@ -119,8 +120,12 @@
 			height: 15rem;
 		}
 
-		.card_left, .card_right {
-			margin: 0 1rem 1rem 1rem;
+		.card_left {
+			margin: 0 1.5rem 1rem 0;
+		}
+
+		.card_right {
+			margin: 0 0 1rem 1.5rem;
 		}
 
 		@media (min-width: 992px) {
@@ -170,9 +175,9 @@
 
 <div class="container-fluid">
 	<h1 class="hand text-center font_xs_xl font_md_xxl">How does Giffon work?</h1>
-	<br>
-	<div class="row">
-		<div class="col-sm-12 col-lg-auto ml-md-auto p-0 text-left color_black bg_white_o80 card_left">
+	
+	<div class="row mt-4 mt-md-3">
+		<div class="col-xs-12 col-lg-auto ml-md-auto p-0 text-left color_black bg_white_o80 card_left">
 			<div><h2 class="bg1 color_white p-4">From Start</h2></div>
 			<div class="flex_container_v_xs intro">
 				<div class="vbox p-4">
@@ -180,7 +185,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-sm-12 col-lg-auto mr-md-auto p-0 text-left color_black bg_white card_right shadow">
+		<div class="col-xs-12 col-lg-auto mr-md-auto p-0 text-left color_black bg_white card_right shadow">
 			<div><h2 class="bg1 color_white p-4">To Surprise</h2></div>
 			<div class="flex_container_v_xs intro">
 				<div class="vbox p-4">
@@ -191,10 +196,10 @@
 	</div>
 	<br>
 	<div class="row">
-	<div class="col-xs-12 col-md-1 ml-md-auto text-xs-left text-md-right">
+	<div class="col-xs-12 col-md-1 mx-3 ml-md-auto text-xs-left text-md-right">
 		<h2 class="hand">P.S.</h2>
 	</div>
-	<div class="col-xs-12 col-md-6 mr-md-auto text-left">
+	<div class="col-xs-12 col-md-6 mx-3 mr-md-auto text-left">
 		<p>In case there are not enough pledges, you can still pay for the remaining amount and get it anyway <img draggable="false" class="emoji" alt="😎" src="https://twemoji.maxcdn.com/36x36/1f60e.png">, or just cancel the campaign and no one will be charged.</p>
 	</div>
 	</div>
@@ -203,55 +208,61 @@
 <br><br><br>
 <div class="container-fluid text-center">
 	<h1 class="hand font_xs_xl font_md_xxl">Why set up Giffon campaigns?</h1>
-	<div class="row mt-5 mt-md-3">
-		<div class="col-sm-12 col-md-2 mr-5 ml-md-auto mr-md-3 bg3 color_white p-3   flex_container_v_xs">
+	<div class="row mt-4 mt-md-3">
+		<div class="col-sm-12 col-md-2 mr-5 ml-md-auto mr-md-3 bg4 color_white p-3 flex_container_v_xs d-none d-md-flex">
 			<div class="vbox">
 				<h2>For You</h2>
 			</div>
 		</div>
 
-		<div class="col-xs-auto col-sm-3 col-md-2 p-0 mr-5 mr-md-3 bg_white_o80 corner_s shadow">
-			<div class="color_black px-1 py-3 px-md-3 py-md-4">
+		<div class="col-xs-auto col-sm-6 col-md-2 p-0 mr-3 mr-sm-auto mr-md-3 bg_white_o80 corner_s shadow">
+			<div class="color_black px-3 py-4 px-md-2 py-md-4">
 				<img class="width_xs_30 width_md_60" src="images/smile.svg">
 				
 				<div class="py-3">
-					<span class="d-inline-block px-3 py-1 bg_red_400 color_white corner_xs">#awesome</span>
+					<span class="d-inline-block px-2 py-1 color_white corner_xs" style="background:#a6c0fe;">#awesome</span>
 				</div>
 				<p>get exactly what you want, every single time</p>
 				
 			</div>
 		</div>
 
-		<div class="col-xs-auto col-sm-3 col-md-2 p-0 mr-5  mr-md-3 bg_white_o80 corner_s shadow">
-			<div class="color_black px-1 py-3 px-md-3 py-md-4">
+		<div class="col-xs-auto col-sm-6 col-md-2 p-0 mr-3 mr-sm-auto mr-md-3 bg_white_o80 corner_s shadow">
+			<div class="color_black px-3 py-4 px-md-2 py-md-4">
 				<img class="width_xs_30 width_md_60" src="images/speaker.svg">
 				<div class="py-3">
-					<span class="d-inline-block px-3 py-1 bg_red_400 color_white corner_xs">#speakUp</span>
+					<span class="d-inline-block px-2 py-1 color_white corner_xs"  style="background:#CAA4C9;">#speakUp</span>
 				</div>
 				<p>people want to gift you, they just don't know what to buy</p>
 				
 			</div>
 		</div>
 
-		<div class="col-xs-auto col-sm-3 col-md-2 p-0 mr-5 mr-md-3 bg_white_o80 corner_s shadow">
-			<div class="color_black px-1 py-3 px-md-3 py-md-4">
+		<div class="col-xs-auto col-sm-6 col-md-2 p-0 mr-3 mr-sm-auto mr-md-3 bg_white_o80 corner_s shadow">
+			<div class="color_black px-3 py-4 px-md-2 py-md-4">
 				<img class="width_xs_30 width_md_60" src="images/plant.svg">
 				<div class="py-3">
-					<span class="d-inline-block px-3 py-1 bg_red_400 color_white corner_xs">#ecoFriendly</span>
+					<span class="d-inline-block px-2 py-1 color_white corner_xs"  style="background:#D798B3;">#ecoFriendly</span>
 				</div>
 				<p>no longer need to deal with gifts that have no value to you</p>
 				
 			</div>
 		</div>
 
-		<div class="col-xs-auto col-sm-3 col-md-2 p-0 mr-5 mr-md-3 bg_white_o80 corner_s shadow">
-			<div class="color_black px-1 py-3 px-md-3 py-md-4">
+		<div class="col-xs-auto col-sm-6 col-md-2 p-0 mr-3 mr-sm-auto mr-md-3 bg_white_o80 corner_s shadow">
+			<div class="color_black px-3 py-4 px-md-2 py-md-4">
 				<img class="width_xs_30 width_md_60" src="images/piggy.svg">
 				<div class="py-3">
-					<span class="d-inline-block px-3 py-1 bg_red_400 color_white corner_xs">#saveMoney</span>
+					<span class="d-inline-block px-2 py-1 color_white corner_xs"  style="background:#f68084;">#saveMoney</span>
 				</div>
 				<p>get exactly what you want, every single time</p>
 				
+			</div>
+		</div>
+
+		<div class="col-sm-12 col-md-2 mr-3 mr-sm-0 ml-md-3 bg4 color_white p-3 flex_container_v_xs d-flex d-md-none">
+			<div class="vbox">
+				<h2>For You</h2>
 			</div>
 		</div>
 		
@@ -260,54 +271,55 @@
 <br><br><br>
 <div class="container-fluid text-center">
 	<h1 class="hand font_xs_xl font_md_xxl">Why support Giffon campaigns?</h1>
-	<br>
-	<div class="row">
+	
+	<div class="row mt-4 mt-md-3">
 
-			<div class="col-xs-auto col-sm-3 col-md-2 p-0 ml-5 ml-md-3 bg_white_o80 corner_s shadow">
-				<div class="color_black px-1 py-3 px-md-3 py-md-4">
-					<img class="width_xs_30 width_md_60" src="images/smile.svg">
+
+			<div class="col-xs-auto col-sm-6 col-md-2 p-0 ml-3 ml-sm-auto ml-md-3 bg_white corner_s shadow">
+				<div class="color_black px-3 py-4 px-md-2 py-md-4">
+					<img class="width_xs_30 width_md_60" src="images/charity.svg">
 					<div class="py-3">
-						<span class="d-inline-block px-3 py-1 bg_red_400 color_white corner_xs">#sincerity</span>
+						<span class="d-inline-block px-2 py-1 color_white corner_xs" style="background:#59d7ff;">#sincerity</span>
 					</div>
 					<p>show that you are thankful, appreciating someone</p>
 					
 				</div>
 			</div>
 
-			<div class="col-xs-auto col-sm-3 col-md-2 p-0 ml-5 ml-md-3 bg_white_o80 corner_s shadow">
-				<div class="color_black px-1 py-3 px-md-3 py-md-4">
-					<img class="width_xs_30 width_md_60" src="images/smile.svg">
+			<div class="col-xs-auto col-sm-6 col-md-2 p-0 ml-3 ml-sm-auto ml-md-3 bg_white corner_s shadow">
+				<div class="color_black px-3 py-4 px-md-2 py-md-4">
+					<img class="width_xs_30 width_md_60" src="images/motivation.svg">
 					<div class="py-3">
-						<span class="d-inline-block px-3 py-1 bg_red_400 color_white corner_xs">#certain</span>
+						<span class="d-inline-block px-2 py-1 color_white corner_xs"  style="background:#61BCFF;">#certain</span>
 					</div>
 					<p>your money spent is going to make the receiver happy</p>
 					
 				</div>
 			</div>
 
-			<div class="col-xs-auto col-sm-3 col-md-2 p-0 ml-5 ml-md-3 bg_white_o80 corner_s shadow">
-				<div class="color_black px-1 py-3 px-md-3 py-md-4">
-					<img class="width_xs_30 width_md_60" src="images/smile.svg">
+			<div class="col-xs-auto col-sm-6 col-md-2 p-0 ml-3 ml-sm-auto ml-md-3 bg_white corner_s shadow">
+				<div class="color_black px-3 py-4 px-md-2 py-md-4">
+					<img class="width_xs_30 width_md_60" src="images/coins.svg">
 					<div class="py-3">
-						<span class="d-inline-block px-3 py-1 bg_red_400 color_white corner_xs">#affordable</span>
+						<span class="d-inline-block px-2 py-1 color_white corner_xs"  style="background:#6C97FE;">#affordable</span>
 					</div>
 					<p>a good gift is never too expensive once your friends chip in</p>
 					
 				</div>
 			</div>
 
-			<div class="col-xs-auto col-sm-3 col-md-2 p-0 ml-5 ml-md-3 bg_white_o80 corner_s shadow">
-				<div class="color_black px-1 py-3 px-md-3 py-md-4">
-					<img class="width_xs_30 width_md_60" src="images/smile.svg">
+			<div class="col-xs-auto col-sm-6 col-md-2 p-0 ml-3 ml-sm-auto ml-md-3 bg_white corner_s shadow">
+				<div class="color_black px-3 py-4 px-md-2 py-md-4">
+					<img class="width_xs_30 width_md_60" src="images/title.svg">
 					<div class="py-3">
-						<span class="d-inline-block px-3 py-1 bg_red_400 color_white corner_xs">#trusty</span>
+						<span class="d-inline-block px-2 py-1 color_white corner_xs"  style="background:#747dfd;">#trusty</span>
 					</div>
 					<p>be sure your loved one will receive the nice gift instead of money that may be spent on cigarettes</p>
 					
 				</div>
 			</div>
 
-			<div class="col-sm-12 col-md-2 ml-5 mr-md-auto ml-md-3 bg3 color_white p-3   flex_container_v_xs">
+			<div class="col-sm-12 col-md-2 mr-md-auto ml-3 ml-sm-0 ml-md-3 bg5 color_white p-3 flex_container_v_xs">
 				<div class="vbox">
 					<h2>For Your Friends</h2>
 				</div>
