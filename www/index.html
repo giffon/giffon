@@ -12,6 +12,9 @@
 
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
 	<link rel="stylesheet" type="text/css" href="css/color.css">
 	<link rel="stylesheet" type="text/css" href="css/fontsize.css">
 	<style type="text/css">
@@ -128,6 +131,60 @@
 			margin: 0 0 1rem 1.5rem;
 		}
 
+		@keyframes slideInFromLeft {
+		    0% {
+		        transform: translateX(-10%);
+		        opacity: 0;
+		    }
+		    100% {
+		        transform: translateX(0);
+		        opacity: 1;
+		    }
+		}
+
+		@keyframes slideInFromRight {
+		    0% {
+		        transform: translateX(10%);
+		        opacity: 0;
+		    }
+		    100% {
+		        transform: translateX(0);
+		        opacity: 1;
+		    }
+		}
+
+		@keyframes slideInFromLeft2 {
+		    0% {
+		        transform: translateX(-10%);
+		        opacity: 0;
+		    }
+		    100% {
+		        transform: translateX(0);
+		        opacity: 1;
+		    }
+		}
+
+		@keyframes slideInFromRight2 {
+		    0% {
+		        transform: translateX(10%);
+		        opacity: 0;
+		    }
+		    100% {
+		        transform: translateX(0);
+		        opacity: 1;
+		    }
+		}
+
+		.from_left {
+			animation: 500ms ease-out 0s 1 slideInFromLeft2;
+		}
+
+		.from_right {
+			animation: 500ms ease-out 0s 1 slideInFromRight2;
+		}
+
+		
+
 		@media (min-width: 992px) {
 			.width_md_30 {
 				width: 30%;
@@ -139,10 +196,12 @@
 
 			.card_left {
 				margin: 0px 0 30px 0;
+				animation: 500ms ease-out 0s 1 slideInFromLeft;
 			}
 
 			.card_right {
 				margin: 30px 0 0 -20px;
+				animation: 500ms ease-out 0s 1 slideInFromRight;
 			}
 
 			.intro {
@@ -157,7 +216,32 @@
 			}
 		}
 	</style>
+
+
 </head>
+<script type="text/javascript">
+$(function(){
+
+	$(window).scroll(function (event) {
+	    var scroll = $(window).scrollTop();
+	    var sett = $('#set').offset();
+	    // Do something
+
+	    if( scroll >= (sett.top - 900) ) {
+	    	$('#set2').removeClass('invisible').addClass('from_right');
+	    }
+
+	    if( scroll >= (sett.top - 200) ) {
+	    	$('#support').removeClass('invisible').addClass('from_left');
+	    }
+
+	    console.log("scroll:" + $(window).scrollTop());
+	    console.log("set:" + sett.top);
+	});
+
+})
+
+</script>
 <body>
 
 <div class="container-fluid px-3 py-5 p-md-5">
@@ -207,8 +291,8 @@
 </div>
 <br><br><br>
 <div class="container-fluid text-center">
-	<h1 class="hand font_xs_xl font_md_xxl">Why set up Giffon campaigns?</h1>
-	<div class="row mt-4 mt-md-3">
+	<h1 id="set" class="hand font_xs_xl font_md_xxl">Why set up Giffon campaigns?</h1>
+	<div id="set2" class="row mt-4 mt-md-3 invisible">
 		<div class="col-sm-12 col-md-2 mr-5 ml-md-auto mr-md-3 bg4 color_white p-3 flex_container_v_xs d-none d-md-flex">
 			<div class="vbox">
 				<h2>For You</h2>
@@ -272,7 +356,7 @@
 <div class="container-fluid text-center">
 	<h1 class="hand font_xs_xl font_md_xxl">Why support Giffon campaigns?</h1>
 	
-	<div class="row mt-4 mt-md-3">
+	<div id="support" class="row mt-4 mt-md-3 invisible">
 
 
 			<div class="col-xs-auto col-sm-6 col-md-2 p-0 ml-3 ml-sm-auto ml-md-3 bg_white corner_s shadow">
