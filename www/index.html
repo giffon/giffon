@@ -1,113 +1,425 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cambay:400,700" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
-    <link rel="canonical" href="https://giffon.io" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js" integrity="sha256-GaKOLXTn7uJXFuWp57ukQZGuKK2gWZWlEH16hc6jBU8=" crossorigin="anonymous"></script>
-    <title>Giffon - crowd-gifting</title>
-  </head>
-  <body>
-    <div class="container-fluid">
-      <div class="row banner">
-        <div class="col-sm">
-          <div class="logo">
-            <i class="fas fa-gift fa-10x"></i>
-            <h1>Giffon</h1>
-            <p class="subtitle">A crowd-gifting platform</p>
-          </div>
-          <p>
-            <a class="request-access" href="https://docs.google.com/forms/d/e/1FAIpQLSeFe8MGRFNixqDWxLBvrMnTdRE9TtAy6gARVNcDN0aX7mm7gQ/viewform?usp=sf_link">Request early access</a>
-          </p>
-        </div>
-      </div>
-    </div>
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<title>Giffon: A crowd-gifting platform</title>
+	<link rel="shortcut icon" href="../favicon.ico">
+	<link href="https://fonts.googleapis.com/css?family=Nothing+You+Could+Do|Work+Sans" rel="stylesheet">
 
-    <div class="container workflow">
-      <div class="row">
-        <div class="col-sm">
-          <h2>How does Giffon work</h2>
-          <p>Choose a <span title="smart phone">📱</span> <span title="handbag">👜</span> <span title="lipstick">💄</span> <span title="bowling ball and pins">🎳</span> <span title="car">🚗</span> or any of the millions items listed in <a href="https://www.amazon.com/" target="_blank" rel="nofollow"><img src="Amazon_logo_plain.svg" alt="Amazon" class="inline-icon"></a>. Start a Giffon campaign and let your friends know.</p>
-          <p>At the end of the campaign, if there are enough pledges, Giffon will collect the money and buy you the gift! 🎉</p>
-          <p>In case there are not enough pledges, you can still pay for the remaining amount and get it anyway 😎, or just cancel the campaign and no one will be charged.</p>
-        </div>
-      </div>
-    </div>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
-    <div class="container coolness">
-      <div class="row">
-        <div class="col-sm">
-          <h2>Why set up Giffon campaigns</h2>
-        </div>
-      </div>
-      <div class="row items">
-        <div class="col-sm">
-          <i class="fas fa-grin-stars fa-fw"></i>
-          <span class="title">Awesome</span> get exactly what you want, every single time
-        </div>
-        <div class="col-sm">
-          <i class="fas fa-leaf fa-fw"></i>
-          <span class="title">Eco-friendly</span> no longer need to deal with gifts that have no value to you
-        </div>
-      </div>
-      <div class="row items">
-        <div class="col-sm">
-          <i class="fas fa-volume-up fa-fw"></i>
-          <span class="title">Speak up</span> people want to gift you, they just don't know what to buy
-        </div>
-        <div class="col-sm">
-          <i class="fas fa-piggy-bank fa-fw"></i>
-          <span class="title">Saves money</span> get items you would normally buy yourself
-        </div>
-      </div>
-    </div>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
-    <div class="container coolness">
-      <div class="row">
-        <div class="col-sm">
-          <h2>Why support Giffon campaigns</h2>
-        </div>
-      </div>
-      <div class="row items">
-        <div class="col-sm">
-          <i class="fas fa-hand-holding-heart fa-fw"></i>
-          <span class="title">Express sincerity</span> show that you are thankful, appreciating someone
-        </div>
-        <div class="col-sm">
-          <i class="fas fa-dollar-sign fa-fw"></i>
-          <span class="title">Affordable</span> a good gift is never too expensive once your friends chip in
-        </div>
-      </div>
-      <div class="row items">
-        <div class="col-sm">
-          <i class="fas fa-hand-rock fa-fw"></i>
-          <span class="title">Be Certain</span> your money spent is going to make the receiver happy
-        </div>
-        <div class="col-sm">
-          <i class="fas fa-clipboard-check fa-fw"></i>
-          <span class="title">Trusty</span> be sure your loved one will receive the nice gift instead of money that may be spent on cigarettes
-        </div>
-      </div>
-    </div>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 
-    <footer class="footer">
-      <div class="container">Copyright © 2018 Giffon</div>
-    </footer>
+	<link rel="stylesheet" type="text/css" href="css/color.css">
+	<link rel="stylesheet" type="text/css" href="css/fontsize.css">
+	<style type="text/css">
+		body {
+			font-family: 'Work Sans', Arial, sans-serif;
+			background-image: linear-gradient(-225deg, #B7F8DB 0%, #50A7C2 100%);
+			color: white;
+			background-attachment: fixed;
+		}
 
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/11.1.0/twemoji.min.js" integrity="sha256-Y3KC8juDUsBOzJ3XtOH/sj+BAlF9AQr6pEey+4ibaJ4=" crossorigin="anonymous"></script>
-    <script>
-      // twemoji
-      // Copyright 2018 Twitter, Inc and other contributors
-      // Code licensed under the MIT License: http://opensource.org/licenses/MIT
-      // Graphics licensed under CC-BY 4.0: https://creativecommons.org/licenses/by/4.0/
-      twemoji.parse(document.body);
-    </script>
-  </body>
+		::selection {
+		  background: #50A7C2;
+		}
+		
+		.width_xs_30 {
+			width: 30%;
+		}
+
+		.width_xs_50 {
+			width: 50%;
+		}
+
+		.width_xs_60 {
+			width: 60%;
+		}
+
+		.hand {
+			font-family: 'Nothing You Could Do', Arial, sans-serif;
+		}
+
+		#arrow {
+			margin-top: -20px;
+		}
+
+		#btn_access {
+			border: none;
+			border-radius: 30em;
+			/*background-image: linear-gradient(to top, #f77062 0%, #fe5196 100%);*/
+			background-image: linear-gradient(15deg, #fa709a 0%, #fee140 100%);
+			color: white;
+		}
+
+		.bg_white_o80 {
+			background: rgba(255,255,255,0.8);
+		}
+
+		.bg_white {
+			background: white;
+		}
+
+		.color_black {
+			color: rgba(0,0,0,0.8);
+		}
+
+		.color_white {
+			color: white;
+		}
+
+		.corner_xs {
+			border-radius: 0.5em;
+		}
+
+		.intro {
+			width: 100%;
+			height: auto;
+			line-height: 1.8rem;
+		}
+
+		img.emoji, .inline-icon {
+			height: 1.5rem;
+		}
+
+		.flex_container_v_xs {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			resize: both;
+			overflow: auto;
+		}
+		
+		.vbox {
+			display: inline-block;
+			margin: 0;
+			vertical-align: middle;
+		}
+
+		.bg1 {
+			/*background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);*/
+			background-image: linear-gradient(-225deg, #B7F8DB 0%, #50A7C2 100%);
+		}
+
+		.bg2 {
+			background-image: linear-gradient(to right, #f83600 0%, #f9d423 100%);
+		}
+
+		.bg4  {
+			background-image: linear-gradient(120deg, #a6c0fe 0%, #f68084 100%);
+		}
+
+		.bg5 {
+			background-image: linear-gradient(120deg, #59d7ff 0%, #747dfd 100%);
+		}
+
+		.feature {
+			width: auto;
+			height: 15rem;
+		}
+
+		.card_left {
+			margin: 0 1.5rem 1rem 0;
+		}
+
+		.card_right {
+			margin: 0 0 1rem 1.5rem;
+		}
+
+		@keyframes slideInFromLeft {
+		    0% {
+		        transform: translateX(-10%);
+		        opacity: 0;
+		    }
+		    100% {
+		        transform: translateX(0);
+		        opacity: 1;
+		    }
+		}
+
+		@keyframes slideInFromRight {
+		    0% {
+		        transform: translateX(10%);
+		        opacity: 0;
+		    }
+		    100% {
+		        transform: translateX(0);
+		        opacity: 1;
+		    }
+		}
+
+		@keyframes slideInFromLeft2 {
+		    0% {
+		        transform: translateX(-10%);
+		        opacity: 0;
+		    }
+		    100% {
+		        transform: translateX(0);
+		        opacity: 1;
+		    }
+		}
+
+		@keyframes slideInFromRight2 {
+		    0% {
+		        transform: translateX(10%);
+		        opacity: 0;
+		    }
+		    100% {
+		        transform: translateX(0);
+		        opacity: 1;
+		    }
+		}
+
+		.from_left {
+			animation: 500ms ease-out 0s 1 slideInFromLeft2;
+		}
+
+		.from_right {
+			animation: 500ms ease-out 0s 1 slideInFromRight2;
+		}
+
+		
+
+		@media (min-width: 992px) {
+			.width_md_30 {
+				width: 30%;
+			}
+
+			.width_md_60 {
+				width: 60%;
+			}
+
+			.card_left {
+				margin: 0px 0 30px 0;
+				animation: 500ms ease-out 0s 1 slideInFromLeft;
+			}
+
+			.card_right {
+				margin: 30px 0 0 -20px;
+				animation: 500ms ease-out 0s 1 slideInFromRight;
+			}
+
+			.intro {
+				width: 24rem;
+				height: 18rem;
+				font-size: 1.1rem;
+			}
+
+			.feature {
+				width: 15rem;
+				height: 15rem;
+			}
+		}
+	</style>
+
+
+</head>
+<script type="text/javascript">
+$(function(){
+
+	$(window).scroll(function (event) {
+	    var scroll = $(window).scrollTop();
+	    var sett = $('#set').offset();
+	    // Do something
+
+	    if( scroll >= (sett.top - 900) ) {
+	    	$('#set2').removeClass('invisible').addClass('from_right');
+	    }
+
+	    if( scroll >= (sett.top - 200) ) {
+	    	$('#support').removeClass('invisible').addClass('from_left');
+	    }
+
+	    console.log("scroll:" + $(window).scrollTop());
+	    console.log("set:" + sett.top);
+	});
+
+})
+
+</script>
+<body>
+
+<div class="container-fluid px-3 py-5 p-md-5">
+	<div class="row">
+		<div class="col-sm-12 col-md-8 ml-md-auto mr-md-auto text-center">
+			<img class="width_xs_60 width_md_30" src="images/6.svg">
+			<h1>Giffon</h1>
+			<h1>A crowd-gifting platform</h1>
+			<h3 class="hand"><img id="arrow" src="images/turn-right-arrow-w.svg" width="60">where birds of a feather flock together</h3>
+
+			<button id="btn_access" class="btn px-4 py-3 shadow shadow-md-lg">Get Early Access</button>
+		</div>
+	</div>
+</div>
+
+<div class="container-fluid">
+	<h1 class="hand text-center font_xs_xl font_md_xxl">How does Giffon work?</h1>
+	
+	<div class="row mt-4 mt-md-3">
+		<div class="col-xs-12 col-lg-auto ml-md-auto p-0 text-left color_black bg_white_o80 card_left">
+			<div><h2 class="bg1 color_white p-4">From Start</h2></div>
+			<div class="flex_container_v_xs intro">
+				<div class="vbox p-4">
+					<p>Choose a <span title="smart phone"><img draggable="false" class="emoji" alt="📱" src="https://twemoji.maxcdn.com/36x36/1f4f1.png"></span> <span title="handbag"><img draggable="false" class="emoji" alt="👜" src="https://twemoji.maxcdn.com/36x36/1f45c.png"></span> <span title="lipstick"><img draggable="false" class="emoji" alt="💄" src="https://twemoji.maxcdn.com/36x36/1f484.png"></span> <span title="bowling ball and pins"><img draggable="false" class="emoji" alt="🎳" src="https://twemoji.maxcdn.com/36x36/1f3b3.png"></span> <span title="car"><img draggable="false" class="emoji" alt="🚗" src="https://twemoji.maxcdn.com/36x36/1f697.png"></span> or any of the millions items listed in <a href="https://www.amazon.com/" target="_blank" rel="nofollow"><img src="Amazon_logo_plain.svg" alt="Amazon" class="inline-icon"></a>. Start a Giffon campaign and let your friends know.</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-12 col-lg-auto mr-md-auto p-0 text-left color_black bg_white card_right shadow">
+			<div><h2 class="bg1 color_white p-4">To Surprise</h2></div>
+			<div class="flex_container_v_xs intro">
+				<div class="vbox p-4">
+					<p>At the end of the campaign, if there are enough pledges, Giffon will collect the money and buy you the gift! <img draggable="false" class="emoji" alt="🎉" src="https://twemoji.maxcdn.com/36x36/1f389.png"></p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br>
+	<div class="row">
+	<div class="col-xs-12 col-md-1 mx-3 ml-md-auto text-xs-left text-md-right">
+		<h2 class="hand">P.S.</h2>
+	</div>
+	<div class="col-xs-12 col-md-6 mx-3 mr-md-auto text-left">
+		<p>In case there are not enough pledges, you can still pay for the remaining amount and get it anyway <img draggable="false" class="emoji" alt="😎" src="https://twemoji.maxcdn.com/36x36/1f60e.png">, or just cancel the campaign and no one will be charged.</p>
+	</div>
+	</div>
+
+</div>
+<br><br><br>
+<div class="container-fluid text-center">
+	<h1 id="set" class="hand font_xs_xl font_md_xxl">Why set up Giffon campaigns?</h1>
+	<div id="set2" class="row mt-4 mt-md-3 invisible">
+		<div class="col-sm-12 col-md-2 mr-5 ml-md-auto mr-md-3 bg4 color_white p-3 flex_container_v_xs d-none d-md-flex">
+			<div class="vbox">
+				<h2>For You</h2>
+			</div>
+		</div>
+
+		<div class="col-xs-auto col-sm-6 col-md-2 p-0 mr-3 mr-sm-auto mr-md-3 bg_white_o80 corner_s shadow">
+			<div class="color_black px-3 py-4 px-md-2 py-md-4">
+				<img class="width_xs_30 width_md_60" src="images/smile.svg">
+				
+				<div class="py-3">
+					<span class="d-inline-block px-2 py-1 color_white corner_xs" style="background:#a6c0fe;">#awesome</span>
+				</div>
+				<p>get exactly what you want, every single time</p>
+				
+			</div>
+		</div>
+
+		<div class="col-xs-auto col-sm-6 col-md-2 p-0 mr-3 mr-sm-auto mr-md-3 bg_white_o80 corner_s shadow">
+			<div class="color_black px-3 py-4 px-md-2 py-md-4">
+				<img class="width_xs_30 width_md_60" src="images/speaker.svg">
+				<div class="py-3">
+					<span class="d-inline-block px-2 py-1 color_white corner_xs"  style="background:#CAA4C9;">#speakUp</span>
+				</div>
+				<p>people want to gift you, they just don't know what to buy</p>
+				
+			</div>
+		</div>
+
+		<div class="col-xs-auto col-sm-6 col-md-2 p-0 mr-3 mr-sm-auto mr-md-3 bg_white_o80 corner_s shadow">
+			<div class="color_black px-3 py-4 px-md-2 py-md-4">
+				<img class="width_xs_30 width_md_60" src="images/plant.svg">
+				<div class="py-3">
+					<span class="d-inline-block px-2 py-1 color_white corner_xs"  style="background:#D798B3;">#ecoFriendly</span>
+				</div>
+				<p>no longer need to deal with gifts that have no value to you</p>
+				
+			</div>
+		</div>
+
+		<div class="col-xs-auto col-sm-6 col-md-2 p-0 mr-3 mr-sm-auto mr-md-3 bg_white_o80 corner_s shadow">
+			<div class="color_black px-3 py-4 px-md-2 py-md-4">
+				<img class="width_xs_30 width_md_60" src="images/piggy.svg">
+				<div class="py-3">
+					<span class="d-inline-block px-2 py-1 color_white corner_xs"  style="background:#f68084;">#saveMoney</span>
+				</div>
+				<p>get exactly what you want, every single time</p>
+				
+			</div>
+		</div>
+
+		<div class="col-sm-12 col-md-2 mr-3 mr-sm-0 ml-md-3 bg4 color_white p-3 flex_container_v_xs d-flex d-md-none">
+			<div class="vbox">
+				<h2>For You</h2>
+			</div>
+		</div>
+		
+	</div>
+</div>
+<br><br><br>
+<div class="container-fluid text-center">
+	<h1 class="hand font_xs_xl font_md_xxl">Why support Giffon campaigns?</h1>
+	
+	<div id="support" class="row mt-4 mt-md-3 invisible">
+
+
+			<div class="col-xs-auto col-sm-6 col-md-2 p-0 ml-3 ml-sm-auto ml-md-3 bg_white corner_s shadow">
+				<div class="color_black px-3 py-4 px-md-2 py-md-4">
+					<img class="width_xs_30 width_md_60" src="images/charity.svg">
+					<div class="py-3">
+						<span class="d-inline-block px-2 py-1 color_white corner_xs" style="background:#59d7ff;">#sincerity</span>
+					</div>
+					<p>show that you are thankful, appreciating someone</p>
+					
+				</div>
+			</div>
+
+			<div class="col-xs-auto col-sm-6 col-md-2 p-0 ml-3 ml-sm-auto ml-md-3 bg_white corner_s shadow">
+				<div class="color_black px-3 py-4 px-md-2 py-md-4">
+					<img class="width_xs_30 width_md_60" src="images/motivation.svg">
+					<div class="py-3">
+						<span class="d-inline-block px-2 py-1 color_white corner_xs"  style="background:#61BCFF;">#certain</span>
+					</div>
+					<p>your money spent is going to make the receiver happy</p>
+					
+				</div>
+			</div>
+
+			<div class="col-xs-auto col-sm-6 col-md-2 p-0 ml-3 ml-sm-auto ml-md-3 bg_white corner_s shadow">
+				<div class="color_black px-3 py-4 px-md-2 py-md-4">
+					<img class="width_xs_30 width_md_60" src="images/coins.svg">
+					<div class="py-3">
+						<span class="d-inline-block px-2 py-1 color_white corner_xs"  style="background:#6C97FE;">#affordable</span>
+					</div>
+					<p>a good gift is never too expensive once your friends chip in</p>
+					
+				</div>
+			</div>
+
+			<div class="col-xs-auto col-sm-6 col-md-2 p-0 ml-3 ml-sm-auto ml-md-3 bg_white corner_s shadow">
+				<div class="color_black px-3 py-4 px-md-2 py-md-4">
+					<img class="width_xs_30 width_md_60" src="images/title.svg">
+					<div class="py-3">
+						<span class="d-inline-block px-2 py-1 color_white corner_xs"  style="background:#747dfd;">#trusty</span>
+					</div>
+					<p>be sure your loved one will receive the nice gift instead of money that may be spent on cigarettes</p>
+					
+				</div>
+			</div>
+
+			<div class="col-sm-12 col-md-2 mr-md-auto ml-3 ml-sm-0 ml-md-3 bg5 color_white p-3 flex_container_v_xs">
+				<div class="vbox">
+					<h2>For Your Friends</h2>
+				</div>
+			</div>
+		
+			
+		</div>
+		
+	</div>
+</div>
+<br><br><br>
+
+<footer class="p-5 text-center">
+	Copyright &copy; Giffon. All Rights Reserved.
+</footer>
+
+
+</body>
 </html>

@@ -1,0 +1,2547 @@
+@charset "utf-8";
+/* CSS Document */
+
+/***************************************************/
+/* Red (Text) Setting */
+/***************************************************/
+.color_red_50 {
+	color:#FFEBEE;
+}
+.color_red_100 {
+	color:#FFCDD2;	
+}
+.color_red_200 {
+	color:#EF9A9A;	
+}
+.color_red_300 {
+	color:#E57373;	
+}
+.color_red_400 {
+	color:#EF5350;	
+}
+.color_red_500 {
+	color:#F44336;	
+}
+.color_red_600 {
+	color:#E53935;	
+}
+.color_red_700 {
+	color:#D32F2F;	
+}
+.color_red_800 {
+	color:#C62828;	
+}
+.color_red_900 {
+	color:#B71C1C;	
+}
+.color_red_a100 {
+	color:#FF8A80;	
+}
+.color_red_a200 {
+	color:#FF5252;	
+}
+.color_red_a400 {
+	color:#FF1744;	
+}
+.color_red_a700 {
+	color:#D50000;	
+}
+
+/***************************************************/
+/* Red (Background) Setting */
+/***************************************************/
+.bg_red_50 {
+	background-color:#FFEBEE;
+}
+.bg_red_100 {
+	background-color:#FFCDD2;	
+}
+.bg_red_200 {
+	background-color:#EF9A9A;	
+}
+.bg_red_300 {
+	background-color:#E57373;	
+}
+.bg_red_400 {
+	background-color:#EF5350;	
+}
+.bg_red_500 {
+	background-color:#F44336;	
+}
+.bg_red_600 {
+	background-color:#E53935;	
+}
+.bg_red_700 {
+	background-color:#D32F2F;	
+}
+.bg_red_800 {
+	background-color:#C62828;	
+}
+.bg_red_900 {
+	background-color:#B71C1C;	
+}
+.bg_red_a100 {
+	background-color:#FF8A80;	
+}
+.bg_red_a200 {
+	background-color:#FF5252;	
+}
+.bg_red_a400 {
+	background-color:#FF1744;	
+}
+.bg_red_a700 {
+	background-color:#D50000;	
+}
+
+
+/***************************************************/
+/* Red (Link) Setting */
+/***************************************************/
+.link_red_50:link, .link_red_50:hover, .link_red_50:active, .link_red_50:visited {
+	color:#FFEBEE;
+}
+.link_red_100:link, .link_red_100:hover, .link_red_100:active, .link_red_100:visited {
+	color:#FFCDD2;
+}
+.link_red_200:link, .link_red_200:hover, .link_red_200:active, .link_red_200:visited {
+	color:#EF9A9A;
+}
+.link_red_300:link, .link_red_300:hover, .link_red_300:active, .link_red_300:visited {
+	color:#E57373;
+}
+.link_red_400:link, .link_red_400:hover, .link_red_400:active, .link_red_400:visited {
+	color:#EF5350;
+}
+.link_red_500:link, .link_red_500:hover, .link_red_500:active, .link_red_500:visited {
+	color:#F44336;
+}
+.link_red_600:link, .link_red_600:hover, .link_red_600:active, .link_red_600:visited {
+	color:#E53935;
+}
+.link_red_700:link, .link_red_700:hover, .link_red_700:active, .link_red_700:visited {
+	color:#D32F2F;
+}
+.link_red_800:link, .link_red_800:hover, .link_red_800:active, .link_red_800:visited {
+	color:#C62828;
+}
+.link_red_900:link, .link_red_900:hover, .link_red_900:active, .link_red_900:visited {
+	color:#B71C1C;
+}
+.link_red_a100:link, .link_red_a100:hover, .link_red_a100:active, .link_red_a100:visited {
+	color:#FF8A80;
+}
+.link_red_a200:link, .link_red_a200:hover, .link_red_a200:active, .link_red_a200:visited {
+	color:#FF5252;
+}
+.link_red_a400:link, .link_red_a400:hover, .link_red_a400:active, .link_red_a400:visited {
+	color:#FF1744;
+}
+.link_red_a700:link, .link_red_a700:hover, .link_red_a700:active, .link_red_a700:visited {
+	color:#D50000;
+}
+
+/***************************************************/
+/* Pink (Text) Setting */
+/***************************************************/
+.color_pink_50 {
+	color:#FCE4EC;
+}
+.color_pink_100 {
+	color:#F8BBD0;	
+}
+.color_pink_200 {
+	color:#F48FB1;	
+}
+.color_pink_300 {
+	color:#F06292;	
+}
+.color_pink_400 {
+	color:#EC407A;	
+}
+.color_pink_500 {
+	color:#E91E63;	
+}
+.color_pink_600 {
+	color:#D81B60;	
+}
+.color_pink_700 {
+	color:#C2185B;	
+}
+.color_pink_800 {
+	color:#AD1457;	
+}
+.color_pink_900 {
+	color:#880E4F;	
+}
+.color_pink_a100 {
+	color:#FF80AB;	
+}
+.color_pink_a200 {
+	color:#FF4081;	
+}
+.color_pink_a400 {
+	color:#F50057;	
+}
+.color_pink_a700 {
+	color:#C51162;	
+}
+
+/***************************************************/
+/* Pink (Background) Setting */
+/***************************************************/
+.bg_pink_50 {
+	background-color:#FCE4EC;
+}
+.bg_pink_100 {
+	background-color:#F8BBD0;	
+}
+.bg_pink_200 {
+	background-color:#F48FB1;	
+}
+.bg_pink_300 {
+	background-color:#F06292;	
+}
+.bg_pink_400 {
+	background-color:#EC407A;	
+}
+.bg_pink_500 {
+	background-color:#E91E63;	
+}
+.bg_pink_600 {
+	background-color:#D81B60;	
+}
+.bg_pink_700 {
+	background-color:#C2185B;	
+}
+.bg_pink_800 {
+	background-color:#AD1457;	
+}
+.bg_pink_900 {
+	background-color:#880E4F;	
+}
+.bg_pink_a100 {
+	background-color:#FF80AB;	
+}
+.bg_pink_a200 {
+	background-color:#FF4081;	
+}
+.bg_pink_a400 {
+	background-color:#F50057;	
+}
+.bg_pink_a700 {
+	background-color:#C51162;	
+}
+
+/***************************************************/
+/* Pink (Link) Setting */
+/***************************************************/
+.link_pink_50:link, .link_pink_50:hover, .link_pink_50:active, .link_pink_50:visited {
+	color:#FCE4EC;
+}
+.link_pink_100:link, .link_pink_100:hover, .link_pink_100:active, .link_pink_100:visited {
+	color:#F8BBD0;
+}
+.link_pink_200:link, .link_pink_200:hover, .link_pink_200:active, .link_pink_200:visited {
+	color:#F48FB1;
+}
+.link_pink_300:link, .link_pink_300:hover, .link_pink_300:active, .link_pink_300:visited {
+	color:#F06292;
+}
+.link_pink_400:link, .link_pink_400:hover, .link_pink_400:active, .link_pink_400:visited {
+	color:#EC407A;
+}
+.link_pink_500:link, .link_pink_500:hover, .link_pink_500:active, .link_pink_500:visited {
+	color:#E91E63;
+}
+.link_pink_600:link, .link_pink_600:hover, .link_pink_600:active, .link_pink_600:visited {
+	color:#D81B60;
+}
+.link_pink_700:link, .link_pink_700:hover, .link_pink_700:active, .link_pink_700:visited {
+	color:#C2185B;
+}
+.link_pink_800:link, .link_pink_800:hover, .link_pink_800:active, .link_pink_800:visited {
+	color:#AD1457;
+}
+.link_pink_900:link, .link_pink_900:hover, .link_pink_900:active, .link_pink_900:visited {
+	color:#880E4F;
+}
+.link_pink_a100:link, .link_pink_a100:hover, .link_pink_a100:active, .link_pink_a100:visited {
+	color:#FF80AB;
+}
+.link_pink_a200:link, .link_pink_a200:hover, .link_pink_a200:active, .link_pink_a200:visited {
+	color:#FF4081;
+}
+.link_pink_a400:link, .link_pink_a400:hover, .link_pink_a400:active, .link_pink_a400:visited {
+	color:#F50057;
+}
+.link_pink_a700:link, .link_pink_a700:hover, .link_pink_a700:active, .link_pink_a700:visited {
+	color:#C51162;
+}
+
+/***************************************************/
+/* Purple (Text) Setting */
+/***************************************************/
+.color_purple_50 {
+	color:#F3E5F5;
+}
+.color_purple_100 {
+	color:#E1BEE7;	
+}
+.color_purple_200 {
+	color:#CE93D8;	
+}
+.color_purple_300 {
+	color:#BA68C8;	
+}
+.color_purple_400 {
+	color:#AB47BC;	
+}
+.color_purple_500 {
+	color:#9C27B0;	
+}
+.color_purple_600 {
+	color:#8E24AA;	
+}
+.color_purple_700 {
+	color:#7B1FA2;	
+}
+.color_purple_800 {
+	color:#6A1B9A;	
+}
+.color_purple_900 {
+	color:#4A148C;	
+}
+.color_purple_a100 {
+	color:#EA80FC;	
+}
+.color_purple_a200 {
+	color:#E040FB;	
+}
+.color_purple_a400 {
+	color:#D500F9;	
+}
+.color_purple_a700 {
+	color:#AA00FF;	
+}
+
+/***************************************************/
+/* Purple (Background) Setting */
+/***************************************************/
+.bg_purple_50 {
+	background-color:#F3E5F5;
+}
+.bg_purple_100 {
+	background-color:#E1BEE7;	
+}
+.bg_purple_200 {
+	background-color:#CE93D8;	
+}
+.bg_purple_300 {
+	background-color:#BA68C8;	
+}
+.bg_purple_400 {
+	background-color:#AB47BC;	
+}
+.bg_purple_500 {
+	background-color:#9C27B0;	
+}
+.bg_purple_600 {
+	background-color:#8E24AA;	
+}
+.bg_purple_700 {
+	background-color:#7B1FA2;	
+}
+.bg_purple_800 {
+	background-color:#6A1B9A;	
+}
+.bg_purple_900 {
+	background-color:#4A148C;	
+}
+.bg_purple_a100 {
+	background-color:#EA80FC;	
+}
+.bg_purple_a200 {
+	background-color:#E040FB;	
+}
+.bg_purple_a400 {
+	background-color:#D500F9;	
+}
+.bg_purple_a700 {
+	background-color:#AA00FF;	
+}
+
+/***************************************************/
+/* Purple (Link) Setting */
+/***************************************************/
+.link_purple_50:link, .link_purple_50:hover, .link_purple_50:active, .link_purple_50:visited {
+	color:#F3E5F5;
+}
+.link_purple_100:link, .link_purple_100:hover, .link_purple_100:active, .link_purple_100:visited {
+	color:#E1BEE7;
+}
+.link_purple_200:link, .link_purple_200:hover, .link_purple_200:active, .link_purple_200:visited {
+	color:#CE93D8;
+}
+.link_purple_300:link, .link_purple_300:hover, .link_purple_300:active, .link_purple_300:visited {
+	color:#BA68C8;
+}
+.link_purple_400:link, .link_purple_400:hover, .link_purple_400:active, .link_purple_400:visited {
+	color:#AB47BC;
+}
+.link_purple_500:link, .link_purple_500:hover, .link_purple_500:active, .link_purple_500:visited {
+	color:#9C27B0;
+}
+.link_purple_600:link, .link_purple_600:hover, .link_purple_600:active, .link_purple_600:visited {
+	color:#8E24AA;
+}
+.link_purple_700:link, .link_purple_700:hover, .link_purple_700:active, .link_purple_700:visited {
+	color:#7B1FA2;
+}
+.link_purple_800:link, .link_purple_800:hover, .link_purple_800:active, .link_purple_800:visited {
+	color:#6A1B9A;
+}
+.link_purple_900:link, .link_purple_900:hover, .link_purple_900:active, .link_purple_900:visited {
+	color:#4A148C;
+}
+.link_purple_a100:link, .link_purple_a100:hover, .link_purple_a100:active, .link_purple_a100:visited {
+	color:#EA80FC;
+}
+.link_purple_a200:link, .link_purple_a200:hover, .link_purple_a200:active, .link_purple_a200:visited {
+	color:#E040FB;
+}
+.link_purple_a400:link, .link_purple_a400:hover, .link_purple_a400:active, .link_purple_a400:visited {
+	color:#D500F9;
+}
+.link_purple_a700:link, .link_purple_a700:hover, .link_purple_a700:active, .link_purple_a700:visited {
+	color:#AA00FF;
+}
+
+/***************************************************/
+/* Deep Purple (Text) Setting */
+/***************************************************/
+.color_deeppurple_50 {
+	color:#EDE7F6;
+}
+.color_deeppurple_100 {
+	color:#D1C4E9;	
+}
+.color_deeppurple_200 {
+	color:#B39DDB;	
+}
+.color_deeppurple_300 {
+	color:#9575CD;	
+}
+.color_deeppurple_400 {
+	color:#7E57C2;	
+}
+.color_deeppurple_500 {
+	color:#673AB7;	
+}
+.color_deeppurple_600 {
+	color:#5E35B1;	
+}
+.color_deeppurple_700 {
+	color:#512DA8;	
+}
+.color_deeppurple_800 {
+	color:#4527A0;	
+}
+.color_deeppurple_900 {
+	color:#311B92;	
+}
+.color_deeppurple_a100 {
+	color:#B388FF;	
+}
+.color_deeppurple_a200 {
+	color:#7C4DFF;	
+}
+.color_deeppurple_a400 {
+	color:#651FFF;	
+}
+.color_deeppurple_a700 {
+	color:#6200EA;	
+}
+
+/***************************************************/
+/* Deep Purple (Background) Setting */
+/***************************************************/
+.bg_deeppurple_50 {
+	background-color:#EDE7F6;
+}
+.bg_deeppurple_100 {
+	background-color:#D1C4E9;	
+}
+.bg_deeppurple_200 {
+	background-color:#B39DDB;	
+}
+.bg_deeppurple_300 {
+	background-color:#9575CD;	
+}
+.bg_deeppurple_400 {
+	background-color:#7E57C2;	
+}
+.bg_deeppurple_500 {
+	background-color:#673AB7;	
+}
+.bg_deeppurple_600 {
+	background-color:#5E35B1;	
+}
+.bg_deeppurple_700 {
+	background-color:#512DA8;	
+}
+.bg_deeppurple_800 {
+	background-color:#4527A0;	
+}
+.bg_deeppurple_900 {
+	background-color:#311B92;	
+}
+.bg_deeppurple_a100 {
+	background-color:#B388FF;	
+}
+.bg_deeppurple_a200 {
+	background-color:#7C4DFF;	
+}
+.bg_deeppurple_a400 {
+	background-color:#651FFF;	
+}
+.bg_deeppurple_a700 {
+	background-color:#6200EA;	
+}
+
+/***************************************************/
+/* Deep Purple (Link) Setting */
+/***************************************************/
+.link_deeppurple_50:link, .link_deeppurple_50:hover, .link_deeppurple_50:active, .link_deeppurple_50:visited {
+	color:#EDE7F6;
+}
+.link_deeppurple_100:link, .link_deeppurple_100:hover, .link_deeppurple_100:active, .link_deeppurple_100:visited {
+	color:#D1C4E9;
+}
+.link_deeppurple_200:link, .link_deeppurple_200:hover, .link_deeppurple_200:active, .link_deeppurple_200:visited {
+	color:#B39DDB;
+}
+.link_deeppurple_300:link, .link_deeppurple_300:hover, .link_deeppurple_300:active, .link_deeppurple_300:visited {
+	color:#9575CD;
+}
+.link_deeppurple_400:link, .link_deeppurple_400:hover, .link_deeppurple_400:active, .link_deeppurple_400:visited {
+	color:#7E57C2;
+}
+.link_deeppurple_500:link, .link_deeppurple_500:hover, .link_deeppurple_500:active, .link_deeppurple_500:visited {
+	color:#673AB7;
+}
+.link_deeppurple_600:link, .link_deeppurple_600:hover, .link_deeppurple_600:active, .link_deeppurple_600:visited {
+	color:#5E35B1;
+}
+.link_deeppurple_700:link, .link_deeppurple_700:hover, .link_deeppurple_700:active, .link_deeppurple_700:visited {
+	color:#512DA8;
+}
+.link_deeppurple_800:link, .link_deeppurple_800:hover, .link_deeppurple_800:active, .link_deeppurple_800:visited {
+	color:#4527A0;
+}
+.link_deeppurple_900:link, .link_deeppurple_900:hover, .link_deeppurple_900:active, .link_deeppurple_900:visited {
+	color:#311B92;
+}
+.link_deeppurple_a100:link, .link_deeppurple_a100:hover, .link_deeppurple_a100:active, .link_deeppurple_a100:visited {
+	color:#B388FF;
+}
+.link_deeppurple_a200:link, .link_deeppurple_a200:hover, .link_deeppurple_a200:active, .link_deeppurple_a200:visited {
+	color:#7C4DFF;
+}
+.link_deeppurple_a400:link, .link_deeppurple_a400:hover, .link_deeppurple_a400:active, .link_deeppurple_a400:visited {
+	color:#651FFF;
+}
+.link_deeppurple_a700:link, .link_deeppurple_a700:hover, .link_deeppurple_a700:active, .link_deeppurple_a700:visited {
+	color:#6200EA;
+}
+
+/***************************************************/
+/* Indigo (Text) Setting */
+/***************************************************/
+.color_indigo_50 {
+	color:#E8EAF6;
+}
+.color_indigo_100 {
+	color:#C5CAE9;	
+}
+.color_indigo_200 {
+	color:#9FA8DA;	
+}
+.color_indigo_300 {
+	color:#7986CB;	
+}
+.color_indigo_400 {
+	color:#5C6BC0;	
+}
+.color_indigo_500 {
+	color:#3F51B5;	
+}
+.color_indigo_600 {
+	color:#3949AB;	
+}
+.color_indigo_700 {
+	color:#303F9F;	
+}
+.color_indigo_800 {
+	color:#283593;	
+}
+.color_indigo_900 {
+	color:#1A237E;	
+}
+.color_indigo_a100 {
+	color:#8C9EFF;	
+}
+.color_indigo_a200 {
+	color:#536DFE;	
+}
+.color_indigo_a400 {
+	color:#3D5AFE;	
+}
+.color_indigo_a700 {
+	color:#304FFE;	
+}
+
+/***************************************************/
+/* Indigo (Background) Setting */
+/***************************************************/
+.bg_indigo_50 {
+	background-color:#E8EAF6;
+}
+.bg_indigo_100 {
+	background-color:#C5CAE9;	
+}
+.bg_indigo_200 {
+	background-color:#9FA8DA;	
+}
+.bg_indigo_300 {
+	background-color:#7986CB;	
+}
+.bg_indigo_400 {
+	background-color:#5C6BC0;	
+}
+.bg_indigo_500 {
+	background-color:#3F51B5;	
+}
+.bg_indigo_600 {
+	background-color:#3949AB;	
+}
+.bg_indigo_700 {
+	background-color:#303F9F;	
+}
+.bg_indigo_800 {
+	background-color:#283593;	
+}
+.bg_indigo_900 {
+	background-color:#1A237E;	
+}
+.bg_indigo_a100 {
+	background-color:#8C9EFF;	
+}
+.bg_indigo_a200 {
+	background-color:#536DFE;	
+}
+.bg_indigo_a400 {
+	background-color:#3D5AFE;	
+}
+.bg_indigo_a700 {
+	background-color:#304FFE;	
+}
+
+/***************************************************/
+/* Indigo (Link) Setting */
+/***************************************************/
+.link_indigo_50:link, .link_indigo_50:hover, .link_indigo_50:active, .link_indigo_50:visited {
+	color:#E8EAF6;
+}
+.link_indigo_100:link, .link_indigo_100:hover, .link_indigo_100:active, .link_indigo_100:visited {
+	color:#C5CAE9;
+}
+.link_indigo_200:link, .link_indigo_200:hover, .link_indigo_200:active, .link_indigo_200:visited {
+	color:#9FA8DA;
+}
+.link_indigo_300:link, .link_indigo_300:hover, .link_indigo_300:active, .link_indigo_300:visited {
+	color:#7986CB;
+}
+.link_indigo_400:link, .link_indigo_400:hover, .link_indigo_400:active, .link_indigo_400:visited {
+	color:#5C6BC0;
+}
+.link_indigo_500:link, .link_indigo_500:hover, .link_indigo_500:active, .link_indigo_500:visited {
+	color:#3F51B5;
+}
+.link_indigo_600:link, .link_indigo_600:hover, .link_indigo_600:active, .link_indigo_600:visited {
+	color:#3949AB;
+}
+.link_indigo_700:link, .link_indigo_700:hover, .link_indigo_700:active, .link_indigo_700:visited {
+	color:#303F9F;
+}
+.link_indigo_800:link, .link_indigo_800:hover, .link_indigo_800:active, .link_indigo_800:visited {
+	color:#283593;
+}
+.link_indigo_900:link, .link_indigo_900:hover, .link_indigo_900:active, .link_indigo_900:visited {
+	color:#1A237E;
+}
+.link_indigo_a100:link, .link_indigo_a100:hover, .link_indigo_a100:active, .link_indigo_a100:visited {
+	color:#8C9EFF;
+}
+.link_indigo_a200:link, .link_indigo_a200:hover, .link_indigo_a200:active, .link_indigo_a200:visited {
+	color:#536DFE;
+}
+.link_indigo_a400:link, .link_indigo_a400:hover, .link_indigo_a400:active, .link_indigo_a400:visited {
+	color:#3D5AFE;
+}
+.link_indigo_a700:link, .link_indigo_a700:hover, .link_indigo_a700:active, .link_indigo_a700:visited {
+	color:#304FFE;
+}
+
+/***************************************************/
+/* Blue (Text) Setting */
+/***************************************************/
+.color_blue_50 {
+	color:#E3F2FD;
+}
+.color_blue_100 {
+	color:#BBDEFB;	
+}
+.color_blue_200 {
+	color:#90CAF9;	
+}
+.color_blue_300 {
+	color:#64B5F6;	
+}
+.color_blue_400 {
+	color:#42A5F5;	
+}
+.color_blue_500 {
+	color:#2196F3;	
+}
+.color_blue_600 {
+	color:#1E88E5;	
+}
+.color_blue_700 {
+	color:#1976D2;	
+}
+.color_blue_800 {
+	color:#1565C0;	
+}
+.color_blue_900 {
+	color:#0D47A1;	
+}
+.color_blue_a100 {
+	color:#82B1FF;	
+}
+.color_blue_a200 {
+	color:#448AFF;	
+}
+.color_blue_a400 {
+	color:#2979FF;	
+}
+.color_blue_a700 {
+	color:#2962FF;	
+}
+
+/***************************************************/
+/* Blue (Background) Setting */
+/***************************************************/
+.bg_blue_50 {
+	background-color:#E3F2FD;
+}
+.bg_blue_100 {
+	background-color:#BBDEFB;	
+}
+.bg_blue_200 {
+	background-color:#90CAF9;	
+}
+.bg_blue_300 {
+	background-color:#64B5F6;	
+}
+.bg_blue_400 {
+	background-color:#42A5F5;	
+}
+.bg_blue_500 {
+	background-color:#2196F3;	
+}
+.bg_blue_600 {
+	background-color:#1E88E5;	
+}
+.bg_blue_700 {
+	background-color:#1976D2;	
+}
+.bg_blue_800 {
+	background-color:#1565C0;	
+}
+.bg_blue_900 {
+	background-color:#0D47A1;	
+}
+.bg_blue_a100 {
+	background-color:#82B1FF;	
+}
+.bg_blue_a200 {
+	background-color:#448AFF;	
+}
+.bg_blue_a400 {
+	background-color:#2979FF;	
+}
+.bg_blue_a700 {
+	background-color:#2962FF;	
+}
+
+/***************************************************/
+/* Blue (Link) Setting */
+/***************************************************/
+.link_blue_50:link, .link_blue_50:hover, .link_blue_50:active, .link_blue_50:visited {
+	color:#E3F2FD;
+}
+.link_blue_100:link, .link_blue_100:hover, .link_blue_100:active, .link_blue_100:visited {
+	color:#BBDEFB;
+}
+.link_blue_200:link, .link_blue_200:hover, .link_blue_200:active, .link_blue_200:visited {
+	color:#90CAF9;
+}
+.link_blue_300:link, .link_blue_300:hover, .link_blue_300:active, .link_blue_300:visited {
+	color:#64B5F6;
+}
+.link_blue_400:link, .link_blue_400:hover, .link_blue_400:active, .link_blue_400:visited {
+	color:#42A5F5;
+}
+.link_blue_500:link, .link_blue_500:hover, .link_blue_500:active, .link_blue_500:visited {
+	color:#2196F3;
+}
+.link_blue_600:link, .link_blue_600:hover, .link_blue_600:active, .link_blue_600:visited {
+	color:#1E88E5;
+}
+.link_blue_700:link, .link_blue_700:hover, .link_blue_700:active, .link_blue_700:visited {
+	color:#1976D2;
+}
+.link_blue_800:link, .link_blue_800:hover, .link_blue_800:active, .link_blue_800:visited {
+	color:#1565C0;
+}
+.link_blue_900:link, .link_blue_900:hover, .link_blue_900:active, .link_blue_900:visited {
+	color:#0D47A1;
+}
+.link_blue_a100:link, .link_blue_a100:hover, .link_blue_a100:active, .link_blue_a100:visited {
+	color:#82B1FF;
+}
+.link_blue_a200:link, .link_blue_a200:hover, .link_blue_a200:active, .link_blue_a200:visited {
+	color:#448AFF;
+}
+.link_blue_a400:link, .link_blue_a400:hover, .link_blue_a400:active, .link_blue_a400:visited {
+	color:#2979FF;
+}
+.link_blue_a700:link, .link_blue_a700:hover, .link_blue_a700:active, .link_blue_a700:visited {
+	color:#2962FF;
+}
+
+/***************************************************/
+/* Light Blue (Text) Setting */
+/***************************************************/
+.color_lightblue_50 {
+	color:#E1F5FE;
+}
+.color_lightblue_100 {
+	color:#B3E5FC;	
+}
+.color_lightblue_200 {
+	color:#81D4FA;	
+}
+.color_lightblue_300 {
+	color:#4FC3F7;	
+}
+.color_lightblue_400 {
+	color:#29B6F6;	
+}
+.color_lightblue_500 {
+	color:#03A9F4;	
+}
+.color_lightblue_600 {
+	color:#039BE5;	
+}
+.color_lightblue_700 {
+	color:#0288D1;	
+}
+.color_lightblue_800 {
+	color:#0277BD;	
+}
+.color_lightblue_900 {
+	color:#01579B;	
+}
+.color_lightblue_a100 {
+	color:#80D8FF;	
+}
+.color_lightblue_a200 {
+	color:#40C4FF;	
+}
+.color_lightblue_a400 {
+	color:#00B0FF;	
+}
+.color_lightblue_a700 {
+	color:#0091EA;	
+}
+
+/***************************************************/
+/* Light Blue (Background) Setting */
+/***************************************************/
+.bg_lightblue_50 {
+	background-color:#E1F5FE;
+}
+.bg_lightblue_100 {
+	background-color:#B3E5FC;	
+}
+.bg_lightblue_200 {
+	background-color:#81D4FA;	
+}
+.bg_lightblue_300 {
+	background-color:#4FC3F7;	
+}
+.bg_lightblue_400 {
+	background-color:#29B6F6;	
+}
+.bg_lightblue_500 {
+	background-color:#03A9F4;	
+}
+.bg_lightblue_600 {
+	background-color:#039BE5;	
+}
+.bg_lightblue_700 {
+	background-color:#0288D1;	
+}
+.bg_lightblue_800 {
+	background-color:#0277BD;	
+}
+.bg_lightblue_900 {
+	background-color:#01579B;	
+}
+.bg_lightblue_a100 {
+	background-color:#80D8FF;	
+}
+.bg_lightblue_a200 {
+	background-color:#40C4FF;	
+}
+.bg_lightblue_a400 {
+	background-color:#00B0FF;	
+}
+.bg_lightblue_a700 {
+	background-color:#0091EA;	
+}
+
+/***************************************************/
+/* Light Blue (Link) Setting */
+/***************************************************/
+.link_lightblue_50:link, .link_lightblue_50:hover, .link_lightblue_50:active, .link_lightblue_50:visited {
+	color:#E1F5FE;
+}
+.link_lightblue_100:link, .link_lightblue_100:hover, .link_lightblue_100:active, .link_lightblue_100:visited {
+	color:#B3E5FC;
+}
+.link_lightblue_200:link, .link_lightblue_200:hover, .link_lightblue_200:active, .link_lightblue_200:visited {
+	color:#81D4FA;
+}
+.link_lightblue_300:link, .link_lightblue_300:hover, .link_lightblue_300:active, .link_lightblue_300:visited {
+	color:#4FC3F7;
+}
+.link_lightblue_400:link, .link_lightblue_400:hover, .link_lightblue_400:active, .link_lightblue_400:visited {
+	color:#29B6F6;
+}
+.link_lightblue_500:link, .link_lightblue_500:hover, .link_lightblue_500:active, .link_lightblue_500:visited {
+	color:#03A9F4;
+}
+.link_lightblue_600:link, .link_lightblue_600:hover, .link_lightblue_600:active, .link_lightblue_600:visited {
+	color:#039BE5;
+}
+.link_lightblue_700:link, .link_lightblue_700:hover, .link_lightblue_700:active, .link_lightblue_700:visited {
+	color:#0288D1;
+}
+.link_lightblue_800:link, .link_lightblue_800:hover, .link_lightblue_800:active, .link_lightblue_800:visited {
+	color:#0277BD;
+}
+.link_lightblue_900:link, .link_lightblue_900:hover, .link_lightblue_900:active, .link_lightblue_900:visited {
+	color:#01579B;
+}
+.link_lightblue_a100:link, .link_lightblue_a100:hover, .link_lightblue_a100:active, .link_lightblue_a100:visited {
+	color:#80D8FF;
+}
+.link_lightblue_a200:link, .link_lightblue_a200:hover, .link_lightblue_a200:active, .link_lightblue_a200:visited {
+	color:#40C4FF;
+}
+.link_lightblue_a400:link, .link_lightblue_a400:hover, .link_lightblue_a400:active, .link_lightblue_a400:visited {
+	color:#00B0FF;
+}
+.link_lightblue_a700:link, .link_lightblue_a700:hover, .link_lightblue_a700:active, .link_lightblue_a700:visited {
+	color:#0091EA;
+}
+
+/***************************************************/
+/* Cyan (Text) Setting */
+/***************************************************/
+.color_cyan_50 {
+	color:#E0F7FA;
+}
+.color_cyan_100 {
+	color:#B2EBF2;	
+}
+.color_cyan_200 {
+	color:#80DEEA;	
+}
+.color_cyan_300 {
+	color:#4DD0E1;	
+}
+.color_cyan_400 {
+	color:#26C6DA;	
+}
+.color_cyan_500 {
+	color:#00BCD4;	
+}
+.color_cyan_600 {
+	color:#00ACC1;	
+}
+.color_cyan_700 {
+	color:#0097A7;	
+}
+.color_cyan_800 {
+	color:#00838F;	
+}
+.color_cyan_900 {
+	color:#006064;	
+}
+.color_cyan_a100 {
+	color:#84FFFF;	
+}
+.color_cyan_a200 {
+	color:#18FFFF;	
+}
+.color_cyan_a400 {
+	color:#00E5FF;	
+}
+.color_cyan_a700 {
+	color:#00B8D4;	
+}
+
+/***************************************************/
+/* Cyan (Background) Setting */
+/***************************************************/
+.bg_cyan_50 {
+	background-color:#E0F7FA;
+}
+.bg_cyan_100 {
+	background-color:#B2EBF2;	
+}
+.bg_cyan_200 {
+	background-color:#80DEEA;	
+}
+.bg_cyan_300 {
+	background-color:#4DD0E1;	
+}
+.bg_cyan_400 {
+	background-color:#26C6DA;	
+}
+.bg_cyan_500 {
+	background-color:#00BCD4;	
+}
+.bg_cyan_600 {
+	background-color:#00ACC1;	
+}
+.bg_cyan_700 {
+	background-color:#0097A7;	
+}
+.bg_cyan_800 {
+	background-color:#00838F;	
+}
+.bg_cyan_900 {
+	background-color:#006064;	
+}
+.bg_cyan_a100 {
+	background-color:#84FFFF;	
+}
+.bg_cyan_a200 {
+	background-color:#18FFFF;	
+}
+.bg_cyan_a400 {
+	background-color:#00E5FF;	
+}
+.bg_cyan_a700 {
+	background-color:#00B8D4;	
+}
+
+/***************************************************/
+/* Cyan (Link) Setting */
+/***************************************************/
+.link_cyan_50:link, .link_cyan_50:hover, .link_cyan_50:active, .link_cyan_50:visited {
+	color:#E0F7FA;
+}
+.link_cyan_100:link, .link_cyan_100:hover, .link_cyan_100:active, .link_cyan_100:visited {
+	color:#B2EBF2;
+}
+.link_cyan_200:link, .link_cyan_200:hover, .link_cyan_200:active, .link_cyan_200:visited {
+	color:#80DEEA;
+}
+.link_cyan_300:link, .link_cyan_300:hover, .link_cyan_300:active, .link_cyan_300:visited {
+	color:#4DD0E1;
+}
+.link_cyan_400:link, .link_cyan_400:hover, .link_cyan_400:active, .link_cyan_400:visited {
+	color:#26C6DA;
+}
+.link_cyan_500:link, .link_cyan_500:hover, .link_cyan_500:active, .link_cyan_500:visited {
+	color:#00BCD4;
+}
+.link_cyan_600:link, .link_cyan_600:hover, .link_cyan_600:active, .link_cyan_600:visited {
+	color:#00ACC1;
+}
+.link_cyan_700:link, .link_cyan_700:hover, .link_cyan_700:active, .link_cyan_700:visited {
+	color:#0097A7;
+}
+.link_cyan_800:link, .link_cyan_800:hover, .link_cyan_800:active, .link_cyan_800:visited {
+	color:#00838F;
+}
+.link_cyan_900:link, .link_cyan_900:hover, .link_cyan_900:active, .link_cyan_900:visited {
+	color:#006064;
+}
+.link_cyan_a100:link, .link_cyan_a100:hover, .link_cyan_a100:active, .link_cyan_a100:visited {
+	color:#84FFFF;
+}
+.link_cyan_a200:link, .link_cyan_a200:hover, .link_cyan_a200:active, .link_cyan_a200:visited {
+	color:#18FFFF;
+}
+.link_cyan_a400:link, .link_cyan_a400:hover, .link_cyan_a400:active, .link_cyan_a400:visited {
+	color:#00E5FF;
+}
+.link_cyan_a700:link, .link_cyan_a700:hover, .link_cyan_a700:active, .link_cyan_a700:visited {
+	color:#00B8D4;
+}
+
+/***************************************************/
+/* Teal (Text) Setting */
+/***************************************************/
+.color_teal_50 {
+	color:#E0F2F1;
+}
+.color_teal_100 {
+	color:#B2DFDB;	
+}
+.color_teal_200 {
+	color:#80CBC4;	
+}
+.color_teal_300 {
+	color:#4DB6AC;	
+}
+.color_teal_400 {
+	color:#26A69A;	
+}
+.color_teal_500 {
+	color:#009688;	
+}
+.color_teal_600 {
+	color:#00897B;	
+}
+.color_teal_700 {
+	color:#00796B;	
+}
+.color_teal_800 {
+	color:#00695C;	
+}
+.color_teal_900 {
+	color:#004D40;	
+}
+.color_teal_a100 {
+	color:#A7FFEB;	
+}
+.color_teal_a200 {
+	color:#64FFDA;	
+}
+.color_teal_a400 {
+	color:#1DE9B6;	
+}
+.color_teal_a700 {
+	color:#00BFA5;	
+}
+
+/***************************************************/
+/* Teal (Background) Setting */
+/***************************************************/
+.bg_teal_50 {
+	background-color:#E0F2F1;
+}
+.bg_teal_100 {
+	background-color:#B2DFDB;	
+}
+.bg_teal_200 {
+	background-color:#80CBC4;	
+}
+.bg_teal_300 {
+	background-color:#4DB6AC;	
+}
+.bg_teal_400 {
+	background-color:#26A69A;	
+}
+.bg_teal_500 {
+	background-color:#009688;	
+}
+.bg_teal_600 {
+	background-color:#00897B;	
+}
+.bg_teal_700 {
+	background-color:#00796B;	
+}
+.bg_teal_800 {
+	background-color:#00695C;	
+}
+.bg_teal_900 {
+	background-color:#004D40;	
+}
+.bg_teal_a100 {
+	background-color:#A7FFEB;	
+}
+.bg_teal_a200 {
+	background-color:#64FFDA;	
+}
+.bg_teal_a400 {
+	background-color:#1DE9B6;	
+}
+.bg_teal_a700 {
+	background-color:#00BFA5;	
+}
+
+/***************************************************/
+/* Teal (Link) Setting */
+/***************************************************/
+.link_teal_50:link, .link_teal_50:hover, .link_teal_50:active, .link_teal_50:visited {
+	color:#E0F2F1;
+}
+.link_teal_100:link, .link_teal_100:hover, .link_teal_100:active, .link_teal_100:visited {
+	color:#B2DFDB;
+}
+.link_teal_200:link, .link_teal_200:hover, .link_teal_200:active, .link_teal_200:visited {
+	color:#80CBC4;
+}
+.link_teal_300:link, .link_teal_300:hover, .link_teal_300:active, .link_teal_300:visited {
+	color:#4DB6AC;
+}
+.link_teal_400:link, .link_teal_400:hover, .link_teal_400:active, .link_teal_400:visited {
+	color:#26A69A;
+}
+.link_teal_500:link, .link_teal_500:hover, .link_teal_500:active, .link_teal_500:visited {
+	color:#009688;
+}
+.link_teal_600:link, .link_teal_600:hover, .link_teal_600:active, .link_teal_600:visited {
+	color:#00897B;
+}
+.link_teal_700:link, .link_teal_700:hover, .link_teal_700:active, .link_teal_700:visited {
+	color:#00796B;
+}
+.link_teal_800:link, .link_teal_800:hover, .link_teal_800:active, .link_teal_800:visited {
+	color:#00695C;
+}
+.link_teal_900:link, .link_teal_900:hover, .link_teal_900:active, .link_teal_900:visited {
+	color:#004D40;
+}
+.link_teal_a100:link, .link_teal_a100:hover, .link_teal_a100:active, .link_teal_a100:visited {
+	color:#A7FFEB;
+}
+.link_teal_a200:link, .link_teal_a200:hover, .link_teal_a200:active, .link_teal_a200:visited {
+	color:#64FFDA;
+}
+.link_teal_a400:link, .link_teal_a400:hover, .link_teal_a400:active, .link_teal_a400:visited {
+	color:#1DE9B6;
+}
+.link_teal_a700:link, .link_teal_a700:hover, .link_teal_a700:active, .link_teal_a700:visited {
+	color:#00BFA5;
+}
+
+/***************************************************/
+/* Green (Text) Setting */
+/***************************************************/
+.color_green_50 {
+	color:#E8F5E9;
+}
+.color_green_100 {
+	color:#C8E6C9;	
+}
+.color_green_200 {
+	color:#A5D6A7;	
+}
+.color_green_300 {
+	color:#81C784;	
+}
+.color_green_400 {
+	color:#66BB6A;	
+}
+.color_green_500 {
+	color:#4CAF50;	
+}
+.color_green_600 {
+	color:#43A047;	
+}
+.color_green_700 {
+	color:#388E3C;	
+}
+.color_green_800 {
+	color:#2E7D32;	
+}
+.color_green_900 {
+	color:#1B5E20;	
+}
+.color_green_a100 {
+	color:#B9F6CA;	
+}
+.color_green_a200 {
+	color:#69F0AE;	
+}
+.color_green_a400 {
+	color:#00E676;	
+}
+.color_green_a700 {
+	color:#00C853;	
+}
+
+/***************************************************/
+/* Green (Background) Setting */
+/***************************************************/
+.bg_green_50 {
+	background-color:#E8F5E9;
+}
+.bg_green_100 {
+	background-color:#C8E6C9;	
+}
+.bg_green_200 {
+	background-color:#A5D6A7;	
+}
+.bg_green_300 {
+	background-color:#81C784;	
+}
+.bg_green_400 {
+	background-color:#66BB6A;	
+}
+.bg_green_500 {
+	background-color:#4CAF50;	
+}
+.bg_green_600 {
+	background-color:#43A047;	
+}
+.bg_green_700 {
+	background-color:#388E3C;	
+}
+.bg_green_800 {
+	background-color:#2E7D32;	
+}
+.bg_green_900 {
+	background-color:#1B5E20;	
+}
+.bg_green_a100 {
+	background-color:#B9F6CA;	
+}
+.bg_green_a200 {
+	background-color:#69F0AE;	
+}
+.bg_green_a400 {
+	background-color:#00E676;	
+}
+.bg_green_a700 {
+	background-color:#00C853;	
+}
+
+/***************************************************/
+/* Green (Link) Setting */
+/***************************************************/
+.link_green_50:link, .link_green_50:hover, .link_green_50:active, .link_green_50:visited {
+	color:#E8F5E9;
+}
+.link_green_100:link, .link_green_100:hover, .link_green_100:active, .link_green_100:visited {
+	color:#C8E6C9;
+}
+.link_green_200:link, .link_green_200:hover, .link_green_200:active, .link_green_200:visited {
+	color:#A5D6A7;
+}
+.link_green_300:link, .link_green_300:hover, .link_green_300:active, .link_green_300:visited {
+	color:#81C784;
+}
+.link_green_400:link, .link_green_400:hover, .link_green_400:active, .link_green_400:visited {
+	color:#66BB6A;
+}
+.link_green_500:link, .link_green_500:hover, .link_green_500:active, .link_green_500:visited {
+	color:#4CAF50;
+}
+.link_green_600:link, .link_green_600:hover, .link_green_600:active, .link_green_600:visited {
+	color:#43A047;
+}
+.link_green_700:link, .link_green_700:hover, .link_green_700:active, .link_green_700:visited {
+	color:#388E3C;
+}
+.link_green_800:link, .link_green_800:hover, .link_green_800:active, .link_green_800:visited {
+	color:#2E7D32;
+}
+.link_green_900:link, .link_green_900:hover, .link_green_900:active, .link_green_900:visited {
+	color:#1B5E20;
+}
+.link_green_a100:link, .link_green_a100:hover, .link_green_a100:active, .link_green_a100:visited {
+	color:#B9F6CA;
+}
+.link_green_a200:link, .link_green_a200:hover, .link_green_a200:active, .link_green_a200:visited {
+	color:#69F0AE;
+}
+.link_green_a400:link, .link_green_a400:hover, .link_green_a400:active, .link_green_a400:visited {
+	color:#00E676;
+}
+.link_green_a700:link, .link_green_a700:hover, .link_green_a700:active, .link_green_a700:visited {
+	color:#00C853;
+}
+
+/***************************************************/
+/* Light Green (Text) Setting */
+/***************************************************/
+.color_lightgreen_50 {
+	color:#F1F8E9;
+}
+.color_lightgreen_100 {
+	color:#DCEDC8;	
+}
+.color_lightgreen_200 {
+	color:#C5E1A5;	
+}
+.color_lightgreen_300 {
+	color:#AED581;	
+}
+.color_lightgreen_400 {
+	color:#9CCC65;	
+}
+.color_lightgreen_500 {
+	color:#8BC34A;	
+}
+.color_lightgreen_600 {
+	color:#7CB342;	
+}
+.color_lightgreen_700 {
+	color:#689F38;	
+}
+.color_lightgreen_800 {
+	color:#558B2F;	
+}
+.color_lightgreen_900 {
+	color:#33691E;	
+}
+.color_lightgreen_a100 {
+	color:#CCFF90;	
+}
+.color_lightgreen_a200 {
+	color:#B2FF59;	
+}
+.color_lightgreen_a400 {
+	color:#76FF03;	
+}
+.color_lightgreen_a700 {
+	color:#64DD17;	
+}
+
+/***************************************************/
+/* Light Green (Background) Setting */
+/***************************************************/
+.bg_lightgreen_50 {
+	background-color:#F1F8E9;
+}
+.bg_lightgreen_100 {
+	background-color:#DCEDC8;	
+}
+.bg_lightgreen_200 {
+	background-color:#C5E1A5;	
+}
+.bg_lightgreen_300 {
+	background-color:#AED581;	
+}
+.bg_lightgreen_400 {
+	background-color:#9CCC65;	
+}
+.bg_lightgreen_500 {
+	background-color:#8BC34A;	
+}
+.bg_lightgreen_600 {
+	background-color:#7CB342;	
+}
+.bg_lightgreen_700 {
+	background-color:#689F38;	
+}
+.bg_lightgreen_800 {
+	background-color:#558B2F;	
+}
+.bg_lightgreen_900 {
+	background-color:#33691E;	
+}
+.bg_lightgreen_a100 {
+	background-color:#CCFF90;	
+}
+.bg_lightgreen_a200 {
+	background-color:#B2FF59;	
+}
+.bg_lightgreen_a400 {
+	background-color:#76FF03;	
+}
+.bg_lightgreen_a700 {
+	background-color:#64DD17;	
+}
+
+/***************************************************/
+/* Light Green (Link) Setting */
+/***************************************************/
+.link_lightgreen_50:link, .link_lightgreen_50:hover, .link_lightgreen_50:active, .link_lightgreen_50:visited {
+	color:#F1F8E9;
+}
+.link_lightgreen_100:link, .link_lightgreen_100:hover, .link_lightgreen_100:active, .link_lightgreen_100:visited {
+	color:#DCEDC8;
+}
+.link_lightgreen_200:link, .link_lightgreen_200:hover, .link_lightgreen_200:active, .link_lightgreen_200:visited {
+	color:#C5E1A5;
+}
+.link_lightgreen_300:link, .link_lightgreen_300:hover, .link_lightgreen_300:active, .link_lightgreen_300:visited {
+	color:#AED581;
+}
+.link_lightgreen_400:link, .link_lightgreen_400:hover, .link_lightgreen_400:active, .link_lightgreen_400:visited {
+	color:#9CCC65;
+}
+.link_lightgreen_500:link, .link_lightgreen_500:hover, .link_lightgreen_500:active, .link_lightgreen_500:visited {
+	color:#8BC34A;
+}
+.link_lightgreen_600:link, .link_lightgreen_600:hover, .link_lightgreen_600:active, .link_lightgreen_600:visited {
+	color:#7CB342;
+}
+.link_lightgreen_700:link, .link_lightgreen_700:hover, .link_lightgreen_700:active, .link_lightgreen_700:visited {
+	color:#689F38;
+}
+.link_lightgreen_800:link, .link_lightgreen_800:hover, .link_lightgreen_800:active, .link_lightgreen_800:visited {
+	color:#558B2F;
+}
+.link_lightgreen_900:link, .link_lightgreen_900:hover, .link_lightgreen_900:active, .link_lightgreen_900:visited {
+	color:#33691E;
+}
+.link_lightgreen_a100:link, .link_lightgreen_a100:hover, .link_lightgreen_a100:active, .link_lightgreen_a100:visited {
+	color:#CCFF90;
+}
+.link_lightgreen_a200:link, .link_lightgreen_a200:hover, .link_lightgreen_a200:active, .link_lightgreen_a200:visited {
+	color:#B2FF59;
+}
+.link_lightgreen_a400:link, .link_lightgreen_a400:hover, .link_lightgreen_a400:active, .link_lightgreen_a400:visited {
+	color:#76FF03;
+}
+.link_lightgreen_a700:link, .link_lightgreen_a700:hover, .link_lightgreen_a700:active, .link_lightgreen_a700:visited {
+	color:#64DD17;
+}
+
+/***************************************************/
+/* Lime (Text) Setting */
+/***************************************************/
+.color_lime_50 {
+	color:#F9FBE7;
+}
+.color_lime_100 {
+	color:#F0F4C3;	
+}
+.color_lime_200 {
+	color:#E6EE9C;	
+}
+.color_lime_300 {
+	color:#DCE775;	
+}
+.color_lime_400 {
+	color:#D4E157;	
+}
+.color_lime_500 {
+	color:#CDDC39;	
+}
+.color_lime_600 {
+	color:#C0CA33;	
+}
+.color_lime_700 {
+	color:#AFB42B;	
+}
+.color_lime_800 {
+	color:#9E9D24;	
+}
+.color_lime_900 {
+	color:#827717;	
+}
+.color_lime_a100 {
+	color:#F4FF81;	
+}
+.color_lime_a200 {
+	color:#EEFF41;	
+}
+.color_lime_a400 {
+	color:#C6FF00;	
+}
+.color_lime_a700 {
+	color:#AEEA00;	
+}
+
+/***************************************************/
+/* Lime (Background) Setting */
+/***************************************************/
+.bg_lime_50 {
+	background-color:#F9FBE7;
+}
+.bg_lime_100 {
+	background-color:#F0F4C3;	
+}
+.bg_lime_200 {
+	background-color:#E6EE9C;	
+}
+.bg_lime_300 {
+	background-color:#DCE775;	
+}
+.bg_lime_400 {
+	background-color:#D4E157;	
+}
+.bg_lime_500 {
+	background-color:#CDDC39;	
+}
+.bg_lime_600 {
+	background-color:#C0CA33;	
+}
+.bg_lime_700 {
+	background-color:#AFB42B;	
+}
+.bg_lime_800 {
+	background-color:#9E9D24;	
+}
+.bg_lime_900 {
+	background-color:#827717;	
+}
+.bg_lime_a100 {
+	background-color:#F4FF81;	
+}
+.bg_lime_a200 {
+	background-color:#EEFF41;	
+}
+.bg_lime_a400 {
+	background-color:#C6FF00;	
+}
+.bg_lime_a700 {
+	background-color:#AEEA00;	
+}
+
+/***************************************************/
+/* Lime (Link) Setting */
+/***************************************************/
+.link_lime_50:link, .link_lime_50:hover, .link_lime_50:active, .link_lime_50:visited {
+	color:#F9FBE7;
+}
+.link_lime_100:link, .link_lime_100:hover, .link_lime_100:active, .link_lime_100:visited {
+	color:#F0F4C3;
+}
+.link_lime_200:link, .link_lime_200:hover, .link_lime_200:active, .link_lime_200:visited {
+	color:#E6EE9C;
+}
+.link_lime_300:link, .link_lime_300:hover, .link_lime_300:active, .link_lime_300:visited {
+	color:#DCE775;
+}
+.link_lime_400:link, .link_lime_400:hover, .link_lime_400:active, .link_lime_400:visited {
+	color:#D4E157;
+}
+.link_lime_500:link, .link_lime_500:hover, .link_lime_500:active, .link_lime_500:visited {
+	color:#CDDC39;
+}
+.link_lime_600:link, .link_lime_600:hover, .link_lime_600:active, .link_lime_600:visited {
+	color:#C0CA33;
+}
+.link_lime_700:link, .link_lime_700:hover, .link_lime_700:active, .link_lime_700:visited {
+	color:#AFB42B;
+}
+.link_lime_800:link, .link_lime_800:hover, .link_lime_800:active, .link_lime_800:visited {
+	color:#9E9D24;
+}
+.link_lime_900:link, .link_lime_900:hover, .link_lime_900:active, .link_lime_900:visited {
+	color:#827717;
+}
+.link_lime_a100:link, .link_lime_a100:hover, .link_lime_a100:active, .link_lime_a100:visited {
+	color:#F4FF81;
+}
+.link_lime_a200:link, .link_lime_a200:hover, .link_lime_a200:active, .link_lime_a200:visited {
+	color:#EEFF41;
+}
+.link_lime_a400:link, .link_lime_a400:hover, .link_lime_a400:active, .link_lime_a400:visited {
+	color:#C6FF00;
+}
+.link_lime_a700:link, .link_lime_a700:hover, .link_lime_a700:active, .link_lime_a700:visited {
+	color:#AEEA00;
+}
+
+/***************************************************/
+/* Yellow (Text) Setting */
+/***************************************************/
+.color_yellow_50 {
+	color:#FFFDE7;
+}
+.color_yellow_100 {
+	color:#FFF9C4;	
+}
+.color_yellow_200 {
+	color:#FFF59D;	
+}
+.color_yellow_300 {
+	color:#FFF176;	
+}
+.color_yellow_400 {
+	color:#FFEE58;	
+}
+.color_yellow_500 {
+	color:#FFEB3B;	
+}
+.color_yellow_600 {
+	color:#FDD835;	
+}
+.color_yellow_700 {
+	color:#FBC02D;	
+}
+.color_yellow_800 {
+	color:#F9A825;	
+}
+.color_yellow_900 {
+	color:#F57F17;	
+}
+.color_yellow_a100 {
+	color:#FFFF8D;	
+}
+.color_yellow_a200 {
+	color:#FFFF00;	
+}
+.color_yellow_a400 {
+	color:#FFEA00;	
+}
+.color_yellow_a700 {
+	color:#FFD600;	
+}
+
+/***************************************************/
+/* Yellow (Background) Setting */
+/***************************************************/
+.bg_yellow_50 {
+	background-color:#FFFDE7;
+}
+.bg_yellow_100 {
+	background-color:#FFF9C4;	
+}
+.bg_yellow_200 {
+	background-color:#FFF59D;	
+}
+.bg_yellow_300 {
+	background-color:#FFF176;	
+}
+.bg_yellow_400 {
+	background-color:#FFEE58;	
+}
+.bg_yellow_500 {
+	background-color:#FFEB3B;	
+}
+.bg_yellow_600 {
+	background-color:#FDD835;	
+}
+.bg_yellow_700 {
+	background-color:#FBC02D;	
+}
+.bg_yellow_800 {
+	background-color:#F9A825;	
+}
+.bg_yellow_900 {
+	background-color:#F57F17;	
+}
+.bg_yellow_a100 {
+	background-color:#FFFF8D;	
+}
+.bg_yellow_a200 {
+	background-color:#FFFF00;	
+}
+.bg_yellow_a400 {
+	background-color:#FFEA00;	
+}
+.bg_yellow_a700 {
+	background-color:#FFD600;	
+}
+
+/***************************************************/
+/* Yellow (Link) Setting */
+/***************************************************/
+.link_yellow_50:link, .link_yellow_50:hover, .link_yellow_50:active, .link_yellow_50:visited {
+	color:#FFFDE7;
+}
+.link_yellow_100:link, .link_yellow_100:hover, .link_yellow_100:active, .link_yellow_100:visited {
+	color:#FFF9C4;
+}
+.link_yellow_200:link, .link_yellow_200:hover, .link_yellow_200:active, .link_yellow_200:visited {
+	color:#FFF59D;
+}
+.link_yellow_300:link, .link_yellow_300:hover, .link_yellow_300:active, .link_yellow_300:visited {
+	color:#FFF176;
+}
+.link_yellow_400:link, .link_yellow_400:hover, .link_yellow_400:active, .link_yellow_400:visited {
+	color:#FFEE58;
+}
+.link_yellow_500:link, .link_yellow_500:hover, .link_yellow_500:active, .link_yellow_500:visited {
+	color:#FFEB3B;
+}
+.link_yellow_600:link, .link_yellow_600:hover, .link_yellow_600:active, .link_yellow_600:visited {
+	color:#FDD835;
+}
+.link_yellow_700:link, .link_yellow_700:hover, .link_yellow_700:active, .link_yellow_700:visited {
+	color:#FBC02D;
+}
+.link_yellow_800:link, .link_yellow_800:hover, .link_yellow_800:active, .link_yellow_800:visited {
+	color:#F9A825;
+}
+.link_yellow_900:link, .link_yellow_900:hover, .link_yellow_900:active, .link_yellow_900:visited {
+	color:#F57F17;
+}
+.link_yellow_a100:link, .link_yellow_a100:hover, .link_yellow_a100:active, .link_yellow_a100:visited {
+	color:#FFFF8D;
+}
+.link_yellow_a200:link, .link_yellow_a200:hover, .link_yellow_a200:active, .link_yellow_a200:visited {
+	color:#FFFF00;
+}
+.link_yellow_a400:link, .link_yellow_a400:hover, .link_yellow_a400:active, .link_yellow_a400:visited {
+	color:#FFEA00;
+}
+.link_yellow_a700:link, .link_yellow_a700:hover, .link_yellow_a700:active, .link_yellow_a700:visited {
+	color:#FFD600;
+}
+
+/***************************************************/
+/* Amber (Text) Setting */
+/***************************************************/
+.color_amber_50 {
+	color:#FFF8E1;
+}
+.color_amber_100 {
+	color:#FFECB3;	
+}
+.color_amber_200 {
+	color:#FFE082;	
+}
+.color_amber_300 {
+	color:#FFD54F;	
+}
+.color_amber_400 {
+	color:#FFCA28;	
+}
+.color_amber_500 {
+	color:#FFC107;	
+}
+.color_amber_600 {
+	color:#FFB300;	
+}
+.color_amber_700 {
+	color:#FFA000;	
+}
+.color_amber_800 {
+	color:#FF8F00;	
+}
+.color_amber_900 {
+	color:#FF6F00;	
+}
+.color_amber_a100 {
+	color:#FFE57F;	
+}
+.color_amber_a200 {
+	color:#FFD740;	
+}
+.color_amber_a400 {
+	color:#FFC400;	
+}
+.color_amber_a700 {
+	color:#FFAB00;	
+}
+
+/***************************************************/
+/* Amber (Background) Setting */
+/***************************************************/
+.bg_amber_50 {
+	background-color:#FFF8E1;
+}
+.bg_amber_100 {
+	background-color:#FFECB3;	
+}
+.bg_amber_200 {
+	background-color:#FFE082;	
+}
+.bg_amber_300 {
+	background-color:#FFD54F;	
+}
+.bg_amber_400 {
+	background-color:#FFCA28;	
+}
+.bg_amber_500 {
+	background-color:#FFC107;	
+}
+.bg_amber_600 {
+	background-color:#FFB300;	
+}
+.bg_amber_700 {
+	background-color:#FFA000;	
+}
+.bg_amber_800 {
+	background-color:#FF8F00;	
+}
+.bg_amber_900 {
+	background-color:#FF6F00;	
+}
+.bg_amber_a100 {
+	background-color:#FFE57F;	
+}
+.bg_amber_a200 {
+	background-color:#FFD740;	
+}
+.bg_amber_a400 {
+	background-color:#FFC400;	
+}
+.bg_amber_a700 {
+	background-color:#FFAB00;	
+}
+
+/***************************************************/
+/* Amber (Link) Setting */
+/***************************************************/
+.link_amber_50:link, .link_amber_50:hover, .link_amber_50:active, .link_amber_50:visited {
+	color:#FFF8E1;
+}
+.link_amber_100:link, .link_amber_100:hover, .link_amber_100:active, .link_amber_100:visited {
+	color:#FFECB3;
+}
+.link_amber_200:link, .link_amber_200:hover, .link_amber_200:active, .link_amber_200:visited {
+	color:#FFE082;
+}
+.link_amber_300:link, .link_amber_300:hover, .link_amber_300:active, .link_amber_300:visited {
+	color:#FFD54F;
+}
+.link_amber_400:link, .link_amber_400:hover, .link_amber_400:active, .link_amber_400:visited {
+	color:#FFCA28;
+}
+.link_amber_500:link, .link_amber_500:hover, .link_amber_500:active, .link_amber_500:visited {
+	color:#FFC107;
+}
+.link_amber_600:link, .link_amber_600:hover, .link_amber_600:active, .link_amber_600:visited {
+	color:#FFB300;
+}
+.link_amber_700:link, .link_amber_700:hover, .link_amber_700:active, .link_amber_700:visited {
+	color:#FFA000;
+}
+.link_amber_800:link, .link_amber_800:hover, .link_amber_800:active, .link_amber_800:visited {
+	color:#FF8F00;
+}
+.link_amber_900:link, .link_amber_900:hover, .link_amber_900:active, .link_amber_900:visited {
+	color:#FF6F00;
+}
+.link_amber_a100:link, .link_amber_a100:hover, .link_amber_a100:active, .link_amber_a100:visited {
+	color:#FFE57F;
+}
+.link_amber_a200:link, .link_amber_a200:hover, .link_amber_a200:active, .link_amber_a200:visited {
+	color:#FFD740;
+}
+.link_amber_a400:link, .link_amber_a400:hover, .link_amber_a400:active, .link_amber_a400:visited {
+	color:#FFC400;
+}
+.link_amber_a700:link, .link_amber_a700:hover, .link_amber_a700:active, .link_amber_a700:visited {
+	color:#FFAB00;
+}
+
+/***************************************************/
+/* Orange (Text) Setting */
+/***************************************************/
+.color_orange_50 {
+	color:#FFF3E0;
+}
+.color_orange_100 {
+	color:#FFE0B2;	
+}
+.color_orange_200 {
+	color:#FFCC80;	
+}
+.color_orange_300 {
+	color:#FFB74D;	
+}
+.color_orange_400 {
+	color:#FFA726;	
+}
+.color_orange_500 {
+	color:#FF9800;	
+}
+.color_orange_600 {
+	color:#FB8C00;	
+}
+.color_orange_700 {
+	color:#F57C00;	
+}
+.color_orange_800 {
+	color:#EF6C00;	
+}
+.color_orange_900 {
+	color:#E65100;	
+}
+.color_orange_a100 {
+	color:#FFD180;	
+}
+.color_orange_a200 {
+	color:#FFAB40;	
+}
+.color_orange_a400 {
+	color:#FF9100;	
+}
+.color_orange_a700 {
+	color:#FF6D00;	
+}
+
+/***************************************************/
+/* Orange (Background) Setting */
+/***************************************************/
+.bg_orange_50 {
+	background-color:#FFF3E0;
+}
+.bg_orange_100 {
+	background-color:#FFE0B2;	
+}
+.bg_orange_200 {
+	background-color:#FFCC80;	
+}
+.bg_orange_300 {
+	background-color:#FFB74D;	
+}
+.bg_orange_400 {
+	background-color:#FFA726;	
+}
+.bg_orange_500 {
+	background-color:#FF9800;	
+}
+.bg_orange_600 {
+	background-color:#FB8C00;	
+}
+.bg_orange_700 {
+	background-color:#F57C00;	
+}
+.bg_orange_800 {
+	background-color:#EF6C00;	
+}
+.bg_orange_900 {
+	background-color:#E65100;	
+}
+.bg_orange_a100 {
+	background-color:#FFD180;	
+}
+.bg_orange_a200 {
+	background-color:#FFAB40;	
+}
+.bg_orange_a400 {
+	background-color:#FF9100;	
+}
+.bg_orange_a700 {
+	background-color:#FF6D00;	
+}
+
+/***************************************************/
+/* Orange (Link) Setting */
+/***************************************************/
+.link_orange_50:link, .link_orange_50:hover, .link_orange_50:active, .link_orange_50:visited {
+	color:#FFF3E0;
+}
+.link_orange_100:link, .link_orange_100:hover, .link_orange_100:active, .link_orange_100:visited {
+	color:#FFE0B2;
+}
+.link_orange_200:link, .link_orange_200:hover, .link_orange_200:active, .link_orange_200:visited {
+	color:#FFCC80;
+}
+.link_orange_300:link, .link_orange_300:hover, .link_orange_300:active, .link_orange_300:visited {
+	color:#FFB74D;
+}
+.link_orange_400:link, .link_orange_400:hover, .link_orange_400:active, .link_orange_400:visited {
+	color:#FFA726;
+}
+.link_orange_500:link, .link_orange_500:hover, .link_orange_500:active, .link_orange_500:visited {
+	color:#FF9800;
+}
+.link_orange_600:link, .link_orange_600:hover, .link_orange_600:active, .link_orange_600:visited {
+	color:#FB8C00;
+}
+.link_orange_700:link, .link_orange_700:hover, .link_orange_700:active, .link_orange_700:visited {
+	color:#F57C00;
+}
+.link_orange_800:link, .link_orange_800:hover, .link_orange_800:active, .link_orange_800:visited {
+	color:#EF6C00;
+}
+.link_orange_900:link, .link_orange_900:hover, .link_orange_900:active, .link_orange_900:visited {
+	color:#E65100;
+}
+.link_orange_a100:link, .link_orange_a100:hover, .link_orange_a100:active, .link_orange_a100:visited {
+	color:#FFD180;
+}
+.link_orange_a200:link, .link_orange_a200:hover, .link_orange_a200:active, .link_orange_a200:visited {
+	color:#FFAB40;
+}
+.link_orange_a400:link, .link_orange_a400:hover, .link_orange_a400:active, .link_orange_a400:visited {
+	color:#FF9100;
+}
+.link_orange_a700:link, .link_orange_a700:hover, .link_orange_a700:active, .link_orange_a700:visited {
+	color:#FF6D00;
+}
+
+/***************************************************/
+/* Deep Orange (Text) Setting */
+/***************************************************/
+.color_deeporange_50 {
+	color:#FBE9E7;
+}
+.color_deeporange_100 {
+	color:#FFCCBC;	
+}
+.color_deeporange_200 {
+	color:#FFAB91;	
+}
+.color_deeporange_300 {
+	color:#FF8A65;	
+}
+.color_deeporange_400 {
+	color:#FF7043;	
+}
+.color_deeporange_500 {
+	color:#FF5722;	
+}
+.color_deeporange_600 {
+	color:#F4511E;	
+}
+.color_deeporange_700 {
+	color:#E64A19;	
+}
+.color_deeporange_800 {
+	color:#D84315;	
+}
+.color_deeporange_900 {
+	color:#BF360C;	
+}
+.color_deeporange_a100 {
+	color:#FF9E80;	
+}
+.color_deeporange_a200 {
+	color:#FF6E40;	
+}
+.color_deeporange_a400 {
+	color:#FF3D00;	
+}
+.color_deeporange_a700 {
+	color:#DD2C00;	
+}
+
+/***************************************************/
+/* Deep Orange (Background) Setting */
+/***************************************************/
+.bg_deeporange_50 {
+	background-color:#FBE9E7;
+}
+.bg_deeporange_100 {
+	background-color:#FFCCBC;	
+}
+.bg_deeporange_200 {
+	background-color:#FFAB91;	
+}
+.bg_deeporange_300 {
+	background-color:#FF8A65;	
+}
+.bg_deeporange_400 {
+	background-color:#FF7043;	
+}
+.bg_deeporange_500 {
+	background-color:#FF5722;	
+}
+.bg_deeporange_600 {
+	background-color:#F4511E;	
+}
+.bg_deeporange_700 {
+	background-color:#E64A19;	
+}
+.bg_deeporange_800 {
+	background-color:#D84315;	
+}
+.bg_deeporange_900 {
+	background-color:#BF360C;	
+}
+.bg_deeporange_a100 {
+	background-color:#FF9E80;	
+}
+.bg_deeporange_a200 {
+	background-color:#FF6E40;	
+}
+.bg_deeporange_a400 {
+	background-color:#FF3D00;	
+}
+.bg_deeporange_a700 {
+	background-color:#DD2C00;	
+}
+
+/***************************************************/
+/* Deep Orange (Link) Setting */
+/***************************************************/
+.link_deeporange_50:link, .link_deeporange_50:hover, .link_deeporange_50:active, .link_deeporange_50:visited {
+	color:#FBE9E7;
+}
+.link_deeporange_100:link, .link_deeporange_100:hover, .link_deeporange_100:active, .link_deeporange_100:visited {
+	color:#FFCCBC;
+}
+.link_deeporange_200:link, .link_deeporange_200:hover, .link_deeporange_200:active, .link_deeporange_200:visited {
+	color:#FFAB91;
+}
+.link_deeporange_300:link, .link_deeporange_300:hover, .link_deeporange_300:active, .link_deeporange_300:visited {
+	color:#FF8A65;
+}
+.link_deeporange_400:link, .link_deeporange_400:hover, .link_deeporange_400:active, .link_deeporange_400:visited {
+	color:#FF7043;
+}
+.link_deeporange_500:link, .link_deeporange_500:hover, .link_deeporange_500:active, .link_deeporange_500:visited {
+	color:#FF5722;
+}
+.link_deeporange_600:link, .link_deeporange_600:hover, .link_deeporange_600:active, .link_deeporange_600:visited {
+	color:#F4511E;
+}
+.link_deeporange_700:link, .link_deeporange_700:hover, .link_deeporange_700:active, .link_deeporange_700:visited {
+	color:#E64A19;
+}
+.link_deeporange_800:link, .link_deeporange_800:hover, .link_deeporange_800:active, .link_deeporange_800:visited {
+	color:#D84315;
+}
+.link_deeporange_900:link, .link_deeporange_900:hover, .link_deeporange_900:active, .link_deeporange_900:visited {
+	color:#BF360C;
+}
+.link_deeporange_a100:link, .link_deeporange_a100:hover, .link_deeporange_a100:active, .link_deeporange_a100:visited {
+	color:#FF9E80;
+}
+.link_deeporange_a200:link, .link_deeporange_a200:hover, .link_deeporange_a200:active, .link_deeporange_a200:visited {
+	color:#FF6E40;
+}
+.link_deeporange_a400:link, .link_deeporange_a400:hover, .link_deeporange_a400:active, .link_deeporange_a400:visited {
+	color:#FF3D00;
+}
+.link_deeporange_a700:link, .link_deeporange_a700:hover, .link_deeporange_a700:active, .link_deeporange_a700:visited {
+	color:#DD2C00;
+}
+
+/***************************************************/
+/* Brown (Text) Setting */
+/***************************************************/
+.color_brown_50 {
+	color:#EFEBE9;
+}
+.color_brown_100 {
+	color:#D7CCC8;	
+}
+.color_brown_200 {
+	color:#BCAAA4;	
+}
+.color_brown_300 {
+	color:#A1887F;	
+}
+.color_brown_400 {
+	color:#8D6E63;	
+}
+.color_brown_500 {
+	color:#795548;	
+}
+.color_brown_600 {
+	color:#6D4C41;	
+}
+.color_brown_700 {
+	color:#5D4037;	
+}
+.color_brown_800 {
+	color:#4E342E;	
+}
+.color_brown_900 {
+	color:#3E2723;	
+}
+
+/***************************************************/
+/* Brown (Background) Setting */
+/***************************************************/
+.bg_brown_50 {
+	background-color:#EFEBE9;
+}
+.bg_brown_100 {
+	background-color:#D7CCC8;	
+}
+.bg_brown_200 {
+	background-color:#BCAAA4;	
+}
+.bg_brown_300 {
+	background-color:#A1887F;	
+}
+.bg_brown_400 {
+	background-color:#8D6E63;	
+}
+.bg_brown_500 {
+	background-color:#795548;	
+}
+.bg_brown_600 {
+	background-color:#6D4C41;	
+}
+.bg_brown_700 {
+	background-color:#5D4037;	
+}
+.bg_brown_800 {
+	background-color:#4E342E;	
+}
+.bg_brown_900 {
+	background-color:#3E2723;	
+}
+
+/***************************************************/
+/* Brown (Link) Setting */
+/***************************************************/
+.link_brown_50:link, .link_brown_50:hover, .link_brown_50:active, .link_brown_50:visited {
+	color:#EFEBE9;
+}
+.link_brown_100:link, .link_brown_100:hover, .link_brown_100:active, .link_brown_100:visited {
+	color:#D7CCC8;
+}
+.link_brown_200:link, .link_brown_200:hover, .link_brown_200:active, .link_brown_200:visited {
+	color:#BCAAA4;
+}
+.link_brown_300:link, .link_brown_300:hover, .link_brown_300:active, .link_brown_300:visited {
+	color:#A1887F;
+}
+.link_brown_400:link, .link_brown_400:hover, .link_brown_400:active, .link_brown_400:visited {
+	color:#8D6E63;
+}
+.link_brown_500:link, .link_brown_500:hover, .link_brown_500:active, .link_brown_500:visited {
+	color:#795548;
+}
+.link_brown_600:link, .link_brown_600:hover, .link_brown_600:active, .link_brown_600:visited {
+	color:#6D4C41;
+}
+.link_brown_700:link, .link_brown_700:hover, .link_brown_700:active, .link_brown_700:visited {
+	color:#5D4037;
+}
+.link_brown_800:link, .link_brown_800:hover, .link_brown_800:active, .link_brown_800:visited {
+	color:#4E342E;
+}
+.link_brown_900:link, .link_brown_900:hover, .link_brown_900:active, .link_brown_900:visited {
+	color:#3E2723;
+}
+
+/***************************************************/
+/* Grey (Text) Setting */
+/***************************************************/
+.color_grey_50 {
+	color:#FAFAFA;
+}
+.color_grey_100 {
+	color:#F5F5F5;	
+}
+.color_grey_200 {
+	color:#EEEEEE;	
+}
+.color_grey_300 {
+	color:#E0E0E0;	
+}
+.color_grey_400 {
+	color:#BDBDBD;	
+}
+.color_grey_500 {
+	color:#9E9E9E;	
+}
+.color_grey_600 {
+	color:#757575;	
+}
+.color_grey_700 {
+	color:#616161;	
+}
+.color_grey_800 {
+	color:#424242;	
+}
+.color_grey_900 {
+	color:#212121;	
+}
+
+/***************************************************/
+/* Grey (Background) Setting */
+/***************************************************/
+.bg_grey_50 {
+	background-color:#FAFAFA;
+}
+.bg_grey_100 {
+	background-color:#F5F5F5;	
+}
+.bg_grey_200 {
+	background-color:#EEEEEE;	
+}
+.bg_grey_300 {
+	background-color:#E0E0E0;	
+}
+.bg_grey_400 {
+	background-color:#BDBDBD;	
+}
+.bg_grey_500 {
+	background-color:#9E9E9E;	
+}
+.bg_grey_600 {
+	background-color:#757575;	
+}
+.bg_grey_700 {
+	background-color:#616161;	
+}
+.bg_grey_800 {
+	background-color:#424242;	
+}
+.bg_grey_900 {
+	background-color:#212121;	
+}
+
+/***************************************************/
+/* Grey (Link) Setting */
+/***************************************************/
+.link_grey_50:link, .link_grey_50:hover, .link_grey_50:active, .link_grey_50:visited {
+	color:#FAFAFA;
+}
+.link_grey_100:link, .link_grey_100:hover, .link_grey_100:active, .link_grey_100:visited {
+	color:#F5F5F5;
+}
+.link_grey_200:link, .link_grey_200:hover, .link_grey_200:active, .link_grey_200:visited {
+	color:#EEEEEE;
+}
+.link_grey_300:link, .link_grey_300:hover, .link_grey_300:active, .link_grey_300:visited {
+	color:#E0E0E0;
+}
+.link_grey_400:link, .link_grey_400:hover, .link_grey_400:active, .link_grey_400:visited {
+	color:#BDBDBD;
+}
+.link_grey_500:link, .link_grey_500:hover, .link_grey_500:active, .link_grey_500:visited {
+	color:#9E9E9E;
+}
+.link_grey_600:link, .link_grey_600:hover, .link_grey_600:active, .link_grey_600:visited {
+	color:#757575;
+}
+.link_grey_700:link, .link_grey_700:hover, .link_grey_700:active, .link_grey_700:visited {
+	color:#616161;
+}
+.link_grey_800:link, .link_grey_800:hover, .link_grey_800:active, .link_grey_800:visited {
+	color:#424242;
+}
+.link_grey_900:link, .link_grey_900:hover, .link_grey_900:active, .link_grey_900:visited {
+	color:#212121;
+}
+
+/***************************************************/
+/* Blue Grey (Text) Setting */
+/***************************************************/
+.color_bluegrey_50 {
+	color:#ECEFF1;
+}
+.color_bluegrey_100 {
+	color:#CFD8DC;	
+}
+.color_bluegrey_200 {
+	color:#B0BEC5;	
+}
+.color_bluegrey_300 {
+	color:#90A4AE;	
+}
+.color_bluegrey_400 {
+	color:#78909C;	
+}
+.color_bluegrey_500 {
+	color:#607D8B;	
+}
+.color_bluegrey_600 {
+	color:#546E7A;	
+}
+.color_bluegrey_700 {
+	color:#455A64;	
+}
+.color_bluegrey_800 {
+	color:#37474F;	
+}
+.color_bluegrey_900 {
+	color:#263238;	
+}
+
+/***************************************************/
+/* Blue Grey (Background) Setting */
+/***************************************************/
+.bg_bluegrey_50 {
+	background-color:#ECEFF1;
+}
+.bg_bluegrey_100 {
+	background-color:#CFD8DC;	
+}
+.bg_bluegrey_200 {
+	background-color:#B0BEC5;	
+}
+.bg_bluegrey_300 {
+	background-color:#90A4AE;	
+}
+.bg_bluegrey_400 {
+	background-color:#78909C;	
+}
+.bg_bluegrey_500 {
+	background-color:#607D8B;	
+}
+.bg_bluegrey_600 {
+	background-color:#546E7A;	
+}
+.bg_bluegrey_700 {
+	background-color:#455A64;	
+}
+.bg_bluegrey_800 {
+	background-color:#37474F;	
+}
+.bg_bluegrey_900 {
+	background-color:#263238;	
+}
+
+/***************************************************/
+/* Blue Grey (Link) Setting */
+/***************************************************/
+.link_bluegrey_50:link, .link_bluegrey_50:hover, .link_bluegrey_50:active, .link_bluegrey_50:visited {
+	color:#ECEFF1;
+}
+.link_bluegrey_100:link, .link_bluegrey_100:hover, .link_bluegrey_100:active, .link_bluegrey_100:visited {
+	color:#CFD8DC;
+}
+.link_bluegrey_200:link, .link_bluegrey_200:hover, .link_bluegrey_200:active, .link_bluegrey_200:visited {
+	color:#B0BEC5;
+}
+.link_bluegrey_300:link, .link_bluegrey_300:hover, .link_bluegrey_300:active, .link_bluegrey_300:visited {
+	color:#90A4AE;
+}
+.link_bluegrey_400:link, .link_bluegrey_400:hover, .link_bluegrey_400:active, .link_bluegrey_400:visited {
+	color:#78909C;
+}
+.link_bluegrey_500:link, .link_bluegrey_500:hover, .link_bluegrey_500:active, .link_bluegrey_500:visited {
+	color:#607D8B;
+}
+.link_bluegrey_600:link, .link_bluegrey_600:hover, .link_bluegrey_600:active, .link_bluegrey_600:visited {
+	color:#546E7A;
+}
+.link_bluegrey_700:link, .link_bluegrey_700:hover, .link_bluegrey_700:active, .link_bluegrey_700:visited {
+	color:#455A64;
+}
+.link_bluegrey_800:link, .link_bluegrey_800:hover, .link_bluegrey_800:active, .link_bluegrey_800:visited {
+	color:#37474F;
+}
+.link_bluegrey_900:link, .link_bluegrey_900:hover, .link_bluegrey_900:active, .link_bluegrey_900:visited {
+	color:#263238;
+}
+
+/***************************************************/
+/* Black & White (Text) Setting */
+/***************************************************/
+.color_black {
+	color:#000000;
+}
+.color_white {
+	color:#FFFFFF;	
+}
+
+/***************************************************/
+/* Black & White (Background) Setting */
+/***************************************************/
+.bg_black {
+	background-color:#000000;
+}
+.bg_white {
+	background-color:#FFFFFF;	
+}
+
+/***************************************************/
+/* Black & White (Link) Setting */
+/***************************************************/
+.link_black:link, .link_black:hover, .link_black:active, .link_black:visited {
+	color:#000000;
+}
+.link_white:link, .link_white:hover, .link_white:active, .link_white:visited {
+	color:#FFFFFF;
+}
