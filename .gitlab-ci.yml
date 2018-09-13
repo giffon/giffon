@@ -1,3 +1,13 @@
+validate-markup:
+  stage: test
+  image: openjdk:8-jre-alpine
+  script:
+    - wget https://github.com/validator/validator/releases/download/18.8.29/vnu.jar_18.8.29.zip
+    - unzip vnu.jar_18.8.29.zip
+    - java -jar dist/vnu.jar --html www/*.html
+    - java -jar dist/vnu.jar --css www/css/*.css
+    - java -jar dist/vnu.jar --svg --errors-only www/images/*.svg
+
 deploy-s3:
   stage: deploy
   image: python:3-alpine
