@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
 	<title>Giffon: A crowd-gifting platform</title>
 
-	<link href="https://fonts.googleapis.com/css?family=Nothing+You+Could+Do|Work+Sans" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Nothing+You+Could+Do%7CWork+Sans" rel="stylesheet">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 	
@@ -16,7 +16,7 @@
 
 	<link rel="stylesheet" type="text/css" href="css/color.css">
 	<link rel="stylesheet" type="text/css" href="css/fontsize.css">
-	<style type="text/css">
+	<style>
 		body {
 			font-family: 'Work Sans', Arial, sans-serif;
 			background-image: linear-gradient(-225deg, #B7F8DB 0%, #50A7C2 100%);
@@ -218,38 +218,37 @@
 
 
 </head>
-<script type="text/javascript">
+<body>
+<script>
 $(function(){
 
 	$(window).scroll(function (event) {
-	    var scroll = $(window).scrollTop();
-	    var sett = $('#set').offset();
-	    // Do something
+		var scroll = $(window).scrollTop();
+		var sett = $('#set').offset();
+		// Do something
 
-	    if( scroll >= (sett.top - 900) ) {
-	    	$('#set2').removeClass('invisible').addClass('from_right');
-	    }
+		if( scroll >= (sett.top - 900) ) {
+			$('#set2').removeClass('invisible').addClass('from_right');
+		}
 
-	    if( scroll >= (sett.top - 200) ) {
-	    	$('#support').removeClass('invisible').addClass('from_left');
-	    }
+		if( scroll >= (sett.top - 200) ) {
+			$('#support').removeClass('invisible').addClass('from_left');
+		}
 
-	    console.log("scroll:" + $(window).scrollTop());
-	    console.log("set:" + sett.top);
+		console.log("scroll:" + $(window).scrollTop());
+		console.log("set:" + sett.top);
 	});
 
-})
-
+});
 </script>
-<body>
 
 <div class="container-fluid px-3 py-5 p-md-5">
 	<div class="row">
 		<div class="col-sm-12 col-md-8 ml-md-auto mr-md-auto text-center">
-			<img class="width_xs_60 width_md_30" src="images/6.svg">
+			<img class="width_xs_60 width_md_30" src="images/6.svg" alt="Giffon logo">
 			<h1>Giffon</h1>
 			<h1>A crowd-gifting platform</h1>
-			<h3 class="hand"><img id="arrow" src="images/turn-right-arrow-w.svg" width="60">where birds of a feather flock together</h3>
+			<h3 class="hand"><img id="arrow" src="images/turn-right-arrow-w.svg" alt="arrow" width="60">where birds of a feather flock together</h3>
 
 			<form action="https://docs.google.com/forms/d/e/1FAIpQLSeFe8MGRFNixqDWxLBvrMnTdRE9TtAy6gARVNcDN0aX7mm7gQ/viewform?usp=sf_link">
 				<button id="btn_access" class="btn px-4 py-3 shadow shadow-md-lg" type="submit">Get Early Access</button>
@@ -302,7 +301,7 @@ $(function(){
 
 		<div class="col-xs-auto col-sm-6 col-md-2 p-0 mr-3 mr-sm-auto mr-md-3 bg_white_o80 corner_s shadow">
 			<div class="color_black px-3 py-4 px-md-2 py-md-4">
-				<img class="width_xs_30 width_md_60" src="images/smile.svg">
+				<img class="width_xs_30 width_md_60" src="images/smile.svg" alt="smile">
 				
 				<div class="py-3">
 					<span class="d-inline-block px-2 py-1 color_white corner_xs" style="background:#a6c0fe;">#awesome</span>
@@ -314,7 +313,7 @@ $(function(){
 
 		<div class="col-xs-auto col-sm-6 col-md-2 p-0 mr-3 mr-sm-auto mr-md-3 bg_white_o80 corner_s shadow">
 			<div class="color_black px-3 py-4 px-md-2 py-md-4">
-				<img class="width_xs_30 width_md_60" src="images/speaker.svg">
+				<img class="width_xs_30 width_md_60" src="images/speaker.svg" alt="speaker">
 				<div class="py-3">
 					<span class="d-inline-block px-2 py-1 color_white corner_xs"  style="background:#CAA4C9;">#speakUp</span>
 				</div>
@@ -325,7 +324,7 @@ $(function(){
 
 		<div class="col-xs-auto col-sm-6 col-md-2 p-0 mr-3 mr-sm-auto mr-md-3 bg_white_o80 corner_s shadow">
 			<div class="color_black px-3 py-4 px-md-2 py-md-4">
-				<img class="width_xs_30 width_md_60" src="images/plant.svg">
+				<img class="width_xs_30 width_md_60" src="images/plant.svg" alt="plant">
 				<div class="py-3">
 					<span class="d-inline-block px-2 py-1 color_white corner_xs"  style="background:#D798B3;">#ecoFriendly</span>
 				</div>
@@ -336,7 +335,7 @@ $(function(){
 
 		<div class="col-xs-auto col-sm-6 col-md-2 p-0 mr-3 mr-sm-auto mr-md-3 bg_white_o80 corner_s shadow">
 			<div class="color_black px-3 py-4 px-md-2 py-md-4">
-				<img class="width_xs_30 width_md_60" src="images/piggy.svg">
+				<img class="width_xs_30 width_md_60" src="images/piggy.svg" alt="piggy bank">
 				<div class="py-3">
 					<span class="d-inline-block px-2 py-1 color_white corner_xs"  style="background:#f68084;">#saveMoney</span>
 				</div>
@@ -362,7 +361,7 @@ $(function(){
 
 			<div class="col-xs-auto col-sm-6 col-md-2 p-0 ml-3 ml-sm-auto ml-md-3 bg_white corner_s shadow">
 				<div class="color_black px-3 py-4 px-md-2 py-md-4">
-					<img class="width_xs_30 width_md_60" src="images/charity.svg">
+					<img class="width_xs_30 width_md_60" src="images/charity.svg" alt="charity">
 					<div class="py-3">
 						<span class="d-inline-block px-2 py-1 color_white corner_xs" style="background:#59d7ff;">#sincerity</span>
 					</div>
@@ -373,7 +372,7 @@ $(function(){
 
 			<div class="col-xs-auto col-sm-6 col-md-2 p-0 ml-3 ml-sm-auto ml-md-3 bg_white corner_s shadow">
 				<div class="color_black px-3 py-4 px-md-2 py-md-4">
-					<img class="width_xs_30 width_md_60" src="images/motivation.svg">
+					<img class="width_xs_30 width_md_60" src="images/motivation.svg" alt="certain">
 					<div class="py-3">
 						<span class="d-inline-block px-2 py-1 color_white corner_xs"  style="background:#61BCFF;">#certain</span>
 					</div>
@@ -384,7 +383,7 @@ $(function(){
 
 			<div class="col-xs-auto col-sm-6 col-md-2 p-0 ml-3 ml-sm-auto ml-md-3 bg_white corner_s shadow">
 				<div class="color_black px-3 py-4 px-md-2 py-md-4">
-					<img class="width_xs_30 width_md_60" src="images/coins.svg">
+					<img class="width_xs_30 width_md_60" src="images/coins.svg" alt="coins">
 					<div class="py-3">
 						<span class="d-inline-block px-2 py-1 color_white corner_xs"  style="background:#6C97FE;">#affordable</span>
 					</div>
@@ -395,7 +394,7 @@ $(function(){
 
 			<div class="col-xs-auto col-sm-6 col-md-2 p-0 ml-3 ml-sm-auto ml-md-3 bg_white corner_s shadow">
 				<div class="color_black px-3 py-4 px-md-2 py-md-4">
-					<img class="width_xs_30 width_md_60" src="images/title.svg">
+					<img class="width_xs_30 width_md_60" src="images/title.svg" alt="trusty">
 					<div class="py-3">
 						<span class="d-inline-block px-2 py-1 color_white corner_xs"  style="background:#747dfd;">#trusty</span>
 					</div>
@@ -409,9 +408,6 @@ $(function(){
 					<h2>For Your Friends</h2>
 				</div>
 			</div>
-		
-			
-		</div>
 		
 	</div>
 </div>
