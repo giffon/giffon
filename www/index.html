@@ -21,29 +21,7 @@
 
 </head>
 <body>
-<script>
-$(function(){
-
-	$(window).scroll(function (event) {
-		var scroll = $(window).scrollTop();
-		var sett = $('#set').offset();
-		// Do something
-
-		if( scroll >= (sett.top - 900) ) {
-			$('#set2').removeClass('invisible').addClass('from_right');
-		}
-
-		if( scroll >= (sett.top - 200) ) {
-			$('#support').removeClass('invisible').addClass('from_left');
-		}
-
-		console.log("scroll:" + $(window).scrollTop());
-		console.log("set:" + sett.top);
-	});
-
-});
-</script>
-
+<script src="js/scroll.js"></script>
 <div class="container-fluid px-3 py-5 p-md-5">
 	<div class="row">
 		<div class="col-sm-12 col-md-8 ml-md-auto mr-md-auto text-center">
