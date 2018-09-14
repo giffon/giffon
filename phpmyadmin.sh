@@ -1,0 +1,1 @@
+docker run --name myadmin --rm -e PMA_HOST=giffon.cluster-czhm2i8itlng.us-east-1.rds.amazonaws.com -p 8080:80 phpmyadmin/phpmyadmin
