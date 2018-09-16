@@ -18,8 +18,11 @@
   },
   "homepage": "https://gitlab.com/andyli/giffon#README",
   "dependencies": {
+    "aws-serverless-express": "^3.3.5",
     "express": "^4.16.3",
     "serverless-http": "^1.6.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "serverless-apigw-binary": "^0.4.4"
+  }
 }

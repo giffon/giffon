@@ -48,21 +48,22 @@ provider:
 #  environment:
 #    variable1: value1
 
-# you can add packaging information here
-#package:
-#  include:
-#    - include-me.js
-#    - include-me-dir/**
-#  exclude:
-#    - exclude-me.js
-#    - exclude-me-dir/**
+package:
+  exclude:
+    - chrome/**
 
 functions:
-  hello:
-    handler: handler.handler
+  express:
+    handler: handler.express
     events:
-      - http: ANY /
-      - http: 'ANY {proxy+}'
+      - http:
+          method: get
+          path: '/'
+          cors: true
+      - http:
+          method: get
+          path: '{proxy+}'
+          cors: true
 
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
@@ -108,3 +109,11 @@ functions:
 #     NewOutput:
 #       Description: "Description for the output"
 #       Value: "Some output value"
+
+plugins:
+  - serverless-apigw-binary
+
+custom:
+  apigwBinary:
+    types:
+      - '*/*'
