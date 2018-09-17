@@ -1,0 +1,3 @@
+-cp src
+-main BrowserMain
+-js www/js/BrowserMain.js

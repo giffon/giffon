@@ -195,3 +195,32 @@ img.emoji, .inline-icon {
         height: 15rem;
     }
 }
+
+#nav {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+#nav a {
+    color: white;
+    text-decoration: underline;
+}
+
+#nav a:hover {
+    color: white;
+    text-decoration: none;
+}
+
+.signInBtn, .signOutBtn {
+    display: none;
+    padding: 1.5em 2em;
+}
+
+.signed-in .signInBtn, .signed-out .signOutBtn {
+    display: none;
+}
+
+.signed-out .signInBtn, .signed-in .signOutBtn {
+    display: inline-block;
+}

@@ -13,5 +13,6 @@ app.use(express.static('www', {
 module.exports.app = app;
 
 if (require.main === module) {
-    app.listen(8000, () => console.log('listening on port 8000!'));
+    const port = 3000;
+    app.listen(port, () => console.log('listening on port ' + port));
 }

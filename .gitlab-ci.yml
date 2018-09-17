@@ -1,3 +1,14 @@
+build-browser:
+  stage: build
+  image: haxe:3.4.7-alpine
+  script:
+    - haxelib install all --always
+    - haxelib list
+    - haxe build-browser.hxml
+  artifacts:
+    paths:
+      - www/js/BrowserMain.js
+
 validate-markup:
   stage: test
   image: openjdk:8-jre-alpine
