@@ -224,3 +224,15 @@ img.emoji, .inline-icon {
 .signed-out .signInBtn, .signed-in .signOutBtn {
     display: inline-block;
 }
+
+.greeting {
+    display: none;
+}
+
+.signed-out .greeting {
+    display: none;
+}
+
+.signed-in .greeting {
+    display: inline-block;
+}

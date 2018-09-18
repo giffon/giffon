@@ -1,3 +1,4 @@
 -cp src
+-lib promhx
 -main BrowserMain
 -js www/js/BrowserMain.js

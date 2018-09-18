@@ -48,13 +48,17 @@ extern class WebAuth {
 
     public function crossOriginVerification():Void;
 
-    public function buildAuthorizeUrl(options:{
-        clientID:String,
-        responseType:String,
-        redirectUri:String,
-        state:String,
-        nonce:String,
-    }):Void;
+    public var client:{
+        public function buildAuthorizeUrl(options:{
+            clientID:String,
+            responseType:String,
+            redirectUri:String,
+            state:String,
+            nonce:String,
+        }):Void;
+
+        public function userInfo(accessToken:String, callb:Dynamic):Void;
+    };
 
     public function passwordlessStart(options:{
         var connection:String;

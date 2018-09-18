@@ -3,6 +3,7 @@ import js.*;
 import js.Browser.*;
 import js.jquery.JQuery;
 import haxe.*;
+import promhx.*;
 
 typedef Session = {
     var access_token:String;
@@ -20,6 +21,8 @@ class BrowserMain {
 
     var session(get, null):Null<Session>;
     var webAuth(default, null):WebAuth;
+    var userName(default, null):promhx.Promise<String>;
+    var userNameDeferred(default, null):promhx.Deferred<String>;
 
     public function new():Void {
         webAuth = new WebAuth({
@@ -27,8 +30,16 @@ class BrowserMain {
             clientID: AUTH0_CLIENT_ID,
             redirectUri: js.Browser.location.href,
             responseType: 'token id_token',
-            scope: 'openid',
+            scope: 'openid profile',
             leeway: 60
+        });
+
+        userNameDeferred = new promhx.Deferred();
+        userName = userNameDeferred.promise();
+
+        userName.then(function(userName) {
+            trace(userName);
+            new JQuery("span.user-name").text(userName);
         });
 
         new JQuery(onReady);
@@ -69,6 +80,11 @@ class BrowserMain {
 
         this.session = session;
         localStorage.setItem("session", Json.stringify(session));
+
+        webAuth.client.userInfo(session.access_token, function(err, user):Void {
+            userNameDeferred.resolve(user.name);
+            trace(user);
+        });
     }
 
     function signOut():Void {
