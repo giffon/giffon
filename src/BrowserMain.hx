@@ -120,9 +120,23 @@ class BrowserMain {
     }
 
     function onReady():Void {
+        var localStorage = js.Browser.getLocalStorage();
+        var urlParams = new js.html.URLSearchParams(window.location.search);
+        switch (urlParams.get("beta")) {
+            case null:
+                //pass
+            case "1":
+                localStorage.setItem("beta", "1");
+            case _:
+                localStorage.removeItem("beta");
+        }
+        if (localStorage.getItem("beta") == "1") {
+            new JQuery("body")
+                .addClass("beta");
+        }
+
         new JQuery(".signInBtn").click(function(evt){
             evt.preventDefault();
-            var localStorage = js.Browser.getLocalStorage();
             if (localStorage == null) {
                 Browser.alert("Giffon requires localStorage to work.");
                 return;

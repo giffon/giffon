@@ -197,6 +197,14 @@ img.emoji, .inline-icon {
 }
 
 #nav {
+    display: none;
+}
+
+.beta #nav {
+    display: inherit;
+}
+
+#nav {
     position: absolute;
     right: 0;
     top: 0;
