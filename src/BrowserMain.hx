@@ -4,6 +4,8 @@ import js.Browser.*;
 import js.jquery.JQuery;
 import haxe.*;
 import promhx.*;
+import jsrsasign.*;
+import jsrsasign.Global.*;
 
 typedef Session = {
     var access_token:String;
@@ -12,8 +14,8 @@ typedef Session = {
 }
 
 class BrowserMain {
-    static var AUTH0_CLIENT_ID = 'iI1IXOjJzqm2QQ6PclJ61HKwhW8QHJXz';
-    static var AUTH0_DOMAIN = 'giffon.auth0.com';
+    static var AUTH0_CLIENT_ID(default, never) = 'iI1IXOjJzqm2QQ6PclJ61HKwhW8QHJXz';
+    static var AUTH0_DOMAIN(default, never) = 'giffon.auth0.com';
 
     static function main():Void {
         new BrowserMain();
@@ -21,8 +23,8 @@ class BrowserMain {
 
     var session(get, null):Null<Session>;
     var webAuth(default, null):WebAuth;
-    var userName(default, null):promhx.Promise<String>;
-    var userNameDeferred(default, null):promhx.Deferred<String>;
+    var userName(default, null):Promise<String>;
+    var userNameDeferred(default, null):Deferred<String>;
 
     public function new():Void {
         webAuth = new WebAuth({
@@ -34,11 +36,10 @@ class BrowserMain {
             leeway: 60
         });
 
-        userNameDeferred = new promhx.Deferred();
+        userNameDeferred = new Deferred();
         userName = userNameDeferred.promise();
 
         userName.then(function(userName) {
-            trace(userName);
             new JQuery("span.user-name").text(userName);
         });
 
@@ -66,25 +67,41 @@ class BrowserMain {
         }
     }
 
-    function signIn(session:Session):Void {
-        trace(session);
-        var localStorage = js.Browser.getLocalStorage();
-        if (localStorage == null) {
-            Browser.alert("Giffon requires localStorage to work.");
-            return;
+    function signIn(session:Session):Bool {
+        var pubkey = KEYUTIL.getKey(CompileTime.readFile("../auth0/giffon.cer"));
+        var alg = "RS256";
+        var isValid = JWS.verifyJWT(
+            session.id_token,
+            pubkey,
+            {
+                alg: [alg],
+                iss: ['https://${AUTH0_DOMAIN}/'],
+                aud: [AUTH0_CLIENT_ID]
+            }
+        );
+
+        if (isValid) {
+            var payloadObj = JWS.readSafeJSONString(b64utoutf8(session.id_token.split(".")[1]));
+            userNameDeferred.resolve(payloadObj.name);
+
+            new JQuery("body")
+                .addClass("signed-in")
+                .removeClass("signed-out");
+
+            this.session = session;
+
+
+            var localStorage = js.Browser.getLocalStorage();
+            if (localStorage == null) {
+                Browser.alert("Giffon requires localStorage to work.");
+                return false;
+            }
+            localStorage.setItem("session", Json.stringify(session));
+
+            return true;
+        } else {
+            return false;
         }
-
-        new JQuery("body")
-            .addClass("signed-in")
-            .removeClass("signed-out");
-
-        this.session = session;
-        localStorage.setItem("session", Json.stringify(session));
-
-        webAuth.client.userInfo(session.access_token, function(err, user):Void {
-            userNameDeferred.resolve(user.name);
-            trace(user);
-        });
     }
 
     function signOut():Void {
@@ -124,22 +141,42 @@ class BrowserMain {
                 return;
             }
             if (authResult == null) {
-                if (session != null) {
-                    signIn(session);
-                } else {
-                    new JQuery("body")
-                        .addClass("signed-out")
-                        .removeClass("signed-in");
+                if (session != null && signIn(session)) {
+                    return;
                 }
-                return;
+            } else {
+                removeHash();
+
+                if (signIn({
+                    access_token: authResult.accessToken,
+                    id_token: authResult.idToken,
+                    expires_at: authResult.expiresIn * 1000 + Date.now().getTime()
+                })) {
+                    return;
+                };
             }
-            location.hash = '';
-            signIn({
-                access_token: authResult.accessToken,
-                id_token: authResult.idToken,
-                expires_at: authResult.expiresIn * 1000 + Date.now().getTime()
-            });
-            trace(session);
+
+            // not signed in
+            new JQuery("body")
+                .addClass("signed-out")
+                .removeClass("signed-in");
         });
+    }
+
+    static function removeHash():Void { 
+        var scrollV, scrollH, loc = window.location;
+        if (window.history.pushState != null) {
+            window.history.pushState("", document.title, loc.pathname + loc.search);
+        } else {
+            // Prevent scrolling by storing the page's current scroll offset
+            scrollV = document.body.scrollTop;
+            scrollH = document.body.scrollLeft;
+
+            loc.hash = "";
+
+            // Restore the scroll offset, should be flicker free
+            document.body.scrollTop = scrollV;
+            document.body.scrollLeft = scrollH;
+        }
     }
 }

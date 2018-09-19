@@ -51,6 +51,7 @@ provider:
 package:
   exclude:
     - chrome/**
+    - auth0/**
 
 functions:
   express:

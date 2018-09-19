@@ -1,4 +1,6 @@
 -cp src
 -lib promhx
+-lib compiletime
 -main BrowserMain
 -js www/js/BrowserMain.js
+-dce full
