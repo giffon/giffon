@@ -200,6 +200,7 @@ img.emoji, .inline-icon {
     position: absolute;
     right: 0;
     top: 0;
+    padding: 0.5em;
 }
 
 #nav a {
@@ -214,7 +215,8 @@ img.emoji, .inline-icon {
 
 .signInBtn, .signOutBtn {
     display: none;
-    padding: 1.5em 2em;
+    padding: 0.5em;
+    margin: 0 0.5em;
 }
 
 .signed-in .signInBtn, .signed-out .signOutBtn {
