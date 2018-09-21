@@ -176,8 +176,8 @@ img.emoji, .inline-icon {
 
 
 @media (min-width: 992px) {
-    .width_md_30 {
-        width: 30%;
+    .width_md_25 {
+        width: 25%;
     }
 
     .width_md_60 {
