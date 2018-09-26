@@ -2,12 +2,26 @@ build-browser:
   stage: build
   image: haxe:3.4.7-alpine
   script:
-    - haxelib install all --always
+    - haxelib install build-browser.hxml --always
     - haxelib list
     - haxe build-browser.hxml
   artifacts:
     paths:
       - www/js/BrowserMain.js
+
+build-server:
+  stage: build
+  image: haxe:3.4.7-alpine
+  variables:
+    GIT_SUBMODULE_STRATEGY: recursive
+  script:
+    - haxelib dev hxnodelibs lib/hxnodelibs
+    - haxelib install build-server.hxml --always
+    - haxelib list
+    - haxe build-server.hxml
+  artifacts:
+    paths:
+      - ServerMain.js
 
 validate-markup:
   stage: test

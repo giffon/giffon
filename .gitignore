@@ -8,3 +8,5 @@ jspm_packages
 # Haxe output
 www/js/BrowserMain.js
 www/js/BrowserMain.js.map
+ServerMain.js
+ServerMain.js.map

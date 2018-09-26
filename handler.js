@@ -1,5 +1,5 @@
 const awsServerlessExpress = require('aws-serverless-express');
-const app = require('./app.js').app;
+const app = require('./ServerMain.js').app;
 const binaryMimeTypes = [
     'image/jpeg',
     'image/png',

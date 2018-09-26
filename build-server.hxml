@@ -1,0 +1,6 @@
+-cp src
+-lib hxnodejs
+-lib hxnodelibs
+-main ServerMain
+-js ServerMain.js
+-dce full
