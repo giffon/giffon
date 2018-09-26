@@ -41,12 +41,12 @@
 	<link rel="stylesheet" type="text/css" href="css/fontsize.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
-<body>
+<body class="<%= signInStatus %>">
 
 <div id="nav">
-	<a href="#signIn" class="signInBtn">Sign in<i class="fab fa-facebook"></i></a>
-	<span class="greeting">Hi, <span class="user-name"></span>!</span>
-	<a href="https://giffon.auth0.com/v2/logout" class="signOutBtn">Sign out</a>
+	<a href="/login" class="signInBtn">Sign in<i class="fab fa-facebook"></i></a>
+	<span class="greeting">Hi, <span class="user-name"><%= userName %></span>!</span>
+	<a href="/logout" class="signOutBtn">Sign out</a>
 </div>
 
 <div class="container-fluid px-3 py-5 p-md-5">

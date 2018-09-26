@@ -44,9 +44,8 @@ provider:
 #            - "Ref" : "ServerlessDeploymentBucket"
 #            - "/*"
 
-# you can define service wide environment variables here
-#  environment:
-#    variable1: value1
+environment:
+  SERVERLESS_STAGE: ${opt:stage}
 
 package:
   exclude:
