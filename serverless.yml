@@ -23,6 +23,8 @@ tenant: andyli
 provider:
   name: aws
   runtime: nodejs8.10
+  environment:
+    SERVERLESS_STAGE: ${opt:stage}
 
 # you can overwrite defaults here
 #  stage: dev
@@ -43,9 +45,6 @@ provider:
 #          - - "arn:aws:s3:::"
 #            - "Ref" : "ServerlessDeploymentBucket"
 #            - "/*"
-
-environment:
-  SERVERLESS_STAGE: ${opt:stage}
 
 package:
   exclude:

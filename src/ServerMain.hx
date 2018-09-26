@@ -61,7 +61,7 @@ class ServerMain {
         var sessionStore = switch(process.env["SERVERLESS_STAGE"]) {
             case "production" | "master":
                 var MySQLStore = require('express-mysql-session')(session);
-                MySQLStore({
+                untyped __js__("new MySQLStore({0})", {
                     host: 'giffon.cluster-czhm2i8itlng.us-east-1.rds.amazonaws.com',
                     port: 3306,
                     user: 'giffon',
