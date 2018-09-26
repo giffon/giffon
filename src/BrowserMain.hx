@@ -141,7 +141,9 @@ class BrowserMain {
                 Browser.alert("Giffon requires localStorage to work.");
                 return;
             }
-            webAuth.authorize({});
+            webAuth.authorize({
+                connection: "facebook"
+            });
         });
 
         new JQuery(".signOutBtn").click(function(evt){

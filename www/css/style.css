@@ -237,6 +237,10 @@ img.emoji, .inline-icon {
     margin: 0 0.5em;
 }
 
+.signInBtn .fab {
+    margin-left: 0.5em;
+}
+
 .signed-in .signInBtn, .signed-out .signOutBtn {
     display: none;
 }
