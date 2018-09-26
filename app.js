@@ -1,10 +1,13 @@
+const isMain = require.main === module;
 const express = require("express");
-const awsServerlessExpressMiddleware = require('aws-serverless-express/middleware');
+if (!isMain) {
+    const awsServerlessExpressMiddleware = require('aws-serverless-express/middleware');
+    app.use(awsServerlessExpressMiddleware.eventContext());
+}
 const app = express();
 
 app.set('view engine', 'html');
 
-app.use(awsServerlessExpressMiddleware.eventContext());
 app.use(express.static('www', {
     dotfiles: 'ignore',
     redirect: true
@@ -12,7 +15,7 @@ app.use(express.static('www', {
 
 module.exports.app = app;
 
-if (require.main === module) {
+if (isMain) {
     const port = 3000;
     app.listen(port, () => console.log('listening on port ' + port));
 }
