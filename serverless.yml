@@ -23,6 +23,7 @@ tenant: andyli
 provider:
   name: aws
   runtime: nodejs8.10
+  timeout: 30
   environment:
     SERVERLESS_STAGE: ${opt:stage}
 
