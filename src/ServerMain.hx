@@ -28,7 +28,7 @@ class ServerMain {
         );
 
         router.get('/callback',
-            passport.authenticate('auth0', { failureRedirect: '/login' }),
+            passport.authenticate('auth0', { failureRedirect: '/' }),
             function(req, res:ExpressResponse) {
                 if (req.user == null) {
                     throw 'user null';
