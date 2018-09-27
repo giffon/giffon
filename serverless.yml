@@ -67,11 +67,11 @@ functions:
         - subnet-4afca900
     events:
       - http:
-          method: get
+          method: ANY
           path: '/'
           cors: true
       - http:
-          method: get
+          method: ANY
           path: '{proxy+}'
           cors: true
 
