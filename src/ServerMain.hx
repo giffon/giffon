@@ -1,9 +1,14 @@
 import js.Node.*;
 import js.npm.express.*;
+import Auth0Info.*;
 
-@:jsRequire("passport-auth0")
-extern class Auth0Strategy {
+@:jsRequire("passport-jwt", "Strategy")
+extern class JwtStrategy {
     public function new(options:Dynamic, callb:Dynamic):Void;
+}
+@:jsRequire("passport-jwt", "ExtractJwt")
+extern class ExtractJwt {
+    static public function fromAuthHeaderAsBearerToken():Dynamic;
 }
 
 @:enum abstract ServerlessStage(String) from String {
@@ -15,35 +20,12 @@ extern class Auth0Strategy {
 class ServerMain {
     static var SERVERLESS_STAGE(default, never):ServerlessStage = process.env["SERVERLESS_STAGE"];
 
-    static function createAuthRouter():Router {
-        var passport:Dynamic = require('passport');
+    static function createAuthRouter(passport:Dynamic):Router {
         var router = Express.GetRouter();
         var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn();
 
-        router.get('/login',
-            passport.authenticate('auth0', { scope: 'openid profile', connection: 'facebook'}),
-            function (req, res) {
-                res.redirect("/");
-            }
-        );
-
-        router.get('/callback',
-            passport.authenticate('auth0', { failureRedirect: '/' }),
-            function(req, res:ExpressResponse) {
-                if (req.user == null) {
-                    throw 'user null';
-                }
-                res.redirect("/");
-            }
-        );
-
-        router.get('/user', ensureLoggedIn, function(req, res:ExpressResponse) {
+        router.get('/user', passport.authenticate('jwt', { session: false }), function(req, res:ExpressResponse) {
             res.send(haxe.Json.stringify(req.user, null, "  "));
-        });
-
-        router.get('/logout', function(req, res:ExpressResponse) {
-            req.logout();
-            res.redirect('/');
         });
 
         return router;
@@ -60,67 +42,31 @@ class ServerMain {
 
         app.set("view engine", "ejs");
 
+        app.use(require("cookie-parser")());
         app.use(untyped new Static("www", {
             dotfiles: Ignore,
             redirect: true
         }));
 
-        var session = require("express-session");
-        var sessionStore = switch(SERVERLESS_STAGE) {
-            case Production | Master:
-                var MySQLStore = require('express-mysql-session')(session);
-                untyped __js__("new {0}({1})", MySQLStore, {
-                    host: 'giffon.cluster-czhm2i8itlng.us-east-1.rds.amazonaws.com',
-                    port: 3306,
-                    user: 'giffon',
-                    password: '5Nrwr4WEGfZa',
-                    database: 'giffon_session'
-                });
-            case _:
-                null;
-        }
-        
-        app.use(untyped session({
-            secret: 'wm9Y5i7iLQHB8T7',
-            store: sessionStore,
-            cookie: {
-                secure: switch(SERVERLESS_STAGE) {
-                    case Production | Master: true;
-                    case _: false;
-                }
-            },
-            resave: false,
-            saveUninitialized: false
-        }));
-
         var passport = require('passport');
-        var strategy = new Auth0Strategy({
-                domain: 'giffon.auth0.com',
-                clientID: 'iI1IXOjJzqm2QQ6PclJ61HKwhW8QHJXz',
-                clientSecret: 'aRMIDi-6bQeRQnUG1GOqU8j2FfL9mz5bcWHn823iAZib78LsSXWpT-6MaF13CGiB',
-                callbackURL: switch(SERVERLESS_STAGE) {
-                    case Production: "https://giffon.io/callback";
-                    case Master: "https://master.giffon.io/callback";
-                    case _: "http://localhost:3000/callback";
-                }
-            },
-            function(accessToken, refreshToken, extraParams, profile, done) {
-                // accessToken is the token to call Auth0 API (not needed in the most cases)
-                // extraParams.id_token has the JSON Web Token
-                // profile has all the information from the user
-                return done(null, profile);
+        function cookieExtractor(req:Dynamic) {
+            var token = null;
+            if (req != null && req.cookies != null)
+            {
+                token = req.cookies.id_token;
             }
-        );
+            return token;
+        };
+        var strategy = new JwtStrategy({
+            secretOrKey: AUTH0_PUBKEY,
+            jwtFromRequest: cookieExtractor,
+            issuer: 'https://${AUTH0_DOMAIN}/',
+            audience: AUTH0_CLIENT_ID,
+        },function(jwt_payload, done) {
+            done(null, jwt_payload);
+        });
         passport.use(strategy);
-        passport.serializeUser(function(user, done) {
-            done(null, user);
-        });
-        passport.deserializeUser(function(user, done) {
-            done(null, user);
-        });
-        app.use(untyped passport.initialize());
-        app.use(untyped passport.session());
-        app.use(untyped createAuthRouter());
+        app.use(untyped createAuthRouter(passport));
         app.get("/", function(req, res) {
             res.render("index", {
                 signInStatus: req.user == null ? "signed-out" : "signed-in",

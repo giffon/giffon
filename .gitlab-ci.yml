@@ -17,6 +17,7 @@ build-server:
   script:
     - haxelib dev hxnodelibs lib/hxnodelibs
     - haxelib install hxnodejs
+    - haxelib install compiletime
     - haxelib list
     - haxe build-server.hxml
   artifacts:

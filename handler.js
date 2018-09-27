@@ -6,8 +6,9 @@ const binaryMimeTypes = [
     'image/svg+xml',
     'image/x-icon',
     'text/html',
+    'text/css',
     'application/javascript',
-    'text/css'
+    'application/octet-stream'
 ];
 const server = awsServerlessExpress.createServer(app, null, binaryMimeTypes);
 module.exports.express = (event, context) => awsServerlessExpress.proxy(server, event, context);
