@@ -55,6 +55,16 @@ package:
 functions:
   express:
     handler: handler.express
+    vpc:
+      securityGroupIds:
+        - sg-02c5e36fd26574c6f
+      subnetIds:
+        - subnet-586ce93f
+        - subnet-c3199f9f
+        - subnet-7ef68971
+        - subnet-f98c44c7
+        - subnet-6f0a8a41
+        - subnet-4afca900
     events:
       - http:
           method: get
