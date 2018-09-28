@@ -74,11 +74,22 @@ class ServerMain {
         });
         app.get("/signin", function(req, res) {
             res.render("signin", {
-                canonical: Path.join([canonicalBase, "signin"])
+                canonical: Path.join([canonicalBase, "signin"]),
             });
         });
-        app.get('/user', ensureLoggedIn, function(req, res:ExpressResponse) {
+        app.get("/home", ensureLoggedIn, function(req, res:ExpressResponse) {
+            res.render("home", {
+                canonical: Path.join([canonicalBase, "home"]),
+                userName: req.user.name,
+            });
+        });
+        app.get("/user", ensureLoggedIn, function(req, res:ExpressResponse) {
             res.send(haxe.Json.stringify(req.user, null, "  "));
+        });
+        app.get("/create-campaign", ensureLoggedIn, function(req, res:ExpressResponse) {
+            res.render("create-campaign", {
+                canonical: Path.join([canonicalBase, "create-campaign"]),
+            });
         });
 
         module.exports.app = app;

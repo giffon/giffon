@@ -52,7 +52,7 @@ class BrowserMain {
                     expires_at: authResult.expiresIn * 1000 + Date.now().getTime()
                 })) {
                     removeHash();
-                    window.location.replace("/");
+                    window.location.replace("/home");
                 };
             }
         });

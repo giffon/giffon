@@ -1,0 +1,29 @@
+<%- include('head'); -%>
+
+<body>
+
+<div class="container">
+    <h1>Make a wish.</h1>
+    <form>
+    <div class="form-group">
+        <label for="item_url">
+            What do you want?
+            <small class="form-text text-muted">Paste the <a href="https://www.amazon.com/" target="_blank" rel="nofollow"><img src="Amazon_logo_plain.svg" alt="Amazon" class="inline-icon" style="height:1.25em"></a> link of the item you wanna receive.</small>
+        </label>
+        <input type="text" class="form-control" id="item_url" placeholder="https://www.amazon.com/gp/product/...">
+    </div>
+    <div class="form-group">
+        <label for="campaign_description">
+            Why do you want it?
+        </label>
+        <textarea class="form-control" id="campaign_description" rows="3" placeholder="I like it because..."></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+<footer class="p-5 text-center">
+Copyright &copy; Giffon. All Rights Reserved.
+</footer>
+
+<%- include('foot'); -%>
