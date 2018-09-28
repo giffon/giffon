@@ -24,22 +24,23 @@ class ServerMain {
     static function main():Void {
         var isMain = (untyped __js__("require")).main == module;
 
-        var app = Express.GetApplication();
+        var app = new Application();
 
         if (!isMain) {
             var awsServerlessExpressMiddleware = require('aws-serverless-express/middleware');
-            app.use(untyped awsServerlessExpressMiddleware.eventContext());
+            app.use(awsServerlessExpressMiddleware.eventContext());
         }
 
         app.set("view engine", "ejs");
 
         app.use(require("cookie-parser")());
-        app.use(untyped new Static("www", {
-            dotfiles: Ignore,
+
+        app.use(Express.Static("www", {
+            dotfiles: "ignore",
             redirect: true
         }));
 
-        app.use(untyped function(req, res, next) {
+        app.use(function(req, res, next) {
             if (req == null || req.cookies == null || req.cookies.id_token == null) {
                 next();
                 return;
