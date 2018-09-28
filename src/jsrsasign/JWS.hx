@@ -1,6 +1,10 @@
 package jsrsasign;
 
+#if nodejs
+@:jsRequire("jsrsasign", "KJUR.jws.JWS")
+#else
 @:native("KJUR.jws.JWS")
+#end
 extern class JWS {
     public function new():Void;
 

@@ -32,8 +32,6 @@ class BrowserMain {
 
     var session(get, null):Null<Session>;
     var webAuth(default, null):WebAuth;
-    var userName(default, null):Promise<String>;
-    var userNameDeferred(default, null):Deferred<String>;
 
     public function new():Void {
         webAuth = new WebAuth({
@@ -45,11 +43,21 @@ class BrowserMain {
             leeway: 60
         });
 
-        userNameDeferred = new Deferred();
-        userName = userNameDeferred.promise();
-
-        userName.then(function(userName) {
-            new JQuery("span.user-name").text(userName);
+        webAuth.parseHash({}, function(err, authResult) {
+            if (err != null) {
+                console.error(err);
+                return;
+            }
+            if (authResult != null) {
+                if (signIn({
+                    access_token: authResult.accessToken,
+                    id_token: authResult.idToken,
+                    expires_at: authResult.expiresIn * 1000 + Date.now().getTime()
+                })) {
+                    removeHash();
+                    document.location.reload(true);
+                };
+            }
         });
 
         new JQuery(onReady);
@@ -89,13 +97,6 @@ class BrowserMain {
         );
 
         if (isValid) {
-            var payloadObj = JWS.readSafeJSONString(b64utoutf8(session.id_token.split(".")[1]));
-            userNameDeferred.resolve(payloadObj.name);
-
-            new JQuery("body")
-                .addClass("signed-in")
-                .removeClass("signed-out");
-
             this.session = session;
 
             Cookies.set("access_token", session.access_token);
@@ -113,9 +114,6 @@ class BrowserMain {
         Cookies.remove("expires_at");
         Cookies.remove("id_token");
 
-        new JQuery("body")
-            .addClass("signed-out")
-            .removeClass("signed-in");
         this.session = null;
         webAuth.logout({
             returnTo: location.origin + location.pathname
@@ -148,33 +146,6 @@ class BrowserMain {
         new JQuery(".signOutBtn").click(function(evt){
             evt.preventDefault();
             signOut();
-        });
-
-        webAuth.parseHash({}, function(err, authResult) {
-            if (err != null) {
-                console.error(err);
-                return;
-            }
-            if (authResult == null) {
-                if (session != null && signIn(session)) {
-                    return;
-                }
-            } else {
-                removeHash();
-
-                if (signIn({
-                    access_token: authResult.accessToken,
-                    id_token: authResult.idToken,
-                    expires_at: authResult.expiresIn * 1000 + Date.now().getTime()
-                })) {
-                    return;
-                };
-            }
-
-            // not signed in
-            new JQuery("body")
-                .addClass("signed-out")
-                .removeClass("signed-in");
         });
     }
 

@@ -2,7 +2,11 @@ package jsrsasign;
 
 import haxe.extern.*;
 
+#if nodejs
+@:jsRequire("jsrsasign", "KEYUTIL")
+#else
 @:native("KEYUTIL")
+#end
 extern class KEYUTIL {
     static public var version:String;
 

@@ -1,15 +1,8 @@
 import js.Node.*;
 import js.npm.express.*;
 import Auth0Info.*;
-
-@:jsRequire("passport-jwt", "Strategy")
-extern class JwtStrategy {
-    public function new(options:Dynamic, callb:Dynamic):Void;
-}
-@:jsRequire("passport-jwt", "ExtractJwt")
-extern class ExtractJwt {
-    static public function fromAuthHeaderAsBearerToken():Dynamic;
-}
+import jsrsasign.*;
+import jsrsasign.Global.*;
 
 @:enum abstract ServerlessStage(String) from String {
     var Master = "master";
@@ -20,16 +13,14 @@ extern class ExtractJwt {
 class ServerMain {
     static var SERVERLESS_STAGE(default, never):ServerlessStage = process.env["SERVERLESS_STAGE"];
 
-    static function createAuthRouter(passport:Dynamic):Router {
-        var router = Express.GetRouter();
-        var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn();
-
-        router.get('/user', passport.authenticate('jwt', { session: false }), function(req, res:ExpressResponse) {
-            res.send(haxe.Json.stringify(req.user, null, "  "));
-        });
-
-        return router;
+    static function ensureLoggedIn(req:ExpressRequest, res:ExpressResponse, next:Dynamic):Void {
+        if ((untyped req.user) == null) {
+            res.redirect("/");
+        } else {
+            next();
+        }
     }
+
     static function main():Void {
         var isMain = (untyped __js__("require")).main == module;
 
@@ -48,30 +39,37 @@ class ServerMain {
             redirect: true
         }));
 
-        var passport = require('passport');
-        function cookieExtractor(req:Dynamic) {
-            var token = null;
-            if (req != null && req.cookies != null)
-            {
-                token = req.cookies.id_token;
+        app.use(untyped function(req, res, next) {
+            if (req == null || req.cookies == null || req.cookies.id_token == null) {
+                next();
+                return;
             }
-            return token;
-        };
-        var strategy = new JwtStrategy({
-            secretOrKey: AUTH0_PUBKEY,
-            jwtFromRequest: cookieExtractor,
-            issuer: 'https://${AUTH0_DOMAIN}/',
-            audience: AUTH0_CLIENT_ID,
-        },function(jwt_payload, done) {
-            done(null, jwt_payload);
+            var token = req.cookies.id_token;
+            var pubkey = KEYUTIL.getKey(AUTH0_PUBKEY);
+            var alg = "RS256";
+            var isValid = JWS.verifyJWT(
+                token,
+                pubkey,
+                {
+                    alg: [alg],
+                    iss: ['https://${AUTH0_DOMAIN}/'],
+                    aud: [AUTH0_CLIENT_ID]
+                }
+            );
+            if (isValid) {
+                var payloadObj = JWS.readSafeJSONString(b64utoutf8(token.split(".")[1]));
+                req.user = payloadObj;
+            }
+            next();
         });
-        passport.use(strategy);
-        app.use(untyped createAuthRouter(passport));
         app.get("/", function(req, res) {
             res.render("index", {
                 signInStatus: req.user == null ? "signed-out" : "signed-in",
-                userName: req.user == null ? null : req.user.displayName
+                userName: req.user == null ? null : req.user.name
             });
+        });
+        app.get('/user', ensureLoggedIn, function(req, res:ExpressResponse) {
+            res.send(haxe.Json.stringify(req.user, null, "  "));
         });
 
         module.exports.app = app;
