@@ -81,7 +81,6 @@ img.emoji, .inline-icon {
     display: flex;
     justify-content: center;
     align-items: center;
-    resize: both;
     overflow: auto;
 }
 
