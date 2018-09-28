@@ -1,11 +1,8 @@
 import auth0.*;
-import js.*;
 import js.Browser.*;
 import js.jquery.JQuery;
-import haxe.*;
-import promhx.*;
+import haxe.io.*;
 import jsrsasign.*;
-import jsrsasign.Global.*;
 import Auth0Info.*;
 
 typedef Session = {
@@ -37,7 +34,7 @@ class BrowserMain {
         webAuth = new WebAuth({
             domain: AUTH0_DOMAIN,
             clientID: AUTH0_CLIENT_ID,
-            redirectUri: js.Browser.location.href,
+            redirectUri: Path.join([js.Browser.location.href, "signin"]),
             responseType: 'token id_token',
             scope: 'openid profile',
             leeway: 60
@@ -55,7 +52,7 @@ class BrowserMain {
                     expires_at: authResult.expiresIn * 1000 + Date.now().getTime()
                 })) {
                     removeHash();
-                    document.location.reload(true);
+                    window.location.replace("/");
                 };
             }
         });

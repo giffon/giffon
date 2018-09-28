@@ -3,6 +3,7 @@ import js.npm.express.*;
 import Auth0Info.*;
 import jsrsasign.*;
 import jsrsasign.Global.*;
+import haxe.io.*;
 
 @:enum abstract ServerlessStage(String) from String {
     var Master = "master";
@@ -12,6 +13,7 @@ import jsrsasign.Global.*;
 
 class ServerMain {
     static var SERVERLESS_STAGE(default, never):ServerlessStage = process.env["SERVERLESS_STAGE"];
+    static var canonicalBase(default, never) = "https://giffon.io";
 
     static function ensureLoggedIn(req:ExpressRequest, res:ExpressResponse, next:Dynamic):Void {
         if ((untyped req.user) == null) {
@@ -65,8 +67,14 @@ class ServerMain {
         });
         app.get("/", function(req, res) {
             res.render("index", {
+                canonical: canonicalBase,
                 signInStatus: req.user == null ? "signed-out" : "signed-in",
                 userName: req.user == null ? null : req.user.name
+            });
+        });
+        app.get("/signin", function(req, res) {
+            res.render("signin", {
+                canonical: Path.join([canonicalBase, "signin"])
             });
         });
         app.get('/user', ensureLoggedIn, function(req, res:ExpressResponse) {
