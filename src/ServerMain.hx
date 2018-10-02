@@ -86,7 +86,7 @@ class ServerMain {
                     return;
                 case "0":
                     res.locals.isBeta = false;
-                    res.clearCookie("beta");
+                    res.cookie("beta", "0");
                     next();
                     return;
                 case _:
@@ -96,6 +96,10 @@ class ServerMain {
                 switch (req.cookies.beta) {
                     case "1":
                         res.locals.isBeta = true;
+                        next();
+                        return;
+                    case "0":
+                        res.locals.isBeta = false;
                         next();
                         return;
                     case _:
