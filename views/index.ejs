@@ -1,12 +1,15 @@
 <%- include('head'); -%>
 
-<body class="<%= signInStatus %>">
-
+<% if (isBeta) { %>
 <div id="nav">
-	<a href="/login" class="signInBtn">Sign in<i class="fab fa-facebook"></i></a>
-	<span class="greeting">Hi, <span class="user-name"><%= userName %></span>!</span>
-	<a href="/logout" class="signOutBtn">Sign out</a>
+	<% if (locals.user == null) { %>
+		<a href="/login" class="signInBtn">Sign in<i class="fab fa-facebook"></i></a>
+	<% } else { %>
+		<span class="greeting">Hi, <span class="user-name"><%= user.name %></span>!</span>
+		<a href="/logout" class="signOutBtn">Sign out</a>
+	<% } %>
 </div>
+<% } %>
 
 <div class="container-fluid px-3 py-5 p-md-5">
 	<div class="row">

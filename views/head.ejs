@@ -41,3 +41,11 @@
 	<link rel="stylesheet" type="text/css" href="/css/fontsize.css">
 	<link rel="stylesheet" type="text/css" href="/css/style.css">
 </head>
+<%
+	bodyClasses.push(locals.user == null ? 'signed-out' : 'signed-in');
+
+	if (isBeta) {
+		bodyClasses.push('beta');
+	}
+%>
+<body class="<%= bodyClasses.join(' ') %>">
