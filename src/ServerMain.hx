@@ -16,7 +16,7 @@ class ServerMain {
     static var canonicalBase(default, never) = "https://giffon.io";
 
     static function ensureLoggedIn(req:Request, res:Response, next:Dynamic):Void {
-        if ((untyped req.user) == null) {
+        if (res.locals.user == null) {
             res.redirect("/");
         } else {
             next();
@@ -27,6 +27,7 @@ class ServerMain {
         var isMain = (untyped __js__("require")).main == module;
 
         var app = new Application();
+        app.locals.canonicalBase = canonicalBase;
 
         if (!isMain) {
             var awsServerlessExpressMiddleware = require('aws-serverless-express/middleware');
@@ -62,8 +63,15 @@ class ServerMain {
             );
             if (isValid) {
                 var payloadObj = JWS.readSafeJSONString(b64utoutf8(token.split(".")[1]));
-                req.user = payloadObj;
+                res.locals.user = payloadObj;
             }
+            next();
+        });
+
+        //bodyClasses
+        app.use(function(req:Request, res:Response, next) {
+            res.locals.bodyClasses = [];
+            res.locals.canonical = Path.join([canonicalBase, req.path]);
             next();
         });
 
@@ -71,12 +79,12 @@ class ServerMain {
         app.use(function(req:Request, res:Response, next) {
             switch (req.query.beta) {
                 case "1":
-                    req.beta = true;
+                    res.locals.isBeta = true;
                     res.cookie("beta", "1");
                     next();
                     return;
                 case "0":
-                    req.beta = false;
+                    res.locals.isBeta = false;
                     res.clearCookie("beta");
                     next();
                     return;
@@ -86,14 +94,14 @@ class ServerMain {
             if (req.cookies != null) {
                 switch (req.cookies.beta) {
                     case "1":
-                        req.beta = true;
+                        res.locals.isBeta = true;
                         next();
                         return;
                     case _:
                         //pass
                 }
             }
-            req.beta = switch (SERVERLESS_STAGE) {
+            res.locals.isBeta = switch (SERVERLESS_STAGE) {
                 case Production: false;
                 case _: true;
             }
@@ -101,38 +109,19 @@ class ServerMain {
         });
 
         app.get("/", function(req:Request, res) {
-            res.render("index", {
-                canonical: canonicalBase,
-                bodyClasses: [],
-                isBeta: req.beta,
-                user: req.user
-            });
+            res.render("index");
         });
         app.get("/signin", function(req, res) {
-            res.render("signin", {
-                canonical: Path.join([canonicalBase, "signin"]),
-                bodyClasses: [],
-                isBeta: req.beta,
-            });
+            res.render("signin");
         });
         app.get("/home", ensureLoggedIn, function(req, res:Response) {
-            res.render("home", {
-                canonical: Path.join([canonicalBase, "home"]),
-                bodyClasses: [],
-                isBeta: req.beta,
-                user: req.user
-            });
+            res.render("home");
         });
         app.get("/user", ensureLoggedIn, function(req, res:Response) {
-            res.send(haxe.Json.stringify(req.user, null, "  "));
+            res.send(haxe.Json.stringify(res.locals.user, null, "  "));
         });
         app.get("/create-campaign", ensureLoggedIn, function(req, res:Response) {
-            res.render("create-campaign", {
-                canonical: Path.join([canonicalBase, "create-campaign"]),
-                bodyClasses: [],
-                isBeta: req.beta,
-                user: req.user
-            });
+            res.render("create-campaign");
         });
 
         module.exports.app = app;
