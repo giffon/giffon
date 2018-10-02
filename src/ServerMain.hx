@@ -6,13 +6,13 @@ import jsrsasign.Global.*;
 import haxe.io.*;
 
 @:enum abstract ServerlessStage(String) from String {
-    var Master = "master";
     var Production = "production";
+    var Master = "master";
     var Dev = "dev";
 }
 
 class ServerMain {
-    static var SERVERLESS_STAGE(default, never):ServerlessStage = process.env["SERVERLESS_STAGE"];
+    static var SERVERLESS_STAGE(default, never):Null<ServerlessStage> = process.env["SERVERLESS_STAGE"];
     static var canonicalBase(default, never) = "https://giffon.io";
 
     static function ensureLoggedIn(req:Request, res:Response, next:Dynamic):Void {
@@ -28,6 +28,7 @@ class ServerMain {
 
         var app = new Application();
         app.locals.canonicalBase = canonicalBase;
+        app.locals.title = "Giffon";
 
         if (!isMain) {
             var awsServerlessExpressMiddleware = require('aws-serverless-express/middleware');
@@ -68,7 +69,7 @@ class ServerMain {
             next();
         });
 
-        //bodyClasses
+        //template variables
         app.use(function(req:Request, res:Response, next) {
             res.locals.bodyClasses = [];
             res.locals.canonical = Path.join([canonicalBase, req.path]);
