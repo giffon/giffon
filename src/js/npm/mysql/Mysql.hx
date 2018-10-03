@@ -43,7 +43,7 @@ typedef PoolClusterOptions = {
     @:optional var defaultSelector:String;
 }
 
-@:native("mysql")
+@:jsRequire("mysql")
 extern class Mysql {
     static public function createConnection(options:EitherType<String, ConnectionOptions>):Connection;
     static public function createPool(options:PoolOptions):Pool;

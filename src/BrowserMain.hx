@@ -36,7 +36,7 @@ class BrowserMain {
             clientID: AUTH0_CLIENT_ID,
             redirectUri: Path.join([js.Browser.location.href, "signin"]),
             responseType: 'token id_token',
-            scope: 'openid profile',
+            scope: 'openid email profile',
             leeway: 60
         });
 

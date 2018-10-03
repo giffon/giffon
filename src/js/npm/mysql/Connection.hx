@@ -3,7 +3,7 @@ package js.npm.mysql;
 import haxe.Constraints;
 
 extern class Connection {
-    public function connect():Void;
+    public function connect(?callb:Function):Void;
 
     @:overload(function(sql:String, values:Dynamic, callb:Function):Void {})
     @:overload(function(options:Dynamic, callb:Function):Void {})

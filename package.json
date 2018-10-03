@@ -22,7 +22,8 @@
     "cookie-parser": "^1.4.3",
     "ejs": "^2.6.1",
     "express": "^4.16.3",
-    "jsrsasign": "^8.0.12"
+    "jsrsasign": "^8.0.12",
+    "mysql": "^2.16.0"
   },
   "devDependencies": {
     "serverless-apigw-binary": "^0.4.4"
