@@ -22,6 +22,7 @@ extern class Connection {
 
     public function ping(callb:Function):Void;
 
+    public function release():Void;
     public function end(?callb:Function):Void;
 
     public function destroy():Void;

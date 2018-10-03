@@ -18,6 +18,8 @@ class Mysql {
                 ]);
             case ["stop"]:
                 Sys.command("docker", ["stop", containerName]);
+            case _:
+                throw "invalid args";
         }
     }
 }

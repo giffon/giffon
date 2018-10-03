@@ -24,19 +24,21 @@ class ServerMain {
         }
     }
 
-    static var dbConnection:Connection;
+    static var dbConnectionPool:Pool;
 
     static function main():Void {
         var isMain = (untyped __js__("require")).main == module;
 
-        dbConnection = Mysql.createConnection({
+        dbConnectionPool = Mysql.createPool({
+            connectionLimit : 5,
             host: DBInfo.host,
             user: DBInfo.user,
             password: DBInfo.password,
             database: DBInfo.database,
-            connectTimeout: 30.0 * 1000.0, //30 seconds
+            charset: DBInfo.charset,
+            connectTimeout: 20.0 * 1000.0, //20 seconds
+            acquireTimeout: 20.0 * 1000.0, //20 seconds
         });
-        dbConnection.connect();
 
         var app = new Application();
         app.locals.canonicalBase = canonicalBase;
@@ -133,15 +135,15 @@ class ServerMain {
         });
         app.get("/home", ensureLoggedIn, function(req, res:Response) {
             var userEmail = res.locals.user.email;
-            if (userEmail == null) throw "no email info";
-            dbConnection.query("SELECT 1 FROM user WHERE `user_primary_email` = ?", [userEmail],
+            if (userEmail == null) return res.status(500).send("user has no email info");
+            dbConnectionPool.query("SELECT 1 FROM user WHERE `user_primary_email` = ?", [userEmail],
                 function(err, results:Array<Dynamic>, fields:Array<Dynamic>) {
-                    if (err) throw err;
+                    if (err) return res.status(500).send(err);
                     if (results.length == 0) {
-                        dbConnection.query("INSERT INTO user SET ?", {
+                        dbConnectionPool.query("INSERT INTO user SET ?", {
                             user_primary_email: userEmail
                         }, function(err, results, fields) {
-                            if (err) throw err;
+                            if (err) return res.status(500).send(err);
                             res.render("home");
                         });
                     } else {

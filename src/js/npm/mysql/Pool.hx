@@ -8,6 +8,8 @@ extern class Pool {
     @:overload(function(options:Dynamic, values:Dynamic, callb:Function):Void {})
     public function query(sql:String, callb:Function):Void;
 
+    public function getConnection(callb:Function):Void;
+
     public function escape(v:Dynamic):String;
 
     public function escapeId(v:String, ?dot:Bool):String;
