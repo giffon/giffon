@@ -19,6 +19,7 @@
   "homepage": "https://gitlab.com/andyli/giffon#README",
   "dependencies": {
     "aws-serverless-express": "^3.3.5",
+    "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.3",
     "ejs": "^2.6.1",
     "express": "^4.16.3",

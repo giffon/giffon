@@ -68,6 +68,9 @@ class ServerMain {
         app.set("view engine", "ejs");
 
         app.use(require("cookie-parser")());
+        app.use(require("body-parser").urlencoded({
+            extended: false
+        }));
 
         app.use(Express.Static("www", {
             dotfiles: "ignore",
@@ -149,7 +152,7 @@ class ServerMain {
         app.get("/signin", function(req, res:Response) {
             res.render("signin");
         });
-        app.get("/home", ensureLoggedIn, function(req, res:Response) {
+        app.get("/home", ensureLoggedIn, function(req:Request, res:Response):Void {
             var userEmail = res.locals.user.email;
             if (userEmail == null) return res.status(500).send("user has no email info");
             dbConnectionPool.query("SELECT 1 FROM user WHERE `user_primary_email` = ?", [userEmail],
@@ -173,6 +176,9 @@ class ServerMain {
         });
         app.get("/create-campaign", ensureLoggedIn, function(req, res:Response) {
             res.render("create-campaign");
+        });
+        app.post("/create-campaign", ensureLoggedIn, function(req:Request, res:Response) {
+            res.send(req.body);
         });
 
         module.exports.app = app;
