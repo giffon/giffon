@@ -5,6 +5,7 @@ import Auth0Info.*;
 import jsrsasign.*;
 import jsrsasign.Global.*;
 import haxe.io.*;
+import js.Promise;
 using js.npm.validator.Validator;
 
 @:enum abstract ServerlessStage(String) from String {
@@ -186,6 +187,15 @@ class ServerMain {
             next();
         });
 
+        function getCampaigns(user_id:Int) {
+            return new Promise(function(resolve, reject) {
+                dbConnectionPool.query("SELECT `campaign_id`, `campaign_description`, `campaign_state` FROM campaign WHERE `user_id` = ?", [user_id], function(err, results, fields) {
+                    if (err != null) return reject(err);
+                    resolve(results);
+                });
+            });
+        }
+
         app.get("/", function(req:Request, res) {
             res.render("index");
         });
@@ -193,7 +203,15 @@ class ServerMain {
             res.render("signin");
         });
         app.get("/home", ensureLoggedIn, function(req:Request, res:Response):Void {
-            res.render("home");
+            getCampaigns(res.locals.user.user_id)
+                .then(function(campaigns) {
+                    res.render("home", {
+                        campaigns: campaigns
+                    });
+                })
+                .catchError(function(err){
+                    res.status(500).send(err);
+                });
         });
         app.get("/user", ensureLoggedIn, function(req, res:Response) {
             res.send(haxe.Json.stringify(res.locals.user, null, "  "));

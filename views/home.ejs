@@ -7,8 +7,19 @@ locals.title = "Home - Giffon";
     <h1>Welcome, <%= user.name %>!</h1>
 
     <div>
-    <p>You don't have any Giffon campaign yet.</p>
-    <a href="/create-campaign">Make a wish.</a>
+    <% if (campaigns.length == 0) { %>
+        <p>You don't have any Giffon campaign yet.</p>
+        <a href="/create-campaign">Make a wish.</a>
+    <% } else { %>
+        Your current <%= campaigns.length == 1 ? "campaign" : "campaigns" %>:
+        <ul>
+        <% campaigns.forEach(function(campaign) { %>
+            <li>
+                <pre><%=JSON.stringify(campaign, null, "  ")%></pre>
+            </li>
+        <% }); %>
+        </ul>
+    <% } %>
     </div>
 </div>
 
