@@ -2,7 +2,7 @@ import js.Node.*;
 import js.npm.express.*;
 import js.npm.mysql.*;
 import js.npm.amazon_helpers.AmazonHelpers;
-import js.npm.amazon_product_api.AmazonProductApi;
+import js.npm.price_finder.PriceFinder;
 import Auth0Info.*;
 import jsrsasign.*;
 import jsrsasign.Global.*;
@@ -234,32 +234,25 @@ class ServerMain {
                 return;
             }
 
-            var item_ident = AmazonHelpers.getIdentByUrl(item_url);
-            trace(item_ident);
-
-            dbConnectionPool.getConnection(function(err, cnx:Connection) {
+            var priceFinder = new PriceFinder();
+            priceFinder.findItemDetails(item_url, function(err, details:{
+                price: Float,
+                category: String,
+                name: String
+            }){
                 if (err != null) return res.status(500).send(err);
-                cnx.beginTransaction(function(err){
+                dbConnectionPool.getConnection(function(err, cnx:Connection) {
                     if (err != null) return res.status(500).send(err);
-                    cnx.query("INSERT INTO item SET ?", {
-                        item_url: item_url
-                    }, function(err, results, fields) {
-                        var item_id = results.insertId;
-                        cnx.query("INSERT INTO item_group SET ?", {
-                            item_id: item_id
+                    cnx.beginTransaction(function(err){
+                        if (err != null) return res.status(500).send(err);
+                        cnx.query("INSERT INTO item SET ?", {
+                            item_url: item_url,
+                            item_name: details.name,
+                            item_price: details.price,
                         }, function(err, results, fields) {
-                            if (err != null) {
-                                return cnx.rollback(function(){
-                                    cnx.release();
-                                    res.status(500).send(err);
-                                });
-                            }
-                            var item_group_id = results.insertId;
-                            cnx.query("INSERT INTO campaign SET ?", {
-                                user_id: res.locals.user.user_id,
-                                campaign_description: campaign_description,
-                                campaign_type: db.CampaignType.Suprise,
-                                item_group_id: item_group_id,
+                            var item_id = results.insertId;
+                            cnx.query("INSERT INTO item_group SET ?", {
+                                item_id: item_id
                             }, function(err, results, fields) {
                                 if (err != null) {
                                     return cnx.rollback(function(){
@@ -267,9 +260,12 @@ class ServerMain {
                                         res.status(500).send(err);
                                     });
                                 }
-                                var campaign_id = results.insertId;
-                                cnx.query("INSERT INTO campaign_surprise SET ?", {
-                                    campaign_id: campaign_id,
+                                var item_group_id = results.insertId;
+                                cnx.query("INSERT INTO campaign SET ?", {
+                                    user_id: res.locals.user.user_id,
+                                    campaign_description: campaign_description,
+                                    campaign_type: db.CampaignType.Suprise,
+                                    item_group_id: item_group_id,
                                 }, function(err, results, fields) {
                                     if (err != null) {
                                         return cnx.rollback(function(){
@@ -277,15 +273,26 @@ class ServerMain {
                                             res.status(500).send(err);
                                         });
                                     }
-                                    cnx.commit(function(err){
+                                    var campaign_id = results.insertId;
+                                    cnx.query("INSERT INTO campaign_surprise SET ?", {
+                                        campaign_id: campaign_id,
+                                    }, function(err, results, fields) {
                                         if (err != null) {
                                             return cnx.rollback(function(){
                                                 cnx.release();
                                                 res.status(500).send(err);
                                             });
                                         }
-                                        cnx.release();
-                                        res.send("done");
+                                        cnx.commit(function(err){
+                                            if (err != null) {
+                                                return cnx.rollback(function(){
+                                                    cnx.release();
+                                                    res.status(500).send(err);
+                                                });
+                                            }
+                                            cnx.release();
+                                            res.send("done");
+                                        });
                                     });
                                 });
                             });
