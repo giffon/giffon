@@ -1,6 +1,8 @@
 import js.Node.*;
 import js.npm.express.*;
 import js.npm.mysql.*;
+import js.npm.amazon_helpers.AmazonHelpers;
+import js.npm.amazon_product_api.AmazonProductApi;
 import Auth0Info.*;
 import jsrsasign.*;
 import jsrsasign.Global.*;
@@ -231,6 +233,9 @@ class ServerMain {
                 res.status(400).send("invalid url");
                 return;
             }
+
+            var item_ident = AmazonHelpers.getIdentByUrl(item_url);
+            trace(item_ident);
 
             dbConnectionPool.getConnection(function(err, cnx:Connection) {
                 if (err != null) return res.status(500).send(err);
