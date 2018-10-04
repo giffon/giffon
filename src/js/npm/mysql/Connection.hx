@@ -19,6 +19,7 @@ extern class Connection {
 
     public function beginTransaction(callb:Function):Void;
     public function commit(callb:Function):Void;
+    public function rollback(callb:Function):Void;
 
     public function ping(callb:Function):Void;
 

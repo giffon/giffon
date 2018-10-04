@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: giffon.cluster-czhm2i8itlng.us-east-1.rds.amazonaws.com
--- Generation Time: Oct 03, 2018 at 09:58 AM
+-- Generation Time: Oct 04, 2018 at 06:30 AM
 -- Server version: 5.6.10
 -- PHP Version: 7.2.8
 
@@ -61,10 +61,10 @@ CREATE TABLE `item` (
   `item_id` int(11) NOT NULL,
   `item_url` varchar(1024) NOT NULL,
   `item_url_screenshot` longblob,
-  `item_name` varchar(128) NOT NULL,
-  `item_price` decimal(16,4) NOT NULL,
+  `item_name` varchar(128) DEFAULT NULL,
+  `item_price` decimal(16,4) DEFAULT NULL,
   `item_time_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `shop_id` int(11) NOT NULL
+  `shop_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------

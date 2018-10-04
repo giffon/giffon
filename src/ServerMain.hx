@@ -5,6 +5,7 @@ import Auth0Info.*;
 import jsrsasign.*;
 import jsrsasign.Global.*;
 import haxe.io.*;
+using js.npm.validator.Validator;
 
 @:enum abstract ServerlessStage(String) from String {
     var Production = "production";
@@ -96,10 +97,49 @@ class ServerMain {
                 }
             );
             if (isValid) {
-                var payloadObj = JWS.readSafeJSONString(b64utoutf8(token.split(".")[1]));
-                res.locals.user = payloadObj;
+                var payloadObj:{
+                    given_name: String,
+                    family_name: String,
+                    nickname: String,
+                    name: String,
+                    picture: String,
+                    updated_at: String,
+                    email: String,
+                    email_verified:Bool,
+                    iss: String,
+                    sub: String,
+                    aud: String,
+                    iat: Float,
+                    exp: Float,
+                    at_hash: String,
+                    nonce: String
+                } = JWS.readSafeJSONString(b64utoutf8(token.split(".")[1]));
+                var userEmail = payloadObj.email;
+                if (userEmail == null) return res.status(500).send("user has no email info");
+                res.locals.user = (payloadObj:Dynamic);
+
+                // get user_id
+                dbConnectionPool.query("SELECT user_id FROM user WHERE `user_primary_email` = ?", [userEmail],
+                    function(err, results:Array<Dynamic>, fields:Array<Dynamic>) {
+                        if (err != null) return res.status(500).send(err);
+                        if (results.length >= 1) {
+                            res.locals.user.user_id = results[0].user_id;
+                            next();
+                        } else {
+                            // insert user
+                            dbConnectionPool.query("INSERT INTO user SET ?", {
+                                user_primary_email: userEmail
+                            }, function(err, results, fields) {
+                                if (err != null) return res.status(500).send(err);
+                                res.locals.user.user_id = results.insertId;
+                                next();
+                            });
+                        }
+                    }
+                );
+            } else {
+                next();
             }
-            next();
         });
 
         //template variables
@@ -153,23 +193,7 @@ class ServerMain {
             res.render("signin");
         });
         app.get("/home", ensureLoggedIn, function(req:Request, res:Response):Void {
-            var userEmail = res.locals.user.email;
-            if (userEmail == null) return res.status(500).send("user has no email info");
-            dbConnectionPool.query("SELECT 1 FROM user WHERE `user_primary_email` = ?", [userEmail],
-                function(err, results:Array<Dynamic>, fields:Array<Dynamic>) {
-                    if (err) return res.status(500).send(err);
-                    if (results.length == 0) {
-                        dbConnectionPool.query("INSERT INTO user SET ?", {
-                            user_primary_email: userEmail
-                        }, function(err, results, fields) {
-                            if (err) return res.status(500).send(err);
-                            res.render("home");
-                        });
-                    } else {
-                        res.render("home");
-                    }
-                }
-            );
+            res.render("home");
         });
         app.get("/user", ensureLoggedIn, function(req, res:Response) {
             res.send(haxe.Json.stringify(res.locals.user, null, "  "));
@@ -178,7 +202,74 @@ class ServerMain {
             res.render("create-campaign");
         });
         app.post("/create-campaign", ensureLoggedIn, function(req:Request, res:Response) {
-            res.send(req.body);
+            var item_url:String = req.body.item_url;
+            var campaign_description:String = req.body.campaign_description;
+
+            if (!item_url.isURL({
+                protocols: ["https"],
+                require_protocol: true,
+                host_whitelist: ["www.amazon.com"],
+            })) {
+                res.status(400).send("invalid url");
+                return;
+            }
+
+            dbConnectionPool.getConnection(function(err, cnx:Connection) {
+                if (err != null) return res.status(500).send(err);
+                cnx.beginTransaction(function(err){
+                    if (err != null) return res.status(500).send(err);
+                    cnx.query("INSERT INTO item SET ?", {
+                        item_url: item_url
+                    }, function(err, results, fields) {
+                        var item_id = results.insertId;
+                        cnx.query("INSERT INTO item_group SET ?", {
+                            item_id: item_id
+                        }, function(err, results, fields) {
+                            if (err != null) {
+                                return cnx.rollback(function(){
+                                    cnx.release();
+                                    res.status(500).send(err);
+                                });
+                            }
+                            var item_group_id = results.insertId;
+                            cnx.query("INSERT INTO campaign SET ?", {
+                                user_id: res.locals.user.user_id,
+                                campaign_description: campaign_description,
+                                campaign_type: db.CampaignType.Suprise,
+                                item_group_id: item_group_id,
+                            }, function(err, results, fields) {
+                                if (err != null) {
+                                    return cnx.rollback(function(){
+                                        cnx.release();
+                                        res.status(500).send(err);
+                                    });
+                                }
+                                var campaign_id = results.insertId;
+                                cnx.query("INSERT INTO campaign_surprise SET ?", {
+                                    campaign_id: campaign_id,
+                                }, function(err, results, fields) {
+                                    if (err != null) {
+                                        return cnx.rollback(function(){
+                                            cnx.release();
+                                            res.status(500).send(err);
+                                        });
+                                    }
+                                    cnx.commit(function(err){
+                                        if (err != null) {
+                                            return cnx.rollback(function(){
+                                                cnx.release();
+                                                res.status(500).send(err);
+                                            });
+                                        }
+                                        cnx.release();
+                                        res.send("done");
+                                    });
+                                });
+                            });
+                        });
+                    });
+                });
+            });
         });
 
         module.exports.app = app;
