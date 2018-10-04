@@ -44,7 +44,6 @@ class ServerMain {
             cnx.connect(function(err) {
                 if (err != null) {
                     console.error('error connecting: ' + err.stack);
-                    return;
                 }
                 cnx.end();
             });
