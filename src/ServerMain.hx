@@ -29,16 +29,33 @@ class ServerMain {
     static function main():Void {
         var isMain = (untyped __js__("require")).main == module;
 
-        dbConnectionPool = Mysql.createPool({
-            connectionLimit : 5,
+        var dbConfig:Mysql.ConnectionOptions = {
             host: DBInfo.host,
             user: DBInfo.user,
             password: DBInfo.password,
             database: DBInfo.database,
             charset: DBInfo.charset,
-            connectTimeout: 20.0 * 1000.0, //20 seconds
-            acquireTimeout: 20.0 * 1000.0, //20 seconds
-        });
+            connectTimeout: 4 * 60 * 1000.0 //4 minutes
+        };
+
+        // Let's warm up the database
+        {
+            var cnx = Mysql.createConnection(dbConfig);
+            cnx.connect(function(err) {
+                if (err != null) {
+                    console.error('error connecting: ' + err.stack);
+                    return;
+                }
+                cnx.end();
+            });
+        }
+
+        var poolConfig:Mysql.PoolOptions = cast Reflect.copy(dbConfig);
+        poolConfig.connectionLimit = 5;
+        poolConfig.connectTimeout = 20.0 * 1000.0; //20 seconds
+        poolConfig.acquireTimeout = 20.0 * 1000.0; //20 seconds
+        dbConnectionPool = Mysql.createPool(poolConfig);
+
 
         var app = new Application();
         app.locals.canonicalBase = canonicalBase;
