@@ -9,7 +9,7 @@ locals.description = "A crowd-gifting platform where you can state what you want
 	<% if (locals.user == null) { %>
 		<a href="/login" class="signInBtn">Sign in<i class="fab fa-facebook"></i></a>
 	<% } else { %>
-		<span class="greeting">Hi, <span class="user-name"><%= user.name %></span>!</span>
+		<span class="greeting">Hi, <a class="user-name" href="/home"><%= user.name %></a>!</span>
 		<a href="/logout" class="signOutBtn">Sign out</a>
 	<% } %>
 </div>
