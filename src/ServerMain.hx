@@ -191,10 +191,39 @@ class ServerMain {
 
         function getCampaigns(user_id:Int) {
             return new Promise(function(resolve, reject) {
-                dbConnectionPool.query("SELECT `campaign_id`, `campaign_description`, `campaign_state` FROM campaign WHERE `user_id` = ?", [user_id], function(err, results, fields) {
-                    if (err != null) return reject(err);
-                    resolve(results);
-                });
+                dbConnectionPool.query(
+                    "
+                        SELECT `campaign_id`, `campaign_description`, `campaign_state`, `item_group_id`
+                        FROM campaign
+                        WHERE `user_id` = ?
+                    ",
+                    [user_id],
+                    function(err, campaign_results:Array<Dynamic>, fields) {
+                        if (err != null) return reject(err);
+
+                        Promise.all([for (campaign in campaign_results) {
+                            new Promise(function(resolve, reject){
+                                dbConnectionPool.query(
+                                    "
+                                        SELECT item.`item_id`, `item_url`, `item_name`, `item_price`
+                                        FROM item, item_group
+                                        WHERE item.`item_id` = item_group.`item_id` AND `item_group_id` = ?
+                                    ",
+                                    [campaign.item_group_id],
+                                    function(err, item_results, fields) {
+                                        if (err != null) return reject(err);
+                                        resolve({
+                                            campaign_id: campaign.campaign_id,
+                                            campaign_description: campaign.campaign_description,
+                                            campaign_state: campaign.campaign_state,
+                                            items: item_results
+                                        });
+                                    }
+                                );
+                            });
+                        }]).then(resolve).catchError(reject);
+                    }
+                );
             });
         }
 
