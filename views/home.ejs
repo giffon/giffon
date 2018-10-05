@@ -1,5 +1,6 @@
 <%
 locals.title = "Home - Giffon";
+bodyClasses.push("page-home");
 %>
 <%- include('head'); -%>
 
@@ -12,13 +13,17 @@ locals.title = "Home - Giffon";
         <a href="/create-campaign">Make a wish.</a>
     <% } else { %>
         Your current <%= campaigns.length == 1 ? "campaign" : "campaigns" %>:
-        <ul>
         <% campaigns.forEach(function(campaign) { %>
-            <li>
-                <pre><%=JSON.stringify(campaign, null, "  ")%></pre>
-            </li>
+            <div class="campaign">
+                <div class="campaign-description"><%=campaign.campaign_description%></div>
+                <% campaign.items.forEach(function(item) { %>
+                    <div class="item">
+                        <div class="item-name"><%=item.item_name%></div>
+                        <img class="item-screenshot" alt="<%=item.item_name%>" src="<%=item.item_url_screenshot%>">
+                    </div>
+                <% }); %>
+            </div>
         <% }); %>
-        </ul>
     <% } %>
     </div>
 </div>

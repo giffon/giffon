@@ -3,6 +3,7 @@ import js.npm.express.*;
 import js.npm.mysql.*;
 import js.npm.request.Request as NodeRequest;
 import js.npm.price_finder.PriceFinder;
+import js.npm.image_data_uri.ImageDataUri;
 import Auth0Info.*;
 import jsrsasign.*;
 import jsrsasign.Global.*;
@@ -210,13 +211,21 @@ class ServerMain {
                                         WHERE item.`item_id` = item_group.`item_id` AND `item_group_id` = ?
                                     ",
                                     [campaign.item_group_id],
-                                    function(err, item_results, fields) {
+                                    function(err, item_results:Array<Dynamic>, fields) {
                                         if (err != null) return reject(err);
                                         resolve({
                                             campaign_id: campaign.campaign_id,
                                             campaign_description: campaign.campaign_description,
                                             campaign_state: campaign.campaign_state,
-                                            items: item_results
+                                            items: item_results.map(function(item){
+                                                return {
+                                                    item_id: item.item_id,
+                                                    item_url: item.item_url,
+                                                    item_url_screenshot: ImageDataUri.encode(item.item_url_screenshot, "PNG"),
+                                                    item_name: item.item_name,
+                                                    item_price: item.item_price
+                                                }
+                                            })
                                         });
                                     }
                                 );

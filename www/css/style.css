@@ -259,3 +259,21 @@ img.emoji, .inline-icon {
 .signed-in .greeting {
     display: inline-block;
 }
+
+.page-home .campaign {
+    padding: 0.5em;
+}
+
+.page-home .campaign .item {
+    border: 1px solid gray;
+    border-radius: 3px;
+    padding: 0.5em;
+    max-width: 100%;
+    width: fit-content;
+    min-width: min-content;
+}
+
+.page-home img.item-screenshot {
+    max-width: 100%;
+    width: 150px;
+}

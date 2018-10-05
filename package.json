@@ -25,6 +25,7 @@
     "cookie-parser": "^1.4.3",
     "ejs": "^2.6.1",
     "express": "^4.16.3",
+    "image-data-uri": "^2.0.0",
     "jsrsasign": "^8.0.12",
     "mysql": "^2.16.0",
     "price-finder": "^5.0.0",
