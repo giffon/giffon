@@ -291,7 +291,7 @@ class ServerMain {
                                                 });
                                             }
                                             cnx.release();
-                                            res.send("done");
+                                            res.redirect("/home");
                                         });
                                     });
                                 });
