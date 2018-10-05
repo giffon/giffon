@@ -2,7 +2,7 @@ import Cdp from 'chrome-remote-interface'
 import log from '../utils/log'
 import sleep from '../utils/sleep'
 
-export default async function captureScreenshotOfUrl (url, mobile = false) {
+export default async function captureScreenshotOfUrl (url, canvasSize = null, scrollTo = null, mobile = false) {
   const LOAD_TIMEOUT = process.env.PAGE_LOAD_TIMEOUT || 1000 * 60
 
   let result
@@ -40,39 +40,70 @@ export default async function captureScreenshotOfUrl (url, mobile = false) {
       })
     }
 
+    let width = canvasSize && canvasSize[0] ? canvasSize[0] : mobile ? 375 : 1280;
+    let height = canvasSize && canvasSize[1] ? canvasSize[1] : 0;
+
     await Emulation.setDeviceMetricsOverride({
       mobile: !!mobile,
       deviceScaleFactor: 0,
       scale: 1, // mobile ? 2 : 1,
-      width: mobile ? 375 : 1280,
-      height: 0,
+      width,
+      height
     })
 
     await Page.navigate({ url })
     await Page.loadEventFired()
     await loading()
 
-    const {
-      result: {
-        value: { height },
-      },
-    } = await Runtime.evaluate({
-      expression: `(
-        () => ({ height: document.body.scrollHeight })
-      )();
-      `,
-      returnByValue: true,
-    })
+    if (!height) {
+      const {
+        result: {
+          value: { scrollHeight },
+        },
+      } = await Runtime.evaluate({
+        expression: `(
+          () => ({ height: document.body.scrollHeight })
+        )();
+        `,
+        returnByValue: true,
+      })
 
-    await Emulation.setDeviceMetricsOverride({
-      mobile: !!mobile,
-      deviceScaleFactor: 0,
-      scale: 1, // mobile ? 2 : 1,
-      width: mobile ? 375 : 1280,
-      height,
-    })
+      height = scrollHeight;
 
-    const screenshot = await Page.captureScreenshot({ format: 'png' })
+      await Emulation.setDeviceMetricsOverride({
+        mobile: !!mobile,
+        deviceScaleFactor: 0,
+        scale: 1, // mobile ? 2 : 1,
+        width,
+        height
+      })
+    }
+
+    log("scrollTo: " + JSON.stringify(scrollTo));
+    let clipY = scrollTo || 0;
+    if (typeof clipY === "string") {
+      const evalResult = await Runtime.evaluate({
+        expression: `(
+          () => (document.querySelector("${clipY}") || document.body).offsetTop
+        )();
+        `,
+        returnByValue: true,
+      })
+      log("evalResult: " + JSON.stringify(evalResult));
+      clipY = evalResult.result.value;
+    }
+    log("clipY: " + JSON.stringify(clipY));
+
+    const screenshot = await Page.captureScreenshot({
+      format: 'png',
+      clip: {
+        x: 0,
+        y: clipY,
+        width,
+        height,
+        scale: 1
+      }
+    })
 
     result = screenshot.data
   } catch (error) {
