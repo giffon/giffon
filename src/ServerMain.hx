@@ -1,7 +1,7 @@
 import js.Node.*;
 import js.npm.express.*;
 import js.npm.mysql.*;
-import js.npm.amazon_helpers.AmazonHelpers;
+import js.npm.request.Request as NodeRequest;
 import js.npm.price_finder.PriceFinder;
 import Auth0Info.*;
 import jsrsasign.*;
@@ -205,7 +205,7 @@ class ServerMain {
                             new Promise(function(resolve, reject){
                                 dbConnectionPool.query(
                                     "
-                                        SELECT item.`item_id`, `item_url`, `item_name`, `item_price`
+                                        SELECT item.`item_id`, `item_url`, `item_url_screenshot`, `item_name`, `item_price`
                                         FROM item, item_group
                                         WHERE item.`item_id` = item_group.`item_id` AND `item_group_id` = ?
                                     ",
@@ -224,6 +224,25 @@ class ServerMain {
                         }]).then(resolve).catchError(reject);
                     }
                 );
+            });
+        }
+
+
+        function getAmazonItemScreenshot(url:String):Promise<js.node.Buffer> {
+            return new Promise(function(resolve, reject) {
+                NodeRequest.get({
+                    url: "https://kuortzoyx4.execute-api.us-east-1.amazonaws.com/dev/screenshot",
+                    qs: {
+                        url: url,
+                        canvasSize: "450*450",
+                        mobile: 1,
+                        scrollTo: "#productTitleGroupAnchor"
+                    },
+                    encoding: null
+                }, function(err, response, body) {
+                    if (err != null) return reject(err);
+                    resolve(cast body);
+                });
             });
         }
 
@@ -270,31 +289,21 @@ class ServerMain {
                 name: String
             }){
                 if (err != null) return res.status(500).send(err);
-                dbConnectionPool.getConnection(function(err, cnx:Connection) {
-                    if (err != null) return res.status(500).send(err);
-                    cnx.beginTransaction(function(err){
+                getAmazonItemScreenshot(item_url)
+                .then(function(screenshot){
+                    dbConnectionPool.getConnection(function(err, cnx:Connection) {
                         if (err != null) return res.status(500).send(err);
-                        cnx.query("INSERT INTO item SET ?", {
-                            item_url: item_url,
-                            item_name: details.name,
-                            item_price: details.price,
-                        }, function(err, results, fields) {
-                            var item_id = results.insertId;
-                            cnx.query("INSERT INTO item_group SET ?", {
-                                item_id: item_id
+                        cnx.beginTransaction(function(err){
+                            if (err != null) return res.status(500).send(err);
+                            cnx.query("INSERT INTO item SET ?", {
+                                item_url: item_url,
+                                item_url_screenshot: screenshot,
+                                item_name: details.name,
+                                item_price: details.price,
                             }, function(err, results, fields) {
-                                if (err != null) {
-                                    return cnx.rollback(function(){
-                                        cnx.release();
-                                        res.status(500).send(err);
-                                    });
-                                }
-                                var item_group_id = results.insertId;
-                                cnx.query("INSERT INTO campaign SET ?", {
-                                    user_id: res.locals.user.user_id,
-                                    campaign_description: campaign_description,
-                                    campaign_type: db.CampaignType.Suprise,
-                                    item_group_id: item_group_id,
+                                var item_id = results.insertId;
+                                cnx.query("INSERT INTO item_group SET ?", {
+                                    item_id: item_id
                                 }, function(err, results, fields) {
                                     if (err != null) {
                                         return cnx.rollback(function(){
@@ -302,9 +311,12 @@ class ServerMain {
                                             res.status(500).send(err);
                                         });
                                     }
-                                    var campaign_id = results.insertId;
-                                    cnx.query("INSERT INTO campaign_surprise SET ?", {
-                                        campaign_id: campaign_id,
+                                    var item_group_id = results.insertId;
+                                    cnx.query("INSERT INTO campaign SET ?", {
+                                        user_id: res.locals.user.user_id,
+                                        campaign_description: campaign_description,
+                                        campaign_type: db.CampaignType.Suprise,
+                                        item_group_id: item_group_id,
                                     }, function(err, results, fields) {
                                         if (err != null) {
                                             return cnx.rollback(function(){
@@ -312,22 +324,34 @@ class ServerMain {
                                                 res.status(500).send(err);
                                             });
                                         }
-                                        cnx.commit(function(err){
+                                        var campaign_id = results.insertId;
+                                        cnx.query("INSERT INTO campaign_surprise SET ?", {
+                                            campaign_id: campaign_id,
+                                        }, function(err, results, fields) {
                                             if (err != null) {
                                                 return cnx.rollback(function(){
                                                     cnx.release();
                                                     res.status(500).send(err);
                                                 });
                                             }
-                                            cnx.release();
-                                            res.redirect("/home");
+                                            cnx.commit(function(err){
+                                                if (err != null) {
+                                                    return cnx.rollback(function(){
+                                                        cnx.release();
+                                                        res.status(500).send(err);
+                                                    });
+                                                }
+                                                cnx.release();
+                                                res.redirect("/home");
+                                            });
                                         });
                                     });
                                 });
                             });
                         });
                     });
-                });
+                })
+                .catchError(function(err) res.status(500).send(err));
             });
         });
 
