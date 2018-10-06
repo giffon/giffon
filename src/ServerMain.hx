@@ -190,11 +190,55 @@ class ServerMain {
             next();
         });
 
-        function getCampaigns(user_id:Int) {
+        function getCampaign(campaign_id:Int) {
             return new Promise(function(resolve, reject) {
                 dbConnectionPool.query(
                     "
                         SELECT `campaign_id`, `campaign_description`, `campaign_state`, `item_group_id`
+                        FROM campaign
+                        WHERE `campaign_id` = ?
+                    ",
+                    [campaign_id],
+                    function(err, campaign_results:Array<Dynamic>, fields) {
+                        if (err != null) return reject(err);
+                        if (campaign_results.length != 1)
+                            return reject('There is ${campaign_results.length} campaigns with campaign_id = ${campaign_id}.');
+                        var campaign = campaign_results[0];
+                        dbConnectionPool.query(
+                            "
+                                SELECT item.`item_id`, `item_url`, `item_url_screenshot`, `item_name`, `item_price`
+                                FROM item, item_group
+                                WHERE item.`item_id` = item_group.`item_id` AND `item_group_id` = ?
+                            ",
+                            [campaign.item_group_id],
+                            function(err, item_results:Array<Dynamic>, fields) {
+                                if (err != null) return reject(err);
+                                resolve({
+                                    campaign_id: campaign.campaign_id,
+                                    campaign_description: campaign.campaign_description,
+                                    campaign_state: campaign.campaign_state,
+                                    items: item_results.map(function(item){
+                                        return {
+                                            item_id: item.item_id,
+                                            item_url: item.item_url,
+                                            item_url_screenshot: ImageDataUri.encode(item.item_url_screenshot, "PNG"),
+                                            item_name: item.item_name,
+                                            item_price: item.item_price
+                                        }
+                                    })
+                                });
+                            }
+                        );
+                    }
+                );
+            });
+        }
+
+        function getCampaigns(user_id:Int) {
+            return new Promise(function(resolve, reject) {
+                dbConnectionPool.query(
+                    "
+                        SELECT `campaign_id`
                         FROM campaign
                         WHERE `user_id` = ?
                     ",
@@ -202,35 +246,10 @@ class ServerMain {
                     function(err, campaign_results:Array<Dynamic>, fields) {
                         if (err != null) return reject(err);
 
-                        Promise.all([for (campaign in campaign_results) {
-                            new Promise(function(resolve, reject){
-                                dbConnectionPool.query(
-                                    "
-                                        SELECT item.`item_id`, `item_url`, `item_url_screenshot`, `item_name`, `item_price`
-                                        FROM item, item_group
-                                        WHERE item.`item_id` = item_group.`item_id` AND `item_group_id` = ?
-                                    ",
-                                    [campaign.item_group_id],
-                                    function(err, item_results:Array<Dynamic>, fields) {
-                                        if (err != null) return reject(err);
-                                        resolve({
-                                            campaign_id: campaign.campaign_id,
-                                            campaign_description: campaign.campaign_description,
-                                            campaign_state: campaign.campaign_state,
-                                            items: item_results.map(function(item){
-                                                return {
-                                                    item_id: item.item_id,
-                                                    item_url: item.item_url,
-                                                    item_url_screenshot: ImageDataUri.encode(item.item_url_screenshot, "PNG"),
-                                                    item_name: item.item_name,
-                                                    item_price: item.item_price
-                                                }
-                                            })
-                                        });
-                                    }
-                                );
-                            });
-                        }]).then(resolve).catchError(reject);
+                        Promise.all([
+                            for (campaign in campaign_results)
+                            getCampaign(campaign.campaign_id)
+                        ]).then(resolve).catchError(reject);
                     }
                 );
             });
