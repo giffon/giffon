@@ -31,6 +31,89 @@ class ServerMain {
 
     static var dbConnectionPool:Pool;
 
+    static function getCampaign(campaign_id:Int) {
+        return new Promise(function(resolve, reject) {
+            dbConnectionPool.query(
+                "
+                    SELECT `campaign_id`, `campaign_description`, `campaign_state`, `item_group_id`
+                    FROM campaign
+                    WHERE `campaign_id` = ?
+                ",
+                [campaign_id],
+                function(err, campaign_results:Array<Dynamic>, fields) {
+                    if (err != null) return reject(err);
+                    if (campaign_results.length != 1)
+                        return reject('There is ${campaign_results.length} campaigns with campaign_id = ${campaign_id}.');
+                    var campaign = campaign_results[0];
+                    dbConnectionPool.query(
+                        "
+                            SELECT item.`item_id`, `item_url`, `item_url_screenshot`, `item_name`, `item_price`
+                            FROM item, item_group
+                            WHERE item.`item_id` = item_group.`item_id` AND `item_group_id` = ?
+                        ",
+                        [campaign.item_group_id],
+                        function(err, item_results:Array<Dynamic>, fields) {
+                            if (err != null) return reject(err);
+                            resolve({
+                                campaign_id: campaign.campaign_id,
+                                campaign_description: campaign.campaign_description,
+                                campaign_state: campaign.campaign_state,
+                                items: item_results.map(function(item){
+                                    return {
+                                        item_id: item.item_id,
+                                        item_url: item.item_url,
+                                        item_url_screenshot: ImageDataUri.encode(item.item_url_screenshot, "PNG"),
+                                        item_name: item.item_name,
+                                        item_price: item.item_price
+                                    }
+                                })
+                            });
+                        }
+                    );
+                }
+            );
+        });
+    }
+
+    static function getCampaigns(user_id:Int) {
+        return new Promise(function(resolve, reject) {
+            dbConnectionPool.query(
+                "
+                    SELECT `campaign_id`
+                    FROM campaign
+                    WHERE `user_id` = ?
+                ",
+                [user_id],
+                function(err, campaign_results:Array<Dynamic>, fields) {
+                    if (err != null) return reject(err);
+
+                    Promise.all([
+                        for (campaign in campaign_results)
+                        getCampaign(campaign.campaign_id)
+                    ]).then(resolve).catchError(reject);
+                }
+            );
+        });
+    }
+
+    static function getAmazonItemScreenshot(url:String):Promise<js.node.Buffer> {
+        return new Promise(function(resolve, reject) {
+            NodeRequest.get({
+                url: "https://kuortzoyx4.execute-api.us-east-1.amazonaws.com/dev/screenshot",
+                qs: {
+                    url: url,
+                    canvasSize: "450*450",
+                    mobile: 1,
+                    scrollTo: "#productTitleGroupAnchor"
+                },
+                encoding: null
+            }, function(err, response, body) {
+                if (err != null) return reject(err);
+                resolve(cast body);
+            });
+        });
+    }
+
     static function main():Void {
         var isMain = (untyped __js__("require")).main == module;
 
@@ -189,90 +272,6 @@ class ServerMain {
             }
             next();
         });
-
-        function getCampaign(campaign_id:Int) {
-            return new Promise(function(resolve, reject) {
-                dbConnectionPool.query(
-                    "
-                        SELECT `campaign_id`, `campaign_description`, `campaign_state`, `item_group_id`
-                        FROM campaign
-                        WHERE `campaign_id` = ?
-                    ",
-                    [campaign_id],
-                    function(err, campaign_results:Array<Dynamic>, fields) {
-                        if (err != null) return reject(err);
-                        if (campaign_results.length != 1)
-                            return reject('There is ${campaign_results.length} campaigns with campaign_id = ${campaign_id}.');
-                        var campaign = campaign_results[0];
-                        dbConnectionPool.query(
-                            "
-                                SELECT item.`item_id`, `item_url`, `item_url_screenshot`, `item_name`, `item_price`
-                                FROM item, item_group
-                                WHERE item.`item_id` = item_group.`item_id` AND `item_group_id` = ?
-                            ",
-                            [campaign.item_group_id],
-                            function(err, item_results:Array<Dynamic>, fields) {
-                                if (err != null) return reject(err);
-                                resolve({
-                                    campaign_id: campaign.campaign_id,
-                                    campaign_description: campaign.campaign_description,
-                                    campaign_state: campaign.campaign_state,
-                                    items: item_results.map(function(item){
-                                        return {
-                                            item_id: item.item_id,
-                                            item_url: item.item_url,
-                                            item_url_screenshot: ImageDataUri.encode(item.item_url_screenshot, "PNG"),
-                                            item_name: item.item_name,
-                                            item_price: item.item_price
-                                        }
-                                    })
-                                });
-                            }
-                        );
-                    }
-                );
-            });
-        }
-
-        function getCampaigns(user_id:Int) {
-            return new Promise(function(resolve, reject) {
-                dbConnectionPool.query(
-                    "
-                        SELECT `campaign_id`
-                        FROM campaign
-                        WHERE `user_id` = ?
-                    ",
-                    [user_id],
-                    function(err, campaign_results:Array<Dynamic>, fields) {
-                        if (err != null) return reject(err);
-
-                        Promise.all([
-                            for (campaign in campaign_results)
-                            getCampaign(campaign.campaign_id)
-                        ]).then(resolve).catchError(reject);
-                    }
-                );
-            });
-        }
-
-
-        function getAmazonItemScreenshot(url:String):Promise<js.node.Buffer> {
-            return new Promise(function(resolve, reject) {
-                NodeRequest.get({
-                    url: "https://kuortzoyx4.execute-api.us-east-1.amazonaws.com/dev/screenshot",
-                    qs: {
-                        url: url,
-                        canvasSize: "450*450",
-                        mobile: 1,
-                        scrollTo: "#productTitleGroupAnchor"
-                    },
-                    encoding: null
-                }, function(err, response, body) {
-                    if (err != null) return reject(err);
-                    resolve(cast body);
-                });
-            });
-        }
 
         app.get("/", function(req:Request, res) {
             res.render("index");
