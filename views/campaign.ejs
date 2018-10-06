@@ -1,13 +1,11 @@
 <%
-locals.title = "Home - Giffon";
-bodyClasses.push("page-home");
+locals.title = campaign.owner.name + "'s " + campaign.items[0].item_name + "Campaign - Giffon";
+bodyClasses.push("page-campaign");
 %>
 <%- include('head'); -%>
 
 <div class="container">
     <h1>Welcome, <%= user.name %>!</h1>
-
-    <p><a href="/user/<%=user.email%>">public profile</a></p>
 
     <div>
     <% if (campaigns.length == 0) { %>

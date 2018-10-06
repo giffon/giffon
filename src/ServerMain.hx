@@ -31,6 +31,30 @@ class ServerMain {
 
     static var dbConnectionPool:Pool;
 
+    static function getUserIdFromEmail(email:String):Promise<Null<Int>> {
+        return new Promise(function(resolve, reject) {
+            if (!Validator.isEmail(email))
+                return reject('$email is not valid email address');
+            dbConnectionPool.query(
+                "
+                    SELECT `user_id`
+                    FROM user
+                    WHERE `user_primary_email` = ?
+                ",
+                [email],
+                function(err, results:Array<Dynamic>, fields) {
+                    if (results.length > 1) {
+                        reject('There is ${results.length} users with the email address ${email}.');
+                    } else if (results.length == 0) {
+                        resolve(null);
+                    } else {
+                        resolve(results[0].user_id);
+                    }
+                }
+            );
+        });
+    }
+
     static function getCampaign(campaign_id:Int) {
         return new Promise(function(resolve, reject) {
             dbConnectionPool.query(
@@ -290,8 +314,34 @@ class ServerMain {
                     res.status(500).send(err);
                 });
         });
-        app.get("/user", ensureLoggedIn, function(req, res:Response) {
-            res.send(haxe.Json.stringify(res.locals.user, null, "  "));
+
+        // print user data
+        switch (SERVERLESS_STAGE) {
+            case Production: //pass
+            case _:
+                app.get("/user", ensureLoggedIn, function(req, res:Response) {
+                    res.setHeader('Content-Type', 'application/json');
+                    res.send(haxe.Json.stringify(res.locals.user, null, "  "));
+                });
+        }
+
+        app.get("/user/:user_email", function(req:Request, res:Response) {
+            var user_email = req.params.user_email;
+            getUserIdFromEmail(user_email)
+                .then(function(user_id) {
+                    if (user_id == null)
+                        return res.status(404).send("There is no such user.");
+                    else
+                        getCampaigns(user_id)
+                            .then(function(campaigns) {
+                                res.render("user", {
+                                    campaigns: campaigns
+                                });
+                            })
+                            .catchError(function(err){
+                                res.status(500).send(err);
+                            });
+                });
         });
         app.get("/create-campaign", ensureLoggedIn, function(req, res:Response) {
             res.render("create-campaign");

@@ -1,20 +1,17 @@
 <%
-locals.title = "Home - Giffon";
+locals.title = user.name + " - Giffon";
 bodyClasses.push("page-home");
 %>
 <%- include('head'); -%>
 
 <div class="container">
-    <h1>Welcome, <%= user.name %>!</h1>
-
-    <p><a href="/user/<%=user.email%>">public profile</a></p>
+    <h1><%= user.name %></h1>
 
     <div>
     <% if (campaigns.length == 0) { %>
-        <p>You don't have any Giffon campaign yet.</p>
-        <a href="/create-campaign">Make a wish.</a>
+        <p><%= user.name %> doesn't have any Giffon campaign yet.</p>
     <% } else { %>
-        Your current <%= campaigns.length == 1 ? "campaign" : "campaigns" %>:
+        Current <%= campaigns.length == 1 ? "campaign" : "campaigns" %>:
         <% campaigns.forEach(function(campaign) { %>
             <div class="campaign">
                 <div class="campaign-description"><%=campaign.campaign_description%></div>

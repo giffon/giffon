@@ -5,17 +5,6 @@ bodyClasses.push("page-index");
 %>
 <%- include('head'); -%>
 
-<% if (isBeta) { %>
-<div id="nav">
-	<% if (locals.user == null) { %>
-		<a href="/login" class="signInBtn">Sign in<i class="fab fa-facebook"></i></a>
-	<% } else { %>
-		<span class="greeting">Hi, <a class="user-name" href="/home"><%= user.name %></a>!</span>
-		<a href="/logout" class="signOutBtn">Sign out</a>
-	<% } %>
-</div>
-<% } %>
-
 <div class="container-fluid px-3 py-5 p-md-5">
 	<div class="row">
 		<div class="col-sm-12 col-md-8 ml-md-auto mr-md-auto text-center">
