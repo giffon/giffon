@@ -277,3 +277,19 @@ img.emoji, .inline-icon {
     max-width: 100%;
     width: 150px;
 }
+
+#profile {
+    background-image: url('images/us.jpg'); 
+    background-position: left;
+    background-size: cover;
+    width: 140px;
+    height: 140px;
+    border-radius:150px;
+}
+
+.profileo {
+    width: 150px;
+    height: 150px;
+    border-radius:150px;
+    padding: 5px;
+}
