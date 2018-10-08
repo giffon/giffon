@@ -6,13 +6,13 @@ bodyClasses.push("page-create-campaign");
 
 <div class="container">
     <h1>Make a wish.</h1>
-    <form action="/create-campaign" method="POST" enctype="application/x-www-form-urlencoded">
+    <form action="/create-campaign" method="POST" enctype="application/x-www-form-urlencoded" class="needs-validation" novalidate>
     <div class="form-group">
         <label for="item_url">
             What do you want?
             <small class="form-text text-muted">Paste the <a href="https://www.amazon.com/" target="_blank" rel="nofollow"><img src="Amazon_logo_plain.svg" alt="Amazon" class="inline-icon" style="height:1.25em"></a> link of the item you wanna receive. Note that we currently only support the Amazon United States store. Support for other geography is in the plan.</small>
         </label>
-        <input type="text" class="form-control" id="item_url" name="item_url" placeholder="https://www.amazon.com/gp/product/...">
+        <input type="URL" class="form-control" id="item_url" name="item_url" placeholder="https://www.amazon.com/gp/product/..." required>
     </div>
     <div class="form-group">
         <label for="campaign_description">
@@ -22,6 +22,26 @@ bodyClasses.push("page-create-campaign");
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function() {
+            'use strict';
+            window.addEventListener('load', function() {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                    }, false);
+                });
+            }, false);
+        })();
+    </script>
 </div>
 
 <footer class="p-5 text-center">
