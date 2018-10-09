@@ -44,10 +44,10 @@ class ServerMain {
                 ",
                 [email],
                 function(err, results:Array<Dynamic>, fields) {
-                    if (results.length > 1) {
-                        reject('There is ${results.length} users with the email address ${email}.');
-                    } else if (results.length == 0) {
+                    if (results == null || results.length == 0) {
                         resolve(null);
+                    } else if (results.length > 1) {
+                        reject('There is ${results.length} users with the email address ${email}.');
                     } else {
                         resolve(results[0].user_id);
                     }
@@ -66,11 +66,11 @@ class ServerMain {
                 ",
                 [user_hashid],
                 function(err, results:Array<Dynamic>, fields) {
-                    if (results.length > 1) {
-                        reject('There are ${results.length} users with the hashid ${user_hashid}.');
-                    } else if (results.length == 0) {
+                    if (results == null || results.length == 0) {
                         resolve(null);
-                    } else {
+                    } else if (results.length > 1) {
+                        reject('There are ${results.length} users with the hashid ${user_hashid}.');
+                    } else  {
                         resolve(results[0].user_id);
                     }
                 }
@@ -88,10 +88,10 @@ class ServerMain {
                 ",
                 [campaign_hashid],
                 function(err, results:Array<Dynamic>, fields) {
-                    if (results.length > 1) {
-                        reject('There are ${results.length} campaigns with the hashid ${campaign_hashid}.');
-                    } else if (results.length == 0) {
+                    if (results == null || results.length == 0) {
                         resolve(null);
+                    } else if (results.length > 1) {
+                        reject('There are ${results.length} campaigns with the hashid ${campaign_hashid}.');
                     } else {
                         resolve(results[0].campaign_id);
                     }
@@ -111,8 +111,8 @@ class ServerMain {
                 [campaign_id],
                 function(err, campaign_results:Array<Dynamic>, fields) {
                     if (err != null) return reject(err);
-                    if (campaign_results.length != 1)
-                        return reject('There are ${campaign_results.length} campaigns with campaign_id = ${campaign_id}.');
+                    if (campaign_results == null || campaign_results.length != 1)
+                        return reject('There are ${campaign_results == null ? 0 : campaign_results.length} campaigns with campaign_id = ${campaign_id}.');
                     var campaign = campaign_results[0];
                     dbConnectionPool.query(
                         "
@@ -185,8 +185,8 @@ class ServerMain {
                         reject(err);
                         return;
                     }
-                    if (results.length != 1)
-                        return reject('There are ${results.length} users with user_id = ${user_id}.');
+                    if (results == null || results.length != 1)
+                        return reject('There are ${results == null ? 0 : results.length} users with user_id = ${user_id}.');
                     var user = results[0];
                     resolve(user);
                 }
@@ -230,8 +230,16 @@ class ServerMain {
             cnx.connect(function(err) {
                 if (err != null) {
                     console.error('error connecting: ' + err.stack);
+                    return;
                 }
-                cnx.end();
+                if (isMain) {
+                    cnx.query("SHOW TABLES", function(err, results, fields){
+                        trace(results);
+                        cnx.end();
+                    });
+                } else {
+                    cnx.end();
+                }
             });
         }
 

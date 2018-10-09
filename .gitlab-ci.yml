@@ -15,8 +15,8 @@ build-server:
   variables:
     GIT_SUBMODULE_STRATEGY: recursive
   script:
+    - haxelib dev hxnodejs lib/hxnodejs
     - haxelib dev hxnodelibs lib/hxnodelibs
-    - haxelib install hxnodejs
     - haxelib install compiletime
     - haxelib install hashids
     - haxelib list
