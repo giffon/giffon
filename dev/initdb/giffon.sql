@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: giffon.cluster-czhm2i8itlng.us-east-1.rds.amazonaws.com
--- Generation Time: Oct 04, 2018 at 06:30 AM
+-- Generation Time: Oct 09, 2018 at 03:03 AM
 -- Server version: 5.6.10
 -- PHP Version: 7.2.8
 
@@ -30,15 +30,16 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `campaign` (
   `campaign_id` int(11) NOT NULL,
+  `campaign_hashid` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
   `user_id` int(11) NOT NULL,
   `campaign_time_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `campaign_time_publish` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `item_group_id` int(11) DEFAULT NULL,
-  `campaign_description` text,
-  `campaign_type` varchar(64) NOT NULL,
-  `campaign_state` varchar(64) NOT NULL DEFAULT 'created',
-  `campaign_note` text
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `campaign_description` text COLLATE utf8mb4_bin,
+  `campaign_type` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  `campaign_state` varchar(64) COLLATE utf8mb4_bin NOT NULL DEFAULT 'created',
+  `campaign_note` text COLLATE utf8mb4_bin
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- --------------------------------------------------------
 
@@ -48,8 +49,8 @@ CREATE TABLE `campaign` (
 
 CREATE TABLE `campaign_surprise` (
   `campaign_id` int(11) NOT NULL,
-  `campaign_progress` varchar(64) NOT NULL DEFAULT 'started'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `campaign_progress` varchar(64) COLLATE utf8mb4_bin NOT NULL DEFAULT 'started'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- --------------------------------------------------------
 
@@ -59,13 +60,13 @@ CREATE TABLE `campaign_surprise` (
 
 CREATE TABLE `item` (
   `item_id` int(11) NOT NULL,
-  `item_url` varchar(1024) NOT NULL,
+  `item_url` varchar(1024) COLLATE utf8mb4_bin NOT NULL,
   `item_url_screenshot` longblob,
-  `item_name` varchar(128) DEFAULT NULL,
+  `item_name` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
   `item_price` decimal(16,4) DEFAULT NULL,
   `item_time_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `shop_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- --------------------------------------------------------
 
@@ -76,7 +77,7 @@ CREATE TABLE `item` (
 CREATE TABLE `item_group` (
   `item_group_id` int(11) NOT NULL,
   `item_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- --------------------------------------------------------
 
@@ -86,8 +87,8 @@ CREATE TABLE `item_group` (
 
 CREATE TABLE `shop` (
   `shop_id` int(11) NOT NULL,
-  `shop_name` varchar(64) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `shop_name` varchar(64) COLLATE utf8mb4_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- --------------------------------------------------------
 
@@ -97,12 +98,13 @@ CREATE TABLE `shop` (
 
 CREATE TABLE `user` (
   `user_id` int(11) NOT NULL,
-  `user_primary_email` varchar(128) NOT NULL,
-  `user_name` varchar(64) DEFAULT NULL,
+  `user_hashid` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
+  `user_primary_email` varchar(128) COLLATE utf8mb4_bin NOT NULL,
+  `user_name` varchar(64) COLLATE utf8mb4_bin DEFAULT NULL,
   `user_birthday` date DEFAULT NULL,
   `user_deleted` tinyint(1) NOT NULL DEFAULT '0',
-  `user_note` text
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `user_note` text COLLATE utf8mb4_bin
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- --------------------------------------------------------
 
@@ -112,8 +114,8 @@ CREATE TABLE `user` (
 
 CREATE TABLE `user_auth0` (
   `user_id` int(11) NOT NULL,
-  `auth0_id` varchar(64) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `auth0_id` varchar(64) COLLATE utf8mb4_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- --------------------------------------------------------
 
@@ -123,8 +125,8 @@ CREATE TABLE `user_auth0` (
 
 CREATE TABLE `user_email` (
   `user_id` int(11) NOT NULL,
-  `user_email` varchar(128) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `user_email` varchar(128) COLLATE utf8mb4_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 --
 -- Indexes for dumped tables
@@ -135,6 +137,7 @@ CREATE TABLE `user_email` (
 --
 ALTER TABLE `campaign`
   ADD PRIMARY KEY (`campaign_id`),
+  ADD UNIQUE KEY `campaign_url_key` (`campaign_hashid`),
   ADD KEY `user_id` (`user_id`);
 
 --
@@ -168,6 +171,7 @@ ALTER TABLE `shop`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`user_id`),
+  ADD UNIQUE KEY `user_hashid` (`user_hashid`),
   ADD KEY `user_primary_email` (`user_primary_email`);
 
 --
