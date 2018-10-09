@@ -2,6 +2,7 @@
 -lib hxnodejs
 -lib hxnodelibs
 -lib compiletime
+-lib hashids
 -main ServerMain
 -js ServerMain.js
 -dce full

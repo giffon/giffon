@@ -7,6 +7,7 @@ import js.npm.image_data_uri.ImageDataUri;
 import Auth0Info.*;
 import jsrsasign.*;
 import jsrsasign.Global.*;
+import hashids.Hashids;
 import haxe.io.*;
 import js.Promise;
 using js.npm.validator.Validator;
@@ -238,12 +239,50 @@ class ServerMain {
                             next();
                         } else {
                             // insert user
-                            dbConnectionPool.query("INSERT INTO user SET ?", {
-                                user_primary_email: userEmail
-                            }, function(err, results, fields) {
+                            dbConnectionPool.getConnection(function(err, cnx:Connection) {
                                 if (err != null) return res.status(500).send(err);
-                                res.locals.user.user_id = results.insertId;
-                                next();
+                                cnx.beginTransaction(function(err){
+                                    if (err != null) return res.status(500).send(err);
+                                    cnx.query("INSERT INTO user SET ?", {
+                                        user_primary_email: userEmail,
+                                    }, function(err, results, fields) {
+                                        if (err != null) {
+                                            cnx.rollback(function(){
+                                                cnx.release();
+                                                res.status(500).send(err);
+                                            });
+                                            return;
+                                        }
+                                        var user_id = results.insertId;
+                                        var user_hashid = new Hashids("user" + DBInfo.salt, 4).encode(user_id);
+                                        cnx.query(
+                                            "UPDATE user SET `user_hashid` = ? WHERE `user_id` = ?",
+                                            ([user_hashid, user_id]:Array<Dynamic>),
+                                            function(err, results, fields){
+                                                if (err != null) {
+                                                    cnx.rollback(function(){
+                                                        cnx.release();
+                                                        res.status(500).send(err);
+                                                    });
+                                                    return;
+                                                }
+                                                res.locals.user.user_id = user_id;
+                                                res.locals.user.user_hashid = user_hashid;
+                                                cnx.commit(function(err){
+                                                    if (err != null) {
+                                                        cnx.rollback(function(){
+                                                            cnx.release();
+                                                            res.status(500).send(err);
+                                                        });
+                                                        return;
+                                                    }
+                                                    cnx.release();
+                                                    next();
+                                                });
+                                            }
+                                        );
+                                    });
+                                });
                             });
                         }
                     }
@@ -378,15 +417,23 @@ class ServerMain {
                                 item_name: details.name,
                                 item_price: details.price,
                             }, function(err, results, fields) {
+                                if (err != null) {
+                                    cnx.rollback(function(){
+                                        cnx.release();
+                                        res.status(500).send(err);
+                                    });
+                                    return;
+                                }
                                 var item_id = results.insertId;
                                 cnx.query("INSERT INTO item_group SET ?", {
                                     item_id: item_id
                                 }, function(err, results, fields) {
                                     if (err != null) {
-                                        return cnx.rollback(function(){
+                                        cnx.rollback(function(){
                                             cnx.release();
                                             res.status(500).send(err);
                                         });
+                                        return;
                                     }
                                     var item_group_id = results.insertId;
                                     cnx.query("INSERT INTO campaign SET ?", {
@@ -396,32 +443,49 @@ class ServerMain {
                                         item_group_id: item_group_id,
                                     }, function(err, results, fields) {
                                         if (err != null) {
-                                            return cnx.rollback(function(){
+                                            cnx.rollback(function(){
                                                 cnx.release();
                                                 res.status(500).send(err);
                                             });
+                                            return;
                                         }
                                         var campaign_id = results.insertId;
-                                        cnx.query("INSERT INTO campaign_surprise SET ?", {
-                                            campaign_id: campaign_id,
-                                        }, function(err, results, fields) {
-                                            if (err != null) {
-                                                return cnx.rollback(function(){
-                                                    cnx.release();
-                                                    res.status(500).send(err);
-                                                });
-                                            }
-                                            cnx.commit(function(err){
+                                        var campaign_hashid = new Hashids("campaign" + DBInfo.salt, 4).encode(campaign_id);
+                                        cnx.query(
+                                            "UPDATE campaign SET `campaign_hashid` = ? WHERE `campaign_id` = ?",
+                                            ([campaign_hashid, campaign_id]:Array<Dynamic>),
+                                            function(err, results, fields) {
                                                 if (err != null) {
-                                                    return cnx.rollback(function(){
+                                                    cnx.rollback(function(){
                                                         cnx.release();
                                                         res.status(500).send(err);
                                                     });
+                                                    return;
                                                 }
-                                                cnx.release();
-                                                res.redirect("/home");
-                                            });
-                                        });
+                                                cnx.query("INSERT INTO campaign_surprise SET ?", {
+                                                    campaign_id: campaign_id,
+                                                }, function(err, results, fields) {
+                                                    if (err != null) {
+                                                        cnx.rollback(function(){
+                                                            cnx.release();
+                                                            res.status(500).send(err);
+                                                        });
+                                                        return;
+                                                    }
+                                                    cnx.commit(function(err){
+                                                        if (err != null) {
+                                                            cnx.rollback(function(){
+                                                                cnx.release();
+                                                                res.status(500).send(err);
+                                                            });
+                                                            return;
+                                                        }
+                                                        cnx.release();
+                                                        res.redirect("/home");
+                                                    });
+                                                });
+                                            }
+                                        );
                                     });
                                 });
                             });
