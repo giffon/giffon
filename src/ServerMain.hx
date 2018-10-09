@@ -475,6 +475,23 @@ class ServerMain {
                     }
                 });
         });
+        app.get("/campaign/:campaign_hashid/pledge", function(req:Request, res:Response){
+            var campaign_hashid = req.params.campaign_hashid;
+            getCampaignIdFromHash(campaign_hashid)
+                .then(function(campaign_id){
+                    if (campaign_id == null) {
+                        return res.status(404).send("There is no such campaign.");
+                    } else {
+                        getCampaign(campaign_id)
+                            .then(function(campaign){
+                                res.status(500).send("Not implemented yet");
+                            })
+                            .catchError(function(err){
+                                res.status(500).send(err);
+                            });
+                    }
+                });
+        });
         app.get("/create-campaign", ensureLoggedIn, function(req, res:Response) {
             res.render("create-campaign");
         });

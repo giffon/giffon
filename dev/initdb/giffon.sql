@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: giffon.cluster-czhm2i8itlng.us-east-1.rds.amazonaws.com
--- Generation Time: Oct 09, 2018 at 03:03 AM
+-- Generation Time: Oct 09, 2018 at 09:01 AM
 -- Server version: 5.6.10
 -- PHP Version: 7.2.8
 
@@ -77,6 +77,37 @@ CREATE TABLE `item` (
 CREATE TABLE `item_group` (
   `item_group_id` int(11) NOT NULL,
   `item_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pledge`
+--
+
+CREATE TABLE `pledge` (
+  `pledge_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `campaign_id` int(11) NOT NULL,
+  `pledge_amount` decimal(16,4) NOT NULL,
+  `pledge_time_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `pledge_method` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  `pledge_state` varchar(64) COLLATE utf8mb4_bin NOT NULL DEFAULT 'pledged',
+  `pledge_note` text COLLATE utf8mb4_bin
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pledge_charge`
+--
+
+CREATE TABLE `pledge_charge` (
+  `charge_id` int(11) NOT NULL,
+  `pledge_id` int(11) NOT NULL,
+  `charge_amount` decimal(16,4) NOT NULL,
+  `charge_note` text COLLATE utf8mb4_bin,
+  `charge_time_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 -- --------------------------------------------------------
@@ -161,6 +192,21 @@ ALTER TABLE `item_group`
   ADD KEY `item_id` (`item_id`);
 
 --
+-- Indexes for table `pledge`
+--
+ALTER TABLE `pledge`
+  ADD PRIMARY KEY (`pledge_id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `campaign_id` (`campaign_id`);
+
+--
+-- Indexes for table `pledge_charge`
+--
+ALTER TABLE `pledge_charge`
+  ADD PRIMARY KEY (`charge_id`),
+  ADD KEY `pledge_id` (`pledge_id`);
+
+--
 -- Indexes for table `shop`
 --
 ALTER TABLE `shop`
@@ -210,6 +256,18 @@ ALTER TABLE `item_group`
   MODIFY `item_group_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `pledge`
+--
+ALTER TABLE `pledge`
+  MODIFY `pledge_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `pledge_charge`
+--
+ALTER TABLE `pledge_charge`
+  MODIFY `charge_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `shop`
 --
 ALTER TABLE `shop`
@@ -248,6 +306,19 @@ ALTER TABLE `item`
 --
 ALTER TABLE `item_group`
   ADD CONSTRAINT `item_group_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `item` (`item_id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `pledge`
+--
+ALTER TABLE `pledge`
+  ADD CONSTRAINT `pledge_ibfk_2` FOREIGN KEY (`campaign_id`) REFERENCES `campaign` (`campaign_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `pledge_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `pledge_charge`
+--
+ALTER TABLE `pledge_charge`
+  ADD CONSTRAINT `pledge_charge_ibfk_1` FOREIGN KEY (`pledge_id`) REFERENCES `pledge` (`pledge_id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `user_auth0`

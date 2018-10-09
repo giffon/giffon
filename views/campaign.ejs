@@ -13,6 +13,48 @@ bodyClasses.push("page-campaign");
         </div>
     <% }); %>
     <div class="campaign-description"><%=campaign.campaign_description%></div>
+
+    <form action="/campaign/<%=campaign.campaign_hashid%>/pledge" method="POST">
+        <button id="pledgeButton">pledge</button>
+        <script src="https://checkout.stripe.com/checkout.js"></script>
+        <script>
+            function htmlDecode(input){
+                var e = document.createElement('div');
+                e.innerHTML = input;
+                return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+            }
+
+            var handler = StripeCheckout.configure({
+                key: 'pk_test_FqNQT96FxmVM42BuCEXEIuEs',
+                email: "<%=user.user_primary_email%>",
+                image: '/android-icon-144x144.png',
+                allowRememberMe: false,
+                locale: 'auto',
+                token: function(token) {
+                    // You can access the token ID with `token.id`.
+                    // Get the token ID to your server-side code for use.
+                    console.log(token);
+                }
+            });
+
+            document.getElementById('pledgeButton').addEventListener('click', function(e) {
+                // Open Checkout with further options:
+                handler.open({
+                    name: 'Giffon',
+                    description: htmlDecode("<%=campaign.campaign_owner.user_name + '\'s ' + campaign.items[0].item_name + 'Campaign - Giffon'%>"),
+                    currency: 'usd',
+                    panelLabel: "pledge {{amount}}",
+                    amount: 2000
+                });
+                e.preventDefault();
+            });
+
+            // Close Checkout on page navigation:
+            window.addEventListener('popstate', function() {
+                handler.close();
+            });
+        </script>
+    </form>
 </div>
 
 <footer class="p-5 text-center">
