@@ -5,7 +5,7 @@ bodyClasses.push("page-home");
 <%- include('head'); -%>
 
 <div class="container">
-    <h1>Welcome, <%= user.name %>!</h1>
+    <h1>Welcome, <%= user.user_name %>!</h1>
 
     <p><a href="/user/<%=user.user_hashid%>">public profile</a></p>
 
@@ -16,14 +16,15 @@ bodyClasses.push("page-home");
     <% } else { %>
         Your current <%= campaigns.length == 1 ? "campaign" : "campaigns" %>:
         <% campaigns.forEach(function(campaign) { %>
-            <div class="campaign">
-                <div class="campaign-description"><%=campaign.campaign_description%></div>
+            <div class="campaign shadow">
                 <% campaign.items.forEach(function(item) { %>
                     <div class="item">
                         <div class="item-name"><%=item.item_name%></div>
                         <img class="item-screenshot" alt="<%=item.item_name%>" src="<%=item.item_url_screenshot%>">
                     </div>
                 <% }); %>
+                <div class="campaign-description"><%=campaign.campaign_description%></div>
+                <a href="/campaign/<%=campaign.campaign_hashid%>">detail</a>
             </div>
         <% }); %>
     <% } %>

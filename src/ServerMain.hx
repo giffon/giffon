@@ -56,7 +56,7 @@ class ServerMain {
         });
     }
 
-    static function getUserIdFromHash(hashid:String):Promise<Null<Int>> {
+    static function getUserIdFromHash(user_hashid:String):Promise<Null<Int>> {
         return new Promise(function(resolve, reject) {
             dbConnectionPool.query(
                 "
@@ -64,10 +64,10 @@ class ServerMain {
                     FROM user
                     WHERE `user_hashid` = ?
                 ",
-                [hashid],
+                [user_hashid],
                 function(err, results:Array<Dynamic>, fields) {
                     if (results.length > 1) {
-                        reject('There is ${results.length} users with the hashid ${hashid}.');
+                        reject('There are ${results.length} users with the hashid ${user_hashid}.');
                     } else if (results.length == 0) {
                         resolve(null);
                     } else {
@@ -78,11 +78,33 @@ class ServerMain {
         });
     }
 
+    static function getCampaignIdFromHash(campaign_hashid:String):Promise<Null<Int>> {
+        return new Promise(function(resolve, reject) {
+            dbConnectionPool.query(
+                "
+                    SELECT `campaign_id`
+                    FROM campaign
+                    WHERE `campaign_hashid` = ?
+                ",
+                [campaign_hashid],
+                function(err, results:Array<Dynamic>, fields) {
+                    if (results.length > 1) {
+                        reject('There are ${results.length} campaigns with the hashid ${campaign_hashid}.');
+                    } else if (results.length == 0) {
+                        resolve(null);
+                    } else {
+                        resolve(results[0].campaign_id);
+                    }
+                }
+            );
+        });
+    }
+
     static function getCampaign(campaign_id:Int) {
         return new Promise(function(resolve, reject) {
             dbConnectionPool.query(
                 "
-                    SELECT `campaign_id`, `campaign_description`, `campaign_state`, `item_group_id`
+                    SELECT `campaign_id`, `user_id`, `campaign_hashid`, `campaign_description`, `campaign_state`, `item_group_id`
                     FROM campaign
                     WHERE `campaign_id` = ?
                 ",
@@ -90,7 +112,7 @@ class ServerMain {
                 function(err, campaign_results:Array<Dynamic>, fields) {
                     if (err != null) return reject(err);
                     if (campaign_results.length != 1)
-                        return reject('There is ${campaign_results.length} campaigns with campaign_id = ${campaign_id}.');
+                        return reject('There are ${campaign_results.length} campaigns with campaign_id = ${campaign_id}.');
                     var campaign = campaign_results[0];
                     dbConnectionPool.query(
                         "
@@ -101,20 +123,26 @@ class ServerMain {
                         [campaign.item_group_id],
                         function(err, item_results:Array<Dynamic>, fields) {
                             if (err != null) return reject(err);
-                            resolve({
-                                campaign_id: campaign.campaign_id,
-                                campaign_description: campaign.campaign_description,
-                                campaign_state: campaign.campaign_state,
-                                items: item_results.map(function(item){
-                                    return {
-                                        item_id: item.item_id,
-                                        item_url: item.item_url,
-                                        item_url_screenshot: ImageDataUri.encode(item.item_url_screenshot, "PNG"),
-                                        item_name: item.item_name,
-                                        item_price: item.item_price
-                                    }
+                            getUser(campaign.user_id)
+                                .then(function(campaign_owner){
+                                    resolve({
+                                        campaign_id: campaign.campaign_id,
+                                        campaign_hashid: campaign.campaign_hashid,
+                                        campaign_description: campaign.campaign_description,
+                                        campaign_state: campaign.campaign_state,
+                                        campaign_owner: campaign_owner,
+                                        items: item_results.map(function(item){
+                                            return {
+                                                item_id: item.item_id,
+                                                item_url: item.item_url,
+                                                item_url_screenshot: ImageDataUri.encode(item.item_url_screenshot, "PNG"),
+                                                item_name: item.item_name,
+                                                item_price: item.item_price
+                                            }
+                                        })
+                                    });
                                 })
-                            });
+                                .catchError(reject);
                         }
                     );
                 }
@@ -138,6 +166,29 @@ class ServerMain {
                         for (campaign in campaign_results)
                         getCampaign(campaign.campaign_id)
                     ]).then(resolve).catchError(reject);
+                }
+            );
+        });
+    }
+
+    static function getUser(user_id:Int) {
+        return new Promise(function(resolve, reject){
+            dbConnectionPool.query(
+                "
+                    SELECT `user_id`, `user_hashid`, `user_primary_email`, `user_name`
+                    FROM user
+                    WHERE `user_id` = ?
+                ",
+                [user_id],
+                function(err, results:Array<Dynamic>, fields) {
+                    if (err) {
+                        reject(err);
+                        return;
+                    }
+                    if (results.length != 1)
+                        return reject('There are ${results.length} users with user_id = ${user_id}.');
+                    var user = results[0];
+                    resolve(user);
                 }
             );
         });
@@ -213,7 +264,7 @@ class ServerMain {
         }));
 
         //auth
-        app.use(function(req, res, next) {
+        app.use(function(req:Request, res:Response, next) {
             if (req == null || req.cookies == null || req.cookies.id_token == null) {
                 next();
                 return;
@@ -250,16 +301,11 @@ class ServerMain {
                 } = JWS.readSafeJSONString(b64utoutf8(token.split(".")[1]));
                 var userEmail = payloadObj.email;
                 if (userEmail == null) return res.status(500).send("user has no email info");
-                res.locals.user = (payloadObj:Dynamic);
 
                 // get user_id
-                dbConnectionPool.query("SELECT user_id FROM user WHERE `user_primary_email` = ?", [userEmail],
-                    function(err, results:Array<Dynamic>, fields:Array<Dynamic>) {
-                        if (err != null) return res.status(500).send(err);
-                        if (results.length >= 1) {
-                            res.locals.user.user_id = results[0].user_id;
-                            next();
-                        } else {
+                getUserIdFromEmail(userEmail)
+                    .then(function(user_id) {
+                        if (user_id == null) {
                             // insert user
                             dbConnectionPool.getConnection(function(err, cnx:Connection) {
                                 if (err != null) return res.status(500).send(err);
@@ -267,6 +313,7 @@ class ServerMain {
                                     if (err != null) return res.status(500).send(err);
                                     cnx.query("INSERT INTO user SET ?", {
                                         user_primary_email: userEmail,
+                                        user_name: payloadObj.name
                                     }, function(err, results, fields) {
                                         if (err != null) {
                                             cnx.rollback(function(){
@@ -296,19 +343,24 @@ class ServerMain {
                                                         });
                                                         return;
                                                     }
-                                                    res.locals.user.user_id = user_id;
-                                                    res.locals.user.user_hashid = user_hashid;
-                                                    cnx.release();
-                                                    next();
+                                                    getUser(user_id).then(function(user){
+                                                        res.locals.user = user;
+                                                        cnx.release();
+                                                        next();
+                                                    });
                                                 });
                                             }
                                         );
                                     });
                                 });
                             });
+                        } else {
+                            getUser(user_id).then(function(user){
+                                res.locals.user = user;
+                                next();
+                            });
                         }
-                    }
-                );
+                    });
             } else {
                 next();
             }
@@ -387,8 +439,8 @@ class ServerMain {
         }
 
         app.get("/user/:user_hashid", function(req:Request, res:Response) {
-            var hashid = req.params.user_hashid;
-            getUserIdFromHash(hashid)
+            var user_hashid = req.params.user_hashid;
+            getUserIdFromHash(user_hashid)
                 .then(function(user_id) {
                     if (user_id == null)
                         return res.status(404).send("There is no such user.");
@@ -402,6 +454,25 @@ class ServerMain {
                             .catchError(function(err){
                                 res.status(500).send(err);
                             });
+                });
+        });
+        app.get("/campaign/:campaign_hashid", function(req:Request, res:Response){
+            var campaign_hashid = req.params.campaign_hashid;
+            getCampaignIdFromHash(campaign_hashid)
+                .then(function(campaign_id){
+                    if (campaign_id == null) {
+                        return res.status(404).send("There is no such campaign.");
+                    } else {
+                        getCampaign(campaign_id)
+                            .then(function(campaign){
+                                res.render("campaign", {
+                                    campaign: campaign
+                                });
+                            })
+                            .catchError(function(err){
+                                res.status(500).send(err);
+                            });
+                    }
                 });
         });
         app.get("/create-campaign", ensureLoggedIn, function(req, res:Response) {

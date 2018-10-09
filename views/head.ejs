@@ -57,9 +57,9 @@
 		<a href="/login" class="signInBtn">Sign in<i class="fab fa-facebook"></i></a>
 	<% } else { %>
 		<% if (bodyClasses.indexOf("page-index") >= 0) { %>
-			<span class="greeting">Hi, <a class="user-name" href="/home"><%= user.name %></a>!</span>
+			<span class="greeting">Hi, <a class="user-name" href="/home"><%= user.user_name %></a>!</span>
 		<% } else { %>
-			<a class="user-name" href="/home"><%= user.name %></a>
+			<a class="user-name" href="/home"><%= user.user_name %></a>
 		<% } %>
 		<a href="/logout" class="signOutBtn">Sign out</a>
 	<% } %>

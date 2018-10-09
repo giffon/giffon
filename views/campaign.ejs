@@ -1,31 +1,18 @@
 <%
-locals.title = campaign.owner.name + "'s " + campaign.items[0].item_name + "Campaign - Giffon";
+locals.title = campaign.campaign_owner.user_name + "'s " + campaign.items[0].item_name + "Campaign - Giffon";
 bodyClasses.push("page-campaign");
 %>
 <%- include('head'); -%>
 
 <div class="container">
-    <h1>Welcome, <%= user.name %>!</h1>
-
-    <div>
-    <% if (campaigns.length == 0) { %>
-        <p>You don't have any Giffon campaign yet.</p>
-        <a href="/create-campaign">Make a wish.</a>
-    <% } else { %>
-        Your current <%= campaigns.length == 1 ? "campaign" : "campaigns" %>:
-        <% campaigns.forEach(function(campaign) { %>
-            <div class="campaign">
-                <div class="campaign-description"><%=campaign.campaign_description%></div>
-                <% campaign.items.forEach(function(item) { %>
-                    <div class="item">
-                        <div class="item-name"><%=item.item_name%></div>
-                        <img class="item-screenshot" alt="<%=item.item_name%>" src="<%=item.item_url_screenshot%>">
-                    </div>
-                <% }); %>
-            </div>
-        <% }); %>
-    <% } %>
-    </div>
+    <h1><a href="/user/<%=campaign.campaign_owner.user_hashid%>"><%=campaign.campaign_owner.user_name%></a> wants</h1>
+    <% campaign.items.forEach(function(item) { %>
+        <div class="item">
+            <div class="item-name"><%=item.item_name%></div>
+            <img class="item-screenshot" alt="<%=item.item_name%>" src="<%=item.item_url_screenshot%>">
+        </div>
+    <% }); %>
+    <div class="campaign-description"><%=campaign.campaign_description%></div>
 </div>
 
 <footer class="p-5 text-center">

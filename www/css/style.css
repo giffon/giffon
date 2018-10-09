@@ -260,11 +260,15 @@ img.emoji, .inline-icon {
     display: inline-block;
 }
 
-.page-home .campaign {
+.page-home .campaign,
+.page-user .campaign {
     padding: 0.5em;
+    background-color: white;
+    color: #333333;
 }
 
-.page-home .campaign .item {
+.page-home .campaign .item,
+.page-user .campaign .item {
     border: 1px solid gray;
     border-radius: 3px;
     padding: 0.5em;
@@ -273,7 +277,8 @@ img.emoji, .inline-icon {
     min-width: min-content;
 }
 
-.page-home img.item-screenshot {
+.page-home img.item-screenshot,
+.page-user img.item-screenshot {
     max-width: 100%;
     width: 150px;
 }

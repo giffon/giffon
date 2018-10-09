@@ -1,26 +1,27 @@
 <%
-locals.title = user.name + " - Giffon";
-bodyClasses.push("page-home");
+locals.title = user.user_name + " - Giffon";
+bodyClasses.push("page-user");
 %>
 <%- include('head'); -%>
 
 <div class="container">
-    <h1><%= user.name %></h1>
+    <h1><%= user.user_name %></h1>
 
     <div>
     <% if (campaigns.length == 0) { %>
-        <p><%= user.name %> doesn't have any Giffon campaign yet.</p>
+        <p><%= user.user_name %> doesn't have any Giffon campaign yet.</p>
     <% } else { %>
         Current <%= campaigns.length == 1 ? "campaign" : "campaigns" %>:
         <% campaigns.forEach(function(campaign) { %>
-            <div class="campaign">
-                <div class="campaign-description"><%=campaign.campaign_description%></div>
+            <div class="campaign shadow">
                 <% campaign.items.forEach(function(item) { %>
                     <div class="item">
                         <div class="item-name"><%=item.item_name%></div>
                         <img class="item-screenshot" alt="<%=item.item_name%>" src="<%=item.item_url_screenshot%>">
                     </div>
                 <% }); %>
+                <div class="campaign-description"><%=campaign.campaign_description%></div>
+                <a href="/campaign/<%=campaign.campaign_hashid%>">detail</a>
             </div>
         <% }); %>
     <% } %>
