@@ -56,6 +56,28 @@ class ServerMain {
         });
     }
 
+    static function getUserIdFromHash(hashid:String):Promise<Null<Int>> {
+        return new Promise(function(resolve, reject) {
+            dbConnectionPool.query(
+                "
+                    SELECT `user_id`
+                    FROM user
+                    WHERE `user_hashid` = ?
+                ",
+                [hashid],
+                function(err, results:Array<Dynamic>, fields) {
+                    if (results.length > 1) {
+                        reject('There is ${results.length} users with the hashid ${hashid}.');
+                    } else if (results.length == 0) {
+                        resolve(null);
+                    } else {
+                        resolve(results[0].user_id);
+                    }
+                }
+            );
+        });
+    }
+
     static function getCampaign(campaign_id:Int) {
         return new Promise(function(resolve, reject) {
             dbConnectionPool.query(
@@ -266,8 +288,6 @@ class ServerMain {
                                                     });
                                                     return;
                                                 }
-                                                res.locals.user.user_id = user_id;
-                                                res.locals.user.user_hashid = user_hashid;
                                                 cnx.commit(function(err){
                                                     if (err != null) {
                                                         cnx.rollback(function(){
@@ -276,6 +296,8 @@ class ServerMain {
                                                         });
                                                         return;
                                                     }
+                                                    res.locals.user.user_id = user_id;
+                                                    res.locals.user.user_hashid = user_hashid;
                                                     cnx.release();
                                                     next();
                                                 });
@@ -364,9 +386,9 @@ class ServerMain {
                 });
         }
 
-        app.get("/user/:user_email", function(req:Request, res:Response) {
-            var user_email = req.params.user_email;
-            getUserIdFromEmail(user_email)
+        app.get("/user/:user_hashid", function(req:Request, res:Response) {
+            var hashid = req.params.user_hashid;
+            getUserIdFromHash(hashid)
                 .then(function(user_id) {
                     if (user_id == null)
                         return res.status(404).send("There is no such user.");

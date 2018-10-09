@@ -7,7 +7,7 @@ bodyClasses.push("page-home");
 <div class="container">
     <h1>Welcome, <%= user.name %>!</h1>
 
-    <p><a href="/user/<%=user.email%>">public profile</a></p>
+    <p><a href="/user/<%=user.user_hashid%>">public profile</a></p>
 
     <div>
     <% if (campaigns.length == 0) { %>
