@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "postinstall": "haxe install-haxelibs.hxml",
-    "prestart": "haxe build.hxml",
-    "start": "node ServerMain.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "haxe build.hxml",
+    "start": "forever ServerMain.js | nip 'return line ? \"[server] \" + line : \"\"' &",
+    "stop": "forever stop ServerMain.js"
   },
   "repository": {
     "type": "git",
@@ -35,6 +35,8 @@
     "validator": "^10.8.0"
   },
   "devDependencies": {
+    "forever": "^0.15.3",
+    "nip": "^1.0.2",
     "serverless-apigw-binary": "^0.4.4"
   }
 }

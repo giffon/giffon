@@ -21,15 +21,27 @@ build-npm:
     paths:
       - node_modules
 
-validate-markup:
+test:
   stage: test
-  image: openjdk:8-jre-alpine
+  image: alpine-3.8
+  services:
+    - mysql:5.6
+  variables:
+    MYSQL_ROOT_PASSWORD: devroot
+    MYSQL_DATABASE: giffon
+    DB_HOST: mysql
+    DB_USER: root
+    DB_PASSWORD: $MYSQL_ROOT_PASSWORD
   script:
-    - wget https://github.com/validator/validator/releases/download/18.8.29/vnu.jar_18.8.29.zip
-    - unzip vnu.jar_18.8.29.zip
-    - java -jar dist/vnu.jar --html www/*.html
-    - java -jar dist/vnu.jar --css www/css/*.css
-    - java -jar dist/vnu.jar --svg --errors-only www/images/*.svg
+    - apk update
+    - apk add nodejs npm mysql-client openjdk8-jre python3
+    - mysql -h mysql -u root --password="$MYSQL_ROOT_PASSWORD" "$MYSQL_DATABASE" -e "source dev/initdb/giffon.sql"
+    - npm start
+    - pip3 install html5validator
+    - html5validator --html http://localhost:3000
+    - html5validator --css www/css/*.css
+    - html5validator --svg --errors-only www/images/*.svg
+    - npm stop
 
 deploy-serverless:
   stage: deploy

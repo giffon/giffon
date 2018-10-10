@@ -13,6 +13,8 @@ Giffon uses Haxe-compiled JS on both client and server sides. To run a local ver
 After you have cloned the project:
 
  1. `git submodule update --init` to make sure the git submodules are up-to-date.
- 2. `npm install` to get the node packages and haxelibs. (See package.json's postinstall.)
- 3. `haxe run-mysql.hxml start` to start a local MySQL database. Use `haxe run-mysql.hxml stop` to stop it when you're done. Note that the database content will be gone once stopped.
- 4. `npm start` to build and run the server. It should be accessible via http://localhost:3000. Use <kbd>ctrl</kbd>+<kbd>c</kbd> to stop the server.
+ 2. `npm install` to get the node packages and haxelibs (package.json's postinstall).
+ 3. `haxe build.hxml` to build everything.
+ 4. `haxe run-mysql.hxml start` to start a local MySQL database. Use `haxe run-mysql.hxml stop` to stop it when you're done. Note that the database content will be gone once stopped.
+ 5. `npm start` to start the server. It should be accessible via http://localhost:3000. Use `npm stop` and `npm restart` to stop and restart the server, respectively.
+ 
