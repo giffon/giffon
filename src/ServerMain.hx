@@ -102,8 +102,8 @@ class ServerMain {
         });
     }
 
-    static function getCampaign(campaign_id:Int) {
-        return new Promise(function(resolve, reject) {
+    @:async static function getCampaign(campaign_id:Int) {
+        return @await tink.core.Future.async(@async function(resolve) {
             dbConnectionPool.query(
                 "
                     SELECT `campaign_id`, `user_id`, `campaign_hashid`, `campaign_description`, `campaign_state`, `item_group_id`
@@ -111,10 +111,11 @@ class ServerMain {
                     WHERE `campaign_id` = ?
                 ",
                 [campaign_id],
-                function(err, campaign_results:Array<Dynamic>, fields) {
-                    if (err != null) return reject(err);
+                @async function(err, campaign_results:Array<Dynamic>, fields) {
+                    if (err != null)
+                        throw err;
                     if (campaign_results == null || campaign_results.length != 1)
-                        return reject('There are ${campaign_results == null ? 0 : campaign_results.length} campaigns with campaign_id = ${campaign_id}.');
+                        throw 'There are ${campaign_results == null ? 0 : campaign_results.length} campaigns with campaign_id = ${campaign_id}.';
                     var campaign = campaign_results[0];
                     dbConnectionPool.query(
                         "
@@ -123,28 +124,25 @@ class ServerMain {
                             WHERE item.`item_id` = item_group.`item_id` AND `item_group_id` = ?
                         ",
                         [campaign.item_group_id],
-                        function(err, item_results:Array<Dynamic>, fields) {
-                            if (err != null) return reject(err);
-                            getUser(campaign.user_id)
-                                .then(function(campaign_owner){
-                                    resolve({
-                                        campaign_id: campaign.campaign_id,
-                                        campaign_hashid: campaign.campaign_hashid,
-                                        campaign_description: campaign.campaign_description,
-                                        campaign_state: campaign.campaign_state,
-                                        campaign_owner: campaign_owner,
-                                        items: item_results.map(function(item){
-                                            return {
-                                                item_id: item.item_id,
-                                                item_url: item.item_url,
-                                                item_url_screenshot: ImageDataUri.encode(item.item_url_screenshot, "PNG"),
-                                                item_name: item.item_name,
-                                                item_price: item.item_price
-                                            }
-                                        })
-                                    });
+                        @async function(err, item_results:Array<Dynamic>, fields) {
+                            if (err != null) throw err;
+                            var campaign_owner = @:await getUser(campaign.user_id).ofJsPromise();
+                            resolve({
+                                campaign_id: campaign.campaign_id,
+                                campaign_hashid: campaign.campaign_hashid,
+                                campaign_description: campaign.campaign_description,
+                                campaign_state: campaign.campaign_state,
+                                campaign_owner: campaign_owner,
+                                items: item_results.map(function(item){
+                                    return {
+                                        item_id: item.item_id,
+                                        item_url: item.item_url,
+                                        item_url_screenshot: ImageDataUri.encode(item.item_url_screenshot, "PNG"),
+                                        item_name: item.item_name,
+                                        item_price: item.item_price
+                                    }
                                 })
-                                .catchError(reject);
+                            });
                         }
                     );
                 }
@@ -152,8 +150,10 @@ class ServerMain {
         });
     }
 
-    static function getCampaigns(user_id:Int) {
-        return new Promise(function(resolve, reject) {
+    
+
+    @async static function getCampaigns(user_id:Int) {
+        return @await tink.core.Future.async(@async function(resolve) {
             dbConnectionPool.query(
                 "
                     SELECT `campaign_id`
@@ -161,13 +161,16 @@ class ServerMain {
                     WHERE `user_id` = ?
                 ",
                 [user_id],
-                function(err, campaign_results:Array<Dynamic>, fields) {
-                    if (err != null) return reject(err);
+                @async function (err, campaign_results:Array<Dynamic>, fields) {
+                    if (err != null) {
+                        throw err;
+                    }
 
-                    Promise.all([
+                    var campaigns = @await tink.core.Promise.inParallel([
                         for (campaign in campaign_results)
                         getCampaign(campaign.campaign_id)
-                    ]).then(resolve).catchError(reject);
+                    ]);
+                    resolve(campaigns);
                 }
             );
         });
@@ -429,7 +432,7 @@ class ServerMain {
             res.render("signin");
         });
         app.get("/home", ensureLoggedIn, @async function(req:Request, res:Response):Void {
-            var campaigns = @await getCampaigns(res.locals.user.user_id).ofJsPromise();
+            var campaigns = @await getCampaigns(res.locals.user.user_id);
             res.render("home", {
                 campaigns: campaigns
             });
@@ -451,7 +454,7 @@ class ServerMain {
             if (user_id == null) {
                 res.status(404).send("There is no such user.");
             } else {
-                var campaigns = @await getCampaigns(user_id).ofJsPromise();
+                var campaigns = @await getCampaigns(user_id);
                 res.render("user", {
                     campaigns: campaigns
                 });
@@ -463,7 +466,7 @@ class ServerMain {
             if (campaign_id == null) {
                 res.status(404).send("There is no such campaign.");
             } else {
-                var campaign = @await getCampaign(campaign_id).ofJsPromise();
+                var campaign = @await getCampaign(campaign_id);
                 res.render("campaign", {
                     campaign: campaign
                 });
@@ -475,7 +478,7 @@ class ServerMain {
             if (campaign_id == null) {
                 res.status(404).send("There is no such campaign.");
             } else {
-                var campaign = @await getCampaign(campaign_id).ofJsPromise();
+                var campaign = @await getCampaign(campaign_id);
                 res.status(500).send("Not implemented yet");
             }
         });
