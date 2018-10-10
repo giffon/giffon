@@ -6,7 +6,7 @@
   "scripts": {
     "postinstall": "haxe install-haxelibs.hxml",
     "build": "haxe build.hxml",
-    "start": "forever ServerMain.js | nip 'return line ? \"[server] \" + line : \"\"' &",
+    "start": "forever --watch ServerMain.js | nip 'function(l) { if (l) { process.stdout.write(\"[server] \" + l + \"\\n\"); } return false; }' &",
     "stop": "forever stop ServerMain.js"
   },
   "repository": {
