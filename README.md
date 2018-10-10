@@ -8,7 +8,7 @@ Giffon uses Haxe-compiled JS on both client and server sides. To run a local ver
 
  * [Haxe 3.4.7](https://haxe.org/download/version/3.4.7/).
  * [Node 8 (or up)](https://nodejs.org/en/download/) for running the server program.
- * [Docker](https://docs.docker.com/install/) for running a local MySQL database. Community Edition is enough. In case your machine does not meet the requirements of Docker for Mac and Docker for Windows, you can use [Docker Toolbox](https://docs.docker.com/toolbox/overview/) instead.
+ * [Docker](https://docs.docker.com/install/#supported-platforms) for running a local MySQL database. Community Edition is enough. In case your machine does not meet the requirements of Docker for Mac and Docker for Windows, you can use [Docker Toolbox](https://docs.docker.com/toolbox/overview/) instead.
 
 After you have cloned the project:
 
