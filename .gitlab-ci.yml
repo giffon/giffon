@@ -37,6 +37,7 @@ test:
     - apk add nodejs npm mysql-client openjdk8-jre python3
     - mysql -h mysql -u root --password="$MYSQL_ROOT_PASSWORD" "$MYSQL_DATABASE" -e "source dev/initdb/giffon.sql"
     - npm start
+    - sleep 3 # allow displaying some server init messages
     - pip3 install html5validator
     - html5validator --html http://localhost:3000
     - html5validator --css www/css/*.css
