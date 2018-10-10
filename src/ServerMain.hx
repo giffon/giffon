@@ -9,6 +9,7 @@ import jsrsasign.*;
 import jsrsasign.Global.*;
 import hashids.Hashids;
 import haxe.io.*;
+using tink.core.Promise;
 import js.Promise;
 using js.npm.validator.Validator;
 
@@ -18,6 +19,7 @@ using js.npm.validator.Validator;
     var Dev = "dev";
 }
 
+@await
 class ServerMain {
     static var SERVERLESS_STAGE(default, never):Null<ServerlessStage> = process.env["SERVERLESS_STAGE"];
     static var canonicalBase(default, never) = "https://giffon.io";
@@ -212,7 +214,109 @@ class ServerMain {
         });
     }
 
-    static function main():Void {
+    static function auth(req:Request, res:Response, next:haxe.Constraints.Function):Void {
+        if (req == null || req.cookies == null || req.cookies.id_token == null) {
+            next();
+            return;
+        }
+        var token = req.cookies.id_token;
+        var pubkey = KEYUTIL.getKey(AUTH0_PUBKEY);
+        var alg = "RS256";
+        var isValid = JWS.verifyJWT(
+            token,
+            pubkey,
+            {
+                alg: [alg],
+                iss: ['https://${AUTH0_DOMAIN}/'],
+                aud: [AUTH0_CLIENT_ID]
+            }
+        );
+        if (isValid) {
+            var payloadObj:{
+                given_name: String,
+                family_name: String,
+                nickname: String,
+                name: String,
+                picture: String,
+                updated_at: String,
+                email: String,
+                email_verified:Bool,
+                iss: String,
+                sub: String,
+                aud: String,
+                iat: Float,
+                exp: Float,
+                at_hash: String,
+                nonce: String
+            } = JWS.readSafeJSONString(b64utoutf8(token.split(".")[1]));
+            var userEmail = payloadObj.email;
+            if (userEmail == null) return res.status(500).send("user has no email info");
+
+            // get user_id
+            getUserIdFromEmail(userEmail)
+                .then(function(user_id) {
+                    if (user_id == null) {
+                        // insert user
+                        dbConnectionPool.getConnection(function(err, cnx:Connection) {
+                            if (err != null) return res.status(500).send(err);
+                            cnx.beginTransaction(function(err){
+                                if (err != null) return res.status(500).send(err);
+                                cnx.query("INSERT INTO user SET ?", {
+                                    user_primary_email: userEmail,
+                                    user_name: payloadObj.name
+                                }, function(err, results, fields) {
+                                    if (err != null) {
+                                        cnx.rollback(function(){
+                                            cnx.release();
+                                            res.status(500).send(err);
+                                        });
+                                        return;
+                                    }
+                                    var user_id = results.insertId;
+                                    var user_hashid = new Hashids("user" + DBInfo.salt, 4).encode(user_id);
+                                    cnx.query(
+                                        "UPDATE user SET `user_hashid` = ? WHERE `user_id` = ?",
+                                        ([user_hashid, user_id]:Array<Dynamic>),
+                                        function(err, results, fields){
+                                            if (err != null) {
+                                                cnx.rollback(function(){
+                                                    cnx.release();
+                                                    res.status(500).send(err);
+                                                });
+                                                return;
+                                            }
+                                            cnx.commit(function(err){
+                                                if (err != null) {
+                                                    cnx.rollback(function(){
+                                                        cnx.release();
+                                                        res.status(500).send(err);
+                                                    });
+                                                    return;
+                                                }
+                                                getUser(user_id).then(function(user){
+                                                    res.locals.user = user;
+                                                    cnx.release();
+                                                    next();
+                                                });
+                                            });
+                                        }
+                                    );
+                                });
+                            });
+                        });
+                    } else {
+                        getUser(user_id).then(function(user) {
+                            res.locals.user = user;
+                            next();
+                        });
+                    }
+                });
+        } else {
+            next();
+        }
+    }
+
+    @async static function main():Void {
         var isMain = (untyped __js__("require")).main == module;
 
         var dbConfig:Mysql.ConnectionOptions = {
@@ -272,107 +376,7 @@ class ServerMain {
         }));
 
         //auth
-        app.use(function(req:Request, res:Response, next) {
-            if (req == null || req.cookies == null || req.cookies.id_token == null) {
-                next();
-                return;
-            }
-            var token = req.cookies.id_token;
-            var pubkey = KEYUTIL.getKey(AUTH0_PUBKEY);
-            var alg = "RS256";
-            var isValid = JWS.verifyJWT(
-                token,
-                pubkey,
-                {
-                    alg: [alg],
-                    iss: ['https://${AUTH0_DOMAIN}/'],
-                    aud: [AUTH0_CLIENT_ID]
-                }
-            );
-            if (isValid) {
-                var payloadObj:{
-                    given_name: String,
-                    family_name: String,
-                    nickname: String,
-                    name: String,
-                    picture: String,
-                    updated_at: String,
-                    email: String,
-                    email_verified:Bool,
-                    iss: String,
-                    sub: String,
-                    aud: String,
-                    iat: Float,
-                    exp: Float,
-                    at_hash: String,
-                    nonce: String
-                } = JWS.readSafeJSONString(b64utoutf8(token.split(".")[1]));
-                var userEmail = payloadObj.email;
-                if (userEmail == null) return res.status(500).send("user has no email info");
-
-                // get user_id
-                getUserIdFromEmail(userEmail)
-                    .then(function(user_id) {
-                        if (user_id == null) {
-                            // insert user
-                            dbConnectionPool.getConnection(function(err, cnx:Connection) {
-                                if (err != null) return res.status(500).send(err);
-                                cnx.beginTransaction(function(err){
-                                    if (err != null) return res.status(500).send(err);
-                                    cnx.query("INSERT INTO user SET ?", {
-                                        user_primary_email: userEmail,
-                                        user_name: payloadObj.name
-                                    }, function(err, results, fields) {
-                                        if (err != null) {
-                                            cnx.rollback(function(){
-                                                cnx.release();
-                                                res.status(500).send(err);
-                                            });
-                                            return;
-                                        }
-                                        var user_id = results.insertId;
-                                        var user_hashid = new Hashids("user" + DBInfo.salt, 4).encode(user_id);
-                                        cnx.query(
-                                            "UPDATE user SET `user_hashid` = ? WHERE `user_id` = ?",
-                                            ([user_hashid, user_id]:Array<Dynamic>),
-                                            function(err, results, fields){
-                                                if (err != null) {
-                                                    cnx.rollback(function(){
-                                                        cnx.release();
-                                                        res.status(500).send(err);
-                                                    });
-                                                    return;
-                                                }
-                                                cnx.commit(function(err){
-                                                    if (err != null) {
-                                                        cnx.rollback(function(){
-                                                            cnx.release();
-                                                            res.status(500).send(err);
-                                                        });
-                                                        return;
-                                                    }
-                                                    getUser(user_id).then(function(user){
-                                                        res.locals.user = user;
-                                                        cnx.release();
-                                                        next();
-                                                    });
-                                                });
-                                            }
-                                        );
-                                    });
-                                });
-                            });
-                        } else {
-                            getUser(user_id).then(function(user){
-                                res.locals.user = user;
-                                next();
-                            });
-                        }
-                    });
-            } else {
-                next();
-            }
-        });
+        app.use(auth);
 
         //template variables
         app.use(function(req:Request, res:Response, next) {
@@ -424,16 +428,11 @@ class ServerMain {
         app.get("/signin", function(req, res:Response) {
             res.render("signin");
         });
-        app.get("/home", ensureLoggedIn, function(req:Request, res:Response):Void {
-            getCampaigns(res.locals.user.user_id)
-                .then(function(campaigns) {
-                    res.render("home", {
-                        campaigns: campaigns
-                    });
-                })
-                .catchError(function(err){
-                    res.status(500).send(err);
-                });
+        app.get("/home", ensureLoggedIn, @async function(req:Request, res:Response):Void {
+            var campaigns = @await getCampaigns(res.locals.user.user_id).ofJsPromise();
+            res.render("home", {
+                campaigns: campaigns
+            });
         });
 
         // print user data
@@ -446,59 +445,39 @@ class ServerMain {
                 });
         }
 
-        app.get("/user/:user_hashid", function(req:Request, res:Response) {
+        app.get("/user/:user_hashid", @async function(req:Request, res:Response) {
             var user_hashid = req.params.user_hashid;
-            getUserIdFromHash(user_hashid)
-                .then(function(user_id) {
-                    if (user_id == null)
-                        return res.status(404).send("There is no such user.");
-                    else
-                        getCampaigns(user_id)
-                            .then(function(campaigns) {
-                                res.render("user", {
-                                    campaigns: campaigns
-                                });
-                            })
-                            .catchError(function(err){
-                                res.status(500).send(err);
-                            });
+            var user_id = @await getUserIdFromHash(user_hashid).ofJsPromise();
+            if (user_id == null) {
+                res.status(404).send("There is no such user.");
+            } else {
+                var campaigns = @await getCampaigns(user_id).ofJsPromise();
+                res.render("user", {
+                    campaigns: campaigns
                 });
+            }
         });
-        app.get("/campaign/:campaign_hashid", function(req:Request, res:Response){
+        app.get("/campaign/:campaign_hashid", @async function(req:Request, res:Response){
             var campaign_hashid = req.params.campaign_hashid;
-            getCampaignIdFromHash(campaign_hashid)
-                .then(function(campaign_id){
-                    if (campaign_id == null) {
-                        return res.status(404).send("There is no such campaign.");
-                    } else {
-                        getCampaign(campaign_id)
-                            .then(function(campaign){
-                                res.render("campaign", {
-                                    campaign: campaign
-                                });
-                            })
-                            .catchError(function(err){
-                                res.status(500).send(err);
-                            });
-                    }
+            var campaign_id = @await getCampaignIdFromHash(campaign_hashid).ofJsPromise();
+            if (campaign_id == null) {
+                res.status(404).send("There is no such campaign.");
+            } else {
+                var campaign = @await getCampaign(campaign_id).ofJsPromise();
+                res.render("campaign", {
+                    campaign: campaign
                 });
+            }
         });
-        app.get("/campaign/:campaign_hashid/pledge", function(req:Request, res:Response){
+        app.get("/campaign/:campaign_hashid/pledge", @async function(req:Request, res:Response){
             var campaign_hashid = req.params.campaign_hashid;
-            getCampaignIdFromHash(campaign_hashid)
-                .then(function(campaign_id){
-                    if (campaign_id == null) {
-                        return res.status(404).send("There is no such campaign.");
-                    } else {
-                        getCampaign(campaign_id)
-                            .then(function(campaign){
-                                res.status(500).send("Not implemented yet");
-                            })
-                            .catchError(function(err){
-                                res.status(500).send(err);
-                            });
-                    }
-                });
+            var campaign_id = @await getCampaignIdFromHash(campaign_hashid).ofJsPromise();
+            if (campaign_id == null) {
+                res.status(404).send("There is no such campaign.");
+            } else {
+                var campaign = @await getCampaign(campaign_id).ofJsPromise();
+                res.status(500).send("Not implemented yet");
+            }
         });
         app.get("/create-campaign", ensureLoggedIn, function(req, res:Response) {
             res.render("create-campaign");

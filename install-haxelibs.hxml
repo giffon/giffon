@@ -1,5 +1,6 @@
 -cmd haxelib newrepo
 -cmd haxelib install build-browser.hxml --always
 -cmd haxelib install hashids --always
+-cmd haxelib install tink_await --always
 -cmd haxelib dev hxnodejs lib/hxnodejs
 -cmd haxelib dev hxnodelibs lib/hxnodelibs
