@@ -23,7 +23,7 @@ build-npm:
 
 test:
   stage: test
-  image: alpine-3.8
+  image: alpine:3.8
   services:
     - mysql:5.6
   variables:
