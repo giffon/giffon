@@ -4,7 +4,7 @@
   "description": "crowd-gifting",
   "main": "index.js",
   "scripts": {
-    "postinstall": "haxelib newrepo && haxelib install build-browser.hxml --always && haxelib dev hxnodejs lib/hxnodejs && haxelib dev hxnodelibs lib/hxnodelibs && haxelib install hashids",
+    "postinstall": "haxe install-haxelibs.hxml",
     "prestart": "haxe build.hxml",
     "start": "node ServerMain.js",
     "test": "echo \"Error: no test specified\" && exit 1"

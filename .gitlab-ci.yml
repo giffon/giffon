@@ -1,29 +1,25 @@
-build-browser:
-  stage: build
-  image: haxe:3.4.7-alpine
-  script:
-    - haxelib install build-browser.hxml --always
-    - haxelib list
-    - haxe build-browser.hxml
-  artifacts:
-    paths:
-      - www/js/BrowserMain.js
-
-build-server:
+build-haxe:
   stage: build
   image: haxe:3.4.7-alpine
   variables:
     GIT_SUBMODULE_STRATEGY: recursive
   script:
-    - haxelib dev hxnodejs lib/hxnodejs
-    - haxelib dev hxnodelibs lib/hxnodelibs
-    - haxelib install compiletime
-    - haxelib install hashids
+    - haxe install-haxelibs.hxml
     - haxelib list
-    - haxe build-server.hxml
+    - haxe build.hxml
   artifacts:
     paths:
+      - www/js/BrowserMain.js
       - ServerMain.js
+
+build-npm:
+  stage: build
+  image: node:8-alpine
+  script:
+    - npm install
+  artifacts:
+    paths:
+      - node_modules
 
 validate-markup:
   stage: test
@@ -40,7 +36,6 @@ deploy-serverless:
   image: node:8-alpine
   script:
     - npm install -g serverless
-    - npm install
     - serverless deploy --stage "${CI_COMMIT_REF_NAME}"
   only:
     - master
