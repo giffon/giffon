@@ -113,7 +113,7 @@ class BrowserMain {
 
         this.session = null;
         webAuth.logout({
-            returnTo: location.origin + location.pathname
+            returnTo: location.origin
         });
     }
 
