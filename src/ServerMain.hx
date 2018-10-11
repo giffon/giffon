@@ -115,8 +115,12 @@ class ServerMain {
                 @async function(err, campaign_results:Array<Dynamic>, fields) {
                     if (err != null)
                         throw err;
-                    if (campaign_results == null || campaign_results.length != 1)
-                        throw 'There are ${campaign_results == null ? 0 : campaign_results.length} campaigns with campaign_id = ${campaign_id}.';
+                    if (campaign_results == null || campaign_results.length < 1) {
+                        resolve(null);
+                        return null;
+                    }
+                    if (campaign_results.length > 1)
+                        throw 'There are ${campaign_results.length} campaigns with campaign_id = ${campaign_id}.';
                     var campaign = campaign_results[0];
                     dbConnectionPool.query(
                         "
@@ -191,7 +195,9 @@ class ServerMain {
                         reject(err);
                         return;
                     }
-                    if (results == null || results.length != 1)
+                    if (results == null || results.length < 1)
+                        return reject("There is no such user.");
+                    if (results.length > 1)
                         return reject('There are ${results == null ? 0 : results.length} users with user_id = ${user_id}.');
                     var user = results[0];
                     resolve(user);
@@ -481,12 +487,16 @@ class ServerMain {
                 var campaign_id = @await getCampaignIdFromHash(campaign_hashid).toPromise();
                 if (campaign_id == null) {
                     res.status(404).send("There is no such campaign.");
-                } else {
-                    var campaign = @await getCampaign(campaign_id);
-                    res.render("campaign", {
-                        campaign: campaign
-                    });
+                    return null;
                 }
+                var campaign = @await getCampaign(campaign_id);
+                if (campaign == null) {
+                    res.status(404).send("There is no such campaign.");
+                    return null;
+                }
+                res.render("campaign", {
+                    campaign: campaign
+                });
             } catch (err:Dynamic) {
                 res.status(500).send(err);
                 return null;
@@ -498,10 +508,14 @@ class ServerMain {
                 var campaign_id = @await getCampaignIdFromHash(campaign_hashid).toPromise();
                 if (campaign_id == null) {
                     res.status(404).send("There is no such campaign.");
-                } else {
-                    var campaign = @await getCampaign(campaign_id);
-                    res.status(500).send("Not implemented yet");
+                    return null;
                 }
+                var campaign = @await getCampaign(campaign_id);
+                if (campaign == null) {
+                    res.status(404).send("There is no such campaign.");
+                    return null;
+                }
+                res.status(500).send("Not implemented yet");
             } catch (err:Dynamic) {
                 res.status(500).send(err);
                 return null;
@@ -529,14 +543,14 @@ class ServerMain {
                     price: Float,
                     category: String,
                     name: String
-                } = @await tink.core.Future.async(function(resolve:Outcome<Dynamic,Dynamic>->Void){
+                } = @await (new js.Promise(function(resolve, reject){
                     priceFinder.findItemDetails(item_url, function(err, details) {
                         if (err != null)
-                            resolve(Failure(err));
+                            reject(err);
                         else
-                            resolve(Success(details));
+                            resolve(details);
                     });
-                });
+                })).toPromise();
                 var screenshot = @await getAmazonItemScreenshot(item_url).toPromise();
                 dbConnectionPool.getConnection(function(err, cnx:Connection) {
                     if (err != null) return res.status(500).send(err);
