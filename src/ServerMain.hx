@@ -104,7 +104,7 @@ class ServerMain {
     }
 
     @:async static function getCampaign(campaign_id:Int) {
-        return @await tink.core.Future.async(@async function(resolve) {
+        return @await tink.core.Future.async(@await function(resolve) {
             dbConnectionPool.query(
                 "
                     SELECT `campaign_id`, `user_id`, `campaign_hashid`, `campaign_description`, `campaign_state`, `item_group_id`
@@ -112,7 +112,7 @@ class ServerMain {
                     WHERE `campaign_id` = ?
                 ",
                 [campaign_id],
-                @async function(err, campaign_results:Array<Dynamic>, fields) {
+                @async function(err:Dynamic, campaign_results:Array<Dynamic>, fields) {
                     if (err != null)
                         throw err;
                     if (campaign_results == null || campaign_results.length < 1) {
@@ -224,11 +224,11 @@ class ServerMain {
         });
     }
 
-    @async static function auth(req:Request, res:Response, next:haxe.Constraints.Function) {
+    @await static function auth(req:Request, res:Response, next:haxe.Constraints.Function) {
         try {
             if (req == null || req.cookies == null || req.cookies.id_token == null) {
                 next();
-                return null;
+                return;
             }
             var token = req.cookies.id_token;
             var pubkey = KEYUTIL.getKey(AUTH0_PUBKEY);
@@ -244,7 +244,7 @@ class ServerMain {
             );
             if (!isValid) {
                 next();
-                return null;
+                return;
             }
             var payloadObj:{
                 given_name: String,
@@ -266,7 +266,7 @@ class ServerMain {
             var userEmail = payloadObj.email;
             if (userEmail == null) {
                 res.status(500).send("user has no email info");
-                return null;
+                return;
             }
             // get user_id
             var user_id:Null<Int> = @await getUserIdFromEmail(userEmail).toPromise();
@@ -274,7 +274,7 @@ class ServerMain {
                 var user = @await getUser(user_id).toPromise();
                 res.locals.user = user;
                 next();
-                return null;
+                return;
             }
             // insert user
             dbConnectionPool.getConnection(function(err, cnx:Connection) {
@@ -326,7 +326,7 @@ class ServerMain {
             });
         } catch (err:Dynamic) {
             res.status(500).send(err);
-            return null;
+            return;
         }
     }
 
@@ -442,7 +442,7 @@ class ServerMain {
         app.get("/signin", function(req, res:Response) {
             res.render("signin");
         });
-        app.get("/home", ensureLoggedIn, @async function(req:Request, res:Response) {
+        app.get("/home", ensureLoggedIn, @await function(req:Request, res:Response) {
             try {
                 var campaigns = @await getCampaigns(res.locals.user.user_id);
                 res.render("home", {
@@ -450,7 +450,7 @@ class ServerMain {
                 });
             } catch (err:Dynamic) {
                 res.status(500).send(err);
-                return null;
+                return;
             }
         });
 
@@ -464,7 +464,7 @@ class ServerMain {
                 });
         }
 
-        app.get("/user/:user_hashid", @async function(req:Request, res:Response) {
+        app.get("/user/:user_hashid", @await function(req:Request, res:Response) {
             try {
                 var user_hashid = req.params.user_hashid;
                 var user_id = @await getUserIdFromHash(user_hashid).toPromise();
@@ -478,53 +478,53 @@ class ServerMain {
                 }
             } catch (err:Dynamic) {
                 res.status(500).send(err);
-                return null;
+                return;
             }
         });
-        app.get("/campaign/:campaign_hashid", @async function(req:Request, res:Response){
+        app.get("/campaign/:campaign_hashid", @await function(req:Request, res:Response){
             try {
                 var campaign_hashid = req.params.campaign_hashid;
                 var campaign_id = @await getCampaignIdFromHash(campaign_hashid).toPromise();
                 if (campaign_id == null) {
                     res.status(404).send("There is no such campaign.");
-                    return null;
+                    return;
                 }
                 var campaign = @await getCampaign(campaign_id);
                 if (campaign == null) {
                     res.status(404).send("There is no such campaign.");
-                    return null;
+                    return;
                 }
                 res.render("campaign", {
                     campaign: campaign
                 });
             } catch (err:Dynamic) {
                 res.status(500).send(err);
-                return null;
+                return;
             }
         });
-        app.get("/campaign/:campaign_hashid/pledge", @async function(req:Request, res:Response){
+        app.get("/campaign/:campaign_hashid/pledge", @await function(req:Request, res:Response){
             try {
                 var campaign_hashid = req.params.campaign_hashid;
                 var campaign_id = @await getCampaignIdFromHash(campaign_hashid).toPromise();
                 if (campaign_id == null) {
                     res.status(404).send("There is no such campaign.");
-                    return null;
+                    return;
                 }
                 var campaign = @await getCampaign(campaign_id);
                 if (campaign == null) {
                     res.status(404).send("There is no such campaign.");
-                    return null;
+                    return;
                 }
                 res.status(500).send("Not implemented yet");
             } catch (err:Dynamic) {
                 res.status(500).send(err);
-                return null;
+                return;
             }
         });
         app.get("/create-campaign", ensureLoggedIn, function(req, res:Response) {
             res.render("create-campaign");
         });
-        app.post("/create-campaign", ensureLoggedIn, @async function(req:Request, res:Response) {
+        app.post("/create-campaign", ensureLoggedIn, @await function(req:Request, res:Response) {
             try {
                 var item_url:String = req.body.item_url;
                 var campaign_description:String = req.body.campaign_description;
@@ -535,7 +535,7 @@ class ServerMain {
                     host_whitelist: ["www.amazon.com"],
                 })) {
                     res.status(400).send("invalid url");
-                    return null;
+                    return;
                 }
 
                 var priceFinder = new PriceFinder();
@@ -638,7 +638,7 @@ class ServerMain {
                 });
             } catch (err:Dynamic) {
                 res.status(500).send(err);
-                return null;
+                return;
             }
         });
 
