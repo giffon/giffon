@@ -9,7 +9,7 @@ import jsrsasign.*;
 import jsrsasign.Global.*;
 import hashids.Hashids;
 import haxe.io.*;
-import tink.core.*;
+import tink.CoreApi;
 import js.Promise;
 using js.npm.validator.Validator;
 using tink.core.Future.JsPromiseTools;
@@ -158,7 +158,7 @@ class ServerMain {
     
 
     @async static function getCampaigns(user_id:Int) {
-        return @await tink.core.Future.async(@async function(resolve) {
+        return @await Surprise.async(@await function(resolve) {
             dbConnectionPool.query(
                 "
                     SELECT `campaign_id`
