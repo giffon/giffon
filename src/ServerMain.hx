@@ -9,9 +9,10 @@ import jsrsasign.*;
 import jsrsasign.Global.*;
 import hashids.Hashids;
 import haxe.io.*;
-using tink.core.Promise;
+import tink.core.*;
 import js.Promise;
 using js.npm.validator.Validator;
+using tink.core.Future.JsPromiseTools;
 
 @:enum abstract ServerlessStage(String) from String {
     var Production = "production";
@@ -49,7 +50,7 @@ class ServerMain {
                     if (results == null || results.length == 0) {
                         resolve(null);
                     } else if (results.length > 1) {
-                        reject('There is ${results.length} users with the email address ${email}.');
+                        reject('There are ${results.length} users with the email address ${email}.');
                     } else {
                         resolve(results[0].user_id);
                     }
@@ -126,7 +127,7 @@ class ServerMain {
                         [campaign.item_group_id],
                         @async function(err, item_results:Array<Dynamic>, fields) {
                             if (err != null) throw err;
-                            var campaign_owner = @:await getUser(campaign.user_id).ofJsPromise();
+                            var campaign_owner = @:await getUser(campaign.user_id).toPromise();
                             resolve({
                                 campaign_id: campaign.campaign_id,
                                 campaign_hashid: campaign.campaign_hashid,
@@ -217,24 +218,28 @@ class ServerMain {
         });
     }
 
-    static function auth(req:Request, res:Response, next:haxe.Constraints.Function):Void {
-        if (req == null || req.cookies == null || req.cookies.id_token == null) {
-            next();
-            return;
-        }
-        var token = req.cookies.id_token;
-        var pubkey = KEYUTIL.getKey(AUTH0_PUBKEY);
-        var alg = "RS256";
-        var isValid = JWS.verifyJWT(
-            token,
-            pubkey,
-            {
-                alg: [alg],
-                iss: ['https://${AUTH0_DOMAIN}/'],
-                aud: [AUTH0_CLIENT_ID]
+    @async static function auth(req:Request, res:Response, next:haxe.Constraints.Function) {
+        try {
+            if (req == null || req.cookies == null || req.cookies.id_token == null) {
+                next();
+                return null;
             }
-        );
-        if (isValid) {
+            var token = req.cookies.id_token;
+            var pubkey = KEYUTIL.getKey(AUTH0_PUBKEY);
+            var alg = "RS256";
+            var isValid = JWS.verifyJWT(
+                token,
+                pubkey,
+                {
+                    alg: [alg],
+                    iss: ['https://${AUTH0_DOMAIN}/'],
+                    aud: [AUTH0_CLIENT_ID]
+                }
+            );
+            if (!isValid) {
+                next();
+                return null;
+            }
             var payloadObj:{
                 given_name: String,
                 family_name: String,
@@ -253,21 +258,48 @@ class ServerMain {
                 nonce: String
             } = JWS.readSafeJSONString(b64utoutf8(token.split(".")[1]));
             var userEmail = payloadObj.email;
-            if (userEmail == null) return res.status(500).send("user has no email info");
-
+            if (userEmail == null) {
+                res.status(500).send("user has no email info");
+                return null;
+            }
             // get user_id
-            getUserIdFromEmail(userEmail)
-                .then(function(user_id) {
-                    if (user_id == null) {
-                        // insert user
-                        dbConnectionPool.getConnection(function(err, cnx:Connection) {
-                            if (err != null) return res.status(500).send(err);
-                            cnx.beginTransaction(function(err){
-                                if (err != null) return res.status(500).send(err);
-                                cnx.query("INSERT INTO user SET ?", {
-                                    user_primary_email: userEmail,
-                                    user_name: payloadObj.name
-                                }, function(err, results, fields) {
+            var user_id:Null<Int> = @await getUserIdFromEmail(userEmail).toPromise();
+            if (user_id != null) {
+                var user = @await getUser(user_id).toPromise();
+                res.locals.user = user;
+                next();
+                return null;
+            }
+            // insert user
+            dbConnectionPool.getConnection(function(err, cnx:Connection) {
+                if (err != null) return res.status(500).send(err);
+                cnx.beginTransaction(function(err){
+                    if (err != null) return res.status(500).send(err);
+                    cnx.query("INSERT INTO user SET ?", {
+                        user_primary_email: userEmail,
+                        user_name: payloadObj.name
+                    }, function(err, results, fields) {
+                        if (err != null) {
+                            cnx.rollback(function(){
+                                cnx.release();
+                                res.status(500).send(err);
+                            });
+                            return;
+                        }
+                        var user_id = results.insertId;
+                        var user_hashid = new Hashids("user" + DBInfo.salt, 4).encode(user_id);
+                        cnx.query(
+                            "UPDATE user SET `user_hashid` = ? WHERE `user_id` = ?",
+                            ([user_hashid, user_id]:Array<Dynamic>),
+                            function(err, results, fields){
+                                if (err != null) {
+                                    cnx.rollback(function(){
+                                        cnx.release();
+                                        res.status(500).send(err);
+                                    });
+                                    return;
+                                }
+                                cnx.commit(function(err){
                                     if (err != null) {
                                         cnx.rollback(function(){
                                             cnx.release();
@@ -275,47 +307,20 @@ class ServerMain {
                                         });
                                         return;
                                     }
-                                    var user_id = results.insertId;
-                                    var user_hashid = new Hashids("user" + DBInfo.salt, 4).encode(user_id);
-                                    cnx.query(
-                                        "UPDATE user SET `user_hashid` = ? WHERE `user_id` = ?",
-                                        ([user_hashid, user_id]:Array<Dynamic>),
-                                        function(err, results, fields){
-                                            if (err != null) {
-                                                cnx.rollback(function(){
-                                                    cnx.release();
-                                                    res.status(500).send(err);
-                                                });
-                                                return;
-                                            }
-                                            cnx.commit(function(err){
-                                                if (err != null) {
-                                                    cnx.rollback(function(){
-                                                        cnx.release();
-                                                        res.status(500).send(err);
-                                                    });
-                                                    return;
-                                                }
-                                                getUser(user_id).then(function(user){
-                                                    res.locals.user = user;
-                                                    cnx.release();
-                                                    next();
-                                                });
-                                            });
-                                        }
-                                    );
+                                    var user = getUser(user_id).then(function(user){
+                                        res.locals.user = user;
+                                        cnx.release();
+                                        next();
+                                    });
                                 });
-                            });
-                        });
-                    } else {
-                        getUser(user_id).then(function(user) {
-                            res.locals.user = user;
-                            next();
-                        });
-                    }
+                            }
+                        );
+                    });
                 });
-        } else {
-            next();
+            });
+        } catch (err:Dynamic) {
+            res.status(500).send(err);
+            return null;
         }
     }
 
@@ -431,11 +436,16 @@ class ServerMain {
         app.get("/signin", function(req, res:Response) {
             res.render("signin");
         });
-        app.get("/home", ensureLoggedIn, @async function(req:Request, res:Response):Void {
-            var campaigns = @await getCampaigns(res.locals.user.user_id);
-            res.render("home", {
-                campaigns: campaigns
-            });
+        app.get("/home", ensureLoggedIn, @async function(req:Request, res:Response) {
+            try {
+                var campaigns = @await getCampaigns(res.locals.user.user_id);
+                res.render("home", {
+                    campaigns: campaigns
+                });
+            } catch (err:Dynamic) {
+                res.status(500).send(err);
+                return null;
+            }
         });
 
         // print user data
@@ -449,73 +459,105 @@ class ServerMain {
         }
 
         app.get("/user/:user_hashid", @async function(req:Request, res:Response) {
-            var user_hashid = req.params.user_hashid;
-            var user_id = @await getUserIdFromHash(user_hashid).ofJsPromise();
-            if (user_id == null) {
-                res.status(404).send("There is no such user.");
-            } else {
-                var campaigns = @await getCampaigns(user_id);
-                res.render("user", {
-                    campaigns: campaigns
-                });
+            try {
+                var user_hashid = req.params.user_hashid;
+                var user_id = @await getUserIdFromHash(user_hashid).toPromise();
+                if (user_id == null) {
+                    res.status(404).send("There is no such user.");
+                } else {
+                    var campaigns = @await getCampaigns(user_id);
+                    res.render("user", {
+                        campaigns: campaigns
+                    });
+                }
+            } catch (err:Dynamic) {
+                res.status(500).send(err);
+                return null;
             }
         });
         app.get("/campaign/:campaign_hashid", @async function(req:Request, res:Response){
-            var campaign_hashid = req.params.campaign_hashid;
-            var campaign_id = @await getCampaignIdFromHash(campaign_hashid).ofJsPromise();
-            if (campaign_id == null) {
-                res.status(404).send("There is no such campaign.");
-            } else {
-                var campaign = @await getCampaign(campaign_id);
-                res.render("campaign", {
-                    campaign: campaign
-                });
+            try {
+                var campaign_hashid = req.params.campaign_hashid;
+                var campaign_id = @await getCampaignIdFromHash(campaign_hashid).toPromise();
+                if (campaign_id == null) {
+                    res.status(404).send("There is no such campaign.");
+                } else {
+                    var campaign = @await getCampaign(campaign_id);
+                    res.render("campaign", {
+                        campaign: campaign
+                    });
+                }
+            } catch (err:Dynamic) {
+                res.status(500).send(err);
+                return null;
             }
         });
         app.get("/campaign/:campaign_hashid/pledge", @async function(req:Request, res:Response){
-            var campaign_hashid = req.params.campaign_hashid;
-            var campaign_id = @await getCampaignIdFromHash(campaign_hashid).ofJsPromise();
-            if (campaign_id == null) {
-                res.status(404).send("There is no such campaign.");
-            } else {
-                var campaign = @await getCampaign(campaign_id);
-                res.status(500).send("Not implemented yet");
+            try {
+                var campaign_hashid = req.params.campaign_hashid;
+                var campaign_id = @await getCampaignIdFromHash(campaign_hashid).toPromise();
+                if (campaign_id == null) {
+                    res.status(404).send("There is no such campaign.");
+                } else {
+                    var campaign = @await getCampaign(campaign_id);
+                    res.status(500).send("Not implemented yet");
+                }
+            } catch (err:Dynamic) {
+                res.status(500).send(err);
+                return null;
             }
         });
         app.get("/create-campaign", ensureLoggedIn, function(req, res:Response) {
             res.render("create-campaign");
         });
-        app.post("/create-campaign", ensureLoggedIn, function(req:Request, res:Response) {
-            var item_url:String = req.body.item_url;
-            var campaign_description:String = req.body.campaign_description;
+        app.post("/create-campaign", ensureLoggedIn, @async function(req:Request, res:Response) {
+            try {
+                var item_url:String = req.body.item_url;
+                var campaign_description:String = req.body.campaign_description;
 
-            if (!item_url.isURL({
-                protocols: ["https"],
-                require_protocol: true,
-                host_whitelist: ["www.amazon.com"],
-            })) {
-                res.status(400).send("invalid url");
-                return;
-            }
+                if (!item_url.isURL({
+                    protocols: ["https"],
+                    require_protocol: true,
+                    host_whitelist: ["www.amazon.com"],
+                })) {
+                    res.status(400).send("invalid url");
+                    return null;
+                }
 
-            var priceFinder = new PriceFinder();
-            priceFinder.findItemDetails(item_url, function(err, details:{
-                price: Float,
-                category: String,
-                name: String
-            }){
-                if (err != null) return res.status(500).send(err);
-                getAmazonItemScreenshot(item_url)
-                .then(function(screenshot){
-                    dbConnectionPool.getConnection(function(err, cnx:Connection) {
+                var priceFinder = new PriceFinder();
+                var details:{
+                    price: Float,
+                    category: String,
+                    name: String
+                } = @await tink.core.Future.async(function(resolve:Outcome<Dynamic,Dynamic>->Void){
+                    priceFinder.findItemDetails(item_url, function(err, details) {
+                        if (err != null)
+                            resolve(Failure(err));
+                        else
+                            resolve(Success(details));
+                    });
+                });
+                var screenshot = @await getAmazonItemScreenshot(item_url).toPromise();
+                dbConnectionPool.getConnection(function(err, cnx:Connection) {
+                    if (err != null) return res.status(500).send(err);
+                    cnx.beginTransaction(function(err){
                         if (err != null) return res.status(500).send(err);
-                        cnx.beginTransaction(function(err){
-                            if (err != null) return res.status(500).send(err);
-                            cnx.query("INSERT INTO item SET ?", {
-                                item_url: item_url,
-                                item_url_screenshot: screenshot,
-                                item_name: details.name,
-                                item_price: details.price,
+                        cnx.query("INSERT INTO item SET ?", {
+                            item_url: item_url,
+                            item_url_screenshot: screenshot,
+                            item_name: details.name,
+                            item_price: details.price,
+                        }, function(err, results, fields) {
+                            if (err != null) {
+                                cnx.rollback(function(){
+                                    cnx.release();
+                                    res.status(500).send(err);
+                                });
+                                return;
+                            }
+                            var item_id = results.insertId;
+                            cnx.query("INSERT INTO item_group SET ?", {
+                                item_id: item_id
                             }, function(err, results, fields) {
                                 if (err != null) {
                                     cnx.rollback(function(){
@@ -524,9 +566,12 @@ class ServerMain {
                                     });
                                     return;
                                 }
-                                var item_id = results.insertId;
-                                cnx.query("INSERT INTO item_group SET ?", {
-                                    item_id: item_id
+                                var item_group_id = results.insertId;
+                                cnx.query("INSERT INTO campaign SET ?", {
+                                    user_id: res.locals.user.user_id,
+                                    campaign_description: campaign_description,
+                                    campaign_type: db.CampaignType.Suprise,
+                                    item_group_id: item_group_id,
                                 }, function(err, results, fields) {
                                     if (err != null) {
                                         cnx.rollback(function(){
@@ -535,26 +580,22 @@ class ServerMain {
                                         });
                                         return;
                                     }
-                                    var item_group_id = results.insertId;
-                                    cnx.query("INSERT INTO campaign SET ?", {
-                                        user_id: res.locals.user.user_id,
-                                        campaign_description: campaign_description,
-                                        campaign_type: db.CampaignType.Suprise,
-                                        item_group_id: item_group_id,
-                                    }, function(err, results, fields) {
-                                        if (err != null) {
-                                            cnx.rollback(function(){
-                                                cnx.release();
-                                                res.status(500).send(err);
-                                            });
-                                            return;
-                                        }
-                                        var campaign_id = results.insertId;
-                                        var campaign_hashid = new Hashids("campaign" + DBInfo.salt, 4).encode(campaign_id);
-                                        cnx.query(
-                                            "UPDATE campaign SET `campaign_hashid` = ? WHERE `campaign_id` = ?",
-                                            ([campaign_hashid, campaign_id]:Array<Dynamic>),
-                                            function(err, results, fields) {
+                                    var campaign_id = results.insertId;
+                                    var campaign_hashid = new Hashids("campaign" + DBInfo.salt, 4).encode(campaign_id);
+                                    cnx.query(
+                                        "UPDATE campaign SET `campaign_hashid` = ? WHERE `campaign_id` = ?",
+                                        ([campaign_hashid, campaign_id]:Array<Dynamic>),
+                                        function(err, results, fields) {
+                                            if (err != null) {
+                                                cnx.rollback(function(){
+                                                    cnx.release();
+                                                    res.status(500).send(err);
+                                                });
+                                                return;
+                                            }
+                                            cnx.query("INSERT INTO campaign_surprise SET ?", {
+                                                campaign_id: campaign_id,
+                                            }, function(err, results, fields) {
                                                 if (err != null) {
                                                     cnx.rollback(function(){
                                                         cnx.release();
@@ -562,9 +603,7 @@ class ServerMain {
                                                     });
                                                     return;
                                                 }
-                                                cnx.query("INSERT INTO campaign_surprise SET ?", {
-                                                    campaign_id: campaign_id,
-                                                }, function(err, results, fields) {
+                                                cnx.commit(function(err){
                                                     if (err != null) {
                                                         cnx.rollback(function(){
                                                             cnx.release();
@@ -572,28 +611,21 @@ class ServerMain {
                                                         });
                                                         return;
                                                     }
-                                                    cnx.commit(function(err){
-                                                        if (err != null) {
-                                                            cnx.rollback(function(){
-                                                                cnx.release();
-                                                                res.status(500).send(err);
-                                                            });
-                                                            return;
-                                                        }
-                                                        cnx.release();
-                                                        res.redirect("/home");
-                                                    });
+                                                    cnx.release();
+                                                    res.redirect("/home");
                                                 });
-                                            }
-                                        );
-                                    });
+                                            });
+                                        }
+                                    );
                                 });
                             });
                         });
                     });
-                })
-                .catchError(function(err) res.status(500).send(err));
-            });
+                });
+            } catch (err:Dynamic) {
+                res.status(500).send(err);
+                return null;
+            }
         });
 
         module.exports.app = app;
