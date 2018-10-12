@@ -4,6 +4,7 @@ import js.npm.mysql2.promise.*;
 import js.npm.request.Request as NodeRequest;
 import js.npm.price_finder.PriceFinder;
 import js.npm.image_data_uri.ImageDataUri;
+import js.npm.stripe.Stripe;
 import Auth0Info.*;
 import jsrsasign.*;
 import jsrsasign.Global.*;
@@ -402,6 +403,21 @@ class ServerMain {
                 res.send(err);
                 return;
             }
+        });
+
+        app.get("/cards", ensureLoggedIn, function(req:Request, res:Response){
+            res.render("cards");
+        });
+
+        app.post("/cards", ensureLoggedIn, @await function(req:Request, res:Response){
+            var stripe = new Stripe(StripeInfo.apiSecKey);
+            var customer = @await stripe.customers.create({
+                source: req.body.stripeToken,
+                email: res.locals.user.user_primary_email,
+            }).toPromise();
+
+            res.type("text/plain");
+            res.send('added customer ${customer.id}');
         });
 
         // print user data

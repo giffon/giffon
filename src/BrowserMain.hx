@@ -4,6 +4,7 @@ import js.jquery.JQuery;
 import haxe.io.*;
 import jsrsasign.*;
 import Auth0Info.*;
+import js.stripe.Stripe;
 
 typedef Session = {
     var access_token:String;
@@ -129,6 +130,10 @@ class BrowserMain {
             evt.preventDefault();
             signOut();
         });
+
+        if (document.body.classList.contains("page-cards")) {
+            cards();
+        }
     }
 
     static function removeHash():Void { 
@@ -146,5 +151,52 @@ class BrowserMain {
             document.body.scrollTop = scrollV;
             document.body.scrollLeft = scrollH;
         }
+    }
+
+    static function stripeTokenHandler(token) {
+        var form:js.html.FormElement = cast document.getElementById('payment-form');
+        var hiddenInput = document.createElement('input');
+        hiddenInput.setAttribute('type', 'hidden');
+        hiddenInput.setAttribute('name', 'stripeToken');
+        hiddenInput.setAttribute('value', token.id);
+        form.appendChild(hiddenInput);
+        form.submit();
+    }
+
+    static function cards():Void {
+        var stripe = new Stripe(document.location.hostname == "localhost" ? StripeInfo.apiTestPubKey : StripeInfo.apiPubKey);
+        var elements = stripe.elements();
+
+        var style = {
+            base: {
+                fontSize: '16px',
+                color: "#32325d",
+            }
+        };
+        var card = elements.create('card', {style: style});
+        card.mount('#card-element');
+
+        card.addEventListener('change', function(event) {
+            var displayError = document.getElementById('card-errors');
+            if (event.error != null) {
+                displayError.textContent = event.error.message;
+            } else {
+                displayError.textContent = '';
+            }
+        });
+
+        var form = document.getElementById('payment-form');
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            stripe.createToken(card).then(function(result) {
+                if (result.error != null) {
+                    var errorElement = document.getElementById('card-errors');
+                    errorElement.textContent = result.error.message;
+                } else {
+                    stripeTokenHandler(result.token);
+                }
+            });
+        });
     }
 }

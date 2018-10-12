@@ -12,7 +12,7 @@ extern class Stripe {
 
     public function elements(?options:Dynamic):Elements;
 
-    public function createToken(v:Dynamic, data:Dynamic):Promise<Dynamic>;
+    public function createToken(v:Dynamic, ?data:Dynamic):Promise<Dynamic>;
 
     @:overload(function (element:Dynamic, sourceData:Dynamic):Promise<Dynamic>{})
     public function createSource(sourceData:Dynamic):Promise<Dynamic>;
@@ -29,8 +29,8 @@ extern class Elements {
     public function create(type:String, options:Dynamic):Element;
 }
 
-extern class Element {
-    public function mount(domElement:js.html.Element):Void;
+extern class Element extends js.html.EventTarget {
+    public function mount(domElement:Dynamic):Void;
     public function on(event:String, handler:Function):Void;
 
     public function blur():Void;

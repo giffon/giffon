@@ -1,0 +1,29 @@
+<%
+locals.title = "Cards - Giffon";
+bodyClasses.push("page-cards");
+%>
+<%- include('head'); -%>
+
+<div class="container">
+    <h1>Your payment method</h1>
+    <form action="/cards" method="POST" id="payment-form" enctype="application/x-www-form-urlencoded">
+        <div class="form-row">
+            <label for="card-element">
+                Credit or debit card
+            </label>
+            <div id="card-element">
+                <!-- A Stripe Element will be inserted here. -->
+            </div>
+    
+            <!-- Used to display Element errors. -->
+            <div id="card-errors" role="alert"></div>
+        </div>
+        <button>Add credit card</button>
+    </form>
+</div>
+
+<footer class="p-5 text-center">
+Copyright &copy; Giffon. All Rights Reserved.
+</footer>
+
+<%- include('foot'); -%>

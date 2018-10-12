@@ -6,15 +6,6 @@ import haxe.extern.*;
 
 typedef EachHandler<T> = EitherType<T->Bool, T->?Bool->Void>;
 
-@:enum abstract ErrorType(String) from String to String {
-    var StripeCardError = "StripeCardError";
-    var StripeInvalidRequestError = "StripeInvalidRequestError";
-    var StripeAPIError = "StripeAPIError";
-    var StripeConnectionError = "StripeConnectionError";
-    var StripeAuthenticationError = "StripeAuthenticationError";
-    var StripeRateLimitError = "StripeRateLimitError";
-}
-
 typedef Options = {
     @:optional var api_key:String;
     @:optional var idempotency_key:String;
@@ -28,12 +19,12 @@ extern class Stripe {
 
     public var customers(default, null):{
         public function create(arguments:Dynamic, ?options:Options):Promise<Customer>;
-        public function createSource(customerId:Int, arguments:Dynamic, ?options:Options):Promise<Source>;
+        public function createSource(customerId:String, arguments:Dynamic, ?options:Options):Promise<Source>;
         public function list(?arguments:Dynamic, ?options:Options):{
             public function autoPagingEach(onItem:EachHandler<Customer>):Promise<Dynamic>;
             public function autoPagingToArray(arguments:{limit:Int}):Array<Customer>;
         }
-        public function update(customerId:Int, arguments:Dynamic, ?options:Options):Promise<Customer>;
+        public function update(customerId:String, arguments:Dynamic, ?options:Options):Promise<Customer>;
     };
 
     public var charges(default, null):{
@@ -62,32 +53,13 @@ extern class Stripe {
 }
 
 extern class LastResponse {
-    public var requestId(default, null):Int;
+    public var requestId(default, null):String;
     public var statusCode(default, null):Int;
-}
-
-typedef Request = {
-    var api_version(default, null):String;
-    @:optional var account(default, null):String;
-    @:optional var idempotency_key(default, null):String;
-    var method(default, null):String;
-    var path(default, null):String;
-}
-
-typedef Response = {
-    var api_version(default, null):String;
-    @:optional var account(default, null):String;
-    @:optional var idempotency_key(default, null):String;
-    var method(default, null):String;
-    var path(default, null):String;
-    var status(default, null):Int;
-    var request_id(default, null):String;
-    var elapsed(default, null):Int;
 }
 
 extern class Customer {
     public var lastResponse(default, null):LastResponse;
-    public var id(default, null):Int;
+    public var id(default, null):String;
 }
 
 extern class Source {
@@ -97,7 +69,8 @@ extern class Source {
 
 extern class Charge {
     public var lastResponse(default, null):LastResponse;
-    public function refund(chargeId:Int, ?arguments:Dynamic, ?options:Options):Promise<Dynamic>;
+    public var id(default, null):String;
+    public function refund(chargeId:String, ?arguments:Dynamic, ?options:Options):Promise<Dynamic>;
 }
 
 extern class Balance {
