@@ -228,7 +228,9 @@ class ServerMain {
             } = JWS.readSafeJSONString(b64utoutf8(token.split(".")[1]));
             var userEmail = payloadObj.email;
             if (userEmail == null) {
-                res.status(500).send("user has no email info");
+                res.status(500);
+                res.type("text/plain");
+                res.send("user has no email info");
                 return;
             }
             // get user_id
@@ -245,7 +247,9 @@ class ServerMain {
                 @await cnx.beginTransaction().toPromise();
             } catch(err:Dynamic) {
                 cnx.release();
-                res.status(500).send(err);
+                res.status(500);
+                res.type("text/plain");
+                res.send(err);
                 return;
             }
             try {
@@ -264,14 +268,18 @@ class ServerMain {
             } catch (err:Dynamic) {
                 @await cnx.rollback().toPromise();
                 cnx.release();
-                res.status(500).send(err);
+                res.status(500);
+                res.type("text/plain");
+                res.send(err);
                 return;
             }
             var user = @await getUser(user_id);
             res.locals.user = user;
             next();
         } catch (err:Dynamic) {
-            res.status(500).send(err);
+            res.status(500);
+            res.type("text/plain");
+            res.send(err);
             return;
         }
     }
@@ -307,8 +315,6 @@ class ServerMain {
         poolConfig.connectionLimit = 5;
         poolConfig.connectTimeout = 20.0 * 1000.0; //20 seconds
         dbConnectionPool = Mysql.createPool(poolConfig);
-
-        trace("got connection pool");
 
         var app = new Application();
         app.locals.canonicalBase = canonicalBase;
@@ -391,7 +397,9 @@ class ServerMain {
                     campaigns: campaigns
                 });
             } catch (err:Dynamic) {
-                res.status(500).send(err);
+                res.status(500);
+                res.type("text/plain");
+                res.send(err);
                 return;
             }
         });
@@ -411,7 +419,9 @@ class ServerMain {
                 var user_hashid = req.params.user_hashid;
                 var user_id = @await getUserIdFromHash(user_hashid);
                 if (user_id == null) {
-                    res.status(404).send("There is no such user.");
+                    res.status(404);
+                    res.type("text/plain");
+                    res.send("There is no such user.");
                 } else {
                     var campaigns = @await getCampaigns(user_id);
                     res.render("user", {
@@ -419,7 +429,9 @@ class ServerMain {
                     });
                 }
             } catch (err:Dynamic) {
-                res.status(500).send(err);
+                res.status(500);
+                res.type("text/plain");
+                res.send(err);
                 return;
             }
         });
@@ -440,7 +452,9 @@ class ServerMain {
                     campaign: campaign
                 });
             } catch (err:Dynamic) {
-                res.status(500).send(err);
+                res.status(500);
+                res.type("text/plain");
+                res.send(err);
                 return;
             }
         });
@@ -457,9 +471,13 @@ class ServerMain {
                     res.status(404).send("There is no such campaign.");
                     return;
                 }
-                res.status(500).send("Not implemented yet");
+                res.status(500);
+                res.type("text/plain");
+                res.send("Not implemented yet");
             } catch (err:Dynamic) {
-                res.status(500).send(err);
+                res.status(500);
+                res.type("text/plain");
+                res.send(err);
                 return;
             }
         });
@@ -486,17 +504,18 @@ class ServerMain {
                     category: String,
                     name: String
                 } = try {
-                    @await new js.Promise(function(resolve, reject){
+                    @await Surprise.async(function(resolve){
                         priceFinder.findItemDetails(item_url, function(err, details) {
                             if (err != null)
-                                reject(err);
+                                resolve(Failure(err));
                             else
-                                resolve(details);
+                                resolve(Success(details));
                         });
-                    }).toPromise();
+                    });
                 } catch (err:Dynamic) {
-                    trace(err);
-                    res.status(500).send(err);
+                    res.status(500);
+                    res.type("text/plain");
+                    res.send('Unable to scrap item details from $item_url.\n\n${haxe.Json.stringify(err, null, "  ")}');
                     return;
                 }
                 var screenshot = @await getAmazonItemScreenshot(item_url);
@@ -505,7 +524,9 @@ class ServerMain {
                     @await cnx.beginTransaction().toPromise();
                 } catch(err:Dynamic) {
                     cnx.release();
-                    res.status(500).send(err);
+                    res.status(500);
+                    res.type("text/plain");
+                    res.send(err);
                     return;
                 }
                 try {
@@ -551,11 +572,15 @@ class ServerMain {
                 } catch (err:Dynamic) {
                     @await cnx.rollback().toPromise();
                     cnx.release();
-                    res.status(500).send(err);
+                    res.status(500);
+                    res.type("text/plain");
+                    res.send(err);
                     return;
                 }
             } catch (err:Dynamic) {
-                res.status(500).send(err);
+                res.status(500);
+                res.type("text/plain");
+                res.send(err);
                 return;
             }
         });
