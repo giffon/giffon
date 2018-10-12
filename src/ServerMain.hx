@@ -38,14 +38,14 @@ class ServerMain {
     @async static function getUserIdFromEmail(email:String) {
         if (!Validator.isEmail(email))
             throw '$email is not valid email address';
-        var results:Array<Dynamic> = (@await dbConnectionPool.query(
+        var results = (@await dbConnectionPool.query(
             "
                 SELECT `user_id`
                 FROM user
                 WHERE `user_primary_email` = ?
             ",
             [email]
-        ).toPromise())[0];
+        ).toPromise()).results;
 
         if (results == null || results.length == 0) {
             return null;
@@ -57,14 +57,14 @@ class ServerMain {
     }
 
     @async static function getUserIdFromHash(user_hashid:String) {
-        var results:Array<Dynamic> = (@await dbConnectionPool.query(
+        var results = (@await dbConnectionPool.query(
             "
                 SELECT `user_id`
                 FROM user
                 WHERE `user_hashid` = ?
             ",
             [user_hashid]
-        ).toPromise())[0];
+        ).toPromise()).results;
 
         if (results == null || results.length == 0) {
             return null;
@@ -76,14 +76,14 @@ class ServerMain {
     }
 
     @:async static function getCampaignIdFromHash(campaign_hashid:String) {
-        var results:Array<Dynamic> = (@await dbConnectionPool.query(
+        var results = (@await dbConnectionPool.query(
             "
                 SELECT `campaign_id`
                 FROM campaign
                 WHERE `campaign_hashid` = ?
             ",
             [campaign_hashid]
-        ).toPromise())[0];
+        ).toPromise()).results;
 
         if (results == null || results.length == 0) {
             return null;
@@ -95,27 +95,27 @@ class ServerMain {
     }
 
     @:async static function getCampaign(campaign_id:Int) {
-        var campaign_results:Array<Dynamic> = (@await dbConnectionPool.query(
+        var campaign_results = (@await dbConnectionPool.query(
             "
                 SELECT `campaign_id`, `user_id`, `campaign_hashid`, `campaign_description`, `campaign_state`, `item_group_id`
                 FROM campaign
                 WHERE `campaign_id` = ?
             ",
             [campaign_id]
-        ).toPromise())[0];
+        ).toPromise()).results;
         if (campaign_results == null || campaign_results.length < 1)
             return null;
         if (campaign_results.length > 1)
             throw 'There are ${campaign_results.length} campaigns with campaign_id = ${campaign_id}.';
         var campaign = campaign_results[0];
-        var item_results:Array<Dynamic> = (@await dbConnectionPool.query(
+        var item_results = (@await dbConnectionPool.query(
             "
                 SELECT item.`item_id`, `item_url`, `item_url_screenshot`, `item_name`, `item_price`
                 FROM item, item_group
                 WHERE item.`item_id` = item_group.`item_id` AND `item_group_id` = ?
             ",
             [campaign.item_group_id]
-        ).toPromise())[0];
+        ).toPromise()).results;
         var campaign_owner = @:await getUser(campaign.user_id);
         return {
             campaign_id: campaign.campaign_id,
@@ -136,14 +136,14 @@ class ServerMain {
     }
 
     @async static function getCampaigns(user_id:Int) {
-        var campaign_results:Array<Dynamic> = (@await dbConnectionPool.query(
+        var campaign_results = (@await dbConnectionPool.query(
             "
                 SELECT `campaign_id`
                 FROM campaign
                 WHERE `user_id` = ?
             ",
             [user_id]
-        ).toPromise())[0];
+        ).toPromise()).results;
         var campaigns = @await tink.core.Promise.inParallel([
             for (campaign in campaign_results)
             getCampaign(campaign.campaign_id)
@@ -152,14 +152,14 @@ class ServerMain {
     }
 
     @async static function getUser(user_id:Int) {
-        var results:Array<Dynamic> = (@await dbConnectionPool.query(
+        var results = (@await dbConnectionPool.query(
             "
                 SELECT `user_id`, `user_hashid`, `user_primary_email`, `user_name`
                 FROM user
                 WHERE `user_id` = ?
             ",
             [user_id]
-        ).toPromise())[0];
+        ).toPromise()).results;
         if (results == null || results.length < 1)
             return null;
         if (results.length > 1)
@@ -250,7 +250,7 @@ class ServerMain {
                 var results = (@await cnx.query("INSERT INTO user SET ?", {
                     user_primary_email: userEmail,
                     user_name: payloadObj.name
-                }).toPromise())[0];
+                }).toPromise()).results;
                 var user_id = results.insertId;
                 var user_hashid = new Hashids("user" + DBInfo.salt, 4).encode(user_id);
                 @await cnx.query(
@@ -278,7 +278,7 @@ class ServerMain {
         var cnx = @await Mysql.createConnection(dbConfig).toPromise();
         try {
             if (showTable) {
-                var results = (@await cnx.query("SHOW TABLES").toPromise())[0];
+                var results = (@await cnx.query("SHOW TABLES").toPromise()).results;
                 trace(results);
             }
         } catch(err:Dynamic) {
@@ -512,14 +512,14 @@ class ServerMain {
                         item_url_screenshot: screenshot,
                         item_name: details.name,
                         item_price: details.price,
-                    }).toPromise())[0];
+                    }).toPromise()).results;
                     var item_id = results.insertId;
                     var results = (@await cnx.query(
                         "INSERT INTO item_group SET ?",
                         {
                             item_id: item_id
                         }
-                    ).toPromise())[0];
+                    ).toPromise()).results;
                     var item_group_id = results.insertId;
                     var results = (@await cnx.query(
                         "INSERT INTO campaign SET ?",
@@ -529,7 +529,7 @@ class ServerMain {
                             campaign_type: db.CampaignType.Suprise,
                             item_group_id: item_group_id,
                         }
-                    ).toPromise())[0];
+                    ).toPromise()).results;
                     var campaign_id = results.insertId;
                     var campaign_hashid = new Hashids("campaign" + DBInfo.salt, 4).encode(campaign_id);
                     @await cnx.query(

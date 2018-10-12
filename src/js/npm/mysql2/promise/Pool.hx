@@ -3,15 +3,15 @@ package js.npm.mysql2.promise;
 import haxe.Constraints;
 
 extern class Pool {
-    @:overload(function(sql:String, values:Dynamic):Promise<Dynamic> {})
-    @:overload(function(options:Dynamic):Promise<Dynamic> {})
-    @:overload(function(options:Dynamic, values:Dynamic):Promise<Dynamic> {})
-    public function query(sql:String):Promise<Dynamic>;
+    @:overload(function(sql:String, values:Dynamic):Promise<QueryOutcome> {})
+    @:overload(function(options:Dynamic):Promise<QueryOutcome> {})
+    @:overload(function(options:Dynamic, values:Dynamic):Promise<QueryOutcome> {})
+    public function query(sql:String):Promise<QueryOutcome>;
 
-    @:overload(function(sql:String, values:Dynamic):Promise<Dynamic> {})
-    @:overload(function(options:Dynamic):Promise<Dynamic> {})
-    @:overload(function(options:Dynamic, values:Dynamic):Promise<Dynamic> {})
-    public function execute(sql:String):Promise<Dynamic>;
+    @:overload(function(sql:String, values:Dynamic):Promise<QueryOutcome> {})
+    @:overload(function(options:Dynamic):Promise<QueryOutcome> {})
+    @:overload(function(options:Dynamic, values:Dynamic):Promise<QueryOutcome> {})
+    public function execute(sql:String):Promise<QueryOutcome>;
 
     public function getConnection():Promise<Connection>;
 
