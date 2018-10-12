@@ -10,7 +10,6 @@ import jsrsasign.Global.*;
 import hashids.Hashids;
 import haxe.io.*;
 import tink.CoreApi;
-import js.Promise;
 using js.npm.validator.Validator;
 using tink.core.Future.JsPromiseTools;
 
@@ -167,8 +166,8 @@ class ServerMain {
         return results[0];
     }
 
-    static function getAmazonItemScreenshot(url:String):Promise<js.node.Buffer> {
-        return new Promise(function(resolve, reject) {
+    @async static function getAmazonItemScreenshot(url:String):Promise<js.node.Buffer> {
+        return @await Surprise.async(function(resolve){
             NodeRequest.get({
                 url: "https://kuortzoyx4.execute-api.us-east-1.amazonaws.com/dev/screenshot",
                 qs: {
@@ -178,9 +177,12 @@ class ServerMain {
                     scrollTo: "#productTitleGroupAnchor"
                 },
                 encoding: null
-            }, function(err, response, body) {
-                if (err != null) return reject(err);
-                resolve(cast body);
+            }, function(err:Dynamic, response, body:Dynamic) {
+                if (err != null) {
+                    resolve(Failure(err));
+                } else {
+                    resolve(Success(body));
+                }
             });
         });
     }
@@ -497,7 +499,7 @@ class ServerMain {
                     res.status(500).send(err);
                     return;
                 }
-                var screenshot = @await getAmazonItemScreenshot(item_url).toPromise();
+                var screenshot = @await getAmazonItemScreenshot(item_url);
                 var cnx:Connection = @await dbConnectionPool.getConnection().toPromise();
                 try {
                     @await cnx.beginTransaction().toPromise();
