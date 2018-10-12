@@ -1,4 +1,4 @@
-package js.npm.mysql;
+package js.npm.mysql2;
 
 import haxe.Constraints;
 import haxe.extern.*;
@@ -43,11 +43,11 @@ typedef PoolClusterOptions = {
     @:optional var defaultSelector:String;
 }
 
-@:jsRequire("mysql")
+@:jsRequire("mysql2")
 extern class Mysql {
-    static public function createConnection(options:EitherType<String, ConnectionOptions>):Connection;
-    static public function createPool(options:PoolOptions):Pool;
-    static public function createPoolCluster(options:PoolClusterOptions):PoolCluster;
+    static public function createConnection(options:EitherType<String, ConnectionOptions>, callb:Function):Void;
+    static public function createPool(options:PoolOptions, callb:Function):Void;
+    static public function createPoolCluster(options:PoolClusterOptions, callb:Function):Void;
     static public function raw(v:String):Dynamic;
     static public function escape(v:Dynamic):String;
     static public function escapeId(v:String, ?dot:Bool):String;

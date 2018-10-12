@@ -4,3 +4,6 @@
 [submodule "lib/hxnodejs"]
 	path = lib/hxnodejs
 	url = https://github.com/HaxeFoundation/hxnodejs.git
+[submodule "lib/tink_await"]
+	path = lib/tink_await
+	url = https://github.com/haxetink/tink_await.git

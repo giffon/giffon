@@ -1,6 +1,6 @@
 import js.Node.*;
 import js.npm.express.*;
-import js.npm.mysql.*;
+import js.npm.mysql2.promise.*;
 import js.npm.request.Request as NodeRequest;
 import js.npm.price_finder.PriceFinder;
 import js.npm.image_data_uri.ImageDataUri;
@@ -35,175 +35,136 @@ class ServerMain {
 
     static var dbConnectionPool:Pool;
 
-    static function getUserIdFromEmail(email:String):Promise<Null<Int>> {
-        return new Promise(function(resolve, reject) {
-            if (!Validator.isEmail(email))
-                return reject('$email is not valid email address');
-            dbConnectionPool.query(
-                "
-                    SELECT `user_id`
-                    FROM user
-                    WHERE `user_primary_email` = ?
-                ",
-                [email],
-                function(err, results:Array<Dynamic>, fields) {
-                    if (results == null || results.length == 0) {
-                        resolve(null);
-                    } else if (results.length > 1) {
-                        reject('There are ${results.length} users with the email address ${email}.');
-                    } else {
-                        resolve(results[0].user_id);
-                    }
-                }
-            );
-        });
+    @async static function getUserIdFromEmail(email:String) {
+        if (!Validator.isEmail(email))
+            throw '$email is not valid email address';
+        var results:Array<Dynamic> = (@await dbConnectionPool.query(
+            "
+                SELECT `user_id`
+                FROM user
+                WHERE `user_primary_email` = ?
+            ",
+            [email]
+        ).toPromise())[0];
+
+        if (results == null || results.length == 0) {
+            return null;
+        } else if (results.length > 1) {
+            throw 'There are ${results.length} users with the email address ${email}.';
+        } else {
+            return results[0].user_id;
+        }
     }
 
-    static function getUserIdFromHash(user_hashid:String):Promise<Null<Int>> {
-        return new Promise(function(resolve, reject) {
-            dbConnectionPool.query(
-                "
-                    SELECT `user_id`
-                    FROM user
-                    WHERE `user_hashid` = ?
-                ",
-                [user_hashid],
-                function(err, results:Array<Dynamic>, fields) {
-                    if (results == null || results.length == 0) {
-                        resolve(null);
-                    } else if (results.length > 1) {
-                        reject('There are ${results.length} users with the hashid ${user_hashid}.');
-                    } else  {
-                        resolve(results[0].user_id);
-                    }
-                }
-            );
-        });
+    @async static function getUserIdFromHash(user_hashid:String) {
+        var results:Array<Dynamic> = (@await dbConnectionPool.query(
+            "
+                SELECT `user_id`
+                FROM user
+                WHERE `user_hashid` = ?
+            ",
+            [user_hashid]
+        ).toPromise())[0];
+
+        if (results == null || results.length == 0) {
+            return null;
+        } else if (results.length > 1) {
+            throw 'There are ${results.length} users with the hashid ${user_hashid}.';
+        } else  {
+            return results[0].user_id;
+        }
     }
 
-    static function getCampaignIdFromHash(campaign_hashid:String):Promise<Null<Int>> {
-        return new Promise(function(resolve, reject) {
-            dbConnectionPool.query(
-                "
-                    SELECT `campaign_id`
-                    FROM campaign
-                    WHERE `campaign_hashid` = ?
-                ",
-                [campaign_hashid],
-                function(err, results:Array<Dynamic>, fields) {
-                    if (results == null || results.length == 0) {
-                        resolve(null);
-                    } else if (results.length > 1) {
-                        reject('There are ${results.length} campaigns with the hashid ${campaign_hashid}.');
-                    } else {
-                        resolve(results[0].campaign_id);
-                    }
-                }
-            );
-        });
+    @:async static function getCampaignIdFromHash(campaign_hashid:String) {
+        var results:Array<Dynamic> = (@await dbConnectionPool.query(
+            "
+                SELECT `campaign_id`
+                FROM campaign
+                WHERE `campaign_hashid` = ?
+            ",
+            [campaign_hashid]
+        ).toPromise())[0];
+
+        if (results == null || results.length == 0) {
+            return null;
+        } else if (results.length > 1) {
+            throw 'There are ${results.length} campaigns with the hashid ${campaign_hashid}.';
+        } else {
+            return results[0].campaign_id;
+        }
     }
 
     @:async static function getCampaign(campaign_id:Int) {
-        return @await tink.core.Future.async(@await function(resolve) {
-            dbConnectionPool.query(
-                "
-                    SELECT `campaign_id`, `user_id`, `campaign_hashid`, `campaign_description`, `campaign_state`, `item_group_id`
-                    FROM campaign
-                    WHERE `campaign_id` = ?
-                ",
-                [campaign_id],
-                @async function(err:Dynamic, campaign_results:Array<Dynamic>, fields) {
-                    if (err != null)
-                        throw err;
-                    if (campaign_results == null || campaign_results.length < 1) {
-                        resolve(null);
-                        return null;
-                    }
-                    if (campaign_results.length > 1)
-                        throw 'There are ${campaign_results.length} campaigns with campaign_id = ${campaign_id}.';
-                    var campaign = campaign_results[0];
-                    dbConnectionPool.query(
-                        "
-                            SELECT item.`item_id`, `item_url`, `item_url_screenshot`, `item_name`, `item_price`
-                            FROM item, item_group
-                            WHERE item.`item_id` = item_group.`item_id` AND `item_group_id` = ?
-                        ",
-                        [campaign.item_group_id],
-                        @async function(err, item_results:Array<Dynamic>, fields) {
-                            if (err != null) throw err;
-                            var campaign_owner = @:await getUser(campaign.user_id).toPromise();
-                            resolve({
-                                campaign_id: campaign.campaign_id,
-                                campaign_hashid: campaign.campaign_hashid,
-                                campaign_description: campaign.campaign_description,
-                                campaign_state: campaign.campaign_state,
-                                campaign_owner: campaign_owner,
-                                items: item_results.map(function(item){
-                                    return {
-                                        item_id: item.item_id,
-                                        item_url: item.item_url,
-                                        item_url_screenshot: ImageDataUri.encode(item.item_url_screenshot, "PNG"),
-                                        item_name: item.item_name,
-                                        item_price: item.item_price
-                                    }
-                                })
-                            });
-                        }
-                    );
+        var campaign_results:Array<Dynamic> = (@await dbConnectionPool.query(
+            "
+                SELECT `campaign_id`, `user_id`, `campaign_hashid`, `campaign_description`, `campaign_state`, `item_group_id`
+                FROM campaign
+                WHERE `campaign_id` = ?
+            ",
+            [campaign_id]
+        ).toPromise())[0];
+        if (campaign_results == null || campaign_results.length < 1)
+            return null;
+        if (campaign_results.length > 1)
+            throw 'There are ${campaign_results.length} campaigns with campaign_id = ${campaign_id}.';
+        var campaign = campaign_results[0];
+        var item_results:Array<Dynamic> = (@await dbConnectionPool.query(
+            "
+                SELECT item.`item_id`, `item_url`, `item_url_screenshot`, `item_name`, `item_price`
+                FROM item, item_group
+                WHERE item.`item_id` = item_group.`item_id` AND `item_group_id` = ?
+            ",
+            [campaign.item_group_id]
+        ).toPromise())[0];
+        var campaign_owner = @:await getUser(campaign.user_id);
+        return {
+            campaign_id: campaign.campaign_id,
+            campaign_hashid: campaign.campaign_hashid,
+            campaign_description: campaign.campaign_description,
+            campaign_state: campaign.campaign_state,
+            campaign_owner: campaign_owner,
+            items: item_results.map(function(item){
+                return {
+                    item_id: item.item_id,
+                    item_url: item.item_url,
+                    item_url_screenshot: ImageDataUri.encode(item.item_url_screenshot, "PNG"),
+                    item_name: item.item_name,
+                    item_price: item.item_price
                 }
-            );
-        });
+            })
+        };
     }
-
-    
 
     @async static function getCampaigns(user_id:Int) {
-        return @await Surprise.async(@await function(resolve) {
-            dbConnectionPool.query(
-                "
-                    SELECT `campaign_id`
-                    FROM campaign
-                    WHERE `user_id` = ?
-                ",
-                [user_id],
-                @async function (err, campaign_results:Array<Dynamic>, fields) {
-                    if (err != null) {
-                        throw err;
-                    }
-
-                    var campaigns = @await tink.core.Promise.inParallel([
-                        for (campaign in campaign_results)
-                        getCampaign(campaign.campaign_id)
-                    ]);
-                    resolve(campaigns);
-                }
-            );
-        });
+        var campaign_results:Array<Dynamic> = (@await dbConnectionPool.query(
+            "
+                SELECT `campaign_id`
+                FROM campaign
+                WHERE `user_id` = ?
+            ",
+            [user_id]
+        ).toPromise())[0];
+        var campaigns = @await tink.core.Promise.inParallel([
+            for (campaign in campaign_results)
+            getCampaign(campaign.campaign_id)
+        ]);
+        return campaigns;
     }
 
-    static function getUser(user_id:Int) {
-        return new Promise(function(resolve, reject){
-            dbConnectionPool.query(
-                "
-                    SELECT `user_id`, `user_hashid`, `user_primary_email`, `user_name`
-                    FROM user
-                    WHERE `user_id` = ?
-                ",
-                [user_id],
-                function(err, results:Array<Dynamic>, fields) {
-                    if (err) {
-                        reject(err);
-                        return;
-                    }
-                    if (results == null || results.length < 1)
-                        return reject("There is no such user.");
-                    if (results.length > 1)
-                        return reject('There are ${results == null ? 0 : results.length} users with user_id = ${user_id}.');
-                    var user = results[0];
-                    resolve(user);
-                }
-            );
-        });
+    @async static function getUser(user_id:Int) {
+        var results:Array<Dynamic> = (@await dbConnectionPool.query(
+            "
+                SELECT `user_id`, `user_hashid`, `user_primary_email`, `user_name`
+                FROM user
+                WHERE `user_id` = ?
+            ",
+            [user_id]
+        ).toPromise())[0];
+        if (results == null || results.length < 1)
+            return null;
+        if (results.length > 1)
+            throw 'There are ${results == null ? 0 : results.length} users with user_id = ${user_id}.';
+        return results[0];
     }
 
     static function getAmazonItemScreenshot(url:String):Promise<js.node.Buffer> {
@@ -269,68 +230,64 @@ class ServerMain {
                 return;
             }
             // get user_id
-            var user_id:Null<Int> = @await getUserIdFromEmail(userEmail).toPromise();
+            var user_id:Null<Int> = @await getUserIdFromEmail(userEmail);
             if (user_id != null) {
-                var user = @await getUser(user_id).toPromise();
+                var user = @await getUser(user_id);
                 res.locals.user = user;
                 next();
                 return;
             }
             // insert user
-            dbConnectionPool.getConnection(function(err, cnx:Connection) {
-                if (err != null) return res.status(500).send(err);
-                cnx.beginTransaction(function(err){
-                    if (err != null) return res.status(500).send(err);
-                    cnx.query("INSERT INTO user SET ?", {
-                        user_primary_email: userEmail,
-                        user_name: payloadObj.name
-                    }, function(err, results, fields) {
-                        if (err != null) {
-                            cnx.rollback(function(){
-                                cnx.release();
-                                res.status(500).send(err);
-                            });
-                            return;
-                        }
-                        var user_id = results.insertId;
-                        var user_hashid = new Hashids("user" + DBInfo.salt, 4).encode(user_id);
-                        cnx.query(
-                            "UPDATE user SET `user_hashid` = ? WHERE `user_id` = ?",
-                            ([user_hashid, user_id]:Array<Dynamic>),
-                            function(err, results, fields){
-                                if (err != null) {
-                                    cnx.rollback(function(){
-                                        cnx.release();
-                                        res.status(500).send(err);
-                                    });
-                                    return;
-                                }
-                                cnx.commit(function(err){
-                                    if (err != null) {
-                                        cnx.rollback(function(){
-                                            cnx.release();
-                                            res.status(500).send(err);
-                                        });
-                                        return;
-                                    }
-                                    var user = getUser(user_id).then(function(user){
-                                        res.locals.user = user;
-                                        cnx.release();
-                                        next();
-                                    });
-                                });
-                            }
-                        );
-                    });
-                });
-            });
+            var cnx:Connection = @await dbConnectionPool.getConnection().toPromise();
+            try {
+                @await cnx.beginTransaction().toPromise();
+            } catch(err:Dynamic) {
+                cnx.release();
+                res.status(500).send(err);
+                return;
+            }
+            try {
+                var results = (@await cnx.query("INSERT INTO user SET ?", {
+                    user_primary_email: userEmail,
+                    user_name: payloadObj.name
+                }).toPromise())[0];
+                var user_id = results.insertId;
+                var user_hashid = new Hashids("user" + DBInfo.salt, 4).encode(user_id);
+                @await cnx.query(
+                    "UPDATE user SET `user_hashid` = ? WHERE `user_id` = ?",
+                    ([user_hashid, user_id]:Array<Dynamic>)
+                ).toPromise();
+                @await cnx.commit().toPromise();
+                cnx.release();
+            } catch (err:Dynamic) {
+                @await cnx.rollback().toPromise();
+                cnx.release();
+                res.status(500).send(err);
+                return;
+            }
+            var user = @await getUser(user_id);
+            res.locals.user = user;
+            next();
         } catch (err:Dynamic) {
             res.status(500).send(err);
             return;
         }
     }
 
-    @async static function main():Void {
+    @await static function warmUpDatabase(dbConfig:Mysql.ConnectionOptions, showTable:Bool):Void {
+        var cnx = @await Mysql.createConnection(dbConfig).toPromise();
+        try {
+            if (showTable) {
+                var results = (@await cnx.query("SHOW TABLES").toPromise())[0];
+                trace(results);
+            }
+        } catch(err:Dynamic) {
+            console.error(err);
+        }
+        cnx.end();
+    }
+
+    @await static function main() {
         var isMain = (untyped __js__("require")).main == module;
 
         var dbConfig:Mysql.ConnectionOptions = {
@@ -342,31 +299,14 @@ class ServerMain {
             connectTimeout: 4 * 60 * 1000.0 //4 minutes
         };
 
-        // Let's warm up the database
-        {
-            var cnx = Mysql.createConnection(dbConfig);
-            cnx.connect(function(err) {
-                if (err != null) {
-                    console.error('error connecting: ' + err.stack);
-                    return;
-                }
-                if (isMain) {
-                    cnx.query("SHOW TABLES", function(err, results, fields){
-                        trace(results);
-                        cnx.end();
-                    });
-                } else {
-                    cnx.end();
-                }
-            });
-        }
+        warmUpDatabase(dbConfig, isMain);
 
         var poolConfig:Mysql.PoolOptions = cast Reflect.copy(dbConfig);
         poolConfig.connectionLimit = 5;
         poolConfig.connectTimeout = 20.0 * 1000.0; //20 seconds
-        poolConfig.acquireTimeout = 20.0 * 1000.0; //20 seconds
         dbConnectionPool = Mysql.createPool(poolConfig);
 
+        trace("got connection pool");
 
         var app = new Application();
         app.locals.canonicalBase = canonicalBase;
@@ -467,7 +407,7 @@ class ServerMain {
         app.get("/user/:user_hashid", @await function(req:Request, res:Response) {
             try {
                 var user_hashid = req.params.user_hashid;
-                var user_id = @await getUserIdFromHash(user_hashid).toPromise();
+                var user_id = @await getUserIdFromHash(user_hashid);
                 if (user_id == null) {
                     res.status(404).send("There is no such user.");
                 } else {
@@ -484,7 +424,7 @@ class ServerMain {
         app.get("/campaign/:campaign_hashid", @await function(req:Request, res:Response){
             try {
                 var campaign_hashid = req.params.campaign_hashid;
-                var campaign_id = @await getCampaignIdFromHash(campaign_hashid).toPromise();
+                var campaign_id = @await getCampaignIdFromHash(campaign_hashid);
                 if (campaign_id == null) {
                     res.status(404).send("There is no such campaign.");
                     return;
@@ -505,7 +445,7 @@ class ServerMain {
         app.get("/campaign/:campaign_hashid/pledge", @await function(req:Request, res:Response){
             try {
                 var campaign_hashid = req.params.campaign_hashid;
-                var campaign_id = @await getCampaignIdFromHash(campaign_hashid).toPromise();
+                var campaign_id = @await getCampaignIdFromHash(campaign_hashid);
                 if (campaign_id == null) {
                     res.status(404).send("There is no such campaign.");
                     return;
@@ -524,7 +464,7 @@ class ServerMain {
         app.get("/create-campaign", ensureLoggedIn, function(req, res:Response) {
             res.render("create-campaign");
         });
-        app.post("/create-campaign", ensureLoggedIn, @await function(req:Request, res:Response) {
+        app.post("/create-campaign", ensureLoggedIn, @await function(req:Request, res:Response){
             try {
                 var item_url:String = req.body.item_url;
                 var campaign_description:String = req.body.campaign_description;
@@ -543,99 +483,75 @@ class ServerMain {
                     price: Float,
                     category: String,
                     name: String
-                } = @await (new js.Promise(function(resolve, reject){
-                    priceFinder.findItemDetails(item_url, function(err, details) {
-                        if (err != null)
-                            reject(err);
-                        else
-                            resolve(details);
-                    });
-                })).toPromise();
-                var screenshot = @await getAmazonItemScreenshot(item_url).toPromise();
-                dbConnectionPool.getConnection(function(err, cnx:Connection) {
-                    if (err != null) return res.status(500).send(err);
-                    cnx.beginTransaction(function(err){
-                        if (err != null) return res.status(500).send(err);
-                        cnx.query("INSERT INTO item SET ?", {
-                            item_url: item_url,
-                            item_url_screenshot: screenshot,
-                            item_name: details.name,
-                            item_price: details.price,
-                        }, function(err, results, fields) {
-                            if (err != null) {
-                                cnx.rollback(function(){
-                                    cnx.release();
-                                    res.status(500).send(err);
-                                });
-                                return;
-                            }
-                            var item_id = results.insertId;
-                            cnx.query("INSERT INTO item_group SET ?", {
-                                item_id: item_id
-                            }, function(err, results, fields) {
-                                if (err != null) {
-                                    cnx.rollback(function(){
-                                        cnx.release();
-                                        res.status(500).send(err);
-                                    });
-                                    return;
-                                }
-                                var item_group_id = results.insertId;
-                                cnx.query("INSERT INTO campaign SET ?", {
-                                    user_id: res.locals.user.user_id,
-                                    campaign_description: campaign_description,
-                                    campaign_type: db.CampaignType.Suprise,
-                                    item_group_id: item_group_id,
-                                }, function(err, results, fields) {
-                                    if (err != null) {
-                                        cnx.rollback(function(){
-                                            cnx.release();
-                                            res.status(500).send(err);
-                                        });
-                                        return;
-                                    }
-                                    var campaign_id = results.insertId;
-                                    var campaign_hashid = new Hashids("campaign" + DBInfo.salt, 4).encode(campaign_id);
-                                    cnx.query(
-                                        "UPDATE campaign SET `campaign_hashid` = ? WHERE `campaign_id` = ?",
-                                        ([campaign_hashid, campaign_id]:Array<Dynamic>),
-                                        function(err, results, fields) {
-                                            if (err != null) {
-                                                cnx.rollback(function(){
-                                                    cnx.release();
-                                                    res.status(500).send(err);
-                                                });
-                                                return;
-                                            }
-                                            cnx.query("INSERT INTO campaign_surprise SET ?", {
-                                                campaign_id: campaign_id,
-                                            }, function(err, results, fields) {
-                                                if (err != null) {
-                                                    cnx.rollback(function(){
-                                                        cnx.release();
-                                                        res.status(500).send(err);
-                                                    });
-                                                    return;
-                                                }
-                                                cnx.commit(function(err){
-                                                    if (err != null) {
-                                                        cnx.rollback(function(){
-                                                            cnx.release();
-                                                            res.status(500).send(err);
-                                                        });
-                                                        return;
-                                                    }
-                                                    cnx.release();
-                                                    res.redirect("/home");
-                                                });
-                                            });
-                                        }
-                                    );
-                                });
-                            });
+                } = try {
+                    @await new js.Promise(function(resolve, reject){
+                        priceFinder.findItemDetails(item_url, function(err, details) {
+                            if (err != null)
+                                reject(err);
+                            else
+                                resolve(details);
                         });
-                    });
-                });
+                    }).toPromise();
+                } catch (err:Dynamic) {
+                    trace(err);
+                    res.status(500).send(err);
+                    return;
+                }
+                var screenshot = @await getAmazonItemScreenshot(item_url).toPromise();
+                var cnx:Connection = @await dbConnectionPool.getConnection().toPromise();
+                try {
+                    @await cnx.beginTransaction().toPromise();
+                } catch(err:Dynamic) {
+                    cnx.release();
+                    res.status(500).send(err);
+                    return;
+                }
+                try {
+                    var results = (@await cnx.query("INSERT INTO item SET ?", {
+                        item_url: item_url,
+                        item_url_screenshot: screenshot,
+                        item_name: details.name,
+                        item_price: details.price,
+                    }).toPromise())[0];
+                    var item_id = results.insertId;
+                    var results = (@await cnx.query(
+                        "INSERT INTO item_group SET ?",
+                        {
+                            item_id: item_id
+                        }
+                    ).toPromise())[0];
+                    var item_group_id = results.insertId;
+                    var results = (@await cnx.query(
+                        "INSERT INTO campaign SET ?",
+                        {
+                            user_id: res.locals.user.user_id,
+                            campaign_description: campaign_description,
+                            campaign_type: db.CampaignType.Suprise,
+                            item_group_id: item_group_id,
+                        }
+                    ).toPromise())[0];
+                    var campaign_id = results.insertId;
+                    var campaign_hashid = new Hashids("campaign" + DBInfo.salt, 4).encode(campaign_id);
+                    @await cnx.query(
+                        "UPDATE campaign SET `campaign_hashid` = ? WHERE `campaign_id` = ?",
+                        ([campaign_hashid, campaign_id]:Array<Dynamic>)
+                    ).toPromise();
+                    @await cnx.query(
+                        "INSERT INTO campaign_surprise SET ?",
+                        {
+                            campaign_id: campaign_id,
+                        }
+                    ).toPromise();
+                    @await cnx.commit().toPromise();
+                    cnx.release();
+                    res.redirect("/home");
+                    return;
+                } catch (err:Dynamic) {
+                    @await cnx.rollback().toPromise();
+                    cnx.release();
+                    res.status(500).send(err);
+                    return;
+                }
             } catch (err:Dynamic) {
                 res.status(500).send(err);
                 return;

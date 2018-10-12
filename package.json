@@ -30,7 +30,7 @@
     "express": "^4.16.3",
     "image-data-uri": "^2.0.0",
     "jsrsasign": "^8.0.12",
-    "mysql": "^2.16.0",
+    "mysql2": "^1.6.1",
     "price-finder": "^5.0.0",
     "validator": "^10.8.0"
   },
