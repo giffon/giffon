@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: giffon.cluster-czhm2i8itlng.us-east-1.rds.amazonaws.com
--- Generation Time: Oct 09, 2018 at 09:01 AM
+-- Generation Time: Oct 13, 2018 at 08:02 AM
 -- Server version: 5.6.10
 -- PHP Version: 7.2.8
 
@@ -159,6 +159,17 @@ CREATE TABLE `user_email` (
   `user_email` varchar(128) COLLATE utf8mb4_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `user_stripe`
+--
+
+CREATE TABLE `user_stripe` (
+  `user_id` int(11) NOT NULL,
+  `stripe_customer_id` varchar(64) COLLATE utf8mb4_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
 --
 -- Indexes for dumped tables
 --
@@ -232,6 +243,12 @@ ALTER TABLE `user_auth0`
 ALTER TABLE `user_email`
   ADD PRIMARY KEY (`user_id`,`user_email`),
   ADD KEY `user_email` (`user_email`);
+
+--
+-- Indexes for table `user_stripe`
+--
+ALTER TABLE `user_stripe`
+  ADD PRIMARY KEY (`user_id`,`stripe_customer_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -311,8 +328,8 @@ ALTER TABLE `item_group`
 -- Constraints for table `pledge`
 --
 ALTER TABLE `pledge`
-  ADD CONSTRAINT `pledge_ibfk_2` FOREIGN KEY (`campaign_id`) REFERENCES `campaign` (`campaign_id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `pledge_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `pledge_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `pledge_ibfk_2` FOREIGN KEY (`campaign_id`) REFERENCES `campaign` (`campaign_id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `pledge_charge`
@@ -331,6 +348,12 @@ ALTER TABLE `user_auth0`
 --
 ALTER TABLE `user_email`
   ADD CONSTRAINT `user_email_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `user_stripe`
+--
+ALTER TABLE `user_stripe`
+  ADD CONSTRAINT `user_stripe_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

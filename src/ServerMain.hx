@@ -13,6 +13,7 @@ import haxe.io.*;
 import tink.CoreApi;
 using js.npm.validator.Validator;
 using tink.core.Future.JsPromiseTools;
+using ResponseTools;
 
 @:enum abstract ServerlessStage(String) from String {
     var Production = "production";
@@ -26,7 +27,7 @@ class ServerMain {
     static var canonicalBase(default, never) = "https://giffon.io";
 
     static function ensureLoggedIn(req:Request, res:Response, next:Dynamic):Void {
-        if (res.locals.user == null) {
+        if (res.getUser() == null) {
             res.redirect("/");
         } else {
             next();
@@ -151,7 +152,7 @@ class ServerMain {
         return campaigns;
     }
 
-    @async static function getUser(user_id:Int) {
+    @async static function getUser(user_id:Int):db.User {
         var results = (@await dbConnectionPool.query(
             "
                 SELECT `user_id`, `user_hashid`, `user_primary_email`, `user_name`
@@ -238,7 +239,7 @@ class ServerMain {
             var user_id:Null<Int> = @await getUserIdFromEmail(userEmail);
             if (user_id != null) {
                 var user = @await getUser(user_id);
-                res.locals.user = user;
+                res.setUser(user);
                 next();
                 return;
             }
@@ -275,7 +276,7 @@ class ServerMain {
                 return;
             }
             var user = @await getUser(user_id);
-            res.locals.user = user;
+            res.setUser(user);
             next();
         } catch (err:Dynamic) {
             res.status(500);
@@ -393,7 +394,7 @@ class ServerMain {
         });
         app.get("/home", ensureLoggedIn, @await function(req:Request, res:Response) {
             try {
-                var campaigns = @await getCampaigns(res.locals.user.user_id);
+                var campaigns = @await getCampaigns(res.getUser().user_id);
                 res.render("home", {
                     campaigns: campaigns
                 });
@@ -410,14 +411,51 @@ class ServerMain {
         });
 
         app.post("/cards", ensureLoggedIn, @await function(req:Request, res:Response){
-            var stripe = new Stripe(StripeInfo.apiSecKey);
-            var customer = @await stripe.customers.create({
-                source: req.body.stripeToken,
-                email: res.locals.user.user_primary_email,
-            }).toPromise();
+            try {
+                var stripe = new Stripe(StripeInfo.apiSecKey);
+                var user = res.getUser();
 
-            res.type("text/plain");
-            res.send('added customer ${customer.id}');
+                var results = (@await dbConnectionPool.query(
+                    "
+                        SELECT `stripe_customer_id`
+                        FROM `user_stripe`
+                        WHERE `user_id` = ?
+                    ",
+                    [user.user_id]
+                ).toPromise()).results;
+
+                if (results != null && results.length > 0) {
+                    if (results.length > 1)
+                        throw 'There are ${results.length} users with user_id = ${user.user_id}.';
+                    var stripe_customer_id:String = results[0].stripe_customer_id;
+                    res.status(400);
+                    res.type("text/plain");
+                    res.send("You already have an existing card. Send us an email if you wanna update the card info.");
+                } else {
+                    var customer = @await stripe.customers.create({
+                        source: req.body.stripeToken,
+                        email: res.getUser().user_primary_email,
+                    }).toPromise();
+
+                    @await dbConnectionPool.query(
+                        "
+                            INSERT INTO `user_stripe`
+                            SET ?
+                        ",
+                        {
+                            user_id: user.user_id,
+                            stripe_customer_id: customer.id
+                        }
+                    ).toPromise();
+
+                    res.redirect("/cards");
+                }
+            } catch (err:Dynamic) {
+                res.status(500);
+                res.type("text/plain");
+                res.send(err);
+                return;
+            }
         });
 
         // print user data
@@ -426,7 +464,7 @@ class ServerMain {
             case _:
                 app.get("/user", ensureLoggedIn, function(req, res:Response) {
                     res.setHeader('Content-Type', 'application/json');
-                    res.send(haxe.Json.stringify(res.locals.user, null, "  "));
+                    res.send(haxe.Json.stringify(res.getUser(), null, "  "));
                 });
         }
 
@@ -474,7 +512,7 @@ class ServerMain {
                 return;
             }
         });
-        app.get("/campaign/:campaign_hashid/pledge", @await function(req:Request, res:Response){
+        app.post("/campaign/:campaign_hashid/pledge", @await function(req:Request, res:Response){
             try {
                 var campaign_hashid = req.params.campaign_hashid;
                 var campaign_id = @await getCampaignIdFromHash(campaign_hashid);
@@ -563,7 +601,7 @@ class ServerMain {
                     var results = (@await cnx.query(
                         "INSERT INTO campaign SET ?",
                         {
-                            user_id: res.locals.user.user_id,
+                            user_id: res.getUser().user_id,
                             campaign_description: campaign_description,
                             campaign_type: db.CampaignType.Suprise,
                             item_group_id: item_group_id,
