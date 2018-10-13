@@ -426,7 +426,7 @@ class ServerMain {
 
                 if (results != null && results.length > 0) {
                     if (results.length > 1)
-                        throw 'There are ${results.length} users with user_id = ${user.user_id}.';
+                        throw 'There are ${results.length} Stripe customers with user_id = ${user.user_id}.';
                     var stripe_customer_id:String = results[0].stripe_customer_id;
                     res.status(400);
                     res.type("text/plain");

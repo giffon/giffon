@@ -13,26 +13,31 @@ typedef Options = {
     @:optional var stripe_version:String;
 }
 
+typedef Resources<T> = {
+    public function create(arguments:Dynamic, ?options:Options):Promise<T>;
+    public function list(?arguments:Dynamic, ?options:Options):{
+        public function autoPagingEach(onItem:EachHandler<T>):Promise<Dynamic>;
+        public function autoPagingToArray(arguments:{limit:Int}):Array<T>;
+    }
+    public function retrieve(arguments:Dynamic, ?options:Options):Promise<T>;
+    public function update(customerId:String, arguments:Dynamic, ?options:Options):Promise<T>;
+}
+
 @:jsRequire("stripe")
 extern class Stripe {
     public function new(apiKey:String):Void;
 
     public var customers(default, null):{
-        public function create(arguments:Dynamic, ?options:Options):Promise<Customer>;
+        > Resources<Customer>,
         public function createSource(customerId:String, arguments:Dynamic, ?options:Options):Promise<Source>;
-        public function list(?arguments:Dynamic, ?options:Options):{
-            public function autoPagingEach(onItem:EachHandler<Customer>):Promise<Dynamic>;
-            public function autoPagingToArray(arguments:{limit:Int}):Array<Customer>;
-        }
-        public function update(customerId:String, arguments:Dynamic, ?options:Options):Promise<Customer>;
     };
 
     public var charges(default, null):{
-        public function create(arguments:Dynamic, ?options:Options):Promise<Charge>;
+        > Resources<Charge>,
     }
 
     public var balance(default, null):{
-        public function retrieve(arguments:Dynamic, ?options:Options):Promise<Balance>;
+        > Resources<Balance>,
     }
 
     public var webhooks(default, null):{
@@ -60,6 +65,35 @@ extern class LastResponse {
 extern class Customer {
     public var lastResponse(default, null):LastResponse;
     public var id(default, null):String;
+    public var object(default, null):String;
+    public var account_balance(default, null):Int;
+    public var created(default, null):Float;
+    public var currency(default, null):String;
+    public var default_source(default, null):Dynamic;
+    public var delinquent(default, null):Bool;
+    public var description(default, null):Dynamic;
+    public var discount(default, null):Dynamic;
+    public var email(default, null):Dynamic;
+    public var invoice_prefix(default, null):String;
+    public var livemode(default, null):Bool;
+    public var metadata(default, null):Dynamic;
+    public var shipping(default, null):Dynamic;
+    public var sources(default, null): {
+        public var object(default, null):String;
+        public var data(default, null):Array<Dynamic>;
+        public var has_more(default, null):Bool;
+        public var total_count(default, null):Int;
+        public var url(default, null):String;
+    };
+    public var subscriptions(default, null): {
+        public var object(default, null):String;
+        public var data(default, null):Array<Dynamic>;
+        public var has_more(default, null):Bool;
+        public var total_count(default, null):Int;
+        public var url(default, null):String;
+    };
+    public var tax_info(default, null):Dynamic;
+    public var tax_info_verification(default, null):Dynamic;
 }
 
 extern class Source {
