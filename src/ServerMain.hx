@@ -76,7 +76,7 @@ class ServerMain {
         }
     }
 
-    @:async static function getCampaignIdFromHash(campaign_hashid:String) {
+    @async static function getCampaignIdFromHash(campaign_hashid:String) {
         var results = (@await dbConnectionPool.query(
             "
                 SELECT `campaign_id`
@@ -95,7 +95,7 @@ class ServerMain {
         }
     }
 
-    @:async static function getCampaign(campaign_id:Int) {
+    @async static function getCampaign(campaign_id:Int) {
         var campaign_results = (@await dbConnectionPool.query(
             "
                 SELECT `campaign_id`, `user_id`, `campaign_hashid`, `campaign_description`, `campaign_state`, `item_group_id`
@@ -117,7 +117,7 @@ class ServerMain {
             ",
             [campaign.item_group_id]
         ).toPromise()).results;
-        var campaign_owner = @:await getUser(campaign.user_id);
+        var campaign_owner = @await getUser(campaign.user_id);
         return {
             campaign_id: campaign.campaign_id,
             campaign_hashid: campaign.campaign_hashid,
@@ -406,8 +406,36 @@ class ServerMain {
             }
         });
 
-        app.get("/cards", ensureLoggedIn, function(req:Request, res:Response){
-            res.render("cards");
+        app.get("/cards", ensureLoggedIn, @await function(req:Request, res:Response){
+            try {
+                var user = res.getUser();
+                var results = (@await dbConnectionPool.query(
+                    "
+                        SELECT `stripe_customer_id`
+                        FROM `user_stripe`
+                        WHERE `user_id` = ?
+                    ",
+                    [user.user_id]
+                ).toPromise()).results;
+
+                if (results != null && results.length > 0) {
+                    if (results.length > 1)
+                        throw 'There are ${results.length} Stripe customers with user_id = ${user.user_id}.';
+                    var stripe_customer_id:String = results[0].stripe_customer_id;
+                    res.status(400);
+                    res.type("text/plain");
+                    res.send("You already have an existing card. Send us an email if you wanna update the card info.");
+                    return;
+                } else {
+                    res.render("cards");
+                    return;
+                }
+            } catch (err:Dynamic) {
+                res.status(500);
+                res.type("text/plain");
+                res.send(err);
+                return;
+            }
         });
 
         app.post("/cards", ensureLoggedIn, @await function(req:Request, res:Response){
@@ -431,6 +459,7 @@ class ServerMain {
                     res.status(400);
                     res.type("text/plain");
                     res.send("You already have an existing card. Send us an email if you wanna update the card info.");
+                    return;
                 } else {
                     var customer = @await stripe.customers.create({
                         source: req.body.stripeToken,
@@ -449,6 +478,7 @@ class ServerMain {
                     ).toPromise();
 
                     res.redirect("/cards");
+                    return;
                 }
             } catch (err:Dynamic) {
                 res.status(500);
