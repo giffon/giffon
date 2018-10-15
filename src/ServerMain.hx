@@ -35,6 +35,7 @@ class ServerMain {
     }
 
     static var dbConnectionPool:Pool;
+    static var stripe = new Stripe(StripeInfo.apiSecKey);
 
     @async static function getUserIdFromEmail(email:String) {
         if (!Validator.isEmail(email))
@@ -418,18 +419,20 @@ class ServerMain {
                     [user.user_id]
                 ).toPromise()).results;
 
-                if (results != null && results.length > 0) {
+                var stripe_customer = if (results != null && results.length > 0) {
                     if (results.length > 1)
                         throw 'There are ${results.length} Stripe customers with user_id = ${user.user_id}.';
                     var stripe_customer_id:String = results[0].stripe_customer_id;
-                    res.status(400);
-                    res.type("text/plain");
-                    res.send("You already have an existing card. Send us an email if you wanna update the card info.");
-                    return;
+                    @await stripe.customers.retrieve(stripe_customer_id,{
+                        expand: ["default_source"],
+                    }).toPromise();
                 } else {
-                    res.render("cards");
-                    return;
+                    null;
                 }
+                res.render("cards", {
+                    stripe_customer: stripe_customer
+                });
+                return;
             } catch (err:Dynamic) {
                 res.status(500);
                 res.type("text/plain");
@@ -440,7 +443,6 @@ class ServerMain {
 
         app.post("/cards", ensureLoggedIn, @await function(req:Request, res:Response){
             try {
-                var stripe = new Stripe(StripeInfo.apiSecKey);
                 var user = res.getUser();
 
                 var results = (@await dbConnectionPool.query(

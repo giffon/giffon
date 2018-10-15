@@ -2,6 +2,7 @@ import auth0.*;
 import js.Browser.*;
 import js.jquery.JQuery;
 import haxe.io.*;
+import haxe.*;
 import jsrsasign.*;
 import Auth0Info.*;
 import js.stripe.Stripe;
