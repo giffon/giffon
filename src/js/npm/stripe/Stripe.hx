@@ -17,10 +17,10 @@ extern class Stripe {
 
         public function deleteDiscount(customerId:String):Promise<Dynamic>;
 
-        public function retrieveSource(customerId:String, sourceId:String, ?options:Options):Promise<Source>;
-        public function createSource(customerId:String, arguments:Dynamic, ?options:Options):Promise<Source>;
-        public function updateSource(customerId:String, sourceId:String, arguments:Dynamic, ?options:Options):Promise<Source>;
-        public function deleteSource(customerId:String, sourceId:String, ?options:Options):Promise<Dynamic>;
+        public function retrieveSource(customerId:String, sourceId:String, ?options:Options):Promise<Object>;
+        public function createSource(customerId:String, arguments:Dynamic, ?options:Options):Promise<Object>;
+        public function updateSource(customerId:String, sourceId:String, arguments:Dynamic, ?options:Options):Promise<Object>;
+        public function deleteSource(customerId:String, sourceId:String, ?options:Options):Promise<Object>;
         public function listSources(customerId:String):Promise<Dynamic>;
         public function verifySource(customerId:String, sourceId:String, arguments:Dynamic, ?options:Options):Promise<Dynamic>;
 

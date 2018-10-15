@@ -1,6 +1,6 @@
 package js.npm.stripe;
 
-extern class LastResponse {
-    public var requestId(default, null):String;
-    public var statusCode(default, null):Int;
+typedef LastResponse = {
+    public var requestId:String;
+    public var statusCode:Int;
 }
