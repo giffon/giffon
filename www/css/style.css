@@ -315,6 +315,10 @@ footer {
     text-align: center;
 }
 
+footer .boring-stuff a {
+    margin-left: 1em;
+}
+
 .StripeElement {
     background-color: white;
     width: 100%;

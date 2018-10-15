@@ -390,6 +390,12 @@ class ServerMain {
         app.get("/", function(req:Request, res) {
             res.render("index");
         });
+        app.get("/terms", function(req, res:Response) {
+            res.render("terms");
+        });
+        app.get("/privacy", function(req, res:Response) {
+            res.render("privacy");
+        });
         app.get("/signin", function(req, res:Response) {
             res.render("signin");
         });
