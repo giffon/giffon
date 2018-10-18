@@ -231,9 +231,7 @@ class ServerMain {
             } = JWS.readSafeJSONString(b64utoutf8(token.split(".")[1]));
             var userEmail = payloadObj.email;
             if (userEmail == null) {
-                res.status(500);
-                res.type("text/plain");
-                res.send("user has no email info");
+                res.sendPlainError("user has no email info");
                 return;
             }
             // get user_id
@@ -250,9 +248,7 @@ class ServerMain {
                 @await cnx.beginTransaction().toPromise();
             } catch(err:Dynamic) {
                 cnx.release();
-                res.status(500);
-                res.type("text/plain");
-                res.send(err);
+                res.sendPlainError(err);
                 return;
             }
             try {
@@ -271,18 +267,14 @@ class ServerMain {
             } catch (err:Dynamic) {
                 @await cnx.rollback().toPromise();
                 cnx.release();
-                res.status(500);
-                res.type("text/plain");
-                res.send(err);
+                res.sendPlainError(err);
                 return;
             }
             var user = @await getUser(user_id);
             res.setUser(user);
             next();
         } catch (err:Dynamic) {
-            res.status(500);
-            res.type("text/plain");
-            res.send(err);
+            res.sendPlainError(err);
             return;
         }
     }
@@ -406,9 +398,7 @@ class ServerMain {
                     campaigns: campaigns
                 });
             } catch (err:Dynamic) {
-                res.status(500);
-                res.type("text/plain");
-                res.send(err);
+                res.sendPlainError(err);
                 return;
             }
         });
@@ -440,9 +430,7 @@ class ServerMain {
                 });
                 return;
             } catch (err:Dynamic) {
-                res.status(500);
-                res.type("text/plain");
-                res.send(err);
+                res.sendPlainError(err);
                 return;
             }
         });
@@ -490,9 +478,7 @@ class ServerMain {
                     return;
                 }
             } catch (err:Dynamic) {
-                res.status(500);
-                res.type("text/plain");
-                res.send(err);
+                res.sendPlainError(err);
                 return;
             }
         });
@@ -512,9 +498,7 @@ class ServerMain {
                 var user_hashid = req.params.user_hashid;
                 var user_id = @await getUserIdFromHash(user_hashid);
                 if (user_id == null) {
-                    res.status(404);
-                    res.type("text/plain");
-                    res.send("There is no such user.");
+                    res.sendPlainError("There is no such user.", 404);
                 } else {
                     var campaigns = @await getCampaigns(user_id);
                     res.render("user", {
@@ -522,9 +506,7 @@ class ServerMain {
                     });
                 }
             } catch (err:Dynamic) {
-                res.status(500);
-                res.type("text/plain");
-                res.send(err);
+                res.sendPlainError(err);
                 return;
             }
         });
@@ -533,21 +515,19 @@ class ServerMain {
                 var campaign_hashid = req.params.campaign_hashid;
                 var campaign_id = @await getCampaignIdFromHash(campaign_hashid);
                 if (campaign_id == null) {
-                    res.status(404).send("There is no such campaign.");
+                    res.sendPlainError("There is no such campaign.", 404);
                     return;
                 }
                 var campaign = @await getCampaign(campaign_id);
                 if (campaign == null) {
-                    res.status(404).send("There is no such campaign.");
+                    res.sendPlainError("There is no such campaign.", 404);
                     return;
                 }
                 res.render("campaign", {
                     campaign: campaign
                 });
             } catch (err:Dynamic) {
-                res.status(500);
-                res.type("text/plain");
-                res.send(err);
+                res.sendPlainError(err);
                 return;
             }
         });
@@ -556,21 +536,17 @@ class ServerMain {
                 var campaign_hashid = req.params.campaign_hashid;
                 var campaign_id = @await getCampaignIdFromHash(campaign_hashid);
                 if (campaign_id == null) {
-                    res.status(404).send("There is no such campaign.");
+                    res.sendPlainError("There is no such campaign.", 404);
                     return;
                 }
                 var campaign = @await getCampaign(campaign_id);
                 if (campaign == null) {
-                    res.status(404).send("There is no such campaign.");
+                    res.sendPlainError("There is no such campaign.", 404);
                     return;
                 }
-                res.status(500);
-                res.type("text/plain");
-                res.send("Not implemented yet");
+                res.sendPlainError("Not implemented yet");
             } catch (err:Dynamic) {
-                res.status(500);
-                res.type("text/plain");
-                res.send(err);
+                res.sendPlainError(err);
                 return;
             }
         });
@@ -587,7 +563,7 @@ class ServerMain {
                     require_protocol: true,
                     host_whitelist: ["www.amazon.com"],
                 })) {
-                    res.status(400).send("invalid url");
+                    res.sendPlainError("invalid url", 400);
                     return;
                 }
 
@@ -606,9 +582,7 @@ class ServerMain {
                         });
                     });
                 } catch (err:Dynamic) {
-                    res.status(500);
-                    res.type("text/plain");
-                    res.send('Unable to scrap item details from $item_url.\n\n${haxe.Json.stringify(err, null, "  ")}');
+                    res.sendPlainError('Unable to scrap item details from $item_url.\n\n${haxe.Json.stringify(err, null, "  ")}');
                     return;
                 }
                 var screenshot = @await getAmazonItemScreenshot(item_url);
@@ -617,9 +591,7 @@ class ServerMain {
                     @await cnx.beginTransaction().toPromise();
                 } catch(err:Dynamic) {
                     cnx.release();
-                    res.status(500);
-                    res.type("text/plain");
-                    res.send(err);
+                    res.sendPlainError(err);
                     return;
                 }
                 try {
@@ -665,15 +637,11 @@ class ServerMain {
                 } catch (err:Dynamic) {
                     @await cnx.rollback().toPromise();
                     cnx.release();
-                    res.status(500);
-                    res.type("text/plain");
-                    res.send(err);
+                    res.sendPlainError(err);
                     return;
                 }
             } catch (err:Dynamic) {
-                res.status(500);
-                res.type("text/plain");
-                res.send(err);
+                res.sendPlainError(err);
                 return;
             }
         });
