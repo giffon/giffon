@@ -52,6 +52,16 @@ class ServerMain {
                 throw 'There are ${results.length} Stripe customers with user_id = ${user.user_id}.';
             return results[0].stripe_customer_id;
         }
+
+        var customers = @await stripe.customers.list({
+            email: user.user_primary_email
+        }).autoPagingToArray({limit:5}).toPromise();
+
+        if (customers.length > 1)
+            throw 'There are ${customers.length} Stripe customers with email = ${user.user_primary_email}.';
+        if (customers.length < 1)
+            return null;
+        return customers[0].id;
     }
 
     @async static function getUserIdFromAuth0Payload(payloadObj:Auth0Payload):Null<Int> {
