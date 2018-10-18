@@ -37,6 +37,23 @@ class ServerMain {
     static var dbConnectionPool:Pool;
     static var stripe = new Stripe(StripeInfo.apiSecKey);
 
+    @async static function getStripeCustomerIdFromUser(user:db.User):Null<String> {
+        var results = (@await dbConnectionPool.query(
+            "
+                SELECT `stripe_customer_id`
+                FROM `user_stripe`
+                WHERE `user_id` = ?
+            ",
+            [user.user_id]
+        ).toPromise()).results;
+
+        if (results != null && results.length > 0) {
+            if (results.length > 1)
+                throw 'There are ${results.length} Stripe customers with user_id = ${user.user_id}.';
+            return results[0].stripe_customer_id;
+        }
+    }
+
     @async static function getUserIdFromAuth0Payload(payloadObj:Auth0Payload):Null<Int> {
         var results = (@await dbConnectionPool.query(
             "
@@ -420,19 +437,8 @@ class ServerMain {
         app.get("/cards", ensureLoggedIn, @await function(req:Request, res:Response){
             try {
                 var user = res.getUser();
-                var results = (@await dbConnectionPool.query(
-                    "
-                        SELECT `stripe_customer_id`
-                        FROM `user_stripe`
-                        WHERE `user_id` = ?
-                    ",
-                    [user.user_id]
-                ).toPromise()).results;
-
-                var stripe_customer = if (results != null && results.length > 0) {
-                    if (results.length > 1)
-                        throw 'There are ${results.length} Stripe customers with user_id = ${user.user_id}.';
-                    var stripe_customer_id:String = results[0].stripe_customer_id;
+                var stripe_customer_id = @await getStripeCustomerIdFromUser(user);
+                var stripe_customer = if (stripe_customer_id != null) {
                     @await stripe.customers.retrieve(stripe_customer_id,{
                         expand: ["default_source"],
                     }).toPromise();
@@ -452,20 +458,9 @@ class ServerMain {
         app.post("/cards", ensureLoggedIn, @await function(req:Request, res:Response){
             try {
                 var user = res.getUser();
+                var stripe_customer_id = @await getStripeCustomerIdFromUser(user);
 
-                var results = (@await dbConnectionPool.query(
-                    "
-                        SELECT `stripe_customer_id`
-                        FROM `user_stripe`
-                        WHERE `user_id` = ?
-                    ",
-                    [user.user_id]
-                ).toPromise()).results;
-
-                if (results != null && results.length > 0) {
-                    if (results.length > 1)
-                        throw 'There are ${results.length} Stripe customers with user_id = ${user.user_id}.';
-                    var stripe_customer_id:String = results[0].stripe_customer_id;
+                if (stripe_customer_id != null) {
                     var customer = @await stripe.customers.update(stripe_customer_id, {
                         source: req.body.stripeToken,
                     }).toPromise();
