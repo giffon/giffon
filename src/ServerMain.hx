@@ -37,7 +37,31 @@ class ServerMain {
     static var dbConnectionPool:Pool;
     static var stripe = new Stripe(StripeInfo.apiSecKey);
 
-    @async static function getUserIdFromEmail(email:String) {
+    @async static function getUserIdFromAuth0Payload(payloadObj:Auth0Payload):Null<Int> {
+        var results = (@await dbConnectionPool.query(
+            "
+                SELECT `user_id`
+                FROM `user_auth0`
+                WHERE `auth0_id` = ?
+            ",
+            [payloadObj.sub]
+        ).toPromise()).results;
+
+        var userId = if (results == null || results.length == 0) {
+            null;
+        } else if (results.length > 1) {
+            throw 'There are ${results.length} users with the auth0_id ${payloadObj.sub}.';
+        } else {
+            results[0].user_id;
+        }
+
+        if (userId != null)
+            return userId;
+        
+        return userId = @await getUserIdFromEmail(payloadObj.email);
+    }
+
+    @async static function getUserIdFromEmail(email:String):Null<Int> {
         if (!Validator.isEmail(email))
             throw '$email is not valid email address';
         var results = (@await dbConnectionPool.query(
@@ -58,7 +82,7 @@ class ServerMain {
         }
     }
 
-    @async static function getUserIdFromHash(user_hashid:String) {
+    @async static function getUserIdFromHash(user_hashid:String):Null<Int> {
         var results = (@await dbConnectionPool.query(
             "
                 SELECT `user_id`
@@ -77,7 +101,7 @@ class ServerMain {
         }
     }
 
-    @async static function getCampaignIdFromHash(campaign_hashid:String) {
+    @async static function getCampaignIdFromHash(campaign_hashid:String):Null<Int> {
         var results = (@await dbConnectionPool.query(
             "
                 SELECT `campaign_id`
@@ -96,7 +120,7 @@ class ServerMain {
         }
     }
 
-    @async static function getCampaign(campaign_id:Int) {
+    @async static function getCampaign(campaign_id:Int):db.Campaign {
         var campaign_results = (@await dbConnectionPool.query(
             "
                 SELECT `campaign_id`, `user_id`, `campaign_hashid`, `campaign_description`, `campaign_state`, `item_group_id`
@@ -137,7 +161,7 @@ class ServerMain {
         };
     }
 
-    @async static function getCampaigns(user_id:Int) {
+    @async static function getCampaigns(user_id:Int):Array<db.Campaign> {
         var campaign_results = (@await dbConnectionPool.query(
             "
                 SELECT `campaign_id`
@@ -169,7 +193,7 @@ class ServerMain {
         return results[0];
     }
 
-    @async static function getAmazonItemScreenshot(url:String):Promise<js.node.Buffer> {
+    @async static function getAmazonItemScreenshot(url:String):js.node.Buffer {
         return @await Surprise.async(function(resolve){
             NodeRequest.get({
                 url: "https://kuortzoyx4.execute-api.us-east-1.amazonaws.com/dev/screenshot",
@@ -190,7 +214,7 @@ class ServerMain {
         });
     }
 
-    @await static function auth(req:Request, res:Response, next:haxe.Constraints.Function) {
+    @await static function auth(req:Request, res:Response, next:haxe.Constraints.Function):Void {
         try {
             if (req == null || req.cookies == null || req.cookies.id_token == null) {
                 next();
@@ -212,30 +236,9 @@ class ServerMain {
                 next();
                 return;
             }
-            var payloadObj:{
-                given_name: String,
-                family_name: String,
-                nickname: String,
-                name: String,
-                picture: String,
-                updated_at: String,
-                email: String,
-                email_verified:Bool,
-                iss: String,
-                sub: String,
-                aud: String,
-                iat: Float,
-                exp: Float,
-                at_hash: String,
-                nonce: String
-            } = JWS.readSafeJSONString(b64utoutf8(token.split(".")[1]));
-            var userEmail = payloadObj.email;
-            if (userEmail == null) {
-                res.sendPlainError("user has no email info");
-                return;
-            }
+            var payloadObj:Auth0Payload = JWS.readSafeJSONString(b64utoutf8(token.split(".")[1]));
             // get user_id
-            var user_id:Null<Int> = @await getUserIdFromEmail(userEmail);
+            var user_id:Null<Int> = @await getUserIdFromAuth0Payload(payloadObj);
             if (user_id != null) {
                 var user = @await getUser(user_id);
                 res.setUser(user);
@@ -243,6 +246,11 @@ class ServerMain {
                 return;
             }
             // insert user
+            var userEmail = payloadObj.email;
+            if (userEmail == null) {
+                res.sendPlainError("user has no email info");
+                return;
+            }
             var cnx:Connection = @await dbConnectionPool.getConnection().toPromise();
             try {
                 @await cnx.beginTransaction().toPromise();
@@ -261,6 +269,12 @@ class ServerMain {
                 @await cnx.query(
                     "UPDATE user SET `user_hashid` = ? WHERE `user_id` = ?",
                     ([user_hashid, user_id]:Array<Dynamic>)
+                ).toPromise();
+                @await cnx.query(
+                    "INSERT INTO user_auth0 SET ?", {
+                        user_id: user_id,
+                        auth0_id: payloadObj.sub
+                    }
                 ).toPromise();
                 @await cnx.commit().toPromise();
                 cnx.release();
@@ -292,7 +306,7 @@ class ServerMain {
         cnx.end();
     }
 
-    @await static function main() {
+    @await static function main():Void {
         var isMain = (untyped __js__("require")).main == module;
 
         var dbConfig:Mysql.ConnectionOptions = {
