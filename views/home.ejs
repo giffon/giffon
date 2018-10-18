@@ -10,9 +10,10 @@ bodyClasses.push("page-home");
     <p><a href="/user/<%=user.user_hashid%>">public profile</a></p>
 
     <div>
+        <h2>Your campaigns</h2>
     <% if (campaigns.length == 0) { %>
         <p>You don't have any Giffon campaign yet.</p>
-        <a href="/create-campaign">Make a wish.</a>
+        <p><a href="/create-campaign">Make a wish.</a></p>
     <% } else { %>
         Your current <%= campaigns.length == 1 ? "campaign" : "campaigns" %>:
         <% campaigns.forEach(function(campaign) { %>
@@ -28,6 +29,10 @@ bodyClasses.push("page-home");
             </div>
         <% }); %>
     <% } %>
+    </div>
+    <div>
+        <h2>Settings</h2>
+        <p><a href="/cards">payment method</a></p>
     </div>
 </div>
 
