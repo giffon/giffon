@@ -349,3 +349,7 @@ footer .boring-stuff a {
 .StripeElement--webkit-autofill {
     background-color: #fefde5 !important;
 }
+
+.page-cards .has-card-some #payment-form {
+    display: none;
+}

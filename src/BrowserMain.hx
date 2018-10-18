@@ -199,5 +199,14 @@ class BrowserMain {
                 }
             });
         });
+
+        var replaceCardLink = new JQuery("a#replace-card");
+        replaceCardLink.click(function(evt){
+            evt.preventDefault();
+
+            new JQuery(form).show();
+
+            replaceCardLink.hide();
+        });
     }
 }

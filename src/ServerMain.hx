@@ -464,9 +464,10 @@ class ServerMain {
                     if (results.length > 1)
                         throw 'There are ${results.length} Stripe customers with user_id = ${user.user_id}.';
                     var stripe_customer_id:String = results[0].stripe_customer_id;
-                    res.status(400);
-                    res.type("text/plain");
-                    res.send("You already have an existing card. Send us an email if you wanna update the card info.");
+                    var customer = @await stripe.customers.update(stripe_customer_id, {
+                        source: req.body.stripeToken,
+                    }).toPromise();
+                    res.redirect("/cards");
                     return;
                 } else {
                     var customer = @await stripe.customers.create({
