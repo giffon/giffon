@@ -39,7 +39,7 @@ class ServerMain {
     static var dbConnectionPool:Pool;
     static var stripe = new Stripe(StripeInfo.apiSecKey);
 
-    @async static function getStripeCustomerIdFromUser(user:db.User):Null<String> {
+    @async static function getStripeCustomerIdFromUser(user:{user_id:Int, user_primary_email:String}):Null<String> {
         var results = (@await dbConnectionPool.query(
             "
                 SELECT `stripe_customer_id`
@@ -245,7 +245,29 @@ class ServerMain {
             return null;
         if (results.length > 1)
             throw 'There are ${results == null ? 0 : results.length} users with user_id = ${user_id}.';
-        return results[0];
+        
+        var user:{
+            user_id:Int,
+            user_hashid:String,
+            user_primary_email:String,
+            user_name:String
+        } = results[0];
+        var stripe_customer_id = @await getStripeCustomerIdFromUser(user);
+        var stripe_customer = if (stripe_customer_id != null) {
+            @await stripe.customers.retrieve(stripe_customer_id,{
+                expand: ["default_source"],
+            }).toPromise();
+        } else {
+            null;
+        }
+        return {
+            user_id: user.user_id,
+            user_hashid: user.user_hashid,
+            user_primary_email: user.user_primary_email,
+            user_name: user.user_name,
+            user_has_card: stripe_customer != null && stripe_customer.default_source != null && stripe_customer.default_source.object == "card",
+            stripe_customer: stripe_customer,
+        };
     }
 
     @async static function getAmazonItemScreenshot(url:String):js.node.Buffer {
@@ -473,24 +495,7 @@ class ServerMain {
         });
 
         app.get("/cards", ensureLoggedIn, @await function(req:Request, res:Response){
-            try {
-                var user = res.getUser();
-                var stripe_customer_id = @await getStripeCustomerIdFromUser(user);
-                var stripe_customer = if (stripe_customer_id != null) {
-                    @await stripe.customers.retrieve(stripe_customer_id,{
-                        expand: ["default_source"],
-                    }).toPromise();
-                } else {
-                    null;
-                }
-                res.render("cards", {
-                    stripe_customer: stripe_customer
-                });
-                return;
-            } catch (err:Dynamic) {
-                res.sendPlainError(err);
-                return;
-            }
+            res.render("cards");
         });
 
         app.post("/cards", ensureLoggedIn, @await function(req:Request, res:Response){
@@ -615,6 +620,10 @@ class ServerMain {
                     res.sendPlainError("There is no such campaign.", 404);
                     return;
                 }
+                var user = res.getUser();
+                if (!user.user_has_card) {
+                    res.sendPlainError("You have not configured a payment method.", 400);
+                }
                 var pledge_amount = Decimal.fromString(req.body.pledge_amount);
                 if (pledge_amount < 0) {
                     res.sendPlainError("Pledge amount must be larger than 0.", 400);
@@ -626,7 +635,7 @@ class ServerMain {
                         SET ?
                     ",
                     {
-                        user_id: res.getUser().user_id,
+                        user_id: user.user_id,
                         campaign_id: campaign_id,
                         pledge_amount: pledge_amount.toString(),
                         pledge_method: db.PledgeMethod.StripeCard,

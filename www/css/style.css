@@ -364,6 +364,10 @@ footer .boring-stuff a {
     display: none;
 }
 
+.progress {
+    margin-bottom: 1em;
+}
+
 .progress-bar {
     min-width: 2em;
 }

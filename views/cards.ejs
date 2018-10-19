@@ -2,16 +2,15 @@
 locals.title = "Cards - Giffon";
 bodyClasses.push("page-cards");
 
-var hasCard = stripe_customer != null && stripe_customer.default_source != null && stripe_customer.default_source.object == "card";
-var hasCardClass = hasCard ? "has-card-some" : "has-card-none";
+var hasCardClass = user.user_has_card ? "has-card-some" : "has-card-none";
 %>
 <%- include('head'); -%>
 
 <div class="container <%=hasCardClass%>">
     <h1>Your payment method</h1>
     <% 
-        if (hasCard) {
-            var card = stripe_customer.default_source;
+        if (user.user_has_card) {
+            var card = user.stripe_customer.default_source;
     %>
         <div>
             <p><span><%=card.brand%></span> **** **** **** <span><%=card.last4%></span></p>
