@@ -1,0 +1,28 @@
+<div class="progress">
+    <%
+        var progress = campaign.campaign_progress;
+        var barWidth = 0;
+        var barLabel = "";
+        var barClasses = [progress];
+        if (progress == "none") {
+            barWidth = 1;
+            barLabel = "0%";
+        } else if (progress == "started") {
+            barWidth = 25;
+            barLabel = "Started";
+            barClasses.push("progress-bar-striped", "progress-bar-animated");
+        } else if (progress == "halfway") {
+            barWidth = 60;
+            barLabel = "> 50%";
+            barClasses.push("progress-bar-striped", "progress-bar-animated");
+        } else if (progress == "almost") {
+            barWidth = 95;
+            barLabel = "Almost complete";
+            barClasses.push("progress-bar-striped", "progress-bar-animated");
+        } else if (progress == "done") {
+            barWidth = 100;
+            barLabel = "Complete";
+        }
+    %>
+    <div class="progress-bar <%=barClasses.join(' ')%>" role="progressbar" style="width: <%=barWidth%>%"><%=barLabel%></div>
+</div>

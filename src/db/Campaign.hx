@@ -7,6 +7,8 @@ typedef Campaign = {
     campaign_state: db.CampaignState,
     campaign_owner: db.User,
     campaign_total_price: thx.Decimal,
+    campaign_pledged: Null<thx.Decimal>,
+    campaign_progress: db.CampaignProgress,
     items: Array<{
         item_id: Int,
         item_url: String,

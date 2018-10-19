@@ -25,6 +25,7 @@ bodyClasses.push("page-home");
                     </div>
                 <% }); %>
                 <div class="campaign-description"><%=campaign.campaign_description%></div>
+                <%- include('campaign-progressbar', {campaign}); -%>
                 <a href="/campaign/<%=campaign.campaign_hashid%>">detail</a>
             </div>
         <% }); %>

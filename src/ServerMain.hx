@@ -171,14 +171,39 @@ class ServerMain {
             ",
             [campaign.item_group_id]
         ).toPromise()).results;
+
         var campaign_owner = @await getUser(campaign.user_id);
+
+        var campaign_pledged = null;
+        var pledge_results = (@await dbConnectionPool.query(
+            "
+                SELECT SUM(`pledge_amount`) AS `total_pledge`
+                FROM `pledge`
+                WHERE `campaign_id` = ? AND `pledge_state` = ?
+            ",
+            [campaign_id, db.PledgeState.Pledged]
+        ).toPromise()).results;
+        if (pledge_results != null && pledge_results.length != 0) {
+            if (pledge_results.length != 1) {
+                throw 'SUM(`pledge_amount`) returned ${pledge_results.length} results.';
+            }
+            campaign_pledged = switch (pledge_results[0].total_pledge) {
+                case null: null;
+                case str: Decimal.fromString(str).trim();
+            }
+        }
+        
+        var campaign_total_price = item_results.fold(function(item, total:Decimal) return total + Decimal.fromString(item.item_price), Decimal.zero).trim();
+
         return {
             campaign_id: campaign.campaign_id,
             campaign_hashid: campaign.campaign_hashid,
             campaign_description: campaign.campaign_description,
             campaign_state: campaign.campaign_state,
             campaign_owner: campaign_owner,
-            campaign_total_price: item_results.fold(function(item, total:Decimal) return total + Decimal.fromString(item.item_price), Decimal.zero).trim(),
+            campaign_total_price: campaign_total_price,
+            campaign_pledged: campaign_pledged,
+            campaign_progress: db.CampaignProgress.CampaignProgressTools.pledgeStateFromAmount(campaign_pledged, campaign_total_price),
             items: item_results.map(function(item){
                 return {
                     item_id: item.item_id,
@@ -560,6 +585,7 @@ class ServerMain {
                     if (results != null && results.length != 0) {
                         if (results.length != 1) {
                             res.sendPlainError('SUM(`pledge_amount`) returned ${results.length} results.');
+                            return;
                         }
                         user_total_pledge = switch (results[0].total_pledge) {
                             case null: null;

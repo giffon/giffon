@@ -270,6 +270,7 @@ img.emoji, .inline-icon {
 .page-home .campaign,
 .page-user .campaign {
     padding: 0.5em;
+    margin-bottom: 1em;
     background-color: white;
     color: #333333;
 }
@@ -361,4 +362,8 @@ footer .boring-stuff a {
 
 .page-campaign .has-user-pledge-some form.add-pledge {
     display: none;
+}
+
+.progress-bar {
+    min-width: 2em;
 }
