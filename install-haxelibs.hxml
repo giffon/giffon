@@ -2,6 +2,7 @@
 -cmd haxelib install build-browser.hxml --always
 -cmd haxelib install hashids --always
 -cmd haxelib install tink_await --always
+-cmd haxelib install thx.core --always
 -cmd haxelib dev tink_await lib/tink_await
 -cmd haxelib dev hxnodejs lib/hxnodejs
 -cmd haxelib dev hxnodelibs lib/hxnodelibs

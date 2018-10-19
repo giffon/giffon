@@ -11,9 +11,11 @@ import jsrsasign.Global.*;
 import hashids.Hashids;
 import haxe.io.*;
 import tink.CoreApi;
+import thx.Decimal;
 using js.npm.validator.Validator;
 using tink.core.Future.JsPromiseTools;
 using ResponseTools;
+using Lambda;
 
 @:enum abstract ServerlessStage(String) from String {
     var Production = "production";
@@ -176,13 +178,14 @@ class ServerMain {
             campaign_description: campaign.campaign_description,
             campaign_state: campaign.campaign_state,
             campaign_owner: campaign_owner,
+            campaign_total_price: item_results.fold(function(item, total:Decimal) return total + Decimal.fromString(item.item_price), Decimal.zero).trim(),
             items: item_results.map(function(item){
                 return {
                     item_id: item.item_id,
                     item_url: item.item_url,
                     item_url_screenshot: ImageDataUri.encode(item.item_url_screenshot, "PNG"),
                     item_name: item.item_name,
-                    item_price: item.item_price
+                    item_price: Decimal.fromString(item.item_price).trim()
                 }
             })
         };
@@ -550,7 +553,7 @@ class ServerMain {
                 return;
             }
         });
-        app.post("/campaign/:campaign_hashid/pledge", @await function(req:Request, res:Response){
+        app.post("/campaign/:campaign_hashid/pledge", ensureLoggedIn, @await function(req:Request, res:Response){
             try {
                 var campaign_hashid = req.params.campaign_hashid;
                 var campaign_id = @await getCampaignIdFromHash(campaign_hashid);
@@ -564,6 +567,19 @@ class ServerMain {
                     return;
                 }
                 res.sendPlainError("Not implemented yet");
+                return;
+                //TODO
+                @await dbConnectionPool.query(
+                    "
+                        INSERT INTO `pledge`
+                        SET ?
+                    ",
+                    {
+                        user_id: res.getUser().user_id,
+                        campaign_id: campaign_id,
+                        pledge_amount: null
+                    }
+                ).toPromise();
             } catch (err:Dynamic) {
                 res.sendPlainError(err);
                 return;

@@ -4,6 +4,7 @@
 -lib compiletime
 -lib hashids
 -lib tink_await
+-lib thx.core
 -main ServerMain
 -js ServerMain.js
 -dce full

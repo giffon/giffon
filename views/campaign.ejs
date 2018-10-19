@@ -12,11 +12,15 @@ bodyClasses.push("page-campaign");
             <img class="item-screenshot" alt="<%=item.item_name%>" src="<%=item.item_url_screenshot%>">
         </div>
     <% }); %>
+    <div>Totol: <%=campaign.campaign_total_price%> (USD)</div>
     <div class="campaign-description"><%=campaign.campaign_description%></div>
 
-    <form action="/campaign/<%=campaign.campaign_hashid%>/pledge" method="POST">
-        <input type="submit" />
-    </form>
+    <% if (user != null && user.id != campaign.campaign_owner.id) { %>
+        <form action="/campaign/<%=campaign.campaign_hashid%>/pledge" method="POST">
+            <input type="number" step="10" min="0" max="<%=campaign.campaign_total_price%>"> (USD)
+            <input type="submit" />
+        </form>
+    <% } %>
 </div>
 
 <%- include('foot'); -%>
