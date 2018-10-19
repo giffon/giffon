@@ -135,6 +135,10 @@ class BrowserMain {
         if (document.body.classList.contains("page-cards")) {
             cards();
         }
+
+        if (document.body.classList.contains("page-campaign")) {
+            campaign();
+        }
     }
 
     static function removeHash():Void { 
@@ -162,6 +166,15 @@ class BrowserMain {
         hiddenInput.setAttribute('value', token.id);
         form.appendChild(hiddenInput);
         form.submit();
+    }
+
+    static function campaign():Void {
+        var addPledgeBtn = new JQuery("button.add-pledge");
+        addPledgeBtn.click(function(evt){
+            evt.preventDefault();
+            new JQuery("form.add-pledge").show();
+            addPledgeBtn.hide();
+        });
     }
 
     static function cards():Void {

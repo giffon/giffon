@@ -545,8 +545,31 @@ class ServerMain {
                     res.sendPlainError("There is no such campaign.", 404);
                     return;
                 }
+                var user_total_pledge = null;
+                var user = res.getUser();
+                if (user != null) {
+                    var results = (@await dbConnectionPool.query(
+                        "
+                            SELECT SUM(`pledge_amount`) AS `total_pledge`
+                            FROM `pledge`
+                            WHERE `user_id` = ? AND `campaign_id` = ? AND `pledge_state` = ?
+                        ",
+                        [user.user_id, campaign_id, db.PledgeState.Pledged]
+                    ).toPromise()).results;
+
+                    if (results != null && results.length != 0) {
+                        if (results.length != 1) {
+                            res.sendPlainError('SUM(`pledge_amount`) returned ${results.length} results.');
+                        }
+                        user_total_pledge = switch (results[0].total_pledge) {
+                            case null: null;
+                            case str: Decimal.fromString(str).trim();
+                        }
+                    }
+                }
                 res.render("campaign", {
-                    campaign: campaign
+                    campaign: campaign,
+                    user_total_pledge: user_total_pledge
                 });
             } catch (err:Dynamic) {
                 res.sendPlainError(err);
@@ -566,9 +589,11 @@ class ServerMain {
                     res.sendPlainError("There is no such campaign.", 404);
                     return;
                 }
-                res.sendPlainError("Not implemented yet");
-                return;
-                //TODO
+                var pledge_amount = Decimal.fromString(req.body.pledge_amount);
+                if (pledge_amount < 0) {
+                    res.sendPlainError("Pledge amount must be larger than 0.", 400);
+                    return;
+                }
                 @await dbConnectionPool.query(
                     "
                         INSERT INTO `pledge`
@@ -577,9 +602,11 @@ class ServerMain {
                     {
                         user_id: res.getUser().user_id,
                         campaign_id: campaign_id,
-                        pledge_amount: null
+                        pledge_amount: pledge_amount.toString(),
+                        pledge_method: db.PledgeMethod.StripeCard,
                     }
                 ).toPromise();
+                res.redirect('/campaign/$campaign_hashid');
             } catch (err:Dynamic) {
                 res.sendPlainError(err);
                 return;

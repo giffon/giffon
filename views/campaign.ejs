@@ -12,14 +12,52 @@ bodyClasses.push("page-campaign");
             <img class="item-screenshot" alt="<%=item.item_name%>" src="<%=item.item_url_screenshot%>">
         </div>
     <% }); %>
-    <div>Totol: <%=campaign.campaign_total_price%> (USD)</div>
+    <div>Totol (USD): <%=campaign.campaign_total_price%></div>
     <div class="campaign-description"><%=campaign.campaign_description%></div>
 
     <% if (user != null && user.id != campaign.campaign_owner.id) { %>
-        <form action="/campaign/<%=campaign.campaign_hashid%>/pledge" method="POST">
-            <input type="number" step="10" min="0" max="<%=campaign.campaign_total_price%>"> (USD)
-            <input type="submit" />
-        </form>
+        <div class='user-pledge <%= user_total_pledge != null ? "has-user-pledge-some" : "has-user-pledge-none" %>'>
+            <% if (user_total_pledge != null) { %>
+                <div class="current-user-pledge">
+                    <p>Currently you've pledged (USD): <%=user_total_pledge%></p>
+                </div>
+                <button class="btn btn-sm btn-outline-primary add-pledge">Add Pledge</button>
+            <% } %>
+            <form action="/campaign/<%=campaign.campaign_hashid%>/pledge" method="POST" enctype="application/x-www-form-urlencoded" class="add-pledge needs-validation" novalidate>
+                <% if (user_total_pledge != null) { %>
+                    <p>How much do you want to add?</p>
+                <% } else { %>
+                    <p>How much are you willing to contribute towards buying <%= campaign.items.length > 1 ? "those" : "that" %> for <%=campaign.campaign_owner.user_name%>?</p>
+                <% } %>
+                <div class="form-row justify-content-start">
+                    <label for="pledge_amount" class="col-sm-3">Amount (USD)</label>
+                    <input class="form-control col-sm-3" id="pledge_amount" name="pledge_amount" type="number" min="1" step="0.01" max="<%=campaign.campaign_total_price%>">
+                </div>
+                <div class="form-row">
+                    <button type="submit" class="btn btn-primary">Pledge</button>
+                </div>
+            </form>
+            <script>
+                // Example starter JavaScript for disabling form submissions if there are invalid fields
+                (function() {
+                    'use strict';
+                    window.addEventListener('load', function() {
+                        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                        var forms = document.getElementsByClassName('needs-validation');
+                        // Loop over them and prevent submission
+                        var validation = Array.prototype.filter.call(forms, function(form) {
+                            form.addEventListener('submit', function(event) {
+                            if (form.checkValidity() === false) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                            }
+                            form.classList.add('was-validated');
+                            }, false);
+                        });
+                    }, false);
+                })();
+            </script>
+        </div>
     <% } %>
 </div>
 

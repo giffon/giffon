@@ -353,3 +353,12 @@ footer .boring-stuff a {
 .page-cards .has-card-some #payment-form {
     display: none;
 }
+
+.page-campaign .campaign-description {
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+.page-campaign .has-user-pledge-some form.add-pledge {
+    display: none;
+}
