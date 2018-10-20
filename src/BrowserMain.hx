@@ -175,6 +175,8 @@ class BrowserMain {
             new JQuery("form.add-pledge").show();
             addPledgeBtn.hide();
         });
+
+        (untyped new JQuery(".campaign-total")).tooltip();
     }
 
     static function cards():Void {

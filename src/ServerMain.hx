@@ -192,18 +192,17 @@ class ServerMain {
                 case str: Decimal.fromString(str).trim();
             }
         }
-        
         var campaign_total_price = item_results.fold(function(item, total:Decimal) return total + Decimal.fromString(item.item_price), Decimal.zero).trim();
-
-        return {
+        var campaign = {
             campaign_id: campaign.campaign_id,
             campaign_hashid: campaign.campaign_hashid,
             campaign_description: campaign.campaign_description,
             campaign_state: campaign.campaign_state,
             campaign_owner: campaign_owner,
             campaign_total_price: campaign_total_price,
+            campaign_total_needed: null,
             campaign_pledged: campaign_pledged,
-            campaign_progress: db.CampaignProgress.CampaignProgressTools.pledgeStateFromAmount(campaign_pledged, campaign_total_price),
+            campaign_progress: null,
             items: item_results.map(function(item){
                 return {
                     item_id: item.item_id,
@@ -214,6 +213,9 @@ class ServerMain {
                 }
             })
         };
+        var campaign_total_needed = campaign.campaign_total_needed = ChargeInfo.totalNeeded(campaign);
+        campaign.campaign_progress = db.CampaignProgress.CampaignProgressTools.pledgeStateFromAmount(campaign_pledged, campaign_total_needed.amount);
+        return campaign;
     }
 
     @async static function getCampaigns(user_id:Int):Array<db.Campaign> {
