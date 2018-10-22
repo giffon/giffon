@@ -181,7 +181,9 @@ class BrowserMain {
 
     static function cards():Void {
         var stripe = new Stripe(document.location.hostname == "localhost" ? StripeInfo.apiTestPubKey : StripeInfo.apiPubKey);
-        var elements = stripe.elements();
+        var elements = stripe.elements({
+            locale: document.documentElement.lang
+        });
 
         var style = {
             base: {
