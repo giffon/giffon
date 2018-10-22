@@ -17,7 +17,7 @@ bodyClasses.push("page-campaign");
 
     <%- include('campaign-progressbar', {campaign}); -%>
 
-    <% if (user != null && user.id != campaign.campaign_owner.id) { %>
+    <% if (true || user != null && user.id != campaign.campaign_owner.id) { %>
         <div class='user-pledge <%= user_total_pledge != null ? "has-user-pledge-some" : "has-user-pledge-none" %>'>
             <% if (user_total_pledge != null) { %>
                 <div class="current-user-pledge">
@@ -41,6 +41,9 @@ bodyClasses.push("page-campaign");
                     <div class="form-row justify-content-start">
                         <label for="pledge_amount" class="col-sm-3">Amount (USD)</label>
                         <input class="form-control col-sm-3" id="pledge_amount" name="pledge_amount" type="number" min="1" step="0.01" max="<%=campaign.campaign_total_needed.amount%>" required>
+                    </div>
+                    <div>
+                        <p>You will only be charged when the campaign ends.</p>
                     </div>
                     <div class="form-row">
                         <button type="submit" class="btn btn-primary">Pledge</button>
