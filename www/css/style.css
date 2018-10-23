@@ -1,6 +1,6 @@
 html {
     position: relative;
-    min-height: 100%;
+    height: 100%;
 }
 
 body {
@@ -19,7 +19,14 @@ body {
     background-attachment: fixed;
     color: white;
 
-    margin: 0 0 8em 0; /* bottom has to be the same as footer height */
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Avoid the IE 10-11 `min-height` bug. */
+}
+
+body > .content {
+    flex: 1 0 auto; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
+    padding: 20px;
 }
 
 ::selection {
@@ -239,8 +246,6 @@ img.emoji, .inline-icon {
 
 .signInBtn, .signOutBtn {
     display: none;
-    padding: 0.5em;
-    margin: 0 0.5em;
 }
 
 .signInBtn .fab {
@@ -308,23 +313,8 @@ img.emoji, .inline-icon {
 }
 
 footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 8em;
-}
-
-footer .copyright {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 5em;
-    line-height: 5em;
-    text-align: center;
-}
-
-footer .boring-stuff a {
-    margin-left: 1em;
+    flex-shrink: 0; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
+    padding: 20px;
 }
 
 .StripeElement {
