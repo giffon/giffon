@@ -1,4 +1,6 @@
 $(function(){
+	$('#set2').addClass('invisible');
+	$('#support').addClass('invisible');
 
 	$(window).scroll(function (event) {
 		var scroll = $(window).scrollTop();
@@ -12,5 +14,4 @@ $(function(){
 			$('#support').removeClass('invisible').addClass('from_left');
 		}
 	});
-
 });
