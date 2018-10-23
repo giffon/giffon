@@ -13,7 +13,7 @@ body {
     background: -webkit-linear-gradient(-45deg, #b7f8db 0%,#50a7c2 100%); /* Chrome10-25,Safari5.1-6 */
     background: -o-linear-gradient(-45deg, #b7f8db 0%,#50a7c2 100%); /* Opera 11.10-11.50 */
     background: -ms-linear-gradient(-45deg, #b7f8db 0%,#50a7c2 100%); /* IE10 preview */
-    background: linear-gradient(135deg, #b7f8db 0%,#50a7c2 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    background: linear-gradient(135deg, #b7f8db 0%,#50a7c2 100%), /* make the Android Chrome address bar bug less annoying */ #50a7c2; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b7f8db', endColorstr='#50a7c2',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -22,7 +22,6 @@ body {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    -webkit-animation: androidBugfix infinite 1s;
 
     color: white;
 
