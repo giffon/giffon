@@ -1,1 +1,5 @@
-<svg width="200px"  height="200px"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid" class="lds-ball" style="background: none;"><circle cx="50" ng-attr-cy="{{config.cy}}" ng-attr-r="{{config.radius}}" ng-attr-fill="{{config.color}}" cy="39.099" r="13" fill="#b7f8db"><animate attributeName="cy" calcMode="spline" values="23;77;23" keyTimes="0;0.5;1" dur="1" keySplines="0.45 0 0.9 0.55;0 0.45 0.55 0.9" begin="0s" repeatCount="indefinite"></animate></circle></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="200px" height="200px" class="lds-ball" preserveAspectRatio="xMidYMid" style="background:none" viewBox="0 0 100 100">
+    <circle cx="50" cy="39.099" r="13" fill="#b7f8db">
+        <animate attributeName="cy" begin="0s" calcMode="spline" dur="1" keySplines="0.45 0 0.9 0.55;0 0.45 0.55 0.9" keyTimes="0;0.5;1" repeatCount="indefinite" values="23;77;23"/>
+    </circle>
+</svg>
