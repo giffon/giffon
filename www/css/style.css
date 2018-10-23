@@ -5,23 +5,10 @@ html {
 
 body {
     font-family: 'Work Sans', Arial, sans-serif;
-
-    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#b7f8db+0,50a7c2+100 */
-    background: #50a7c2; /* Old browsers */
-    background: -moz-linear-gradient(-45deg, #b7f8db 0%, #50a7c2 100%); /* FF3.6-15 */
-    background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,#b7f8db), color-stop(100%,#50a7c2)); /* Chrome4-9,Safari4-5 */
-    background: -webkit-linear-gradient(-45deg, #b7f8db 0%,#50a7c2 100%); /* Chrome10-25,Safari5.1-6 */
-    background: -o-linear-gradient(-45deg, #b7f8db 0%,#50a7c2 100%); /* Opera 11.10-11.50 */
-    background: -ms-linear-gradient(-45deg, #b7f8db 0%,#50a7c2 100%); /* IE10 preview */
-    background: linear-gradient(135deg, #b7f8db 0%,#50a7c2 100%), /* make the Android Chrome address bar bug less annoying */ #50a7c2; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b7f8db', endColorstr='#50a7c2',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-    background-attachment: fixed;
-    background-repeat: no-repeat;
-
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+    background:
+        url('/images/bg.svg')        fixed  no-repeat center/100%,
+        url('/images/bg-bottom.svg') scroll repeat-y  center/100%, /* In Android Chrome, when the address bar is scrolled out-of-screen, the fullscreen bg bottom part is not rendered, we use this to fill it */
+        #999; /* the bg color for over-scrolled region */
 
     color: white;
 
