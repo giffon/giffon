@@ -4,6 +4,11 @@ bodyClasses.push("page-signin");
 %>
 <%- include('head'); -%>
 
-<a href="/signin" class="signInBtn">Sign in<i class="fab fa-facebook"></i></a>
+<div class="h-100 w-100 d-flex align-items-center justify-content-center">
+    <div>
+        <a href="/signin" class="signInBtn">Sign in with Facebook<i class="fab fa-facebook"></i></a>
+        <img class="loading" src="/images/Ball-1s-200px.svg" alt="loading">
+    </div>
+</div>
 
 <%- include('foot'); -%>

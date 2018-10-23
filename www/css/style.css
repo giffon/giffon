@@ -19,6 +19,7 @@ body {
 
 body > .content {
     flex: 1 0 auto; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
+    height: fit-content;
 }
 
 ::selection {
@@ -352,4 +353,16 @@ footer {
 
 .progress-bar {
     min-width: 2em;
+}
+
+.page-signin.successful-login .signInBtn {
+    display: none;
+}
+
+.page-signin img.loading {
+    display: none;
+}
+
+.page-signin.successful-login img.loading {
+    display: block;
 }

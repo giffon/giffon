@@ -36,7 +36,7 @@ class BrowserMain {
         webAuth = new WebAuth({
             domain: AUTH0_DOMAIN,
             clientID: AUTH0_CLIENT_ID,
-            redirectUri: Path.join([js.Browser.location.href, "signin"]),
+            redirectUri: Path.join([js.Browser.location.origin, "signin"]),
             responseType: 'token id_token',
             scope: 'openid email profile',
             leeway: 60
@@ -54,6 +54,7 @@ class BrowserMain {
                     expires_at: authResult.expiresIn * 1000 + Date.now().getTime()
                 })) {
                     removeHash();
+                    document.body.classList.add("successful-login");
                     window.location.replace("/home");
                 };
             }
