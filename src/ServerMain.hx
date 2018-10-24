@@ -53,7 +53,11 @@ class ServerMain {
             if (results.length > 1)
                 throw 'There are ${results.length} Stripe customers with user_id = ${user.user_id}.';
             return results[0].stripe_customer_id;
+        } else {
+            return null;
         }
+
+        //TODO
 
         var customers = @await stripe.customers.list({
             email: user.user_primary_email
