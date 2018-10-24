@@ -338,6 +338,10 @@ footer {
     display: none;
 }
 
+.page-cards .alert:empty {
+    display: none;
+}
+
 .page-campaign .campaign-description {
     margin-top: 2em;
     margin-bottom: 2em;
