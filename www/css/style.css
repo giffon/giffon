@@ -7,8 +7,8 @@ body {
     font-family: 'Work Sans', Arial, sans-serif;
 
     background:
-        linear-gradient(135deg, rgb(183,248,219) 20%, rgb(80,167,194) 80%) fixed no-repeat center / 160% 160%,
-        #999;
+        radial-gradient(circle at 0 0, rgb(183,248,219) 25%, rgb(80,167,194) 75%) fixed no-repeat center / 160% 160%,
+        rgb(80,167,194);
 
     color: white;
 
