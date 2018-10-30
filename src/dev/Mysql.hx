@@ -14,7 +14,8 @@ class Mysql {
                     "-e", "MYSQL_ROOT_PASSWORD=" + DBInfo.password,
                     "-e", "MYSQL_DATABASE=" + DBInfo.database,
                     "-v", Path.join([Sys.getCwd(), "dev", "initdb"]) + ":/docker-entrypoint-initdb.d",
-                    "-p", "3306:3306", "mysql:5.6"
+                    "-p", "3306:3306",
+                    "mysql:5.6"
                 ]);
             case ["stop"]:
                 Sys.command("docker", ["stop", containerName]);
