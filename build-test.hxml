@@ -1,0 +1,3 @@
+-cp src
+-main test.Test
+-js test/specs/Test.js
