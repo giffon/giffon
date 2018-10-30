@@ -6,6 +6,7 @@ import haxe.*;
 import jsrsasign.*;
 import Auth0Info.*;
 import js.stripe.Stripe;
+using StringTools;
 
 typedef Session = {
     var access_token:String;
@@ -42,9 +43,17 @@ class BrowserMain {
             leeway: 60
         });
 
-        webAuth.parseHash({}, function(err, authResult) {
+        webAuth.parseHash({}, function(err:{error:String, errorDescription:String}, authResult) {
             if (err != null) {
                 console.error(err);
+                new JQuery("#message")
+                    .addClass("alert")
+                    .addClass("alert-danger")
+                    .html('
+                        <h2>${err.error.htmlEscape()}</h2>
+                        <p>${err.errorDescription.htmlEscape()}</p>
+                    ');
+                document.body.classList.add("failed-login");
                 return;
             }
             if (authResult != null) {

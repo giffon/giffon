@@ -56,14 +56,14 @@
 <% if (isBeta) { %>
 <div id="nav">
 	<% if (locals.user == null) { %>
-		<a href="/login" class="signInBtn">Sign in<i class="fab fa-facebook"></i></a>
+		<a href="/signin" class="signInBtn">Sign in<i class="fab fa-facebook"></i></a>
 	<% } else { %>
 		<% if (bodyClasses.indexOf("page-index") >= 0) { %>
 			<span class="greeting">Hi, <a class="user-name" href="/home"><%= user.user_name %></a>!</span>
 		<% } else { %>
 			<a class="user-name" href="/home"><%= user.user_name %></a>
 		<% } %>
-		<a href="/logout" class="signOutBtn">Sign out</a>
+		<a href="/signout" class="signOutBtn">Sign out</a>
 	<% } %>
 </div>
 <% } %>

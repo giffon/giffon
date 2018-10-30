@@ -363,6 +363,10 @@ footer {
     display: none;
 }
 
+.page-signin .alert:empty {
+    display: none;
+}
+
 .page-signin img.loading {
     display: none;
 }
