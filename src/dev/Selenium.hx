@@ -4,24 +4,24 @@ import haxe.io.*;
 
 class Selenium {
     static var containerName(default, never) = "selenium-hub";
+    static var networkName(default, never) = "selenium-net";
     static function main():Void {
         switch (Sys.args()) {
             case [] | ["start"]:
                 Sys.command("docker", [
                     "run", "-d",
                     "--name", containerName,
+                    "--network", "host",
                     "--rm",
-                    "-p", "4444:4444",
                     "selenium/hub:3.14.0-krypton"
                 ]);
                 Sys.command("docker", [
                     "run", "-d",
                     "--name", containerName + "-chrome",
-                    "--link", containerName + ":hub",
+                    "--network", "host",
+                    "-e", "HUB_HOST=localhost",
                     "-v", "/dev/shm:/dev/shm",
                     "--rm",
-                    "-P",
-                    "-p", "5900:5900",
                     "selenium/node-chrome-debug:3.14.0-krypton"
                 ]);
             case ["stop"]:

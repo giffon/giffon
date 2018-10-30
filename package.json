@@ -7,7 +7,8 @@
     "postinstall": "haxe install-haxelibs.hxml",
     "build": "haxe build.hxml",
     "start": "forever start --watch ServerMain.js",
-    "stop": "forever stop ServerMain.js"
+    "stop": "forever stop ServerMain.js",
+    "test": "wdio wdio.conf.js"
   },
   "repository": {
     "type": "git",
@@ -38,6 +39,9 @@
   "devDependencies": {
     "forever": "^0.15.3",
     "nip": "^1.0.2",
-    "serverless-apigw-binary": "^0.4.4"
+    "serverless-apigw-binary": "^0.4.4",
+    "wdio-jasmine-framework": "^0.3.6",
+    "wdio-junit-reporter": "^0.4.4",
+    "webdriverio": "^4.14.0"
   }
 }
