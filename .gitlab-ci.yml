@@ -14,8 +14,9 @@ build-haxe:
 
 build-npm:
   stage: build
-  image: node:8-alpine
+  image: alpine:3.8
   script:
+    - apk add nodejs npm python make g++
     - npm install
   artifacts:
     paths:
@@ -33,7 +34,6 @@ test:
     DB_USER: root
     DB_PASSWORD: $MYSQL_ROOT_PASSWORD
   script:
-    - apk update
     - apk add nodejs npm mysql-client openjdk8-jre python3
     - mysql -h mysql -u root --password="$MYSQL_ROOT_PASSWORD" "$MYSQL_DATABASE" -e "source dev/initdb/giffon.sql"
     - npm start
