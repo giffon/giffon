@@ -41,7 +41,7 @@
     "nip": "^1.0.2",
     "serverless-apigw-binary": "^0.4.4",
     "wdio-concise-reporter": "^0.1.2",
-    "wdio-jasmine-framework": "^0.3.6",
+    "wdio-jasmine-framework": "^0.3.7",
     "webdriverio": "^4.14.0"
   }
 }
