@@ -2,7 +2,7 @@ const os = require('os');
 
 function getWebHost() {
     switch (os.platform()) {
-        case "win32", "darwin":
+        case "win32": case "darwin":
             return "host.docker.internal";
         default:
             const ifs = os.networkInterfaces();
