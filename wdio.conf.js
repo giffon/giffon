@@ -1,3 +1,20 @@
+const os = require('os');
+
+function getWebHost() {
+    switch (os.platform) {
+        case "win32", "darwin":
+            return "host.docker.internal";
+        default:
+            const ifs = os.networkInterfaces();
+            if (!ifs.docker0)
+                return "localhost";
+            const dockerIPv4 = ifs.docker0.find(iface => iface.family == "IPv4");
+            if (!dockerIPv4)
+                return "localhost";
+            return dockerIPv4.address;
+    }
+}
+
 exports.config = {
     
     //
@@ -38,9 +55,14 @@ exports.config = {
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
     // https://docs.saucelabs.com/reference/platforms-configurator
     //
-    capabilities: [{
-        browserName: 'chrome'
-    }],
+    capabilities: [
+        {
+            browserName: 'chrome'
+        },
+        {
+            browserName: 'firefox'
+        },
+    ],
     //
     // ===================
     // Test Configurations
@@ -72,10 +94,10 @@ exports.config = {
     // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
     // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
     // gets prepended directly.
-    baseUrl: 'http://localhost:3000',
+    baseUrl: 'http://' + getWebHost() + ':3000',
     //
     // Default timeout for all waitFor* commands.
-    waitforTimeout: 10000,
+    waitforTimeout: 50000,
     //
     // Default timeout in milliseconds for request
     // if Selenium Grid doesn't send response
@@ -125,7 +147,7 @@ exports.config = {
     jasmineNodeOpts: {
         //
         // Jasmine default timeout
-        defaultTimeoutInterval: 10000,
+        defaultTimeoutInterval: 50000,
         //
         // The Jasmine framework allows interception of each assertion in order to log the state of the application
         // or website depending on the result. For example, it is pretty handy to take a screenshot every time
