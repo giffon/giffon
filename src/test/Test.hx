@@ -5,6 +5,9 @@ import js.npm.webdriverio.Global.*;
 using StringTools;
 
 class Test {
+    static function __init__() {
+        js.Node.require("dotenv").load();
+    }
     static function main():Void {
         var baseUrl = js.node.Url.parse(browser.options.baseUrl);
 

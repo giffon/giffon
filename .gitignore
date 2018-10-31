@@ -14,3 +14,5 @@ ServerMain.js.map
 test/specs/*.js
 
 test/errorShots/
+
+.env

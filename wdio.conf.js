@@ -1,3 +1,5 @@
+require("dotenv").load();
+
 const os = require('os');
 
 function getWebHost() {
