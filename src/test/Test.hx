@@ -27,11 +27,11 @@ class Test {
                     var url = browser.getUrl();
                     return url.startsWith("https://www.facebook.com/login.php");
                 });
-                browser.click("#email");
-                browser.setValue("#email", FacebookTestUsers.user1.email);
-                browser.click("#pass");
-                browser.setValue("#pass", FacebookTestUsers.user1.password);
-                browser.submitForm("#login_form");
+                browser.click("body #email");
+                browser.setValue("body #email", FacebookTestUsers.user1.email);
+                browser.click("body #pass");
+                browser.setValue("body #pass", FacebookTestUsers.user1.password);
+                browser.click("body #loginbutton");
                 browser.waitUntil(function(){
                     var url = js.node.Url.parse(browser.getUrl());
                     return url.hostname == baseUrl.hostname;
