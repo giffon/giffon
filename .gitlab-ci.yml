@@ -38,14 +38,20 @@ test:
     HUB_HOST: selenium-standalone-chrome
   script:
     - apk add nodejs npm mysql-client openjdk8-jre python3
+    # initialize mysql
     - mysql -h mysql -u root --password="$MYSQL_ROOT_PASSWORD" "$MYSQL_DATABASE" -e "source dev/initdb/giffon.sql"
+    # figure out host container ip
+    - cat /etc/hosts
+    - export WEB_HOST="$(cat /etc/hosts | grep -Eo '^([0-9\.]*)\s+(?=runner-[0-9a-f]+-project-[0-9a-f]+-concurrent-[0-9]+)')"
+    - echo "${WEB_HOST}"
+    # test
     - npm start
     - sleep 3 # allow displaying some server init messages
     - pip3 install html5validator
     - html5validator --html http://localhost:3000
     - html5validator --css www/css/*.css
     - html5validator --svg --errors-only www/images/*.svg
-    - npm test -- --host $HUB_HOST --baseUrl http://172.17.0.1:3000
+    - npm test -- --host "${HUB_HOST}" --baseUrl "http://${WEB_HOST}:3000"
     - npm stop
 
 deploy-serverless:
