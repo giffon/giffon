@@ -12,3 +12,5 @@ www/js/BrowserMain.js.map
 ServerMain.js
 ServerMain.js.map
 test/specs/*.js
+
+test/errorShots/
