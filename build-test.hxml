@@ -1,3 +1,4 @@
 -cp src
+-lib hxnodejs
 -main test.Test
 -js test/specs/Test.js

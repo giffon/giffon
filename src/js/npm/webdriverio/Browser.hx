@@ -1,11 +1,12 @@
 package js.npm.webdriverio;
 
+import haxe.Constraints;
 import haxe.extern.*;
 
 extern class Browser {
     public function addValue(rest:Rest<Dynamic>):Dynamic;
     public function clearElement(rest:Rest<Dynamic>):Dynamic;
-    public function click(rest:Rest<Dynamic>):Dynamic;
+    public function click(selector:String):Dynamic;
     public function doubleClick(rest:Rest<Dynamic>):Dynamic;
     public function dragAndDrop(rest:Rest<Dynamic>):Dynamic;
     public function leftClick(rest:Rest<Dynamic>):Dynamic;
@@ -18,8 +19,8 @@ extern class Browser {
     public function selectByVisibleText(rest:Rest<Dynamic>):Dynamic;
     public function selectorExecute(rest:Rest<Dynamic>):Dynamic;
     public function selectorExecuteAsync(rest:Rest<Dynamic>):Dynamic;
-    public function setValue(rest:Rest<Dynamic>):Dynamic;
-    public function submitForm(rest:Rest<Dynamic>):Dynamic;
+    public function setValue(selector:String, values:Dynamic):Dynamic;
+    public function submitForm(selector:String):Dynamic;
     public function deleteCookie(rest:Rest<Dynamic>):Dynamic;
     public function getCookie(rest:Rest<Dynamic>):Dynamic;
     public function setCookie(rest:Rest<Dynamic>):Dynamic;
@@ -91,9 +92,9 @@ extern class Browser {
     public function getLocationInView(rest:Rest<Dynamic>):Dynamic;
     public function getSource(rest:Rest<Dynamic>):Dynamic;
     public function getTagName(rest:Rest<Dynamic>):Dynamic;
-    public function getText(rest:Rest<Dynamic>):Dynamic;
+    public function getText(selector:String):Dynamic;
     public function getTitle(rest:Rest<Dynamic>):Dynamic;
-    public function getUrl(rest:Rest<Dynamic>):Dynamic;
+    public function getUrl():String;
     public function getValue(rest:Rest<Dynamic>):Dynamic;
     public function actions(rest:Rest<Dynamic>):Dynamic;
     public function alertAccept(rest:Rest<Dynamic>):Dynamic;
@@ -198,7 +199,7 @@ extern class Browser {
     public function waitForText(rest:Rest<Dynamic>):Dynamic;
     public function waitForValue(rest:Rest<Dynamic>):Dynamic;
     public function waitForVisible(rest:Rest<Dynamic>):Dynamic;
-    public function waitUntil(rest:Rest<Dynamic>):Dynamic;
+    public function waitUntil(condition:Function, ?timeout:Float, ?timeoutMsg:String, ?interval:Float):Dynamic;
     public function close(rest:Rest<Dynamic>):Dynamic;
     public function getCurrentTabId(rest:Rest<Dynamic>):Dynamic;
     public function getTabIds(rest:Rest<Dynamic>):Dynamic;
