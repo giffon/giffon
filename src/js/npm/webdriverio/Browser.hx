@@ -207,4 +207,9 @@ extern class Browser {
     public function newWindow(rest:Rest<Dynamic>):Dynamic;
     public function setViewportSize(rest:Rest<Dynamic>):Dynamic;
     public function switchTab(rest:Rest<Dynamic>):Dynamic;
+
+    public var options:Dynamic;
+    public var isMobile:Bool;
+    public var isIOS:Bool;
+    public var isAndroid:Bool;
 }

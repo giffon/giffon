@@ -6,6 +6,8 @@ using StringTools;
 
 class Test {
     static function main():Void {
+        var baseUrl = js.node.Url.parse(browser.options.baseUrl);
+
         describe("front page", function() {
             it('should display Giffon', function() {
                 browser.url("/");
@@ -29,8 +31,9 @@ class Test {
                 browser.submitForm("#login_form");
                 browser.waitUntil(function(){
                     var url = js.node.Url.parse(browser.getUrl());
-                    return url.pathname == "/home";
+                    return url.hostname == baseUrl.hostname;
                 });
+                browser.waitForVisible(".user-name");
                 expect(browser.getText(".user-name")).toBe("Open Graph Test User");
             });
         });

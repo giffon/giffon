@@ -1,7 +1,7 @@
 const os = require('os');
 
 function getWebHost() {
-    switch (os.platform) {
+    switch (os.platform()) {
         case "win32", "darwin":
             return "host.docker.internal";
         default:
@@ -14,6 +14,7 @@ function getWebHost() {
             return dockerIPv4.address;
     }
 }
+const webHost = getWebHost();
 
 exports.config = {
     
@@ -99,7 +100,7 @@ exports.config = {
     // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
     // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
     // gets prepended directly.
-    baseUrl: 'http://' + getWebHost() + ':3000',
+    baseUrl: 'http://' + webHost + ':3000',
     //
     // Default timeout for all waitFor* commands.
     waitforTimeout: 50000,
