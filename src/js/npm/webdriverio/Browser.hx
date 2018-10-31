@@ -208,8 +208,12 @@ extern class Browser {
     public function setViewportSize(rest:Rest<Dynamic>):Dynamic;
     public function switchTab(rest:Rest<Dynamic>):Dynamic;
 
+    public var desiredCapabilities:Dynamic;
+    public var requestHandler:Dynamic;
+    public var logger:Dynamic;
     public var options:Dynamic;
     public var isMobile:Bool;
     public var isIOS:Bool;
     public var isAndroid:Bool;
+    public var sessionId:String;
 }
