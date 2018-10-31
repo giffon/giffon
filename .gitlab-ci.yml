@@ -11,6 +11,7 @@ build-haxe:
     paths:
       - www/js/BrowserMain.js
       - ServerMain.js
+      - test/specs/*.js
 
 build-npm:
   stage: build
@@ -27,12 +28,14 @@ test:
   image: alpine:3.8
   services:
     - mysql:5.6
+    - selenium/standalone-chrome:3.14.0-krypton
   variables:
     MYSQL_ROOT_PASSWORD: devroot
     MYSQL_DATABASE: giffon
     DB_HOST: mysql
     DB_USER: root
     DB_PASSWORD: $MYSQL_ROOT_PASSWORD
+    HUB_HOST: selenium-standalone-chrome
   script:
     - apk add nodejs npm mysql-client openjdk8-jre python3
     - mysql -h mysql -u root --password="$MYSQL_ROOT_PASSWORD" "$MYSQL_DATABASE" -e "source dev/initdb/giffon.sql"
@@ -42,6 +45,7 @@ test:
     - html5validator --html http://localhost:3000
     - html5validator --css www/css/*.css
     - html5validator --svg --errors-only www/images/*.svg
+    - npm test -- --host $HUB_HOST --baseUrl http://172.17.0.1:3000
     - npm stop
 
 deploy-serverless:
