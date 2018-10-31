@@ -23,21 +23,15 @@ build-npm:
     paths:
       - node_modules
 
-test:
+.test-selenium:
   stage: test
   image: alpine:3.8
-  services:
-    - mysql:5.6
-    - selenium/hub:3.14.0-krypton
-    - selenium/node-chrome:3.14.0-krypton
-    - selenium/node-firefox:3.14.0-krypton
   variables:
     MYSQL_ROOT_PASSWORD: devroot
     MYSQL_DATABASE: giffon
     DB_HOST: mysql
     DB_USER: root
     DB_PASSWORD: $MYSQL_ROOT_PASSWORD
-    HUB_HOST: selenium-hub
   script:
     - apk add nodejs npm mysql-client openjdk8-jre python3
     # initialize mysql
@@ -58,6 +52,24 @@ test:
   artifacts:
     paths:
       - test/errorShots
+
+test-chrome:
+  extends: .test-selenium
+  services:
+    - mysql:5.6
+    - selenium/standalone-chrome:3.14.0-krypton
+  variables:
+    BROWSER_NAME: chrome
+    HUB_HOST: selenium-standalone-chrome
+
+test-firefox:
+  extends: .test-selenium
+  services:
+    - mysql:5.6
+    - selenium/standalone-firefox:3.14.0-krypton
+  variables:
+    BROWSER_NAME: firefox
+    HUB_HOST: selenium-standalone-firefox
 
 deploy-serverless:
   stage: deploy
