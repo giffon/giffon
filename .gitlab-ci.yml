@@ -53,6 +53,9 @@ test:
     - html5validator --svg --errors-only www/images/*.svg
     - npm test -- --host "${HUB_HOST}" --baseUrl "http://${WEB_HOST}:3000"
     - npm stop
+  artifacts:
+    paths:
+      - test/errorShots
 
 deploy-serverless:
   stage: deploy
