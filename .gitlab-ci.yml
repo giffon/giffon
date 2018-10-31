@@ -42,7 +42,7 @@ test:
     - mysql -h mysql -u root --password="$MYSQL_ROOT_PASSWORD" "$MYSQL_DATABASE" -e "source dev/initdb/giffon.sql"
     # figure out host container ip
     - cat /etc/hosts
-    - export WEB_HOST="$(cat /etc/hosts | grep -Eo '^([0-9\.]*)\s+(?=runner-[0-9a-f]+-project-[0-9a-f]+-concurrent-[0-9]+)')"
+    - export WEB_HOST="$(cat /etc/hosts | grep -Po '^([0-9\.]*)\s+(?=runner-[0-9a-f]+-project-[0-9a-f]+-concurrent-[0-9]+)')"
     - echo "${WEB_HOST}"
     # test
     - npm start
