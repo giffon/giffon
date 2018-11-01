@@ -64,7 +64,7 @@ class Test {
                 expect(browser.getText(".campaign .item-name")).toBe("Haxe Game Development Essentials");
 
                 var campaignUrl = browser.getAttribute(".campaign a[href^='/campaign/']", "href");
-                expect(campaignUrl).toMatch(new js.RegExp("^/campaign/[A-Za-z0-9]+$"));
+                expect(campaignUrl).toMatch(new js.RegExp("/campaign/[A-Za-z0-9]+$"));
 
                 browser.url(campaignUrl);
 
