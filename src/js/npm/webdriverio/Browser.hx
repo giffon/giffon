@@ -84,7 +84,7 @@ extern class Browser {
     public function touchMultiPerform(rest:Rest<Dynamic>):Dynamic;
     public function touchPerform(rest:Rest<Dynamic>):Dynamic;
     public function unlock(rest:Rest<Dynamic>):Dynamic;
-    public function getAttribute(rest:Rest<Dynamic>):Dynamic;
+    public function getAttribute(selector:String, attributeName:String):Dynamic;
     public function getCssProperty(rest:Rest<Dynamic>):Dynamic;
     public function getElementSize(rest:Rest<Dynamic>):Dynamic;
     public function getHTML(rest:Rest<Dynamic>):Dynamic;
@@ -127,7 +127,10 @@ extern class Browser {
     public function elementIdSize(rest:Rest<Dynamic>):Dynamic;
     public function elementIdText(rest:Rest<Dynamic>):Dynamic;
     public function elementIdValue(rest:Rest<Dynamic>):Dynamic;
-    public function elements(rest:Rest<Dynamic>):Dynamic;
+    public function elements(selector:String):{
+        selector: String,
+        value: Array<Dynamic>
+    };
     public function execute(rest:Rest<Dynamic>):Dynamic;
     public function executeAsync(rest:Rest<Dynamic>):Dynamic;
     public function file(rest:Rest<Dynamic>):Dynamic;

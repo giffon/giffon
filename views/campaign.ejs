@@ -17,7 +17,7 @@ bodyClasses.push("page-campaign");
 
     <%- include('campaign-progressbar', {campaign}); -%>
 
-    <% if (true || user != null && user.id != campaign.campaign_owner.id) { %>
+    <% if (locals.user != null && user.id != campaign.campaign_owner.id) { %>
         <div class='user-pledge <%= user_total_pledge != null ? "has-user-pledge-some" : "has-user-pledge-none" %>'>
             <% if (user_total_pledge != null) { %>
                 <div class="current-user-pledge">

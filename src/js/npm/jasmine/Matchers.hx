@@ -1,6 +1,7 @@
 package js.npm.jasmine;
 
 import haxe.Constraints;
+import haxe.extern.*;
 
 extern class Matchers {
     public var not:Matchers;
@@ -26,7 +27,7 @@ extern class Matchers {
     public function toHaveBeenCalledTimes(expected:Int):Void;
     public function toHaveBeenCalledWith():Void;
     public function toHaveClass(expected:Dynamic):Void;
-    public function toMatch(expected:Dynamic):Void;
+    public function toMatch(expected:EitherType<String, js.RegExp>):Void;
     public function toThrow(?expected:Dynamic):Void;
     public function toThrowError(?expected:Dynamic, ?message:Dynamic):Void;
     public function toThrowMatching(predicate:Function):Void;
