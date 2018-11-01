@@ -7,20 +7,31 @@ class Mysql {
     static function main():Void {
         switch (Sys.args()) {
             case [] | ["start"]:
-                Sys.command("docker", [
-                    "run", "-d",
-                    "--name", containerName,
-                    "--rm",
-                    "-e", "MYSQL_ROOT_PASSWORD=" + DBInfo.password,
-                    "-e", "MYSQL_DATABASE=" + DBInfo.database,
-                    "-v", Path.join([Sys.getCwd(), "dev", "initdb"]) + ":/docker-entrypoint-initdb.d",
-                    "-p", "3306:3306",
-                    "mysql:5.6"
-                ]);
+                start();
             case ["stop"]:
-                Sys.command("docker", ["stop", containerName]);
+                stop();
+            case ["restart"]:
+                stop();
+                start();
             case _:
                 throw "invalid args";
         }
+    }
+
+    static public function start():Void {
+        Sys.command("docker", [
+            "run", "-d",
+            "--name", containerName,
+            "--rm",
+            "-e", "MYSQL_ROOT_PASSWORD=" + DBInfo.password,
+            "-e", "MYSQL_DATABASE=" + DBInfo.database,
+            "-v", Path.join([Sys.getCwd(), "dev", "initdb"]) + ":/docker-entrypoint-initdb.d",
+            "-p", "3306:3306",
+            "mysql:5.6"
+        ]);
+    }
+
+    static public function stop():Void {
+        Sys.command("docker", ["stop", containerName]);
     }
 }
