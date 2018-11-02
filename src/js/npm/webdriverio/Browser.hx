@@ -21,7 +21,7 @@ extern class Browser {
     public function selectorExecuteAsync(rest:Rest<Dynamic>):Dynamic;
     public function setValue(selector:String, values:Dynamic):Dynamic;
     public function submitForm(selector:String):Dynamic;
-    public function deleteCookie(rest:Rest<Dynamic>):Dynamic;
+    public function deleteCookie(?name:String):Dynamic;
     public function getCookie(rest:Rest<Dynamic>):Dynamic;
     public function setCookie(rest:Rest<Dynamic>):Dynamic;
     public function getGridNodeDetails(rest:Rest<Dynamic>):Dynamic;
@@ -150,7 +150,7 @@ extern class Browser {
     public function log(rest:Rest<Dynamic>):Dynamic;
     public function logTypes(rest:Rest<Dynamic>):Dynamic;
     public function moveTo(rest:Rest<Dynamic>):Dynamic;
-    public function refresh(rest:Rest<Dynamic>):Dynamic;
+    public function refresh():Dynamic;
     public function screenshot(rest:Rest<Dynamic>):Dynamic;
     public function session(rest:Rest<Dynamic>):Dynamic;
     public function sessionStorage(rest:Rest<Dynamic>):Dynamic;
@@ -201,7 +201,7 @@ extern class Browser {
     public function waitForSelected(rest:Rest<Dynamic>):Dynamic;
     public function waitForText(rest:Rest<Dynamic>):Dynamic;
     public function waitForValue(rest:Rest<Dynamic>):Dynamic;
-    public function waitForVisible(rest:Rest<Dynamic>):Dynamic;
+    public function waitForVisible(selector:String, ?ms:Float, ?reverse:Bool):Bool;
     public function waitUntil(condition:Function, ?timeout:Float, ?timeoutMsg:String, ?interval:Float):Dynamic;
     public function close(rest:Rest<Dynamic>):Dynamic;
     public function getCurrentTabId(rest:Rest<Dynamic>):Dynamic;
