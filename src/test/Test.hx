@@ -127,6 +127,52 @@ class Test {
                 expect(browser.waitForExist('.item .item-name')).toBe(true);
                 expect(browser.getText(".item .item-name")).toBe(user1Campaign.itemName);
             });
+
+            var card_id = null;
+
+            xit('should allow user to add credit card', function() {
+                browser.url("/home");
+
+                expect(browser.waitForExist("a[href='/cards']")).toBe(true);
+                browser.click("a[href='/cards']");
+
+                browser.waitUntil(function(){
+                    var url = Url.parse(browser.getUrl());
+                    return url.hostname == baseUrl.hostname && url.pathname == "/cards";
+                });
+
+                expect(browser.waitForVisible("form[action='/cards']")).toBe(true);
+
+                browser.waitForExist("#card-element iframe");
+                browser.frame(browser.element("#card-element iframe").value);
+                expect(browser.waitForEnabled("input[name='cardnumber']")).toBe(true);
+                browser.click("input[name='cardnumber']");
+                browser.setValue("input[name='cardnumber']", "4242424242424242");
+                browser.click("input[name='exp-date']");
+                browser.setValue("input[name='exp-date']", "04 / 24");
+                browser.click("input[name='cvc']");
+                browser.setValue("input[name='cvc']", "444");
+                browser.click("input[name='postal']");
+                browser.setValue("input[name='postal']", "00000");
+
+                browser.frameParent();
+
+                browser.click("input#checkbox-terms");
+                browser.click("button[type='submit']");
+
+                browser.url("/cards");
+                expect(browser.waitForExist("span=Visa")).toBe(true);
+                expect(browser.waitForExist("span=4242")).toBe(true);
+                card_id = browser.getText(".card-id");
+                expect(card_id).toBeTruthy();
+            });
+
+            xit('should allow user to delete cards', function() {
+                browser.url('/card/$card_id/delete');
+
+                browser.url("/cards");
+                expect(browser.waitForVisible("form[action='/cards']")).toBe(true);
+            });
         });
     }
 }
