@@ -135,8 +135,8 @@ extern class Browser {
     public function executeAsync(rest:Rest<Dynamic>):Dynamic;
     public function file(rest:Rest<Dynamic>):Dynamic;
     public function forward(rest:Rest<Dynamic>):Dynamic;
-    public function frame(rest:Rest<Dynamic>):Dynamic;
-    public function frameParent(rest:Rest<Dynamic>):Dynamic;
+    public function frame(id:Dynamic):Dynamic;
+    public function frameParent():Dynamic;
     public function imeActivate(rest:Rest<Dynamic>):Dynamic;
     public function imeActivated(rest:Rest<Dynamic>):Dynamic;
     public function imeActiveEngine(rest:Rest<Dynamic>):Dynamic;

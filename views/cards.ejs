@@ -13,7 +13,7 @@ var hasCardClass = user.user_has_card ? "has-card-some" : "has-card-none";
             var card = user.stripe_customer.default_source;
     %>
         <div>
-            <p><span><%=card.brand%></span> **** **** **** <span><%=card.last4%></span></p>
+            <p><span><%=card.brand%></span> **** **** **** <span><%=card.last4%></span><span class="card-id d-none"><%=card.id%></span></p>
             <a id="replace-card" href="#replace-card">replace card</a>
         </div>
     <%

@@ -553,6 +553,25 @@ class ServerMain {
             }
         });
 
+        app.get("/card/:card_id/delete", ensureLoggedIn, @await function(req:Request, res:Response){
+            try {
+                var card_id = req.params.card_id;
+                var user = res.getUser();
+                if (!user.stripe_customer.sources.data.exists(function(src) {
+                    return src.id == card_id;
+                })) {
+                    res.sendPlainError("You do not have a card with id " + card_id, 400);
+                    return;
+                }
+                @await stripe.customers.deleteCard(user.stripe_customer.id, card_id).toPromise();
+                res.send("done");
+                return;
+            } catch (err:Dynamic) {
+                res.sendPlainError(err);
+                return;
+            }
+        });
+
         // print user data
         switch (SERVERLESS_STAGE) {
             case Production: //pass
