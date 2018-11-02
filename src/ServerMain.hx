@@ -57,17 +57,29 @@ class ServerMain {
             return null;
         }
 
-        //TODO
+        var customers = (@await stripe.customers.list({
+            email: user.user_primary_email,
+            limit: 5
+        }).toPromise()).data;
 
-        var customers = @await stripe.customers.list({
-            email: user.user_primary_email
-        }).autoPagingToArray({limit:5}).toPromise();
-
+        if (customers == null || customers.length < 1)
+            return null;
         if (customers.length > 1)
             throw 'There are ${customers.length} Stripe customers with email = ${user.user_primary_email}.';
-        if (customers.length < 1)
-            return null;
-        return customers[0].id;
+
+        var stripe_customer_id = customers[0].id;
+        @await dbConnectionPool.query(
+            "
+                INSERT INTO `user_stripe`
+                SET ?
+            ",
+            {
+                user_id: user.user_id,
+                stripe_customer_id: stripe_customer_id
+            }
+        ).toPromise();
+
+        return stripe_customer_id;
     }
 
     @async static function getUserIdFromAuth0Payload(payloadObj:Auth0Payload):Null<Int> {
