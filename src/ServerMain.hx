@@ -53,8 +53,6 @@ class ServerMain {
             if (results.length > 1)
                 throw 'There are ${results.length} Stripe customers with user_id = ${user.user_id}.';
             return results[0].stripe_customer_id;
-        } else {
-            return null;
         }
 
         var customers = (@await stripe.customers.list({
@@ -564,7 +562,7 @@ class ServerMain {
                     return;
                 }
                 @await stripe.customers.deleteCard(user.stripe_customer.id, card_id).toPromise();
-                res.send("done");
+                res.redirect("/cards");
                 return;
             } catch (err:Dynamic) {
                 res.sendPlainError(err);

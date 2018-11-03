@@ -87,7 +87,7 @@ extern class Browser {
     public function getAttribute(selector:String, attributeName:String):Dynamic;
     public function getCssProperty(rest:Rest<Dynamic>):Dynamic;
     public function getElementSize(rest:Rest<Dynamic>):Dynamic;
-    public function getHTML(rest:Rest<Dynamic>):Dynamic;
+    public function getHTML(selector:String, ?includeSelectorTag:Bool):String;
     public function getLocation(rest:Rest<Dynamic>):Dynamic;
     public function getLocationInView(rest:Rest<Dynamic>):Dynamic;
     public function getSource(rest:Rest<Dynamic>):Dynamic;

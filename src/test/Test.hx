@@ -130,7 +130,7 @@ class Test {
 
             var card_id = null;
 
-            xit('should allow user to add credit card', function() {
+            it('should allow user to add credit card', function() {
                 browser.url("/home");
 
                 expect(browser.waitForExist("a[href='/cards']")).toBe(true);
@@ -147,7 +147,7 @@ class Test {
                 browser.frame(browser.element("#card-element iframe").value);
                 expect(browser.waitForEnabled("input[name='cardnumber']")).toBe(true);
                 browser.click("input[name='cardnumber']");
-                browser.setValue("input[name='cardnumber']", "4242424242424242");
+                browser.setValue("input[name='cardnumber']", "4242 4242 4242 4242");
                 browser.click("input[name='exp-date']");
                 browser.setValue("input[name='exp-date']", "04 / 24");
                 browser.click("input[name='cvc']");
@@ -160,17 +160,21 @@ class Test {
                 browser.click("input#checkbox-terms");
                 browser.click("button[type='submit']");
 
-                browser.url("/cards");
                 expect(browser.waitForExist("span=Visa")).toBe(true);
                 expect(browser.waitForExist("span=4242")).toBe(true);
-                card_id = browser.getText(".card-id");
+                expect(browser.waitForExist("span.card-id")).toBe(true);
+                card_id = browser.getHTML("span.card-id", false);
                 expect(card_id).toBeTruthy();
             });
 
-            xit('should allow user to delete cards', function() {
+            it('should allow user to delete cards', function() {
                 browser.url('/card/$card_id/delete');
 
-                browser.url("/cards");
+                browser.waitUntil(function(){
+                    var url = Url.parse(browser.getUrl());
+                    return url.hostname == baseUrl.hostname && url.pathname == "/cards";
+                });
+
                 expect(browser.waitForVisible("form[action='/cards']")).toBe(true);
             });
         });
