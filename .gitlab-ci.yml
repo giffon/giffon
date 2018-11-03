@@ -1,3 +1,9 @@
+stages:
+  - build
+  - test-chrome
+  - test-firefox
+  - deploy
+
 build-haxe:
   stage: build
   image: haxe:3.4.7-alpine
@@ -24,7 +30,6 @@ build-npm:
       - node_modules
 
 .test-selenium:
-  stage: test
   image: alpine:3.8
   variables:
     MYSQL_ROOT_PASSWORD: devroot
@@ -55,6 +60,7 @@ build-npm:
 
 test-chrome:
   extends: .test-selenium
+  stage: test-chrome
   services:
     - mysql:5.6
     - selenium/standalone-chrome:3.14.0-krypton
@@ -64,6 +70,7 @@ test-chrome:
 
 test-firefox:
   extends: .test-selenium
+  stage: test-firefox
   services:
     - mysql:5.6
     - selenium/standalone-firefox:3.14.0-krypton
