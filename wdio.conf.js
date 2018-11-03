@@ -60,15 +60,18 @@ exports.config = {
     //
     capabilities: process.env.BROWSER_NAME ?
         [{
-            browserName: process.env.BROWSER_NAME
+            browserName: process.env.BROWSER_NAME,
+            acceptSslCerts: true
         }]
             :
         [
             {
-                browserName: 'chrome'
+                browserName: 'chrome',
+                acceptSslCerts: true
             },
             {
-                browserName: 'firefox'
+                browserName: 'firefox',
+                acceptSslCerts: true
             },
         ],
     //
@@ -102,7 +105,7 @@ exports.config = {
     // with `/`, the base url gets prepended, not including the path portion of your baseUrl.
     // If your `url` parameter starts without a scheme or `/` (like `some/path`), the base url
     // gets prepended directly.
-    baseUrl: 'http://' + webHost + ':3000',
+    baseUrl: 'https://' + webHost + ':3000',
     //
     // Default timeout for all waitFor* commands.
     waitforTimeout: 50000,

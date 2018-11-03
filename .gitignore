@@ -16,3 +16,5 @@ test/specs/*.js
 test/errorShots/
 
 .env
+
+dev/ssl/keytmp.pem

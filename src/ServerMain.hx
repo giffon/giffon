@@ -784,9 +784,14 @@ class ServerMain {
 
         if (isMain) {
             var port = 3000;
-            app.listen(port, function(){
-                trace('listening on port $port');
-            });
+            js.Node.require("httpolyglot").createServer({
+                key: js.node.Fs.readFileSync("dev/ssl/key.pem"),
+                cert: js.node.Fs.readFileSync("dev/ssl/cert.pem"),
+            }, app)
+                .listen(port, function(){
+                    trace('http://localhost:$port');
+                    trace('https://localhost:$port');
+                });
         }
     }
 }
