@@ -45,6 +45,10 @@ build-npm:
     - cat /etc/hosts
     - export WEB_HOST="$(cat /etc/hosts | grep -Eo '^([0-9\.]*)\s+runner-[0-9a-f]+-project-[0-9a-f]+-concurrent-[0-9]+' | grep -Eo '^([0-9\.]*)')"
     - echo "${WEB_HOST}"
+    # generate self-signed cert for https
+    - pushd dev/ssl
+    - ./gen.sh "${WEB_HOST}"
+    - popd
     # test
     - npm start
     - sleep 3 # allow displaying some server init messages
