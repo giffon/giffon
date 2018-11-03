@@ -38,7 +38,7 @@ build-npm:
     DB_USER: root
     DB_PASSWORD: $MYSQL_ROOT_PASSWORD
   script:
-    - apk add nodejs npm mysql-client openjdk8-jre python3
+    - apk add nodejs npm mysql-client openjdk8-jre python3 openssl
     # initialize mysql
     - mysql -h mysql -u root --password="$MYSQL_ROOT_PASSWORD" "$MYSQL_DATABASE" -e "source dev/initdb/giffon.sql"
     # figure out host container ip
@@ -46,9 +46,9 @@ build-npm:
     - export WEB_HOST="$(cat /etc/hosts | grep -Eo '^([0-9\.]*)\s+runner-[0-9a-f]+-project-[0-9a-f]+-concurrent-[0-9]+' | grep -Eo '^([0-9\.]*)')"
     - echo "${WEB_HOST}"
     # generate self-signed cert for https
-    - pushd dev/ssl
+    - cd dev/ssl
     - ./gen.sh "${WEB_HOST}"
-    - popd
+    - cd ../..
     # test
     - npm start
     - sleep 3 # allow displaying some server init messages
