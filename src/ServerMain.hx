@@ -37,7 +37,7 @@ class ServerMain {
     }
 
     static var dbConnectionPool:Pool;
-    static var stripe = new Stripe(StripeInfo.apiSecKey);
+    static var stripe:Stripe;
 
     @async static function getStripeCustomerIdFromUser(user:{user_id:Int, user_primary_email:String}):Null<String> {
         var results = (@await dbConnectionPool.query(
@@ -400,6 +400,7 @@ class ServerMain {
     }
 
     @await static function main():Void {
+        haxe.Log.trace = haxe.Log.trace;
         var isMain = (untyped __js__("require")).main == module;
 
         var dbConfig:Mysql.ConnectionOptions = {
@@ -412,6 +413,9 @@ class ServerMain {
         };
 
         warmUpDatabase(dbConfig, isMain);
+
+        stripe = new Stripe(StripeInfo.apiSecKey);
+        stripe.setTimeout(10 * 1000); //10 seconds
 
         var poolConfig:Mysql.PoolOptions = cast Reflect.copy(dbConfig);
         poolConfig.connectionLimit = 5;
