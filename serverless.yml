@@ -26,6 +26,11 @@ provider:
   timeout: 30
   environment:
     SERVERLESS_STAGE: ${opt:stage}
+    DB_HOST: ${ssm:DB_HOST}
+    DB_PASSWORD: ${ssm:DB_PASSWORD}
+    DB_SALT: ${ssm:DB_SALT}
+    DB_USER: ${ssm:DB_USER}
+    STRIPE_SECKEY: ${ssm:STRIPE_SECKEY}
 
 # you can overwrite defaults here
 #  stage: dev
