@@ -64,12 +64,6 @@ functions:
       securityGroupIds:
         - sg-0612eceb4bb1b3096
       subnetIds:
-        - subnet-586ce93f
-        - subnet-c3199f9f
-        - subnet-7ef68971
-        - subnet-f98c44c7
-        - subnet-6f0a8a41
-        - subnet-4afca900
         - subnet-07533194c1ea46768
         - subnet-0cdfb1c5798e57be4
         - subnet-044f51ef1c4913471
