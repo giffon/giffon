@@ -482,11 +482,8 @@ class ServerMain {
                 domain: Auth0Info.AUTH0_DOMAIN,
                 clientID: Auth0Info.AUTH0_CLIENT_ID,
                 clientSecret: Auth0Info.AUTH0_CLIENT_SECRET,
-                callbackURL: switch(SERVERLESS_STAGE) {
-                    case Production: "https://giffon.io/callback";
-                    case Master: "https://master.giffon.io/callback";
-                    case _: "http://localhost:3000/callback";
-                }
+                callbackURL: "/callback",
+                state: true,
             },
             @await function (accessToken, refreshToken, extraParams, profile:{
                 displayName: String,
@@ -554,13 +551,13 @@ class ServerMain {
             }
         );
 
+        Passport.serializeUser(function (user:db.User, done) {
+            done(null, user.user_id);
+        });
+        Passport.deserializeUser(@await function (user_id:Int, done) {
+            done(null, @await getUser(user_id));
+        });
         Passport.use(strategy);
-        Passport.serializeUser(function (user, done) {
-            done(null, user);
-        });
-        Passport.deserializeUser(function (user, done) {
-            done(null, user);
-        });
         app.use(Passport.initialize());
         app.use(Passport.session());
 
@@ -624,19 +621,41 @@ class ServerMain {
             res.render("privacy");
         });
         app.get("/signin",
-            Passport.authenticate('auth0', { scope: 'openid email profile', connection: 'facebook' }),
+            Passport.authenticate('auth0', {
+                scope: 'openid email profile',
+                connection: 'facebook'
+            }),
             function(req, res:Response) {
                 res.redirect("/");
             }
         );
+        // app.get('/callback',
+        //     Passport.authenticate('auth0', { failureRedirect: '/' }),
+        //     function(req, res:Response, next) {
+        //         if (req.user == null) {
+        //             res.sendPlainError("log in failed");
+        //         }
+        //         res.setUser(req.user);
+        //         trace(res.getUser());
+        //         res.redirect("/home");
+        //         trace("back to home");
+        //         return;
+        //     }
+        // );
         app.get("/callback", function(req, res:Response, next) {
             Passport.authenticate('auth0', function (err, user:db.User, info) {
-                if (err) { return next(err); }
-                if (user == null) { return res.redirect('/'); }
+                if (err) {
+                    return res.sendPlainError(err);
+                }
+                if (user == null) {
+                    return res.sendPlainError("unable to login");
+                }
                 req.logIn(user, function (err) {
-                    if (err) { return next(err); }
+                    if (err) {
+                        return res.sendPlainError(err);
+                    }
                     res.setUser(user);
-                    res.redirect('/');
+                    res.redirect('/home');
                 });
             })(req, res, next);
         });

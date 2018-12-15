@@ -29,7 +29,7 @@ class Selenium {
             "--net", networkName,
             "-p", "4444:4444",
             "--rm",
-            "selenium/hub:3.14.0-krypton"
+            "selenium/hub:3.141.59-dubnium"
         ]);
         Sys.command("docker", [
             "run", "-d",
@@ -40,7 +40,7 @@ class Selenium {
             "-e", "HUB_HOST=" + containerName + "-hub",
             "-v", "/dev/shm:/dev/shm",
             "--rm",
-            "selenium/node-chrome-debug:3.14.0-krypton"
+            "selenium/node-chrome-debug:3.141.59-dubnium"
         ]);
         Sys.command("docker", [
             "run", "-d",
@@ -51,7 +51,7 @@ class Selenium {
             "-e", "HUB_HOST=" + containerName + "-hub",
             "-v", "/dev/shm:/dev/shm",
             "--rm",
-            "selenium/node-firefox-debug:3.14.0-krypton"
+            "selenium/node-firefox-debug:3.141.59-dubnium"
         ]);
     }
 
