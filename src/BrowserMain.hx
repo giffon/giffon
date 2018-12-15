@@ -1,12 +1,6 @@
-import auth0.*;
 import js.Browser.*;
 import js.jquery.JQuery;
-import haxe.io.*;
-import haxe.*;
-import jsrsasign.*;
-import Auth0Info.*;
 import js.stripe.Stripe;
-using StringTools;
 
 typedef Session = {
     var access_token:String;
@@ -31,44 +25,8 @@ class BrowserMain {
     }
 
     var session(get, null):Null<Session>;
-    var webAuth(default, null):WebAuth;
 
     public function new():Void {
-        webAuth = new WebAuth({
-            domain: AUTH0_DOMAIN,
-            clientID: AUTH0_CLIENT_ID,
-            redirectUri: Path.join([js.Browser.location.origin, "signin"]),
-            responseType: 'token id_token',
-            scope: 'openid email profile',
-            leeway: 60
-        });
-
-        webAuth.parseHash({}, function(err:{error:String, errorDescription:String}, authResult) {
-            if (err != null) {
-                console.error(err);
-                new JQuery("#message")
-                    .addClass("alert")
-                    .addClass("alert-danger")
-                    .html('
-                        <h2>${err.error.htmlEscape()}</h2>
-                        <p>${err.errorDescription.htmlEscape()}</p>
-                    ');
-                document.body.classList.add("failed-login");
-                return;
-            }
-            if (authResult != null) {
-                if (signIn({
-                    access_token: authResult.accessToken,
-                    id_token: authResult.idToken,
-                    expires_at: authResult.expiresIn * 1000 + Date.now().getTime()
-                })) {
-                    removeHash();
-                    document.body.classList.add("successful-login");
-                    window.location.replace("/home");
-                };
-            }
-        });
-
         new JQuery(onReady);
     }
 
@@ -92,56 +50,7 @@ class BrowserMain {
         return null;
     }
 
-    function signIn(session:Session):Bool {
-        var pubkey = KEYUTIL.getKey(AUTH0_PUBKEY);
-        var alg = "RS256";
-        var isValid = JWS.verifyJWT(
-            session.id_token,
-            pubkey,
-            {
-                alg: [alg],
-                iss: ['https://${AUTH0_DOMAIN}/'],
-                aud: [AUTH0_CLIENT_ID]
-            }
-        );
-
-        if (isValid) {
-            this.session = session;
-
-            Cookies.set("access_token", session.access_token);
-            Cookies.set("expires_at", Std.string(session.expires_at));
-            Cookies.set("id_token", session.id_token);
-
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    function signOut():Void {
-        Cookies.remove("access_token");
-        Cookies.remove("expires_at");
-        Cookies.remove("id_token");
-
-        this.session = null;
-        webAuth.logout({
-            returnTo: location.origin
-        });
-    }
-
     function onReady():Void {
-        new JQuery(".signInBtn").click(function(evt){
-            evt.preventDefault();
-            webAuth.authorize({
-                connection: "facebook"
-            });
-        });
-
-        new JQuery(".signOutBtn").click(function(evt){
-            evt.preventDefault();
-            signOut();
-        });
-
         if (document.body.classList.contains("page-cards")) {
             cards();
         }

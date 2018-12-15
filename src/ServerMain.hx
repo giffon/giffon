@@ -2,6 +2,7 @@ import js.Node.*;
 import js.npm.express.*;
 import js.npm.mysql2.promise.*;
 import js.npm.request.Request as NodeRequest;
+import js.npm.passport.*;
 import js.npm.price_finder.PriceFinder;
 import js.npm.image_data_uri.ImageDataUri;
 import js.npm.stripe.Stripe;
@@ -12,6 +13,7 @@ import hashids.Hashids;
 import haxe.io.*;
 import tink.CoreApi;
 import thx.Decimal;
+import haxe.Constraints;
 using js.npm.validator.Validator;
 using tink.core.Future.JsPromiseTools;
 using ResponseTools;
@@ -21,6 +23,11 @@ using Lambda;
     var Production = "production";
     var Master = "master";
     var Dev = "dev";
+}
+
+@:jsRequire("passport-auth0")
+extern class Auth0Strategy {
+    public function new(options:Dynamic, callb:Dynamic):Void;
 }
 
 @await
@@ -399,6 +406,10 @@ class ServerMain {
         cnx.end();
     }
 
+    static function __init__():Void {
+        js.Node.require("dotenv").load();
+    }
+
     @await static function main():Void {
         haxe.Log.trace = haxe.Log.trace;
         var isMain = (untyped __js__("require")).main == module;
@@ -443,13 +454,126 @@ class ServerMain {
             redirect: true
         }));
 
+        var session = require("express-session");
+        var MySQLStore = require('express-mysql-session')(session);
+        var sessionStore = untyped __js__("new {0}({1})", MySQLStore, {
+            host: DBInfo.host,
+            port: 3306,
+            user: DBInfo.user,
+            password: DBInfo.password,
+            database: DBInfo.database,
+        });
+        var sess = {
+            secret: Utils.env("SESSION_SECRET", "secret"),
+            store: sessionStore,
+            cookie: {
+                secure: switch (SERVERLESS_STAGE) {
+                    case Production: true;
+                    case _: false;
+                }
+            },
+            resave: false,
+            saveUninitialized: true
+        };
+        app.use(session(sess));
+
+        var strategy = new Auth0Strategy(
+            {
+                domain: Auth0Info.AUTH0_DOMAIN,
+                clientID: Auth0Info.AUTH0_CLIENT_ID,
+                clientSecret: Auth0Info.AUTH0_CLIENT_SECRET,
+                callbackURL: switch(SERVERLESS_STAGE) {
+                    case Production: "https://giffon.io/callback";
+                    case Master: "https://master.giffon.io/callback";
+                    case _: "http://localhost:3000/callback";
+                }
+            },
+            @await function (accessToken, refreshToken, extraParams, profile:{
+                displayName: String,
+                id: String,
+                user_id: String,
+                name: {
+                    familyName:String,
+                    givenName:String
+                },
+                emails: Array<{value:String}>,
+                picture: String,
+                nickname: String,
+                _json: Auth0Payload,
+                _raw: String,
+            }, done:Function) {
+                var payloadObj = profile._json;
+                // get user_id
+                var user_id:Null<Int> = @await getUserIdFromAuth0Payload(payloadObj);
+                if (user_id != null) {
+                    var user = @await getUser(user_id);
+                    done(null, user);
+                    return;
+                }
+                // insert user
+                var userEmail = payloadObj.email;
+                if (userEmail == null) {
+                    done("user has no email info");
+                    return;
+                }
+                var cnx:Connection = @await dbConnectionPool.getConnection().toPromise();
+                try {
+                    @await cnx.beginTransaction().toPromise();
+                } catch(err:Dynamic) {
+                    cnx.release();
+                    done(err);
+                    return;
+                }
+                try {
+                    var results = (@await cnx.query("INSERT INTO user SET ?", {
+                        user_primary_email: userEmail,
+                        user_name: payloadObj.name
+                    }).toPromise()).results;
+                    var user_id = results.insertId;
+                    var user_hashid = new Hashids("user" + DBInfo.salt, 4).encode(user_id);
+                    @await cnx.query(
+                        "UPDATE user SET `user_hashid` = ? WHERE `user_id` = ?",
+                        ([user_hashid, user_id]:Array<Dynamic>)
+                    ).toPromise();
+                    @await cnx.query(
+                        "INSERT INTO user_auth0 SET ?", {
+                            user_id: user_id,
+                            auth0_id: payloadObj.sub
+                        }
+                    ).toPromise();
+                    @await cnx.commit().toPromise();
+                    cnx.release();
+                } catch (err:Dynamic) {
+                    @await cnx.rollback().toPromise();
+                    cnx.release();
+                    done(err);
+                    return;
+                }
+                var user = @await getUser(user_id);
+                done(null, user);
+            }
+        );
+
+        Passport.use(strategy);
+        Passport.serializeUser(function (user, done) {
+            done(null, user);
+        });
+        Passport.deserializeUser(function (user, done) {
+            done(null, user);
+        });
+        app.use(Passport.initialize());
+        app.use(Passport.session());
+
         //auth
-        app.use(auth);
+        // app.use(auth);
 
         //template variables
         app.use(function(req:Request, res:Response, next) {
             res.locals.bodyClasses = [];
             res.locals.canonical = Path.join([canonicalBase, req.path]);
+            if (req.user != null) {
+                res.setUser(req.user);
+            }
             next();
         });
 
@@ -499,9 +623,28 @@ class ServerMain {
         app.get("/privacy", function(req, res:Response) {
             res.render("privacy");
         });
-        app.get("/signin", function(req, res:Response) {
-            res.render("signin");
+        app.get("/signin",
+            Passport.authenticate('auth0', { scope: 'openid email profile', connection: 'facebook' }),
+            function(req, res:Response) {
+                res.redirect("/");
+            }
+        );
+        app.get("/callback", function(req, res:Response, next) {
+            Passport.authenticate('auth0', function (err, user:db.User, info) {
+                if (err) { return next(err); }
+                if (user == null) { return res.redirect('/'); }
+                req.logIn(user, function (err) {
+                    if (err) { return next(err); }
+                    res.setUser(user);
+                    res.redirect('/');
+                });
+            })(req, res, next);
         });
+        app.get("/signout", function(req, res) {
+            req.logout();
+            res.redirect('/');
+        });
+
         app.get("/home", ensureLoggedIn, @await function(req:Request, res:Response) {
             try {
                 var campaigns = @await getCampaigns(res.getUser().user_id);

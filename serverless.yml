@@ -31,6 +31,8 @@ provider:
     DB_SALT: ${ssm:DB_SALT}
     DB_USER: ${ssm:DB_USER}
     STRIPE_SECKEY: ${ssm:STRIPE_SECKEY}
+    SESSION_SECRET: ${ssm:SESSION_SECRET}
+    AUTH0_CLIENT_SECRET: ${ssm:AUTH0_CLIENT_SECRET}
 
 # you can overwrite defaults here
 #  stage: dev
