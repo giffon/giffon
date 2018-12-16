@@ -35,6 +35,7 @@
     "httpolyglot": "^0.1.2",
     "image-data-uri": "^2.0.0",
     "jsrsasign": "^8.0.12",
+    "morgan": "^1.9.1",
     "mysql2": "^1.6.1",
     "passport": "^0.4.0",
     "passport-auth0": "^1.1.0",
