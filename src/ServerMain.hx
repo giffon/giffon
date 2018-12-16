@@ -30,6 +30,11 @@ extern class Auth0Strategy {
     public function new(options:Dynamic, callb:Dynamic):Void;
 }
 
+@:jsRequire("passport-facebook", "Strategy")
+extern class FacebookStrategy {
+    public function new(options:Dynamic, callb:Dynamic):Void;
+}
+
 @await
 class ServerMain {
     static var SERVERLESS_STAGE(default, never):Null<ServerlessStage> = process.env["SERVERLESS_STAGE"];
@@ -477,79 +482,70 @@ class ServerMain {
         };
         app.use(session(sess));
 
-        var strategy = new Auth0Strategy(
-            {
-                domain: Auth0Info.AUTH0_DOMAIN,
-                clientID: Auth0Info.AUTH0_CLIENT_ID,
-                clientSecret: Auth0Info.AUTH0_CLIENT_SECRET,
-                callbackURL: "/callback",
-                state: true,
-            },
-            @await function (accessToken, refreshToken, extraParams, profile:{
-                displayName: String,
-                id: String,
-                user_id: String,
-                name: {
-                    familyName:String,
-                    givenName:String
-                },
-                emails: Array<{value:String}>,
-                picture: String,
-                nickname: String,
-                _json: Auth0Payload,
-                _raw: String,
-            }, done:Function) {
-                var payloadObj = profile._json;
-                // get user_id
-                var user_id:Null<Int> = @await getUserIdFromAuth0Payload(payloadObj);
-                if (user_id != null) {
-                    var user = @await getUser(user_id);
-                    done(null, user);
-                    return;
-                }
-                // insert user
-                var userEmail = payloadObj.email;
-                if (userEmail == null) {
-                    done("user has no email info");
-                    return;
-                }
-                var cnx:Connection = @await dbConnectionPool.getConnection().toPromise();
-                try {
-                    @await cnx.beginTransaction().toPromise();
-                } catch(err:Dynamic) {
-                    cnx.release();
-                    done(err);
-                    return;
-                }
-                try {
-                    var results = (@await cnx.query("INSERT INTO user SET ?", {
-                        user_primary_email: userEmail,
-                        user_name: payloadObj.name
-                    }).toPromise()).results;
-                    var user_id = results.insertId;
-                    var user_hashid = new Hashids("user" + DBInfo.salt, 4).encode(user_id);
-                    @await cnx.query(
-                        "UPDATE user SET `user_hashid` = ? WHERE `user_id` = ?",
-                        ([user_hashid, user_id]:Array<Dynamic>)
-                    ).toPromise();
-                    @await cnx.query(
-                        "INSERT INTO user_auth0 SET ?", {
-                            user_id: user_id,
-                            auth0_id: payloadObj.sub
-                        }
-                    ).toPromise();
-                    @await cnx.commit().toPromise();
-                    cnx.release();
-                } catch (err:Dynamic) {
-                    @await cnx.rollback().toPromise();
-                    cnx.release();
-                    done(err);
-                    return;
-                }
+        //https://stackoverflow.com/questions/20739744/passportjs-callback-switch-between-http-and-https
+        app.enable("trust proxy");
+
+        var strategy = new FacebookStrategy({
+            clientID: FacebookInfo.FACEBOOK_CLIENT_ID,
+            clientSecret: FacebookInfo.FACEBOOK_APP_SECRET,
+            callbackURL: "/callback/facebook",
+            profileFields: ['id', 'displayName', 'email'],
+        }, @await function(accessToken, refreshToken, profile:js.npm.passport.Profile, done:Function) {
+            if (profile.emails.length <= 0) {
+                done("user has no email info");
+                return;
+            }
+            var email = profile.emails[0].value;
+
+            // get user_id
+            var user_id:Null<Int> = @await getUserIdFromEmail(email);
+            if (user_id != null) {
                 var user = @await getUser(user_id);
                 done(null, user);
+                return;
             }
-        );
+            // insert user
+            var userEmail = email;
+            if (userEmail == null) {
+                done("user has no email info");
+                return;
+            }
+            var cnx:Connection = @await dbConnectionPool.getConnection().toPromise();
+            try {
+                @await cnx.beginTransaction().toPromise();
+            } catch(err:Dynamic) {
+                cnx.release();
+                done(err);
+                return;
+            }
+            try {
+                var results = (@await cnx.query("INSERT INTO user SET ?", {
+                    user_primary_email: userEmail,
+                    user_name: profile.displayName,
+                }).toPromise()).results;
+                var user_id = results.insertId;
+                var user_hashid = new Hashids("user" + DBInfo.salt, 4).encode(user_id);
+                @await cnx.query(
+                    "UPDATE user SET `user_hashid` = ? WHERE `user_id` = ?",
+                    ([user_hashid, user_id]:Array<Dynamic>)
+                ).toPromise();
+                // @await cnx.query(
+                //     "INSERT INTO user_auth0 SET ?", {
+                //         user_id: user_id,
+                //         auth0_id: payloadObj.sub
+                //     }
+                // ).toPromise();
+                @await cnx.commit().toPromise();
+                cnx.release();
+            } catch (err:Dynamic) {
+                @await cnx.rollback().toPromise();
+                cnx.release();
+                done(err);
+                return;
+            }
+            var user = @await getUser(user_id);
+            done(null, user);
+        });
 
         Passport.serializeUser(function (user:db.User, done) {
             done(null, user.user_id);
@@ -560,9 +556,6 @@ class ServerMain {
         Passport.use(strategy);
         app.use(Passport.initialize());
         app.use(Passport.session());
-
-        //auth
-        // app.use(auth);
 
         //template variables
         app.use(function(req:Request, res:Response, next) {
@@ -620,30 +613,19 @@ class ServerMain {
         app.get("/privacy", function(req, res:Response) {
             res.render("privacy");
         });
-        app.get("/signin",
-            Passport.authenticate('auth0', {
-                scope: 'openid email profile',
-                connection: 'facebook'
+        app.get("/signin", function(req, res:Response){
+            res.redirect("/signin/facebook");
+        });
+        app.get("/signin/facebook",
+            Passport.authenticate('facebook', {
+                scope: ["email"]
             }),
             function(req, res:Response) {
                 res.redirect("/");
             }
         );
-        // app.get('/callback',
-        //     Passport.authenticate('auth0', { failureRedirect: '/' }),
-        //     function(req, res:Response, next) {
-        //         if (req.user == null) {
-        //             res.sendPlainError("log in failed");
-        //         }
-        //         res.setUser(req.user);
-        //         trace(res.getUser());
-        //         res.redirect("/home");
-        //         trace("back to home");
-        //         return;
-        //     }
-        // );
-        app.get("/callback", function(req, res:Response, next) {
-            Passport.authenticate('auth0', function (err, user:db.User, info) {
+        app.get("/callback/facebook", function(req, res:Response, next) {
+            Passport.authenticate('facebook', function (err, user:db.User, info) {
                 if (err) {
                     return res.sendPlainError(err);
                 }
