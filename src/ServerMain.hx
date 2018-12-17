@@ -628,14 +628,14 @@ class ServerMain {
         );
         app.get("/callback/facebook", function(req, res:Response, next) {
             Passport.authenticate('facebook', function (err, user:db.User, info) {
-                if (err) {
+                if (err != null) {
                     return res.sendPlainError(err);
                 }
                 if (user == null) {
                     return res.sendPlainError("unable to login");
                 }
-                req.logIn(user, function (err) {
-                    if (err) {
+                req.login(user, function (err) {
+                    if (err != null) {
                         return res.sendPlainError(err);
                     }
                     res.setUser(user);
