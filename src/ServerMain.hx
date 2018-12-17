@@ -525,7 +525,7 @@ class ServerMain {
                     user_primary_email: userEmail,
                     user_name: profile.displayName,
                 }).toPromise()).results;
-                var user_id = results.insertId;
+                user_id = results.insertId;
                 var user_hashid = new Hashids("user" + DBInfo.salt, 4).encode(user_id);
                 @await cnx.query(
                     "UPDATE user SET `user_hashid` = ? WHERE `user_id` = ?",
