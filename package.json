@@ -44,8 +44,6 @@
     "validator": "^10.8.0"
   },
   "devDependencies": {
-    "forever": "^0.15.3",
-    "nip": "^1.0.2",
     "serverless-apigw-binary": "^0.4.4",
     "wdio-concise-reporter": "^0.1.2",
     "wdio-jasmine-framework": "^0.3.7",
