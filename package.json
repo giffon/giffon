@@ -6,8 +6,7 @@
   "scripts": {
     "postinstall": "haxe install-haxelibs.hxml",
     "build": "haxe build.hxml",
-    "start": "forever start --watch ServerMain.js",
-    "stop": "forever stop ServerMain.js",
+    "start": "node ServerMain.js",
     "test": "wdio wdio.conf.js"
   },
   "repository": {

@@ -50,7 +50,7 @@ build-npm:
     - ./gen.sh "${WEB_HOST}"
     - cd ../..
     # test
-    - npm start
+    - npm start &
     - sleep 3 # allow displaying some server init messages
     - pip3 install html5validator
     - html5validator --html http://localhost:3000
