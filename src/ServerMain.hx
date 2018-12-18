@@ -412,7 +412,9 @@ class ServerMain {
     }
 
     static function __init__():Void {
-        js.Node.require("dotenv").load();
+        js.Node.require("dotenv").config({
+            path: Path.join([Sys.getCwd(), "private", ".env"])
+        });
     }
 
     @await static function main():Void {

@@ -1,6 +1,9 @@
-require("dotenv").load();
-
+const path = require('path');
 const os = require('os');
+
+require("dotenv").config({
+    "path": path.resolve(process.cwd(), "private", ".env")
+});
 
 function getWebHost() {
     switch (os.platform()) {

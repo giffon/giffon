@@ -8,7 +8,9 @@ using StringTools;
 
 class Test {
     static function __init__() {
-        js.Node.require("dotenv").load();
+        js.Node.require("dotenv").config({
+            path: Path.join([Sys.getCwd(), "private", ".env"])
+        });
     }
 
     static var baseUrl(default, never) = Url.parse(browser.options.baseUrl);
