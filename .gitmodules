@@ -7,3 +7,6 @@
 [submodule "lib/tink_await"]
 	path = lib/tink_await
 	url = https://github.com/haxetink/tink_await.git
+[submodule "private"]
+	path = private
+	url = ../giffon-private.git
