@@ -83,6 +83,19 @@ test-chrome:
     BROWSER_NAME: firefox
     HUB_HOST: selenium-standalone-firefox
 
+deploy-s3:
+  stage: deploy
+  image: python:alpine
+  script:
+    - pip install awscli
+    - aws s3 sync --delete www "s3://static.giffon.io/${CI_COMMIT_REF_NAME}"
+  only:
+    - master
+    - production
+  except:
+    - tags
+    - schedules
+
 deploy-serverless:
   stage: deploy
   image: node:8-alpine

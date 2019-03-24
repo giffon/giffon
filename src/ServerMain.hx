@@ -19,7 +19,7 @@ using tink.core.Future.JsPromiseTools;
 using ResponseTools;
 using Lambda;
 
-@:enum abstract ServerlessStage(String) from String {
+@:enum abstract ServerlessStage(String) from String to String {
     var Production = "production";
     var Master = "master";
     var Dev = "dev";
@@ -565,6 +565,14 @@ class ServerMain {
         app.use(function(req:Request, res:Response, next) {
             res.locals.bodyClasses = [];
             res.locals.canonical = Path.join([canonicalBase, req.path]);
+            res.locals.R = function(path:String) {
+                return switch (SERVERLESS_STAGE) {
+                    case Production, Master:
+                        Path.join(["https://static.giffon.io", SERVERLESS_STAGE, path]);
+                    case _:
+                        path;
+                };
+            };
             if (req.user != null) {
                 res.setUser(req.user);
             }

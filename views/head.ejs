@@ -20,15 +20,15 @@
 	<% } %>
 	<link rel="canonical" href="<%=canonical%>">
 
-	<link rel="icon" href="/favicon.ico" type="image/x-icon">
-	<link rel="apple-touch-icon-precomposed" href="/apple-icon-152x152.png">
-	<link rel="icon" href="/favicon-32x32.png" sizes="32x32">
-	<link rel="shortcut icon" sizes="196x196" href="/android-icon-192x192.png">
+	<link rel="icon" href="<%=R("/favicon.ico")%>" type="image/x-icon">
+	<link rel="apple-touch-icon-precomposed" href="<%=R("/apple-icon-152x152.png")%>">
+	<link rel="icon" href="<%=R("/favicon-32x32.png")%>" sizes="32x32">
+	<link rel="shortcut icon" sizes="196x196" href="<%=R("/android-icon-192x192.png")%>">
 
 	<meta name="msapplication-TileColor" content="#B7F8DB">
-	<meta name="msapplication-TileImage" content="android-icon-144x144.png">
+	<meta name="msapplication-TileImage" content="<%=R("android-icon-144x144.png")%>">
 
-	<link rel='mask-icon' href='/images/6b.svg' color='#B7F8DB'>
+	<link rel='mask-icon' href='<%=R("/images/6b.svg")%>' color='#B7F8DB'>
 	
 	<link href="https://fonts.googleapis.com/css?family=Nothing+You+Could+Do%7CWork+Sans" rel="stylesheet">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
@@ -40,9 +40,9 @@
 
 	<script src="https://js.stripe.com/v3/"></script>
 
-	<link rel="stylesheet" type="text/css" href="/css/color.css">
-	<link rel="stylesheet" type="text/css" href="/css/fontsize.css">
-	<link rel="stylesheet" type="text/css" href="/css/style.css">
+	<link rel="stylesheet" type="text/css" href="<%=R("/css/color.css")%>">
+	<link rel="stylesheet" type="text/css" href="<%=R("/css/fontsize.css")%>">
+	<link rel="stylesheet" type="text/css" href="<%=R("/css/style.css")%>">
 </head>
 <%
 	bodyClasses.push(locals.user == null ? 'signed-out' : 'signed-in');

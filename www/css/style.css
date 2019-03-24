@@ -290,7 +290,7 @@ img.emoji, .inline-icon {
 }
 
 #profile {
-    background-image: url('/images/us.jpg'); 
+    background-image: url('../images/us.jpg'); 
     background-position: left;
     background-size: cover;
     width: 140px;

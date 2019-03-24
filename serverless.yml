@@ -60,6 +60,7 @@ package:
   exclude:
     - chrome/**
     - auth0/**
+    - www/**
 
 functions:
   express:
