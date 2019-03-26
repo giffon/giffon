@@ -465,13 +465,7 @@ class ServerMain {
 
         var session = require("express-session");
         var MySQLStore = require('express-mysql-session')(session);
-        var sessionStore = untyped __js__("new {0}({1})", MySQLStore, {
-            host: DBInfo.host,
-            port: 3306,
-            user: DBInfo.user,
-            password: DBInfo.password,
-            database: DBInfo.database,
-        });
+        var sessionStore = untyped __js__("new {0}({1})", MySQLStore, dbConfig, @await dbConnectionPool.getConnection().toPromise());
         var sess = {
             secret: Utils.env("SESSION_SECRET", "secret"),
             store: sessionStore,
