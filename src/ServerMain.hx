@@ -437,6 +437,7 @@ class ServerMain {
 
         var poolConfig:Mysql.PoolOptions = cast Reflect.copy(dbConfig);
         poolConfig.connectionLimit = 5;
+        poolConfig.acquireTimeout = 20.0 * 1000.0; //20 seconds
         poolConfig.connectTimeout = 20.0 * 1000.0; //20 seconds
         dbConnectionPool = Mysql.createPool(poolConfig);
 
@@ -465,7 +466,9 @@ class ServerMain {
 
         var session = require("express-session");
         var MySQLStore = require('express-mysql-session')(session);
-        var sessionStore = untyped __js__("new {0}({1})", MySQLStore, dbConfig, dbConnectionPool);
+        var sessionPoolConfig:Mysql.PoolOptions = cast Reflect.copy(poolConfig);
+        sessionPoolConfig.connectionLimit = 1;
+        var sessionStore = untyped __js__("new {0}({1})", MySQLStore, sessionPoolConfig);
         var sess = {
             secret: Utils.env("SESSION_SECRET", "secret"),
             store: sessionStore,
