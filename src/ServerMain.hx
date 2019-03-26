@@ -436,9 +436,8 @@ class ServerMain {
         stripe.setTimeout(10 * 1000); //10 seconds
 
         var poolConfig:Mysql.PoolOptions = cast Reflect.copy(dbConfig);
-        poolConfig.connectionLimit = 5;
-        poolConfig.acquireTimeout = 20.0 * 1000.0; //20 seconds
-        poolConfig.connectTimeout = 20.0 * 1000.0; //20 seconds
+        poolConfig.connectionLimit = 3;
+        poolConfig.connectTimeout = 10.0 * 1000.0; //10 seconds
         dbConnectionPool = Mysql.createPool(poolConfig);
 
         var app = new Application();
@@ -468,6 +467,7 @@ class ServerMain {
         var MySQLStore = require('express-mysql-session')(session);
         var sessionPoolConfig:Mysql.PoolOptions = cast Reflect.copy(poolConfig);
         sessionPoolConfig.connectionLimit = 1;
+        sessionPoolConfig.acquireTimeout = 10.0 * 1000.0; //10 seconds
         var sessionStore = untyped __js__("new {0}({1})", MySQLStore, sessionPoolConfig);
         var sess = {
             secret: Utils.env("SESSION_SECRET", "secret"),
