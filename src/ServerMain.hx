@@ -430,12 +430,11 @@ class ServerMain {
             connectTimeout: 4 * 60 * 1000.0 //4 minutes
         };
 
-        warmUpDatabase(dbConfig, isMain);
-
         stripe = new Stripe(StripeInfo.apiSecKey);
         stripe.setTimeout(10 * 1000); //10 seconds
 
         var poolConfig:Mysql.PoolOptions = cast Reflect.copy(dbConfig);
+        poolConfig.multipleStatements = true;
         poolConfig.connectionLimit = 3;
         poolConfig.connectTimeout = 10.0 * 1000.0; //10 seconds
         dbConnectionPool = Mysql.createPool(poolConfig);
