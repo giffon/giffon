@@ -1,5 +1,6 @@
 import js.Node.*;
 import js.npm.express.*;
+import js.npm.mysql2.*;
 import js.npm.mysql2.promise.*;
 import js.npm.request.Request as NodeRequest;
 import js.npm.passport.*;
@@ -52,7 +53,7 @@ class ServerMain {
     static var stripe:Stripe;
 
     @async static function getStripeCustomerIdFromUser(user:{user_id:Int, user_primary_email:String}):Null<String> {
-        var results = (@await dbConnectionPool.query(
+        var results:QueryResults = (@await dbConnectionPool.query(
             "
                 SELECT `stripe_customer_id`
                 FROM `user_stripe`
@@ -93,7 +94,7 @@ class ServerMain {
     }
 
     @async static function getUserIdFromAuth0Payload(payloadObj:Auth0Payload):Null<Int> {
-        var results = (@await dbConnectionPool.query(
+        var results:QueryResults = (@await dbConnectionPool.query(
             "
                 SELECT `user_id`
                 FROM `user_auth0`
@@ -119,7 +120,7 @@ class ServerMain {
     @async static function getUserIdFromEmail(email:String):Null<Int> {
         if (!Validator.isEmail(email))
             throw '$email is not valid email address';
-        var results = (@await dbConnectionPool.query(
+        var results:QueryResults = (@await dbConnectionPool.query(
             "
                 SELECT `user_id`
                 FROM user
@@ -138,7 +139,7 @@ class ServerMain {
     }
 
     @async static function getUserIdFromHash(user_hashid:String):Null<Int> {
-        var results = (@await dbConnectionPool.query(
+        var results:QueryResults = (@await dbConnectionPool.query(
             "
                 SELECT `user_id`
                 FROM user
@@ -157,7 +158,7 @@ class ServerMain {
     }
 
     @async static function getCampaignIdFromHash(campaign_hashid:String):Null<Int> {
-        var results = (@await dbConnectionPool.query(
+        var results:QueryResults = (@await dbConnectionPool.query(
             "
                 SELECT `campaign_id`
                 FROM campaign
@@ -176,7 +177,7 @@ class ServerMain {
     }
 
     @async static function getCampaign(campaign_id:Int):db.Campaign {
-        var campaign_results = (@await dbConnectionPool.query(
+        var campaign_results:QueryResults = (@await dbConnectionPool.query(
             "
                 SELECT `campaign_id`, `user_id`, `campaign_hashid`, `campaign_description`, `campaign_state`, `item_group_id`
                 FROM campaign
@@ -189,7 +190,7 @@ class ServerMain {
         if (campaign_results.length > 1)
             throw 'There are ${campaign_results.length} campaigns with campaign_id = ${campaign_id}.';
         var campaign = campaign_results[0];
-        var item_results = (@await dbConnectionPool.query(
+        var item_results:QueryResults = (@await dbConnectionPool.query(
             "
                 SELECT item.`item_id`, `item_url`, `item_url_screenshot`, `item_name`, `item_price`
                 FROM item, item_group
@@ -201,7 +202,7 @@ class ServerMain {
         var campaign_owner = @await getUser(campaign.user_id);
 
         var campaign_pledged = null;
-        var pledge_results = (@await dbConnectionPool.query(
+        var pledge_results:QueryResults = (@await dbConnectionPool.query(
             "
                 SELECT SUM(`pledge_amount`) AS `total_pledge`
                 FROM `pledge`
@@ -245,7 +246,7 @@ class ServerMain {
     }
 
     @async static function getCampaigns(user_id:Int):Array<db.Campaign> {
-        var campaign_results = (@await dbConnectionPool.query(
+        var campaign_results:QueryResults = (@await dbConnectionPool.query(
             "
                 SELECT `campaign_id`
                 FROM campaign
@@ -261,7 +262,7 @@ class ServerMain {
     }
 
     @async static function getUser(user_id:Int):db.User {
-        var results = (@await dbConnectionPool.query(
+        var results:QueryResults = (@await dbConnectionPool.query(
             "
                 SELECT `user_id`, `user_hashid`, `user_primary_email`, `user_name`
                 FROM user
@@ -365,7 +366,7 @@ class ServerMain {
                 return;
             }
             try {
-                var results = (@await cnx.query("INSERT INTO user SET ?", {
+                var results:QueryResults = (@await cnx.query("INSERT INTO user SET ?", {
                     user_primary_email: userEmail,
                     user_name: payloadObj.name
                 }).toPromise()).results;
@@ -402,7 +403,7 @@ class ServerMain {
         var cnx = @await Mysql.createConnection(dbConfig).toPromise();
         try {
             if (showTable) {
-                var results = (@await cnx.query("SHOW TABLES").toPromise()).results;
+                var results:QueryResults = (@await cnx.query("SHOW TABLES").toPromise()).results;
                 trace(results);
             }
         } catch(err:Dynamic) {
@@ -519,7 +520,7 @@ class ServerMain {
                 return;
             }
             try {
-                var results = (@await cnx.query("INSERT INTO user SET ?", {
+                var results:QueryResults = (@await cnx.query("INSERT INTO user SET ?", {
                     user_primary_email: userEmail,
                     user_name: profile.displayName,
                 }).toPromise()).results;
@@ -769,7 +770,7 @@ class ServerMain {
                 var user_total_pledge = null;
                 var user = res.getUser();
                 if (user != null) {
-                    var results = (@await dbConnectionPool.query(
+                    var results:QueryResults = (@await dbConnectionPool.query(
                         "
                             SELECT SUM(`pledge_amount`) AS `total_pledge`
                             FROM `pledge`
@@ -874,60 +875,40 @@ class ServerMain {
                     return;
                 }
                 var screenshot = @await getAmazonItemScreenshot(item_url);
-                var cnx:Connection = @await dbConnectionPool.getConnection().toPromise();
-                try {
-                    @await cnx.beginTransaction().toPromise();
-                } catch(err:Dynamic) {
-                    cnx.release();
-                    res.sendPlainError(err);
-                    return;
-                }
-                try {
-                    var results = (@await cnx.query("INSERT INTO item SET ?", {
+
+                var results:Array<QueryResults> = (@await dbConnectionPool.query("
+                    START TRANSACTION;
+                    INSERT INTO item SET ?;
+                    SELECT @item_id := LAST_INSERT_ID() AS item_id;
+                    INSERT INTO item_group SET item_id=@item_id;
+                    SELECT @item_group_id := LAST_INSERT_ID() AS item_group_id;
+                    INSERT INTO campaign SET item_group_id=@item_group_id, ?;
+                    SELECT @campaign_id := LAST_INSERT_ID() AS campaign_id;
+                    INSERT INTO campaign_surprise SET campaign_id=@campaign_id;
+                    COMMIT;
+                ", [
+                    {
                         item_url: item_url,
                         item_url_screenshot: screenshot,
                         item_name: details.name,
                         item_price: details.price,
-                    }).toPromise()).results;
-                    var item_id = results.insertId;
-                    var results = (@await cnx.query(
-                        "INSERT INTO item_group SET ?",
-                        {
-                            item_id: item_id
-                        }
-                    ).toPromise()).results;
-                    var item_group_id = results.insertId;
-                    var results = (@await cnx.query(
-                        "INSERT INTO campaign SET ?",
-                        {
-                            user_id: res.getUser().user_id,
-                            campaign_description: campaign_description,
-                            campaign_type: db.CampaignType.Suprise,
-                            item_group_id: item_group_id,
-                        }
-                    ).toPromise()).results;
-                    var campaign_id = results.insertId;
-                    var campaign_hashid = new Hashids("campaign" + DBInfo.salt, 4).encode(campaign_id);
-                    @await cnx.query(
-                        "UPDATE campaign SET `campaign_hashid` = ? WHERE `campaign_id` = ?",
-                        ([campaign_hashid, campaign_id]:Array<Dynamic>)
-                    ).toPromise();
-                    @await cnx.query(
-                        "INSERT INTO campaign_surprise SET ?",
-                        {
-                            campaign_id: campaign_id,
-                        }
-                    ).toPromise();
-                    @await cnx.commit().toPromise();
-                    cnx.release();
-                    res.redirect("/home");
-                    return;
-                } catch (err:Dynamic) {
-                    @await cnx.rollback().toPromise();
-                    cnx.release();
-                    res.sendPlainError(err);
-                    return;
-                }
+                    },
+                    {
+                        user_id: res.getUser().user_id,
+                        campaign_description: campaign_description,
+                        campaign_type: db.CampaignType.Suprise,
+                    }
+                ]).toPromise()).results;
+
+                var campaign_id = results[6][0].campaign_id;
+                var campaign_hashid = new Hashids("campaign" + DBInfo.salt, 4).encode(campaign_id);
+                @await dbConnectionPool.query(
+                    "UPDATE campaign SET `campaign_hashid` = ? WHERE `campaign_id` = ?",
+                    ([campaign_hashid, campaign_id]:Array<Dynamic>)
+                ).toPromise();
+
+                res.redirect("/home");
+                return;
             } catch (err:Dynamic) {
                 res.sendPlainError(err);
                 return;

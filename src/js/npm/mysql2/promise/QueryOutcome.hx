@@ -1,7 +1,7 @@
 package js.npm.mysql2.promise;
 
 abstract QueryOutcome(Array<Dynamic>) to Array<Dynamic> {
-    public var results(get, never):Null<QueryResults<Dynamic>>;
+    public var results(get, never):Null<haxe.extern.EitherType<Array<QueryResults>, QueryResults>>;
     public var fields(get, never):Array<Dynamic>;
 
     inline function get_results()
