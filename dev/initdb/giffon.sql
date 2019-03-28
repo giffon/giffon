@@ -29,6 +29,7 @@ CREATE TABLE `item` (
   `item_price` decimal(16,4) DEFAULT NULL,
   `item_time_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `item_time_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `item_currency` varchar(16) COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`item_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -46,31 +47,13 @@ CREATE TABLE `pledge` (
   `pledge_amount` decimal(16,4) NOT NULL,
   `pledge_time_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `pledge_method` varchar(64) COLLATE utf8mb4_bin NOT NULL,
-  `pledge_state` varchar(64) COLLATE utf8mb4_bin NOT NULL DEFAULT 'pledged',
   `pledge_note` text COLLATE utf8mb4_bin,
+  `pledge_currency` varchar(16) COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`pledge_id`),
   UNIQUE KEY `wish_id` (`wish_id`) USING BTREE,
   KEY `user_id` (`user_id`),
   CONSTRAINT `pledge_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE,
   CONSTRAINT `pledge_wish_FK` FOREIGN KEY (`wish_id`) REFERENCES `wish` (`wish_id`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `pledge_charge`
---
-
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `pledge_charge` (
-  `charge_id` int(11) NOT NULL AUTO_INCREMENT,
-  `pledge_id` int(11) NOT NULL,
-  `charge_amount` decimal(16,4) NOT NULL,
-  `charge_note` text COLLATE utf8mb4_bin,
-  `charge_time_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`charge_id`),
-  KEY `pledge_id` (`pledge_id`),
-  CONSTRAINT `pledge_charge_ibfk_1` FOREIGN KEY (`pledge_id`) REFERENCES `pledge` (`pledge_id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -145,6 +128,28 @@ CREATE TABLE `wish` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `wish_charge`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `wish_charge` (
+  `charge_id` int(11) NOT NULL AUTO_INCREMENT,
+  `charge_amount` decimal(16,4) NOT NULL,
+  `charge_note` text COLLATE utf8mb4_bin,
+  `charge_time_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `user_id` int(11) NOT NULL,
+  `wish_id` int(11) NOT NULL,
+  `charge_currency` varchar(16) COLLATE utf8mb4_bin NOT NULL,
+  PRIMARY KEY (`charge_id`),
+  KEY `charge_user_FK` (`user_id`),
+  KEY `charge_wish_FK` (`wish_id`),
+  CONSTRAINT `charge_user_FK` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE,
+  CONSTRAINT `charge_wish_FK` FOREIGN KEY (`wish_id`) REFERENCES `wish` (`wish_id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `wish_item`
 --
 
@@ -153,6 +158,7 @@ CREATE TABLE `wish` (
 CREATE TABLE `wish_item` (
   `wish_id` int(11) NOT NULL,
   `item_id` int(11) NOT NULL,
+  `item_quantity` tinyint(3) unsigned NOT NULL,
   PRIMARY KEY (`wish_id`,`item_id`),
   KEY `wish_item_item_FK` (`item_id`),
   CONSTRAINT `wish_item_item_FK` FOREIGN KEY (`item_id`) REFERENCES `item` (`item_id`) ON UPDATE CASCADE,

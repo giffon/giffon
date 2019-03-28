@@ -18,6 +18,8 @@ typedef Wish = {
         item_url: String,
         item_url_screenshot: js.node.Buffer,
         item_name: String,
-        item_price: thx.Decimal
+        item_price: thx.Decimal,
+        item_currency: db.Currency,
+        item_quantity: Int,
     }>,
 }

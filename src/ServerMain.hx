@@ -162,7 +162,7 @@ class ServerMain {
         var wish = wish_results[0];
         var item_results:QueryResults = (@await dbConnectionPool.query(
             "
-                SELECT item.`item_id`, `item_url`, `item_url_screenshot`, `item_name`, `item_price`
+                SELECT item.`item_id`, `item_url`, `item_url_screenshot`, `item_name`, `item_price`, `item_quantity`
                 FROM item
                 INNER JOIN wish_item ON item.item_id=wish_item.item_id
                 WHERE wish_item.wish_id = ?
@@ -177,9 +177,9 @@ class ServerMain {
             "
                 SELECT SUM(`pledge_amount`) AS `total_pledge`
                 FROM `pledge`
-                WHERE `wish_id` = ? AND `pledge_state` = ?
+                WHERE `wish_id` = ?
             ",
-            [wish_id, db.PledgeState.Pledged]
+            [wish_id]
         ).toPromise()).results;
         if (pledge_results != null && pledge_results.length != 0) {
             if (pledge_results.length != 1) {
@@ -190,7 +190,7 @@ class ServerMain {
                 case str: Decimal.fromString(str).trim();
             }
         }
-        var wish_total_price = item_results.fold(function(item, total:Decimal) return total + Decimal.fromString(item.item_price), Decimal.zero).trim();
+        var wish_total_price = item_results.fold(function(item, total:Decimal) return total + Decimal.fromString(item.item_price) * Decimal.fromInt(item.item_quantity), Decimal.zero).trim();
         var wish = {
             wish_id: wish.wish_id,
             wish_hashid: wish.wish_hashid,
@@ -207,7 +207,9 @@ class ServerMain {
                     item_url: item.item_url,
                     item_url_screenshot: ImageDataUri.encode(item.item_url_screenshot, "PNG"),
                     item_name: item.item_name,
-                    item_price: Decimal.fromString(item.item_price).trim()
+                    item_price: Decimal.fromString(item.item_price).trim(),
+                    item_currency: db.Currency.USD,
+                    item_quantity: item.item_quantity,
                 }
             })
         };
@@ -524,6 +526,7 @@ class ServerMain {
                     wishes: wishes
                 });
             } catch (err:Dynamic) {
+                trace(haxe.CallStack.exceptionStack());
                 res.sendPlainError(err);
                 return;
             }
@@ -636,9 +639,9 @@ class ServerMain {
                         "
                             SELECT SUM(`pledge_amount`) AS `total_pledge`
                             FROM `pledge`
-                            WHERE `user_id` = ? AND `wish_id` = ? AND `pledge_state` = ?
+                            WHERE `user_id` = ? AND `wish_id` = ?
                         ",
-                        [user.user_id, wish_id, db.PledgeState.Pledged]
+                        [user.user_id, wish_id]
                     ).toPromise()).results;
 
                     if (results != null && results.length != 0) {
@@ -692,6 +695,7 @@ class ServerMain {
                         user_id: user.user_id,
                         wish_id: wish_id,
                         pledge_amount: pledge_amount.toString(),
+                        pledge_currency: db.Currency.USD,
                         pledge_method: db.PledgeMethod.StripeCard,
                     }
                 ).toPromise();
@@ -744,7 +748,7 @@ class ServerMain {
                     /*2*/ SELECT @wish_id := LAST_INSERT_ID() AS wish_id;
                     /*3*/ INSERT INTO item SET ?;
                     /*4*/ SELECT @item_id := LAST_INSERT_ID() AS item_id;
-                    /*5*/ INSERT INTO wish_item SET wish_id=@wish_id, item_id=@item_id;
+                    /*5*/ INSERT INTO wish_item SET wish_id=@wish_id, item_id=@item_id, item_quantity=1;
                     /*6*/ COMMIT;
                 ", [
                     {
@@ -756,6 +760,7 @@ class ServerMain {
                         item_url_screenshot: screenshot,
                         item_name: details.name,
                         item_price: details.price,
+                        item_currency: db.Currency.USD,
                     },
                 ]).toPromise()).results;
 
