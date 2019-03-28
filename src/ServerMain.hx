@@ -149,7 +149,7 @@ class ServerMain {
     @async static function getWish(wish_id:Int):db.Wish {
         var wish_results:QueryResults = (@await dbConnectionPool.query(
             "
-                SELECT `wish_id`, `user_id`, `wish_hashid`, `wish_description`, `wish_state`, `item_group_id`
+                SELECT `wish_id`, `user_id`, `wish_hashid`, `wish_description`, `wish_state`
                 FROM wish
                 WHERE `wish_id` = ?
             ",
@@ -163,10 +163,10 @@ class ServerMain {
         var item_results:QueryResults = (@await dbConnectionPool.query(
             "
                 SELECT item.`item_id`, `item_url`, `item_url_screenshot`, `item_name`, `item_price`
-                FROM item, item_group
-                WHERE item.`item_id` = item_group.`item_id` AND `item_group_id` = ?
+                FROM item
+                WHERE wish_id = ?
             ",
-            [wish.item_group_id]
+            [wish.wish_id]
         ).toPromise()).results;
 
         var wish_owner = @await getUser(wish.user_id);
@@ -739,27 +739,25 @@ class ServerMain {
 
                 var results:Array<QueryResults> = (@await dbConnectionPool.query("
                     /*0*/ START TRANSACTION;
-                    /*1*/ INSERT INTO item SET ?;
-                    /*2*/ SELECT @item_id := LAST_INSERT_ID() AS item_id;
-                    /*3*/ INSERT INTO item_group SET item_id=@item_id;
-                    /*4*/ SELECT @item_group_id := LAST_INSERT_ID() AS item_group_id;
-                    /*5*/ INSERT INTO wish SET item_group_id=@item_group_id, ?;
-                    /*6*/ SELECT @wish_id := LAST_INSERT_ID() AS wish_id;
-                    /*7*/ COMMIT;
+                    /*1*/ INSERT INTO wish SET ?;
+                    /*2*/ SELECT @wish_id := LAST_INSERT_ID() AS wish_id;
+                    /*3*/ INSERT INTO item SET wish_id=@wish_id, ?;
+                    /*4*/ SELECT @item_id := LAST_INSERT_ID() AS item_id;
+                    /*5*/ COMMIT;
                 ", [
+                    {
+                        user_id: res.getUser().user_id,
+                        wish_description: wish_description,
+                    },
                     {
                         item_url: item_url,
                         item_url_screenshot: screenshot,
                         item_name: details.name,
                         item_price: details.price,
                     },
-                    {
-                        user_id: res.getUser().user_id,
-                        wish_description: wish_description,
-                    }
                 ]).toPromise()).results;
 
-                var wish_id = results[6][0].wish_id;
+                var wish_id = results[2][0].wish_id;
                 var wish_hashid = new Hashids("wish" + DBInfo.salt, 4).encode(wish_id);
                 @await dbConnectionPool.query(
                     "UPDATE wish SET `wish_hashid` = ? WHERE `wish_id` = ?",

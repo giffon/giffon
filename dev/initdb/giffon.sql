@@ -28,22 +28,10 @@ CREATE TABLE `item` (
   `item_name` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
   `item_price` decimal(16,4) DEFAULT NULL,
   `item_time_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`item_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `item_group`
---
-
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `item_group` (
-  `item_group_id` int(11) NOT NULL AUTO_INCREMENT,
-  `item_id` int(11) NOT NULL,
-  PRIMARY KEY (`item_group_id`,`item_id`),
-  KEY `item_id` (`item_id`),
-  CONSTRAINT `item_group_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `item` (`item_id`) ON UPDATE CASCADE
+  `wish_id` int(11) NOT NULL,
+  PRIMARY KEY (`item_id`),
+  KEY `item_wish_FK` (`wish_id`),
+  CONSTRAINT `item_wish_FK` FOREIGN KEY (`wish_id`) REFERENCES `wish` (`wish_id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -148,7 +136,6 @@ CREATE TABLE `wish` (
   `user_id` int(11) NOT NULL COMMENT 'owner',
   `wish_time_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `wish_time_publish` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `item_group_id` int(11) DEFAULT NULL,
   `wish_description` text COLLATE utf8mb4_bin,
   `wish_state` varchar(64) COLLATE utf8mb4_bin NOT NULL DEFAULT 'created',
   `wish_note` text COLLATE utf8mb4_bin,
