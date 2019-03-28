@@ -388,33 +388,23 @@ class ServerMain {
                 done("user has no email info");
                 return;
             }
-            var cnx:Connection = @await dbConnectionPool.getConnection().toPromise();
+
             try {
-                @await cnx.beginTransaction().toPromise();
-            } catch(err:Dynamic) {
-                cnx.release();
-                done(err);
-                return;
-            }
-            try {
-                var results:QueryResults = (@await cnx.query("INSERT INTO user SET ?", {
+                var results:QueryResults = (@await dbConnectionPool.query("INSERT INTO user SET ?", {
                     user_primary_email: userEmail,
                     user_name: profile.displayName,
                 }).toPromise()).results;
                 user_id = results.insertId;
                 var user_hashid = new Hashids("user" + DBInfo.salt, 4).encode(user_id);
-                @await cnx.query(
+                @await dbConnectionPool.query(
                     "UPDATE user SET `user_hashid` = ? WHERE `user_id` = ?",
                     ([user_hashid, user_id]:Array<Dynamic>)
                 ).toPromise();
-                @await cnx.commit().toPromise();
-                cnx.release();
             } catch (err:Dynamic) {
-                @await cnx.rollback().toPromise();
-                cnx.release();
                 done(err);
                 return;
             }
+
             var user = @await getUser(user_id);
             done(null, user);
         });
