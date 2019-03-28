@@ -738,15 +738,15 @@ class ServerMain {
                 var screenshot = @await getAmazonItemScreenshot(item_url);
 
                 var results:Array<QueryResults> = (@await dbConnectionPool.query("
-                    START TRANSACTION;
-                    INSERT INTO item SET ?;
-                    SELECT @item_id := LAST_INSERT_ID() AS item_id;
-                    INSERT INTO item_group SET item_id=@item_id;
-                    SELECT @item_group_id := LAST_INSERT_ID() AS item_group_id;
-                    INSERT INTO campaign SET item_group_id=@item_group_id, ?;
-                    SELECT @campaign_id := LAST_INSERT_ID() AS campaign_id;
-                    INSERT INTO campaign_surprise SET campaign_id=@campaign_id;
-                    COMMIT;
+                    /*0*/ START TRANSACTION;
+                    /*1*/ INSERT INTO item SET ?;
+                    /*2*/ SELECT @item_id := LAST_INSERT_ID() AS item_id;
+                    /*3*/ INSERT INTO item_group SET item_id=@item_id;
+                    /*4*/ SELECT @item_group_id := LAST_INSERT_ID() AS item_group_id;
+                    /*5*/ INSERT INTO campaign SET item_group_id=@item_group_id, ?;
+                    /*6*/ SELECT @campaign_id := LAST_INSERT_ID() AS campaign_id;
+                    /*7*/ INSERT INTO campaign_surprise SET campaign_id=@campaign_id;
+                    /*8*/ COMMIT;
                 ", [
                     {
                         item_url: item_url,
