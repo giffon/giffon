@@ -164,7 +164,8 @@ class ServerMain {
             "
                 SELECT item.`item_id`, `item_url`, `item_url_screenshot`, `item_name`, `item_price`
                 FROM item
-                WHERE wish_id = ?
+                INNER JOIN wish_item ON item.item_id=wish_item.item_id
+                WHERE wish_item.wish_id = ?
             ",
             [wish.wish_id]
         ).toPromise()).results;
@@ -741,9 +742,10 @@ class ServerMain {
                     /*0*/ START TRANSACTION;
                     /*1*/ INSERT INTO wish SET ?;
                     /*2*/ SELECT @wish_id := LAST_INSERT_ID() AS wish_id;
-                    /*3*/ INSERT INTO item SET wish_id=@wish_id, ?;
+                    /*3*/ INSERT INTO item SET ?;
                     /*4*/ SELECT @item_id := LAST_INSERT_ID() AS item_id;
-                    /*5*/ COMMIT;
+                    /*5*/ INSERT INTO wish_item SET wish_id=@wish_id, item_id=@item_id;
+                    /*6*/ COMMIT;
                 ", [
                     {
                         user_id: res.getUser().user_id,
