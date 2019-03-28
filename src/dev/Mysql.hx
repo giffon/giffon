@@ -27,7 +27,7 @@ class Mysql {
             "-e", "MYSQL_DATABASE=" + DBInfo.database,
             "-v", Path.join([Sys.getCwd(), "dev", "initdb"]) + ":/docker-entrypoint-initdb.d",
             "-p", "3306:3306",
-            "mysql:5.6"
+            "mysql:5.7"
         ]);
     }
 

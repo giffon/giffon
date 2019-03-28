@@ -1,6 +1,6 @@
 package db;
 
-@:enum abstract CampaignState(String) from String to String {
+@:enum abstract WishState(String) from String to String {
     var Created = "created";
     var Published = "published";
     var Ended = "ended";

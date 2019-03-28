@@ -49,9 +49,9 @@ class Test {
             });
         });
 
-        var user1Campaign = {
+        var user1Wish = {
             itemUrl: "https://www.amazon.com/Haxe-Development-Essentials-Jeremy-McCurdy/dp/1785289780",
-            campaignUrl: null,
+            wishUrl: null,
             itemName: "Haxe Game Development Essentials",
         };
 
@@ -60,40 +60,40 @@ class Test {
                 logInUser(FacebookTestUsers.user1);
             });
 
-            it("should be able to create new campaign", function() {
-                browser.url("/create-campaign");
-                expect(browser.waitForExist("form[action='/create-campaign']")).toBe(true);
+            it("should be able to create new wish", function() {
+                browser.url("/make-a-wish");
+                expect(browser.waitForExist("form[action='/make-a-wish']")).toBe(true);
                 browser.click("input[name='item_url']");
-                browser.setValue("input[name='item_url']", user1Campaign.itemUrl);
-                browser.click("textarea[name='campaign_description']");
-                browser.setValue("textarea[name='campaign_description']", "I believe Haxe is the future!");
+                browser.setValue("input[name='item_url']", user1Wish.itemUrl);
+                browser.click("textarea[name='wish_description']");
+                browser.setValue("textarea[name='wish_description']", "I believe Haxe is the future!");
                 browser.click("input#checkbox-terms");
                 browser.click("button[type='submit']");
 
                 browser.waitUntil(function(){
                     var url = Url.parse(browser.getUrl());
-                    return url.pathname != "/create-campaign";
+                    return url.pathname != "/make-a-wish";
                 });
             });
 
-            it("should show campaign", function() {
+            it("should show wish", function() {
                 browser.url("/home");
-                expect(browser.waitForExist(".campaign .item-name")).toBe(true);
-                expect(browser.getText(".campaign .item-name")).toBe(user1Campaign.itemName);
+                expect(browser.waitForExist(".wish .item-name")).toBe(true);
+                expect(browser.getText(".wish .item-name")).toBe(user1Wish.itemName);
 
-                var campaignUrl = user1Campaign.campaignUrl = browser.getAttribute(".campaign a[href^='/campaign/']", "href");
-                expect(campaignUrl).toMatch(new js.RegExp("/campaign/[A-Za-z0-9]+$"));
+                var wishUrl = user1Wish.wishUrl = browser.getAttribute(".wish a[href^='/wish/']", "href");
+                expect(wishUrl).toMatch(new js.RegExp("/wish/[A-Za-z0-9]+$"));
 
-                browser.url(campaignUrl);
+                browser.url(wishUrl);
 
                 expect(browser.waitForExist('.item .item-name')).toBe(true);
-                expect(browser.getText(".item .item-name")).toBe(user1Campaign.itemName);
+                expect(browser.getText(".item .item-name")).toBe(user1Wish.itemName);
 
-                var campaign_total = Std.parseFloat(browser.getText(".campaign-total"));
-                expect(campaign_total).toBeGreaterThan(0);
-                expect(campaign_total).toBeLessThan(1000);
+                var wish_total = Std.parseFloat(browser.getText(".wish-total"));
+                expect(wish_total).toBeGreaterThan(0);
+                expect(wish_total).toBeLessThan(1000);
 
-                var pledgeForms = browser.elements('form[action="${Path.join([campaignUrl, "pledge"])}"]');
+                var pledgeForms = browser.elements('form[action="${Path.join([wishUrl, "pledge"])}"]');
                 expect(pledgeForms.value.length).toBe(0);
             });
 
@@ -123,11 +123,11 @@ class Test {
                 logInUser(FacebookTestUsers.user2);
             });
 
-            it('should show other user\'s campaign', function() {
-                browser.url(user1Campaign.campaignUrl);
+            it('should show other user\'s wish', function() {
+                browser.url(user1Wish.wishUrl);
 
                 expect(browser.waitForExist('.item .item-name')).toBe(true);
-                expect(browser.getText(".item .item-name")).toBe(user1Campaign.itemName);
+                expect(browser.getText(".item .item-name")).toBe(user1Wish.itemName);
             });
 
             var card_id = null;

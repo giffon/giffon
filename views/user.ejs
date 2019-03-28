@@ -8,21 +8,21 @@ bodyClasses.push("page-user");
     <h1><%= user.user_name %></h1>
 
     <div>
-    <% if (campaigns.length == 0) { %>
-        <p><%= user.user_name %> doesn't have any Giffon campaign yet.</p>
+    <% if (wishes.length == 0) { %>
+        <p><%= user.user_name %> doesn't have any Giffon wish yet.</p>
     <% } else { %>
-        Current <%= campaigns.length == 1 ? "campaign" : "campaigns" %>:
-        <% campaigns.forEach(function(campaign) { %>
-            <div class="campaign shadow">
-                <% campaign.items.forEach(function(item) { %>
+        Current <%= wishes.length == 1 ? "wish" : "wishes" %>:
+        <% wishes.forEach(function(wish) { %>
+            <div class="wish shadow">
+                <% wish.items.forEach(function(item) { %>
                     <div class="item">
                         <div class="item-name"><%=item.item_name%></div>
                         <img class="item-screenshot" alt="<%=item.item_name%>" src="<%=item.item_url_screenshot%>">
                     </div>
                 <% }); %>
-                <div class="campaign-description"><%=campaign.campaign_description%></div>
-                <%- include('campaign-progressbar', {campaign}); -%>
-                <a href="/campaign/<%=campaign.campaign_hashid%>">detail</a>
+                <div class="wish-description"><%=wish.wish_description%></div>
+                <%- include('wish-progressbar', {wish}); -%>
+                <a href="/wish/<%=wish.wish_hashid%>">detail</a>
             </div>
         <% }); %>
     <% } %>

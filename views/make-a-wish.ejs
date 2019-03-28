@@ -1,12 +1,12 @@
 <%
-locals.title = "Create campaign - Giffon";
-bodyClasses.push("page-create-campaign");
+locals.title = "Make a wish - Giffon";
+bodyClasses.push("page-make-a-wish");
 %>
 <%- include('head'); -%>
 
 <div class="container">
     <h1>Make a wish.</h1>
-    <form action="/create-campaign" method="POST" enctype="application/x-www-form-urlencoded" class="needs-validation" novalidate>
+    <form action="/make-a-wish" method="POST" enctype="application/x-www-form-urlencoded" class="needs-validation" novalidate>
     <div class="form-group">
         <label for="item_url">
             What do you want?
@@ -15,10 +15,10 @@ bodyClasses.push("page-create-campaign");
         <input type="URL" class="form-control" id="item_url" name="item_url" placeholder="https://www.amazon.com/gp/product/..." required>
     </div>
     <div class="form-group">
-        <label for="campaign_description">
+        <label for="wish_description">
             Why do you want it?
         </label>
-        <textarea class="form-control" id="campaign_description" name="campaign_description" rows="3" placeholder="I like it because..." required></textarea>
+        <textarea class="form-control" id="wish_description" name="wish_description" rows="3" placeholder="I like it because..." required></textarea>
     </div>
     <div>
         We will ask for your shipping address by email once there is enough pledges collected.

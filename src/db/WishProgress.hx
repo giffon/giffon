@@ -1,6 +1,6 @@
 package db;
 
-@:enum abstract CampaignProgress(String) from String to String {
+@:enum abstract WishProgress(String) from String to String {
     var None = "none";
     var Started = "started";
     var Halfway = "halfway";
@@ -8,8 +8,8 @@ package db;
     var Done = "done";
 }
 
-class CampaignProgressTools {
-    static public function pledgeStateFromAmount(current:Null<thx.Decimal>, totalNeeded:thx.Decimal):CampaignProgress {
+class WishProgressTools {
+    static public function pledgeStateFromAmount(current:Null<thx.Decimal>, totalNeeded:thx.Decimal):WishProgress {
         if (current == null) current = thx.Decimal.zero;
         var percent = (current / totalNeeded) * 100;
         return if (percent >= 85)

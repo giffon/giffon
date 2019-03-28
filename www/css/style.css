@@ -265,16 +265,16 @@ img.emoji, .inline-icon {
     display: inline-block;
 }
 
-.page-home .campaign,
-.page-user .campaign {
+.page-home .wish,
+.page-user .wish {
     padding: 0.5em;
     margin-bottom: 1em;
     background-color: white;
     color: #333333;
 }
 
-.page-home .campaign .item,
-.page-user .campaign .item {
+.page-home .wish .item,
+.page-user .wish .item {
     border: 1px solid gray;
     border-radius: 3px;
     padding: 0.5em;
@@ -342,12 +342,12 @@ footer {
     display: none;
 }
 
-.page-campaign .campaign-description {
+.page-wish .wish-description {
     margin-top: 2em;
     margin-bottom: 2em;
 }
 
-.page-campaign .has-user-pledge-some form.add-pledge {
+.page-wish .has-user-pledge-some form.add-pledge {
     display: none;
 }
 

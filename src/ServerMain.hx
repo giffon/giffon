@@ -127,79 +127,79 @@ class ServerMain {
         }
     }
 
-    @async static function getCampaignIdFromHash(campaign_hashid:String):Null<Int> {
+    @async static function getWishIdFromHash(wish_hashid:String):Null<Int> {
         var results:QueryResults = (@await dbConnectionPool.query(
             "
-                SELECT `campaign_id`
-                FROM campaign
-                WHERE `campaign_hashid` = ?
+                SELECT `wish_id`
+                FROM wish
+                WHERE `wish_hashid` = ?
             ",
-            [campaign_hashid]
+            [wish_hashid]
         ).toPromise()).results;
 
         if (results == null || results.length == 0) {
             return null;
         } else if (results.length > 1) {
-            throw 'There are ${results.length} campaigns with the hashid ${campaign_hashid}.';
+            throw 'There are ${results.length} wishes with the hashid ${wish_hashid}.';
         } else {
-            return results[0].campaign_id;
+            return results[0].wish_id;
         }
     }
 
-    @async static function getCampaign(campaign_id:Int):db.Campaign {
-        var campaign_results:QueryResults = (@await dbConnectionPool.query(
+    @async static function getWish(wish_id:Int):db.Wish {
+        var wish_results:QueryResults = (@await dbConnectionPool.query(
             "
-                SELECT `campaign_id`, `user_id`, `campaign_hashid`, `campaign_description`, `campaign_state`, `item_group_id`
-                FROM campaign
-                WHERE `campaign_id` = ?
+                SELECT `wish_id`, `user_id`, `wish_hashid`, `wish_description`, `wish_state`, `item_group_id`
+                FROM wish
+                WHERE `wish_id` = ?
             ",
-            [campaign_id]
+            [wish_id]
         ).toPromise()).results;
-        if (campaign_results == null || campaign_results.length < 1)
+        if (wish_results == null || wish_results.length < 1)
             return null;
-        if (campaign_results.length > 1)
-            throw 'There are ${campaign_results.length} campaigns with campaign_id = ${campaign_id}.';
-        var campaign = campaign_results[0];
+        if (wish_results.length > 1)
+            throw 'There are ${wish_results.length} wishes with wish_id = ${wish_id}.';
+        var wish = wish_results[0];
         var item_results:QueryResults = (@await dbConnectionPool.query(
             "
                 SELECT item.`item_id`, `item_url`, `item_url_screenshot`, `item_name`, `item_price`
                 FROM item, item_group
                 WHERE item.`item_id` = item_group.`item_id` AND `item_group_id` = ?
             ",
-            [campaign.item_group_id]
+            [wish.item_group_id]
         ).toPromise()).results;
 
-        var campaign_owner = @await getUser(campaign.user_id);
+        var wish_owner = @await getUser(wish.user_id);
 
-        var campaign_pledged = null;
+        var wish_pledged = null;
         var pledge_results:QueryResults = (@await dbConnectionPool.query(
             "
                 SELECT SUM(`pledge_amount`) AS `total_pledge`
                 FROM `pledge`
-                WHERE `campaign_id` = ? AND `pledge_state` = ?
+                WHERE `wish_id` = ? AND `pledge_state` = ?
             ",
-            [campaign_id, db.PledgeState.Pledged]
+            [wish_id, db.PledgeState.Pledged]
         ).toPromise()).results;
         if (pledge_results != null && pledge_results.length != 0) {
             if (pledge_results.length != 1) {
                 throw 'SUM(`pledge_amount`) returned ${pledge_results.length} results.';
             }
-            campaign_pledged = switch (pledge_results[0].total_pledge) {
+            wish_pledged = switch (pledge_results[0].total_pledge) {
                 case null: null;
                 case str: Decimal.fromString(str).trim();
             }
         }
-        var campaign_total_price = item_results.fold(function(item, total:Decimal) return total + Decimal.fromString(item.item_price), Decimal.zero).trim();
-        var campaign = {
-            campaign_id: campaign.campaign_id,
-            campaign_hashid: campaign.campaign_hashid,
-            campaign_description: campaign.campaign_description,
-            campaign_state: campaign.campaign_state,
-            campaign_owner: campaign_owner,
-            campaign_total_price: campaign_total_price,
-            campaign_total_needed: null,
-            campaign_pledged: campaign_pledged,
-            campaign_progress: null,
+        var wish_total_price = item_results.fold(function(item, total:Decimal) return total + Decimal.fromString(item.item_price), Decimal.zero).trim();
+        var wish = {
+            wish_id: wish.wish_id,
+            wish_hashid: wish.wish_hashid,
+            wish_description: wish.wish_description,
+            wish_state: wish.wish_state,
+            wish_owner: wish_owner,
+            wish_total_price: wish_total_price,
+            wish_total_needed: null,
+            wish_pledged: wish_pledged,
+            wish_progress: null,
             items: item_results.map(function(item){
                 return {
                     item_id: item.item_id,
@@ -210,25 +210,25 @@ class ServerMain {
                 }
             })
         };
-        var campaign_total_needed = campaign.campaign_total_needed = ChargeInfo.totalNeeded(campaign);
-        campaign.campaign_progress = db.CampaignProgress.CampaignProgressTools.pledgeStateFromAmount(campaign_pledged, campaign_total_needed.amount);
-        return campaign;
+        var wish_total_needed = wish.wish_total_needed = ChargeInfo.totalNeeded(wish);
+        wish.wish_progress = db.WishProgress.WishProgressTools.pledgeStateFromAmount(wish_pledged, wish_total_needed.amount);
+        return wish;
     }
 
-    @async static function getCampaigns(user_id:Int):Array<db.Campaign> {
-        var campaign_results:QueryResults = (@await dbConnectionPool.query(
+    @async static function getWishes(user_id:Int):Array<db.Wish> {
+        var wish_results:QueryResults = (@await dbConnectionPool.query(
             "
-                SELECT `campaign_id`
-                FROM campaign
+                SELECT `wish_id`
+                FROM wish
                 WHERE `user_id` = ?
             ",
             [user_id]
         ).toPromise()).results;
-        var campaigns = @await tink.core.Promise.inParallel([
-            for (campaign in campaign_results)
-            getCampaign(campaign.campaign_id)
+        var wishes = @await tink.core.Promise.inParallel([
+            for (wish in wish_results)
+            getWish(wish.wish_id)
         ]);
-        return campaigns;
+        return wishes;
     }
 
     @async static function getUser(user_id:Int):db.User {
@@ -518,9 +518,9 @@ class ServerMain {
 
         app.get("/home", ensureLoggedIn, @await function(req:Request, res:Response) {
             try {
-                var campaigns = @await getCampaigns(res.getUser().user_id);
+                var wishes = @await getWishes(res.getUser().user_id);
                 res.render("home", {
-                    campaigns: campaigns
+                    wishes: wishes
                 });
             } catch (err:Dynamic) {
                 res.sendPlainError(err);
@@ -605,9 +605,9 @@ class ServerMain {
                 if (user_id == null) {
                     res.sendPlainError("There is no such user.", 404);
                 } else {
-                    var campaigns = @await getCampaigns(user_id);
+                    var wishes = @await getWishes(user_id);
                     res.render("user", {
-                        campaigns: campaigns
+                        wishes: wishes
                     });
                 }
             } catch (err:Dynamic) {
@@ -615,17 +615,17 @@ class ServerMain {
                 return;
             }
         });
-        app.get("/campaign/:campaign_hashid", @await function(req:Request, res:Response){
+        app.get("/wish/:wish_hashid", @await function(req:Request, res:Response){
             try {
-                var campaign_hashid = req.params.campaign_hashid;
-                var campaign_id = @await getCampaignIdFromHash(campaign_hashid);
-                if (campaign_id == null) {
-                    res.sendPlainError("There is no such campaign.", 404);
+                var wish_hashid = req.params.wish_hashid;
+                var wish_id = @await getWishIdFromHash(wish_hashid);
+                if (wish_id == null) {
+                    res.sendPlainError("There is no such wish.", 404);
                     return;
                 }
-                var campaign = @await getCampaign(campaign_id);
-                if (campaign == null) {
-                    res.sendPlainError("There is no such campaign.", 404);
+                var wish = @await getWish(wish_id);
+                if (wish == null) {
+                    res.sendPlainError("There is no such wish.", 404);
                     return;
                 }
                 var user_total_pledge = null;
@@ -635,9 +635,9 @@ class ServerMain {
                         "
                             SELECT SUM(`pledge_amount`) AS `total_pledge`
                             FROM `pledge`
-                            WHERE `user_id` = ? AND `campaign_id` = ? AND `pledge_state` = ?
+                            WHERE `user_id` = ? AND `wish_id` = ? AND `pledge_state` = ?
                         ",
-                        [user.user_id, campaign_id, db.PledgeState.Pledged]
+                        [user.user_id, wish_id, db.PledgeState.Pledged]
                     ).toPromise()).results;
 
                     if (results != null && results.length != 0) {
@@ -651,8 +651,8 @@ class ServerMain {
                         }
                     }
                 }
-                res.render("campaign", {
-                    campaign: campaign,
+                res.render("wish", {
+                    wish: wish,
                     user_total_pledge: user_total_pledge
                 });
             } catch (err:Dynamic) {
@@ -660,17 +660,17 @@ class ServerMain {
                 return;
             }
         });
-        app.post("/campaign/:campaign_hashid/pledge", ensureLoggedIn, @await function(req:Request, res:Response){
+        app.post("/wish/:wish_hashid/pledge", ensureLoggedIn, @await function(req:Request, res:Response){
             try {
-                var campaign_hashid = req.params.campaign_hashid;
-                var campaign_id = @await getCampaignIdFromHash(campaign_hashid);
-                if (campaign_id == null) {
-                    res.sendPlainError("There is no such campaign.", 404);
+                var wish_hashid = req.params.wish_hashid;
+                var wish_id = @await getWishIdFromHash(wish_hashid);
+                if (wish_id == null) {
+                    res.sendPlainError("There is no such wish.", 404);
                     return;
                 }
-                var campaign = @await getCampaign(campaign_id);
-                if (campaign == null) {
-                    res.sendPlainError("There is no such campaign.", 404);
+                var wish = @await getWish(wish_id);
+                if (wish == null) {
+                    res.sendPlainError("There is no such wish.", 404);
                     return;
                 }
                 var user = res.getUser();
@@ -689,24 +689,24 @@ class ServerMain {
                     ",
                     {
                         user_id: user.user_id,
-                        campaign_id: campaign_id,
+                        wish_id: wish_id,
                         pledge_amount: pledge_amount.toString(),
                         pledge_method: db.PledgeMethod.StripeCard,
                     }
                 ).toPromise();
-                res.redirect('/campaign/$campaign_hashid');
+                res.redirect('/wish/$wish_hashid');
             } catch (err:Dynamic) {
                 res.sendPlainError(err);
                 return;
             }
         });
-        app.get("/create-campaign", ensureLoggedIn, function(req, res:Response) {
-            res.render("create-campaign");
+        app.get("/make-a-wish", ensureLoggedIn, function(req, res:Response) {
+            res.render("make-a-wish");
         });
-        app.post("/create-campaign", ensureLoggedIn, @await function(req:Request, res:Response){
+        app.post("/make-a-wish", ensureLoggedIn, @await function(req:Request, res:Response){
             try {
                 var item_url:String = req.body.item_url;
-                var campaign_description:String = req.body.campaign_description;
+                var wish_description:String = req.body.wish_description;
 
                 if (!item_url.isURL({
                     protocols: ["https"],
@@ -743,10 +743,9 @@ class ServerMain {
                     /*2*/ SELECT @item_id := LAST_INSERT_ID() AS item_id;
                     /*3*/ INSERT INTO item_group SET item_id=@item_id;
                     /*4*/ SELECT @item_group_id := LAST_INSERT_ID() AS item_group_id;
-                    /*5*/ INSERT INTO campaign SET item_group_id=@item_group_id, ?;
-                    /*6*/ SELECT @campaign_id := LAST_INSERT_ID() AS campaign_id;
-                    /*7*/ INSERT INTO campaign_surprise SET campaign_id=@campaign_id;
-                    /*8*/ COMMIT;
+                    /*5*/ INSERT INTO wish SET item_group_id=@item_group_id, ?;
+                    /*6*/ SELECT @wish_id := LAST_INSERT_ID() AS wish_id;
+                    /*7*/ COMMIT;
                 ", [
                     {
                         item_url: item_url,
@@ -756,16 +755,15 @@ class ServerMain {
                     },
                     {
                         user_id: res.getUser().user_id,
-                        campaign_description: campaign_description,
-                        campaign_type: db.CampaignType.Suprise,
+                        wish_description: wish_description,
                     }
                 ]).toPromise()).results;
 
-                var campaign_id = results[6][0].campaign_id;
-                var campaign_hashid = new Hashids("campaign" + DBInfo.salt, 4).encode(campaign_id);
+                var wish_id = results[6][0].wish_id;
+                var wish_hashid = new Hashids("wish" + DBInfo.salt, 4).encode(wish_id);
                 @await dbConnectionPool.query(
-                    "UPDATE campaign SET `campaign_hashid` = ? WHERE `campaign_id` = ?",
-                    ([campaign_hashid, campaign_id]:Array<Dynamic>)
+                    "UPDATE wish SET `wish_hashid` = ? WHERE `wish_id` = ?",
+                    ([wish_hashid, wish_id]:Array<Dynamic>)
                 ).toPromise();
 
                 res.redirect("/home");

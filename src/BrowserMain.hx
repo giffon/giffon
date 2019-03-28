@@ -55,8 +55,8 @@ class BrowserMain {
             cards();
         }
 
-        if (document.body.classList.contains("page-campaign")) {
-            campaign();
+        if (document.body.classList.contains("page-wish")) {
+            wish();
         }
     }
 
@@ -87,7 +87,7 @@ class BrowserMain {
         form.submit();
     }
 
-    static function campaign():Void {
+    static function wish():Void {
         var addPledgeBtn = new JQuery("button.add-pledge");
         addPledgeBtn.click(function(evt){
             evt.preventDefault();
@@ -95,7 +95,7 @@ class BrowserMain {
             addPledgeBtn.hide();
         });
 
-        (untyped new JQuery(".campaign-total")).tooltip();
+        (untyped new JQuery(".wish-total")).tooltip();
     }
 
     static function cards():Void {
