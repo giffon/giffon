@@ -7,7 +7,6 @@ import js.npm.passport.*;
 import js.npm.price_finder.PriceFinder;
 import js.npm.image_data_uri.ImageDataUri;
 import js.npm.stripe.Stripe;
-import Auth0Info.*;
 import jsrsasign.*;
 import jsrsasign.Global.*;
 import hashids.Hashids;
@@ -24,11 +23,6 @@ using Lambda;
     var Production = "production";
     var Master = "master";
     var Dev = "dev";
-}
-
-@:jsRequire("passport-auth0")
-extern class Auth0Strategy {
-    public function new(options:Dynamic, callb:Dynamic):Void;
 }
 
 @:jsRequire("passport-facebook", "Strategy")
@@ -91,30 +85,6 @@ class ServerMain {
         ).toPromise();
 
         return stripe_customer_id;
-    }
-
-    @async static function getUserIdFromAuth0Payload(payloadObj:Auth0Payload):Null<Int> {
-        var results:QueryResults = (@await dbConnectionPool.query(
-            "
-                SELECT `user_id`
-                FROM `user_auth0`
-                WHERE `auth0_id` = ?
-            ",
-            [payloadObj.sub]
-        ).toPromise()).results;
-
-        var userId = if (results == null || results.length == 0) {
-            null;
-        } else if (results.length > 1) {
-            throw 'There are ${results.length} users with the auth0_id ${payloadObj.sub}.';
-        } else {
-            results[0].user_id;
-        }
-
-        if (userId != null)
-            return userId;
-        
-        return userId = @await getUserIdFromEmail(payloadObj.email);
     }
 
     @async static function getUserIdFromEmail(email:String):Null<Int> {
@@ -320,98 +290,6 @@ class ServerMain {
         });
     }
 
-    @await static function auth(req:Request, res:Response, next:haxe.Constraints.Function):Void {
-        try {
-            if (req == null || req.cookies == null || req.cookies.id_token == null) {
-                next();
-                return;
-            }
-            var token = req.cookies.id_token;
-            var pubkey = KEYUTIL.getKey(AUTH0_PUBKEY);
-            var alg = "RS256";
-            var isValid = JWS.verifyJWT(
-                token,
-                pubkey,
-                {
-                    alg: [alg],
-                    iss: ['https://${AUTH0_DOMAIN}/'],
-                    aud: [AUTH0_CLIENT_ID]
-                }
-            );
-            if (!isValid) {
-                next();
-                return;
-            }
-            var payloadObj:Auth0Payload = JWS.readSafeJSONString(b64utoutf8(token.split(".")[1]));
-            // get user_id
-            var user_id:Null<Int> = @await getUserIdFromAuth0Payload(payloadObj);
-            if (user_id != null) {
-                var user = @await getUser(user_id);
-                res.setUser(user);
-                next();
-                return;
-            }
-            // insert user
-            var userEmail = payloadObj.email;
-            if (userEmail == null) {
-                res.sendPlainError("user has no email info");
-                return;
-            }
-            var cnx:Connection = @await dbConnectionPool.getConnection().toPromise();
-            try {
-                @await cnx.beginTransaction().toPromise();
-            } catch(err:Dynamic) {
-                cnx.release();
-                res.sendPlainError(err);
-                return;
-            }
-            try {
-                var results:QueryResults = (@await cnx.query("INSERT INTO user SET ?", {
-                    user_primary_email: userEmail,
-                    user_name: payloadObj.name
-                }).toPromise()).results;
-                var user_id = results.insertId;
-                var user_hashid = new Hashids("user" + DBInfo.salt, 4).encode(user_id);
-                @await cnx.query(
-                    "UPDATE user SET `user_hashid` = ? WHERE `user_id` = ?",
-                    ([user_hashid, user_id]:Array<Dynamic>)
-                ).toPromise();
-                @await cnx.query(
-                    "INSERT INTO user_auth0 SET ?", {
-                        user_id: user_id,
-                        auth0_id: payloadObj.sub
-                    }
-                ).toPromise();
-                @await cnx.commit().toPromise();
-                cnx.release();
-            } catch (err:Dynamic) {
-                @await cnx.rollback().toPromise();
-                cnx.release();
-                res.sendPlainError(err);
-                return;
-            }
-            var user = @await getUser(user_id);
-            res.setUser(user);
-            next();
-        } catch (err:Dynamic) {
-            res.sendPlainError(err);
-            return;
-        }
-    }
-
-    @await static function warmUpDatabase(dbConfig:Mysql.ConnectionOptions, showTable:Bool):Void {
-        var cnx = @await Mysql.createConnection(dbConfig).toPromise();
-        try {
-            if (showTable) {
-                var results:QueryResults = (@await cnx.query("SHOW TABLES").toPromise()).results;
-                trace(results);
-            }
-        } catch(err:Dynamic) {
-            console.error(err);
-        }
-        cnx.end();
-    }
-
     static function __init__():Void {
         js.Node.require("dotenv").config({
             path: Path.join([Sys.getCwd(), "private", ".env"])
@@ -428,7 +306,7 @@ class ServerMain {
             password: DBInfo.password,
             database: DBInfo.database,
             charset: DBInfo.charset,
-            connectTimeout: 4 * 60 * 1000.0 //4 minutes
+            connectTimeout: 10.0 * 1000.0, //10 seconds
         };
 
         stripe = new Stripe(StripeInfo.apiSecKey);
@@ -437,7 +315,6 @@ class ServerMain {
         var poolConfig:Mysql.PoolOptions = cast Reflect.copy(dbConfig);
         poolConfig.multipleStatements = true;
         poolConfig.connectionLimit = 3;
-        poolConfig.connectTimeout = 10.0 * 1000.0; //10 seconds
         dbConnectionPool = Mysql.createPool(poolConfig);
 
         var app = new Application();
@@ -530,12 +407,6 @@ class ServerMain {
                     "UPDATE user SET `user_hashid` = ? WHERE `user_id` = ?",
                     ([user_hashid, user_id]:Array<Dynamic>)
                 ).toPromise();
-                // @await cnx.query(
-                //     "INSERT INTO user_auth0 SET ?", {
-                //         user_id: user_id,
-                //         auth0_id: payloadObj.sub
-                //     }
-                // ).toPromise();
                 @await cnx.commit().toPromise();
                 cnx.release();
             } catch (err:Dynamic) {

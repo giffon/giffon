@@ -37,7 +37,6 @@
     "morgan": "^1.9.1",
     "mysql2": "^1.6.1",
     "passport": "^0.4.0",
-    "passport-auth0": "^1.1.0",
     "passport-facebook": "^2.1.1",
     "price-finder": "^5.0.1",
     "stripe": "^6.12.1",

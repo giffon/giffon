@@ -32,7 +32,6 @@ provider:
     DB_USER: ${ssm:DB_USER}
     STRIPE_SECKEY: ${ssm:STRIPE_SECKEY}
     SESSION_SECRET: ${ssm:SESSION_SECRET}
-    AUTH0_CLIENT_SECRET: ${ssm:AUTH0_CLIENT_SECRET}
     FACEBOOK_CLIENT_ID: ${ssm:FACEBOOK_CLIENT_ID}
     FACEBOOK_APP_SECRET: ${ssm:FACEBOOK_APP_SECRET}
 
@@ -59,7 +58,6 @@ provider:
 package:
   exclude:
     - chrome/**
-    - auth0/**
     - www/**
 
 functions:

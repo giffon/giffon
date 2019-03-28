@@ -140,17 +140,6 @@ CREATE TABLE `user` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user_auth0`
---
-
-CREATE TABLE `user_auth0` (
-  `user_id` int(11) NOT NULL,
-  `auth0_id` varchar(64) COLLATE utf8mb4_bin NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `user_email`
 --
 
@@ -230,12 +219,6 @@ ALTER TABLE `user`
   ADD PRIMARY KEY (`user_id`),
   ADD UNIQUE KEY `user_hashid` (`user_hashid`),
   ADD KEY `user_primary_email` (`user_primary_email`);
-
---
--- Indexes for table `user_auth0`
---
-ALTER TABLE `user_auth0`
-  ADD PRIMARY KEY (`user_id`,`auth0_id`);
 
 --
 -- Indexes for table `user_email`
@@ -336,12 +319,6 @@ ALTER TABLE `pledge`
 --
 ALTER TABLE `pledge_charge`
   ADD CONSTRAINT `pledge_charge_ibfk_1` FOREIGN KEY (`pledge_id`) REFERENCES `pledge` (`pledge_id`) ON UPDATE CASCADE;
-
---
--- Constraints for table `user_auth0`
---
-ALTER TABLE `user_auth0`
-  ADD CONSTRAINT `user_auth0_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `user_email`
