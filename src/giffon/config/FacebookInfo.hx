@@ -1,4 +1,6 @@
-import Utils.*;
+package giffon.config;
+
+import giffon.Utils.*;
 
 class FacebookInfo {
     static public var FACEBOOK_CLIENT_ID(default, never) = env("FACEBOOK_CLIENT_ID", "fb client id");

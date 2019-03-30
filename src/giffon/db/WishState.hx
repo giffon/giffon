@@ -1,4 +1,4 @@
-package db;
+package giffon.db;
 
 @:enum abstract WishState(String) from String to String {
     var Created = "created";

@@ -1,3 +1,5 @@
+package giffon.server;
+
 import js.Node.*;
 import js.npm.express.*;
 import js.npm.mysql2.*;
@@ -14,9 +16,10 @@ import haxe.io.*;
 import tink.CoreApi;
 import thx.Decimal;
 import haxe.Constraints;
+import giffon.config.*;
 using js.npm.validator.Validator;
 using tink.core.Future.JsPromiseTools;
-using ResponseTools;
+using giffon.ResponseTools;
 using Lambda;
 
 @:enum abstract ServerlessStage(String) from String to String {
@@ -146,7 +149,7 @@ class ServerMain {
         }
     }
 
-    @async static function getWish(wish_id:Int):db.Wish {
+    @async static function getWish(wish_id:Int):giffon.db.Wish {
         var wish_results:QueryResults = (@await dbConnectionPool.query(
             "
                 SELECT `wish_id`, `user_id`, `wish_hashid`, `wish_description`, `wish_state`
@@ -208,17 +211,17 @@ class ServerMain {
                     item_url_screenshot: ImageDataUri.encode(item.item_url_screenshot, "PNG"),
                     item_name: item.item_name,
                     item_price: Decimal.fromString(item.item_price).trim(),
-                    item_currency: db.Currency.USD,
+                    item_currency: giffon.db.Currency.USD,
                     item_quantity: item.item_quantity,
                 }
             })
         };
         var wish_total_needed = wish.wish_total_needed = ChargeInfo.totalNeeded(wish);
-        wish.wish_progress = db.WishProgress.WishProgressTools.pledgeStateFromAmount(wish_pledged, wish_total_needed.amount);
+        wish.wish_progress = giffon.db.WishProgress.WishProgressTools.pledgeStateFromAmount(wish_pledged, wish_total_needed.amount);
         return wish;
     }
 
-    @async static function getWishes(user_id:Int):Array<db.Wish> {
+    @async static function getWishes(user_id:Int):Array<giffon.db.Wish> {
         var wish_results:QueryResults = (@await dbConnectionPool.query(
             "
                 SELECT `wish_id`
@@ -234,7 +237,7 @@ class ServerMain {
         return wishes;
     }
 
-    @async static function getUser(user_id:Int):db.User {
+    @async static function getUser(user_id:Int):giffon.db.User {
         var results:QueryResults = (@await dbConnectionPool.query(
             "
                 SELECT `user_id`, `user_hashid`, `user_primary_email`, `user_name`
@@ -412,7 +415,7 @@ class ServerMain {
             done(null, user);
         });
 
-        Passport.serializeUser(function (user:db.User, done) {
+        Passport.serializeUser(function (user:giffon.db.User, done) {
             done(null, user.user_id);
         });
         Passport.deserializeUser(@await function (user_id:Int, done) {
@@ -498,7 +501,7 @@ class ServerMain {
             }
         );
         app.get("/callback/facebook", function(req, res:Response, next) {
-            Passport.authenticate('facebook', function (err, user:db.User, info) {
+            Passport.authenticate('facebook', function (err, user:giffon.db.User, info) {
                 if (err != null) {
                     return res.sendPlainError(err);
                 }
@@ -695,8 +698,8 @@ class ServerMain {
                         user_id: user.user_id,
                         wish_id: wish_id,
                         pledge_amount: pledge_amount.toString(),
-                        pledge_currency: db.Currency.USD,
-                        pledge_method: db.PledgeMethod.StripeCard,
+                        pledge_currency: giffon.db.Currency.USD,
+                        pledge_method: giffon.db.PledgeMethod.StripeCard,
                     }
                 ).toPromise();
                 res.redirect('/wish/$wish_hashid');
@@ -760,7 +763,7 @@ class ServerMain {
                         item_url_screenshot: screenshot,
                         item_name: details.name,
                         item_price: details.price,
-                        item_currency: db.Currency.USD,
+                        item_currency: giffon.db.Currency.USD,
                     },
                 ]).toPromise()).results;
 

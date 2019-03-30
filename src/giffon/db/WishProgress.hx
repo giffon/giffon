@@ -1,4 +1,4 @@
-package db;
+package giffon.db;
 
 @:enum abstract WishProgress(String) from String to String {
     var None = "none";

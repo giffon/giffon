@@ -1,5 +1,7 @@
+package giffon.config;
+
 #if nodejs
-import Utils.*;
+import giffon.Utils.*;
 #end
 
 class StripeInfo {

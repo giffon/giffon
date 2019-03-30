@@ -1,4 +1,4 @@
-package db;
+package giffon.db;
 
 typedef User = {
     user_id:Int,

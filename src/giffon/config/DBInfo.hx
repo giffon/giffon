@@ -1,4 +1,6 @@
-import Utils.*;
+package giffon.config;
+
+import giffon.Utils.*;
 
 class DBInfo {
     static public var host(default, never):String = env("DB_HOST", "localhost");

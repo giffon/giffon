@@ -1,6 +1,6 @@
 package test;
 
-import Utils.*;
+import giffon.Utils.*;
 
 class FacebookTestUsers {
     static public var user1 = {
