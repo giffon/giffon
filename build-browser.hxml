@@ -4,3 +4,4 @@
 -main giffon.browser.BrowserMain
 -js www/js/BrowserMain.js
 -dce full
+-cmd npx browserify www/js/BrowserMain.js -o www/js/BrowserMain.js

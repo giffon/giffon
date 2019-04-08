@@ -374,3 +374,7 @@ footer {
 .page-signin.successful-login img.loading {
     display: block;
 }
+
+.btn-item-url-add {
+    display: block;
+}

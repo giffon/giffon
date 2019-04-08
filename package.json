@@ -39,10 +39,12 @@
     "passport": "^0.4.0",
     "passport-facebook": "^2.1.1",
     "price-finder": "^5.0.1",
+    "react": "^16.8.6",
     "stripe": "^6.12.1",
     "validator": "^10.8.0"
   },
   "devDependencies": {
+    "browserify": "^16.2.3",
     "serverless-apigw-binary": "^0.4.4",
     "wdio-concise-reporter": "^0.1.2",
     "wdio-jasmine-framework": "^0.3.7",
