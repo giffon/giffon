@@ -1,0 +1,1 @@
+-cmd npx browserify -o www/js/vendor.js -r react -r react-dom -r formik

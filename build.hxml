@@ -1,3 +1,4 @@
 --next build-server.hxml
 --next build-browser.hxml
+--next build-browser-vendor.hxml
 --next build-test.hxml
