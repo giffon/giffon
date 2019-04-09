@@ -53,12 +53,17 @@ class BrowserMain {
     }
 
     function onReady():Void {
-        if (document.body.classList.contains("page-cards")) {
+        var bodyClasses = document.body.classList;
+        if (bodyClasses.contains("page-cards")) {
             PageCards.onReady();
         }
 
-        if (document.body.classList.contains("page-wish")) {
+        if (bodyClasses.contains("page-wish")) {
             PageWish.onReady();
+        }
+
+        if (bodyClasses.contains("page-make-a-wish")) {
+            PageMakeAWish.onReady();
         }
     }
 
