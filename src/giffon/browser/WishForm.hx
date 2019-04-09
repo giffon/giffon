@@ -3,13 +3,14 @@ package giffon.browser;
 import react.*;
 import react.ReactMacro.jsx;
 import js.npm.formik.*;
+import thx.Decimal;
 
 typedef WishFormValues = {
     acceptTerms:Bool,
     items:Array<{
         item_url:String,
         item_name:String,
-        item_price:Float,
+        item_price:String,
         item_quantity:Int,
     }>,
     wish_description:String,
@@ -22,7 +23,7 @@ class WishForm extends ReactComponent {
             items: [{
                 item_url: "",
                 item_name: "",
-                item_price: null,
+                item_price: "",
                 item_quantity: 1,
             }],
             wish_description: ""
@@ -64,43 +65,47 @@ class WishForm extends ReactComponent {
                                     min="1" max="5" step="1"
                                     required=${true}
                                 />
-                                <button type="button" class="btn btn-link" title="remove item" onClick=${function(){ arrayHelpers.remove(idx); }}>
+                                <button type="button" className="btn btn-link" title="remove item" onClick=${function(){ arrayHelpers.remove(idx); }}>
                                 X
                                 </button>
                             </div>
                         ');
                     }
                 ];
-                function sum(nums:Array<Float>) {
-                    return Lambda.fold(nums, function(a,b) return a+b, 0.0);
+                function sum(nums:Array<Decimal>) {
+                    return Lambda.fold(nums, function(a,b) return a+b, Decimal.zero);
                 }
+                var totolPrice = sum(props.values.items.map(function(itm) {
+                    return Decimal.fromString(Std.string(itm.item_price)) * Decimal.fromString(Std.string(itm.item_quantity));
+                })).toString();
+
                 return jsx('
                     <Fragment>
                         <p>What do you want?</p>
-                        <p><small class="form-text text-muted">Paste the online shopping link of the item you wanna receive. Note that we currently only support the Amazon United States store. Support for other stores is in the plan.</small></p>
+                        <p><small className="form-text text-muted">Paste the online shopping link of the item you wanna receive. Note that we currently only support the Amazon United States store. Support for other stores is in the plan.</small></p>
                         ${rows}
-                        <button type="button" class="btn btn-link" onClick=${function(){ arrayHelpers.push(initialValues.items[0]); }}>
+                        <button type="button" className="btn btn-link" onClick=${function(){ arrayHelpers.push(initialValues.items[0]); }}>
                             Add item
                         </button>
-                        <p>Total price: ${sum(props.values.items.map(function(itm) return itm.item_price * itm.item_quantity))}</p>
+                        <p>Total price: ${totolPrice}</p>
                     </Fragment>
                 ');
             }
             return jsx('
                 <Form>
-                    <div class="form-group">
+                    <div className="form-group">
                         <FieldArray
                             name="items"
                             render=${fieldArrayRender}
                         />
                     </div>
-                    <div class="form-group">
-                        <label for="wish_description">
+                    <div className="form-group">
+                        <label htmlFor="wish_description">
                             Why do you want the above?
                         </label>
                         <Field
                             component="textarea"
-                            class="form-control" id="wish_description"
+                            className="form-control" id="wish_description"
                             name="wish_description"
                             rows="3"
                             placeholder="Because..."
@@ -110,22 +115,22 @@ class WishForm extends ReactComponent {
                     <div>
                         We will ask for your shipping address by email once there is enough pledges collected.
                     </div>
-                    <div class="form-group">
-                        <div class="form-check">
+                    <div className="form-group">
+                        <div className="form-check">
                             <Field
                                 name="acceptTerms"
-                                class="form-check-input" type="checkbox"
+                                className="form-check-input" type="checkbox"
                                 required=${true}
                             />
-                            <label class="form-check-label" for="checkbox-terms">
+                            <label className="form-check-label" htmlFor="checkbox-terms">
                                 Agree to <a href="/terms" target="_blank">terms and conditions</a>
                             </label>
-                            <div class="invalid-feedback">
+                            <div className="invalid-feedback">
                                 You must agree before submitting.
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-primary" disabled={props.isSubmitting}>
+                    <button type="submit" className="btn btn-primary" disabled={props.isSubmitting}>
                         Submit
                     </button>
                 </Form>

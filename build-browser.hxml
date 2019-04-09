@@ -1,6 +1,7 @@
 -cp src
 -lib compiletime
 -lib react
+-lib thx.core
 -main giffon.browser.BrowserMain
 -js www/js/BrowserMain.js
 -dce full
