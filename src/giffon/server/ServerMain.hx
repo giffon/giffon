@@ -344,6 +344,7 @@ class ServerMain {
         app.use(require("body-parser").urlencoded({
             extended: false
         }));
+        app.use(require("body-parser").json());
 
         app.use(Express.Static("www", {
             dotfiles: "ignore",
@@ -716,6 +717,7 @@ class ServerMain {
             res.render("make-a-wish");
         });
         app.post("/make-a-wish", ensureLoggedIn, @await function(req:Request, res:Response){
+            trace(haxe.Json.stringify(req.body, null, "  "));
             try {
                 var item_url:String = req.body.item_url;
                 var wish_description:String = req.body.wish_description;

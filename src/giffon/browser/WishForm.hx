@@ -4,6 +4,8 @@ import react.*;
 import react.ReactMacro.jsx;
 import js.npm.formik.*;
 import thx.Decimal;
+import js.jquery.*;
+import js.Browser.*;
 
 typedef WishFormValues = {
     acceptTerms:Bool,
@@ -17,6 +19,26 @@ typedef WishFormValues = {
 }
 
 class WishForm extends ReactComponent {
+    function onSubmit(values:WishFormValues, props:{
+        setSubmitting:Bool->Void,
+    }) {
+        trace(values);
+        JQuery.ajax({
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            url: "/make-a-wish",
+            data: haxe.Json.stringify(values),
+            dataType: "json",
+        })
+            .done(function(){
+                document.location.href = "/home";
+            })
+            .fail(function(err){
+                alert(err);
+                props.setSubmitting(false);
+            });
+    }
+
     override function render() {
         var initialValues:WishFormValues = {
             acceptTerms: false,
@@ -39,7 +61,7 @@ class WishForm extends ReactComponent {
                 var rows = [
                     for (idx in 0...props.values.items.length){
                         jsx('
-                            <div>
+                            <div key=${idx}>
                                 <Field
                                     name=${'items[$idx].item_name'}
                                     placeholder="Item name"
@@ -139,6 +161,7 @@ class WishForm extends ReactComponent {
         return jsx('
             <Formik
                 initialValues=${initialValues}
+                onSubmit=${onSubmit}
                 render=${formikRender}
             />
         ');
