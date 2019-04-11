@@ -300,6 +300,10 @@ class ServerMain {
         js.Node.require("dotenv").config({
             path: Path.join([Sys.getCwd(), "private", ".env"])
         });
+
+        var sms:Dynamic = require("source-map-support");
+        sms.install();
+        haxe.CallStack.wrapCallSite = sms.wrapCallSite;
     }
 
     @await static function main():Void {

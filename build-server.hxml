@@ -8,3 +8,4 @@
 -main giffon.server.ServerMain
 -js ServerMain.js
 -dce full
+-debug

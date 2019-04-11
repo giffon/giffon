@@ -12,7 +12,7 @@ class ResponseTools {
     }
 
     static public function sendPlainError(res:Response, err:Dynamic, code:Int = 500, ?pos:haxe.PosInfos):Void {
-        haxe.Log.trace(err, pos);
+        haxe.Log.trace(err + "\n" + haxe.CallStack.toString(haxe.CallStack.exceptionStack()), pos);
         res.status(code);
         res.type("text/plain");
         res.send(err);

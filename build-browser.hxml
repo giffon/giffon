@@ -5,3 +5,6 @@
 -main giffon.browser.BrowserMain
 -js www/js/BrowserMain.js
 -dce full
+
+-debug
+-D source-map-content
