@@ -717,7 +717,7 @@ class ServerMain {
             res.render("make-a-wish");
         });
         app.post("/make-a-wish", ensureLoggedIn, @await function(req:Request, res:Response){
-            trace(haxe.Json.stringify(req.body, null, "  "));
+            var wishValues:giffon.db.WishFormData.WishFormValues = req.body;
             try {
                 var item_url:String = req.body.item_url;
                 var wish_description:String = req.body.wish_description;

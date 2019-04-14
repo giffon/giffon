@@ -5,7 +5,7 @@
 -lib hashids
 -lib tink_await
 -lib thx.core
+-lib dataclass
 -main giffon.server.ServerMain
 -js ServerMain.js
--dce full
 -debug
