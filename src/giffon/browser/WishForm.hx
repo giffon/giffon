@@ -41,7 +41,9 @@ class WishForm extends ReactComponent {
                         <Fragment>
                             ${err.statusText} (${err.status})
                             <br/>
+                            <pre>
                             ${err.responseText}
+                            </pre>
                         </Fragment>
                     ')
                 });
@@ -53,40 +55,6 @@ class WishForm extends ReactComponent {
         return jsx('
             <div className="text-danger">${msg}</div>
         ');
-    }
-
-    function validate(values:WishFormValues) {
-        var errors:haxe.DynamicAccess<Dynamic> = {};
-
-        var itemsErrors = [];
-        if (values.items != null) for (item_idx in 0...values.items.length) {
-            var itemErrors = WishItemData.validate(values.items[item_idx]);
-            if (itemErrors.length > 0) {
-                itemsErrors.push('Invalid field(s): ' + itemErrors.join(", "));
-            } else {
-                itemsErrors.push(null);
-            }
-        }
-        if (itemsErrors.exists(function(e) return e != null)) {
-            errors["items"] = itemsErrors;
-        }
-
-        var formInvalidFields = WishFormData.validate({
-            wish_title: values.wish_title,
-            wish_target_date: values.wish_target_date,
-            wish_description: values.wish_description,
-            items: errors["items"] != null ? [] : values.items.map(WishItemData.new),
-            acceptTerms: values.acceptTerms,
-        });
-
-        for (field in formInvalidFields) {
-            if (field == "items" && errors["items"] != null) {
-                continue;
-            }
-            errors[field] = "Invalid value";
-        }
-
-        return errors;
     }
 
     override function render() {
@@ -277,7 +245,6 @@ class WishForm extends ReactComponent {
         return jsx('
             <Formik
                 initialValues=${initialValues}
-                validate=${validate}
                 onSubmit=${onSubmit}
                 render=${formikRender}
             />
