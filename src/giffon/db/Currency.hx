@@ -1,6 +1,6 @@
 package giffon.db;
 
-@:enum abstract Currency(String) from String to String {
-    var USD = "USD";
-    var HKD = "HKD";
+enum Currency {
+    USD;
+    HKD;
 }

@@ -2,6 +2,7 @@ package giffon.db;
 
 import thx.Decimal;
 using StringTools;
+using Lambda;
 
 typedef WishFormValues = {
     acceptTerms:Bool,
@@ -13,6 +14,7 @@ typedef WishFormValues = {
         item_icon_url:Null<String>,
         item_icon_label:Null<String>,
     }>,
+    currency:String,
     wish_title:String,
     wish_description:String,
     wish_target_date:Null<Date>,
@@ -46,6 +48,9 @@ class WishFormData implements DataClass {
 
     @validate(StringTools.trim(_).length > 0)
     public var wish_description:String;
+
+    @validate(Type.allEnums(giffon.db.Currency).exists(function(c) return c.getName() == _))
+    public var currency:String;
 
     @validate(_.getTime() > Date.now().getTime())
     public var wish_target_date:Null<Date>;

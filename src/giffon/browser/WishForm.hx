@@ -100,6 +100,7 @@ class WishForm extends ReactComponent {
                 item_icon_url: "",
                 item_icon_label: "",
             }],
+            currency: "",
             wish_title: "My wish",
             wish_description: "",
             wish_target_date: null,
@@ -184,7 +185,7 @@ class WishForm extends ReactComponent {
                         >
                             Add item
                         </button>
-                        <p>Total price: ${totolPrice}</p>
+                        <p>Total price${props.values.currency == "" ? "" : " ("+props.values.currency+")"}: ${totolPrice}</p>
                     </Fragment>
                 ');
             }
@@ -199,6 +200,11 @@ class WishForm extends ReactComponent {
                     null;
                 }
 
+            var currencyOptions = [
+                for (c in Type.allEnums(giffon.db.Currency))
+                jsx('<option key=${c.getName()} value=${c.getName()}>${c.getName()}</option>')
+            ];
+
             return jsx('
                 <Form>
                     ${submissionError}
@@ -212,6 +218,20 @@ class WishForm extends ReactComponent {
                             required=${true}
                         />
                         <ErrorMessage name="wish_title" render=${renderErrorMessage} />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="currency">
+                            Currency
+                        </label>
+                        <Field
+                            className="form-control"
+                            component="select"
+                            name="currency"
+                            required=${true}
+                        >
+                            <option></option>
+                            ${currencyOptions}
+                        </Field>
                     </div>
                     <div className="form-group">
                         <FieldArray
