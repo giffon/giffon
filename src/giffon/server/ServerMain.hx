@@ -4,16 +4,11 @@ import js.Node.*;
 import js.npm.express.*;
 import js.npm.mysql2.*;
 import js.npm.mysql2.promise.*;
-import js.npm.request.Request as NodeRequest;
 import js.npm.passport.*;
-import js.npm.price_finder.PriceFinder;
 import js.npm.image_data_uri.ImageDataUri;
 import js.npm.stripe.Stripe;
-import jsrsasign.*;
-import jsrsasign.Global.*;
 import hashids.Hashids;
 import haxe.io.*;
-import tink.CoreApi;
 import thx.Decimal;
 import haxe.Constraints;
 import giffon.config.*;
@@ -38,7 +33,7 @@ class ServerMain {
     static var SERVERLESS_STAGE(default, never):Null<ServerlessStage> = process.env["SERVERLESS_STAGE"];
     static var canonicalBase(default, never) = "https://giffon.io";
 
-    static function ensureLoggedIn(req:Request, res:Response, next:Dynamic):Void {
+    static public function ensureLoggedIn(req:Request, res:Response, next:Dynamic):Void {
         if (res.getUser() == null) {
             res.redirect("/");
         } else {
@@ -46,8 +41,8 @@ class ServerMain {
         }
     }
 
-    static var dbConnectionPool:Pool;
-    static var stripe:Stripe;
+    static public var dbConnectionPool:Pool;
+    static public var stripe:Stripe;
 
     @async static function getStripeCustomerIdFromUser(user:{user_id:Int, user_primary_email:String}):Null<String> {
         var results:QueryResults = (@await dbConnectionPool.query(
@@ -273,27 +268,6 @@ class ServerMain {
             user_has_card: stripe_customer != null && stripe_customer.default_source != null && stripe_customer.default_source.object == "card",
             stripe_customer: stripe_customer,
         };
-    }
-
-    @async static function getAmazonItemScreenshot(url:String):js.node.Buffer {
-        return @await Surprise.async(function(resolve){
-            NodeRequest.get({
-                url: "https://kuortzoyx4.execute-api.us-east-1.amazonaws.com/dev/screenshot",
-                qs: {
-                    url: url,
-                    canvasSize: "450*450",
-                    mobile: 1,
-                    scrollTo: "#productTitleGroupAnchor"
-                },
-                encoding: null
-            }, function(err:Dynamic, response, body:Dynamic) {
-                if (err != null) {
-                    resolve(Failure(err));
-                } else {
-                    resolve(Success(body));
-                }
-            });
-        });
     }
 
     static function __init__():Void {
@@ -713,74 +687,7 @@ class ServerMain {
                 return;
             }
         });
-        app.get("/make-a-wish", ensureLoggedIn, function(req, res:Response) {
-            res.render("make-a-wish");
-        });
-        app.post("/make-a-wish", ensureLoggedIn, @await function(req:Request, res:Response){
-            var wishValues:giffon.db.WishFormData.WishFormValues = req.body;
-            var item_url:String = req.body.item_url;
-            var wish_description:String = req.body.wish_description;
-
-            if (!item_url.isURL({
-                protocols: ["https"],
-                require_protocol: true,
-                host_whitelist: ["www.amazon.com"],
-            })) {
-                res.sendPlainError("invalid url", 400);
-                return;
-            }
-
-            var priceFinder = new PriceFinder();
-            var details:{
-                price: Float,
-                category: String,
-                name: String
-            } = try {
-                @await Surprise.async(function(resolve){
-                    priceFinder.findItemDetails(item_url, function(err, details) {
-                        if (err != null)
-                            resolve(Failure(err));
-                        else
-                            resolve(Success(details));
-                    });
-                });
-            } catch (err:Dynamic) {
-                res.sendPlainError('Unable to scrap item details from $item_url.\n\n${haxe.Json.stringify(err, null, "  ")}');
-                return;
-            }
-            var screenshot = @await getAmazonItemScreenshot(item_url);
-
-            var results:Array<QueryResults> = (@await dbConnectionPool.query("
-                /*0*/ START TRANSACTION;
-                /*1*/ INSERT INTO wish SET ?;
-                /*2*/ SELECT @wish_id := LAST_INSERT_ID() AS wish_id;
-                /*3*/ INSERT INTO item SET ?;
-                /*4*/ SELECT @item_id := LAST_INSERT_ID() AS item_id;
-                /*5*/ INSERT INTO wish_item SET wish_id=@wish_id, item_id=@item_id, item_quantity=1;
-                /*6*/ COMMIT;
-            ", [
-                {
-                    user_id: res.getUser().user_id,
-                    wish_description: wish_description,
-                },
-                {
-                    item_url: item_url,
-                    item_url_screenshot: screenshot,
-                    item_name: details.name,
-                    item_price: details.price,
-                    item_currency: giffon.db.Currency.USD,
-                },
-            ]).toPromise()).results;
-
-            var wish_id = results[2][0].wish_id;
-            var wish_hashid = new Hashids("wish" + DBInfo.salt, 4).encode(wish_id);
-            @await dbConnectionPool.query(
-                "UPDATE wish SET `wish_hashid` = ? WHERE `wish_id` = ?",
-                ([wish_hashid, wish_id]:Array<Dynamic>)
-            ).toPromise();
-
-            res.redirect("/home");
-        });
+        app.use(MakeAWish.createRouter());
 
         app.use(function(err, req, res:Response, next) {
             res.sendPlainError(err, 500);
