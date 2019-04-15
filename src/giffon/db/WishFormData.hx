@@ -3,6 +3,7 @@ package giffon.db;
 import thx.Decimal;
 using StringTools;
 using Lambda;
+using js.npm.validator.Validator;
 
 typedef WishFormValues = {
     acceptTerms:Bool,
@@ -24,7 +25,7 @@ class WishItemData implements DataClass {
     static public var item_price_max(default, never) = 10000;
     static public var item_quantity_max(default, never) = 100;
 
-    @validate(StringTools.trim(_).length > 0)
+    @validate(validateItemUrl(_))
     public var item_url:String;
 
     @validate(StringTools.trim(_).length > 0)
@@ -38,6 +39,17 @@ class WishItemData implements DataClass {
 
     public var item_icon_url:Null<String>;
     public var item_icon_label:Null<String>;
+
+    static public function validateItemUrl(v:String):Bool {
+        if (!v.isURL({
+            protocols: ["https", "http"],
+            require_protocol: true,
+        })) {
+            return false;
+        }
+
+        return true;
+    }
 }
 
 class WishFormData implements DataClass {

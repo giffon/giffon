@@ -299,6 +299,7 @@ class ServerMain {
         var poolConfig:Mysql.PoolOptions = cast Reflect.copy(dbConfig);
         poolConfig.multipleStatements = true;
         poolConfig.connectionLimit = 3;
+        //poolConfig.debug = true;
         dbConnectionPool = Mysql.createPool(poolConfig);
 
         var app = new Application();

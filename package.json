@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "postinstall": "haxe install-haxelibs.hxml",
-    "build": "browserify -o www/js/vendor.js -r react -r react-dom -r formik && haxe build.hxml",
+    "build": "browserify -o www/js/vendor.js -r react -r react-dom -r formik -r validator && haxe build.hxml",
     "start": "node ServerMain.js",
     "test": "wdio wdio.conf.js"
   },

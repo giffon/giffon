@@ -48,61 +48,49 @@ class MakeAWish {
 
     @await static function handlePost(req:Request, res:Response){
         var wishValues:giffon.db.WishFormData.WishFormValues = req.body;
-        var item_url:String = req.body.item_url;
-        var wish_description:String = req.body.wish_description;
-
-        if (!item_url.isURL({
-            protocols: ["https"],
-            require_protocol: true,
-            host_whitelist: ["www.amazon.com"],
-        })) {
-            res.sendPlainError("invalid url", 400);
-            return;
-        }
-
-        var priceFinder = new PriceFinder();
-        var details:{
-            price: Float,
-            category: String,
-            name: String
-        } = try {
-            @await Surprise.async(function(resolve){
-                priceFinder.findItemDetails(item_url, function(err, details) {
-                    if (err != null)
-                        resolve(Failure(err));
-                    else
-                        resolve(Success(details));
-                });
-            });
-        } catch (err:Dynamic) {
-            res.sendPlainError('Unable to scrap item details from $item_url.\n\n${haxe.Json.stringify(err, null, "  ")}');
-            return;
-        }
-        var screenshot = @await getAmazonItemScreenshot(item_url);
-
         var results:Array<QueryResults> = (@await dbConnectionPool.query("
-            /*0*/ START TRANSACTION;
-            /*1*/ INSERT INTO wish SET ?;
-            /*2*/ SELECT @wish_id := LAST_INSERT_ID() AS wish_id;
-            /*3*/ INSERT INTO item SET ?;
-            /*4*/ SELECT @item_id := LAST_INSERT_ID() AS item_id;
-            /*5*/ INSERT INTO wish_item SET wish_id=@wish_id, item_id=@item_id, item_quantity=1;
-            /*6*/ COMMIT;
+            /*0*/   START TRANSACTION;
+
+            /*1*/   CREATE TEMPORARY TABLE insert_items (
+                        item_number int(11) NOT NULL AUTO_INCREMENT,
+                        item_name varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
+                        item_url varchar(1024) COLLATE utf8mb4_bin NOT NULL,
+                        item_price decimal(16,4) DEFAULT NULL,
+                        item_currency varchar(16) COLLATE utf8mb4_bin NOT NULL,
+                        item_quantity tinyint(3) unsigned,
+                        PRIMARY KEY (item_number)
+                    );
+            /*2*/   INSERT INTO insert_items (item_name, item_url, item_price, item_currency, item_quantity) VALUES ?;
+
+            /*3*/   INSERT INTO wish SET ?;
+            /*4*/   SELECT @wish_id := LAST_INSERT_ID() AS wish_id;
+            /*5*/
+                    INSERT INTO item (item_name, item_url, item_price, item_currency)
+                    SELECT item_name, item_url, item_price, item_currency
+                    FROM insert_items
+                    ORDER BY item_number ASC
+                    ;
+            /*6*/   SELECT @item_id_first := LAST_INSERT_ID() AS item_id;
+
+            /*7*/   SELECT @item_id := @item_id_first - 1;
+            /*8*/
+                    INSERT INTO wish_item (wish_id, item_id, item_quantity)
+                    SELECT @wish_id, @item_id := @item_id + 1, item_quantity
+                    FROM insert_items
+                    ORDER BY item_number ASC
+                    ;
+
+            /*9*/   DROP TEMPORARY TABLE insert_items;
+            /*10*/  COMMIT;
         ", [
+            [for (itm in wishValues.items) [itm.item_name, itm.item_url, itm.item_price, wishValues.currency, itm.item_quantity]],
             {
                 user_id: res.getUser().user_id,
-                wish_description: wish_description,
-            },
-            {
-                item_url: item_url,
-                item_url_screenshot: screenshot,
-                item_name: details.name,
-                item_price: details.price,
-                item_currency: giffon.db.Currency.USD,
+                wish_description: wishValues.wish_description,
             },
         ]).toPromise()).results;
 
-        var wish_id = results[2][0].wish_id;
+        var wish_id = results[4][0].wish_id;
         var wish_hashid = new Hashids("wish" + DBInfo.salt, 4).encode(wish_id);
         @await dbConnectionPool.query(
             "UPDATE wish SET `wish_hashid` = ? WHERE `wish_id` = ?",
