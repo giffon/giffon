@@ -7,4 +7,9 @@ class Utils {
             case v: v;
         }
     }
+
+    static function tee<T>(v:T, ?pos:haxe.PosInfos):T {
+        haxe.Log.trace(v, pos);
+        return v;
+    }
 }
