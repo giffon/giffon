@@ -17,10 +17,13 @@ class ResponseTools {
 
         var jsError = Std.instance(err, js.Error);
         if (jsError != null) {
-            js.Node.console.log(jsError.stack);
-            res.send(jsError.stack);
+            var stack = jsError.stack;
+            js.Node.console.log(stack);
+            res.send(err + "\n" + stack);
         } else {
-            res.send(err);
+            var stack = haxe.CallStack.toString(haxe.CallStack.exceptionStack());
+            js.Node.console.log(stack);
+            res.send(err + "\n" + stack);
         }
     }
 }

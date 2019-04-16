@@ -36,6 +36,7 @@
     "jsrsasign": "^8.0.12",
     "morgan": "^1.9.1",
     "mysql2": "^1.6.1",
+    "node-fetch": "^2.3.0",
     "passport": "^0.4.0",
     "passport-facebook": "^2.1.1",
     "price-finder": "^5.0.1",

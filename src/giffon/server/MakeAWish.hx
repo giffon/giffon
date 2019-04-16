@@ -4,7 +4,9 @@ import js.npm.express.*;
 import js.npm.mysql2.*;
 import js.npm.price_finder.PriceFinder;
 import js.npm.request.Request as NodeRequest;
+import js.npm.fetch.Fetch;
 import tink.CoreApi;
+import tink.core.Error;
 import hashids.Hashids;
 import giffon.server.ServerMain.*;
 import giffon.config.*;
@@ -48,7 +50,33 @@ class MakeAWish {
     }
 
     @await static function handlePost(req:Request, res:Response, next:Dynamic){
-        var wishValues:giffon.db.WishFormData.WishFormValues = req.body;
+        var wishData:giffon.db.WishFormData = try {
+            dataclass.JsonConverter.fromJson(giffon.db.WishFormData, req.body);
+        } catch (err:Dynamic) {
+            trace(haxe.Json.stringify(err));
+            res.sendPlainError(err, BadRequest);
+            return;
+        }
+
+        // extra async validations
+        // each item url should be accessible
+        var fetchOpts:FetchOptions = {
+            redirect: Follow,
+            timeout: 10 * 1000,
+            headers: {
+                "User-Agent": req.get("User-Agent"),
+            },
+        };
+        for (itm in wishData.items) {
+            var url = itm.item_url;
+            try {
+                @await Fetch.fetch(url, fetchOpts).toPromise();
+            } catch(err:Dynamic) {
+                res.sendPlainError('${url} is not accessible.\n${err}', BadRequest);
+                return;
+            }
+        }
+
         var results:Array<QueryResults> = (@await dbConnectionPool.query("
             /*0*/   START TRANSACTION;
 
@@ -84,10 +112,10 @@ class MakeAWish {
             /*9*/   DROP TEMPORARY TABLE insert_items;
             /*10*/  COMMIT;
         ", [
-            [for (itm in wishValues.items) [itm.item_name, itm.item_url, itm.item_price, wishValues.currency, itm.item_quantity]],
+            [for (itm in wishData.items) [itm.item_name, itm.item_url, itm.item_price, wishData.currency, itm.item_quantity]],
             {
                 user_id: res.getUser().user_id,
-                wish_description: wishValues.wish_description,
+                wish_description: wishData.wish_description,
             },
         ]).handleError(next).toPromise()).results;
 
