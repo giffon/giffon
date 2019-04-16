@@ -11,6 +11,7 @@ package giffon.db;
 class WishProgressTools {
     static public function pledgeStateFromAmount(current:Null<thx.Decimal>, totalNeeded:thx.Decimal):WishProgress {
         if (current == null) current = thx.Decimal.zero;
+        if (totalNeeded <= 0) return Almost;
         var percent = (current / totalNeeded) * 100;
         return if (percent >= 85)
             Almost;

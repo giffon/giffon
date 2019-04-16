@@ -11,6 +11,7 @@ import giffon.config.*;
 using js.npm.validator.Validator;
 using tink.core.Future.JsPromiseTools;
 using giffon.ResponseTools;
+using giffon.server.PromiseTools;
 
 @await
 class MakeAWish {
@@ -46,7 +47,7 @@ class MakeAWish {
         res.render("make-a-wish");
     }
 
-    @await static function handlePost(req:Request, res:Response){
+    @await static function handlePost(req:Request, res:Response, next:Dynamic){
         var wishValues:giffon.db.WishFormData.WishFormValues = req.body;
         var results:Array<QueryResults> = (@await dbConnectionPool.query("
             /*0*/   START TRANSACTION;
@@ -88,14 +89,14 @@ class MakeAWish {
                 user_id: res.getUser().user_id,
                 wish_description: wishValues.wish_description,
             },
-        ]).toPromise()).results;
+        ]).handleError(next).toPromise()).results;
 
         var wish_id = results[4][0].wish_id;
         var wish_hashid = new Hashids("wish" + DBInfo.salt, 4).encode(wish_id);
         @await dbConnectionPool.query(
             "UPDATE wish SET `wish_hashid` = ? WHERE `wish_id` = ?",
             ([wish_hashid, wish_id]:Array<Dynamic>)
-        ).toPromise();
+        ).handleError(next).toPromise();
 
         res.redirect("/home");
     };

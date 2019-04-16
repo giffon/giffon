@@ -509,7 +509,7 @@ class ServerMain {
                     wishes: wishes
                 });
             } catch (err:Dynamic) {
-                trace(haxe.CallStack.exceptionStack());
+                trace(err);
                 res.sendPlainError(err);
                 return;
             }
