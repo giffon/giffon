@@ -14,8 +14,8 @@
     "type": "git",
     "url": "git+ssh://git@gitlab.com/giffon.io/giffon.git"
   },
-  "author": "Andy Li",
-  "license": "UNLICENSED",
+  "author": "Andy Li <andy@onthewings.net>",
+  "license": "GPL-3.0-or-later",
   "private": true,
   "bugs": {
     "url": "https://gitlab.com/giffon.io/giffon/issues"
