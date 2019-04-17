@@ -41,6 +41,11 @@ class Test {
         expect(browser.getText(".user-name")).toBe(user.name);
     }
 
+    static function clearInput(inputSelector:String) {
+        var existingValue = Std.string(browser.getValue(inputSelector));
+        browser.setValue(inputSelector, [for (i in 0...existingValue.length) String.fromCharCode(57347)]);
+    }
+
     static function main():Void {
         describe("front page", function() {
             it('should display Giffon', function() {
@@ -66,16 +71,22 @@ class Test {
             it("should be able to create new wish", function() {
                 browser.url("/make-a-wish");
                 expect(browser.waitForExist("#make-a-wish-root form")).toBe(true);
-                browser.click("input[name='wish_title']");
-                browser.clearElement("input[name='wish_title']");
-                browser.setValue("input[name='wish_title']", user1Wish.wishTitle);
+
+                var titleInput = "input[name='wish_title']";
+                clearInput(titleInput);
+                browser.setValue(titleInput, user1Wish.wishTitle);
+
                 browser.selectByValue("select[name='currency']", giffon.db.Currency.USD.getName());
                 browser.click("input[name='items[0].item_name']");
                 browser.setValue("input[name='items[0].item_name']", user1Wish.itemName);
                 browser.click("input[name='items[0].item_url']");
                 browser.setValue("input[name='items[0].item_url']", user1Wish.itemUrl);
                 browser.click("input[name='items[0].item_price']");
-                browser.setValue("input[name='items[0].item_price']", user1Wish.itemPrice);
+
+                var priceInput = "input[name='items[0].item_price']";
+                clearInput(priceInput);
+                browser.setValue(priceInput, user1Wish.itemPrice);
+
                 browser.click("textarea[name='wish_description']");
                 browser.setValue("textarea[name='wish_description']", user1Wish.wishDescription);
                 browser.click("input[name='acceptTerms']");
