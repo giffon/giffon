@@ -50,9 +50,12 @@ class Test {
         });
 
         var user1Wish = {
+            wishTitle: "Learn Haxe",
             itemUrl: "https://www.amazon.com/Haxe-Development-Essentials-Jeremy-McCurdy/dp/1785289780",
             wishUrl: null,
             itemName: "Haxe Game Development Essentials",
+            itemPrice: 24.99,
+            wishDescription: "I believe Haxe is the future!",
         };
 
         describe("basics", function() {
@@ -62,12 +65,20 @@ class Test {
 
             it("should be able to create new wish", function() {
                 browser.url("/make-a-wish");
-                expect(browser.waitForExist("form[action='/make-a-wish']")).toBe(true);
-                browser.click("input[name='item_url']");
-                browser.setValue("input[name='item_url']", user1Wish.itemUrl);
+                expect(browser.waitForExist("#make-a-wish-root form")).toBe(true);
+                browser.click("input[name='wish_title']");
+                browser.clearElement("input[name='wish_title']");
+                browser.setValue("input[name='wish_title']", user1Wish.wishTitle);
+                browser.selectByValue("select[name='currency']", giffon.db.Currency.USD.getName());
+                browser.click("input[name='items[0].item_name']");
+                browser.setValue("input[name='items[0].item_name']", user1Wish.itemName);
+                browser.click("input[name='items[0].item_url']");
+                browser.setValue("input[name='items[0].item_url']", user1Wish.itemUrl);
+                browser.click("input[name='items[0].item_price']");
+                browser.setValue("input[name='items[0].item_price']", user1Wish.itemPrice);
                 browser.click("textarea[name='wish_description']");
-                browser.setValue("textarea[name='wish_description']", "I believe Haxe is the future!");
-                browser.click("input#checkbox-terms");
+                browser.setValue("textarea[name='wish_description']", user1Wish.wishDescription);
+                browser.click("input[name='acceptTerms']");
                 browser.click("button[type='submit']");
 
                 browser.waitUntil(function(){
