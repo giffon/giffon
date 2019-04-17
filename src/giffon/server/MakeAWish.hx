@@ -5,11 +5,14 @@ import js.npm.mysql2.*;
 import js.npm.price_finder.PriceFinder;
 import js.npm.request.Request as NodeRequest;
 import js.npm.fetch.Fetch;
+import react.*;
+import react.ReactMacro.jsx;
 import tink.CoreApi;
 import tink.core.Error;
 import hashids.Hashids;
 import giffon.server.ServerMain.*;
 import giffon.config.*;
+import giffon.browser.*;
 using js.npm.validator.Validator;
 using tink.core.Future.JsPromiseTools;
 using giffon.ResponseTools;
@@ -46,7 +49,9 @@ class MakeAWish {
     }
 
     static function handleGet(req, res:Response):Void {
-        res.render("make-a-wish");
+        res.render("make-a-wish", {
+            wishFormHTML: ReactDOMServer.renderToString(cast React.createElement(WishForm)),
+        });
     }
 
     @await static function handlePost(req:Request, res:Response, next:Dynamic){

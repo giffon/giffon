@@ -6,6 +6,7 @@
 -lib tink_await
 -lib thx.core
 -lib dataclass
+-lib react
 -main giffon.server.ServerMain
 -js ServerMain.js
 -debug
