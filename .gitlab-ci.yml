@@ -16,7 +16,10 @@ build-haxe:
   artifacts:
     paths:
       - www/js/BrowserMain.js
+      - www/js/BrowserMain.js.map
+      - www/js/vendor.js
       - ServerMain.js
+      - ServerMain.js.map
       - test/specs/*.js
 
 build-npm:
