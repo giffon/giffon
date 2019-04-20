@@ -12,6 +12,7 @@ import haxe.io.*;
 import thx.Decimal;
 import haxe.Constraints;
 import giffon.config.*;
+import giffon.view.*;
 using js.npm.validator.Validator;
 using tink.core.Future.JsPromiseTools;
 using giffon.ResponseTools;
@@ -30,8 +31,8 @@ extern class FacebookStrategy {
 
 @await
 class ServerMain {
-    static var SERVERLESS_STAGE(default, never):Null<ServerlessStage> = process.env["SERVERLESS_STAGE"];
-    static var canonicalBase(default, never) = "https://giffon.io";
+    static public var SERVERLESS_STAGE(default, never):Null<ServerlessStage> = process.env["SERVERLESS_STAGE"];
+    static public var canonicalBase(default, never) = "https://giffon.io";
 
     static public function ensureLoggedIn(req:Request, res:Response, next:Dynamic):Void {
         if (res.getUser() == null) {
@@ -460,8 +461,9 @@ class ServerMain {
             next();
         });
 
-        app.get("/", function(req:Request, res) {
-            res.render("index");
+        app.get("/", function(req:Request, res:Response) {
+            res.sendPage(Index);
+            //res.render("index");
         });
         app.get("/terms", function(req, res:Response) {
             res.render("terms");

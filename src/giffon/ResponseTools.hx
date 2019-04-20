@@ -1,6 +1,7 @@
 package giffon;
 
 import js.npm.express.*;
+import react.*;
 
 class ResponseTools {
     static public function getUser(res:Response):Null<giffon.db.User> {
@@ -25,5 +26,9 @@ class ResponseTools {
             js.Node.console.log(stack);
             res.send(err + "\n" + stack);
         }
+    }
+
+    static public function sendPage(res:Response, page):Void {
+        res.send("<!DOCTYPE html>" + ReactDOMServer.renderToStaticMarkup(cast React.createElement(page)));
     }
 }
