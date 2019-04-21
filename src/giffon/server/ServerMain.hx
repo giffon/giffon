@@ -34,6 +34,15 @@ class ServerMain {
     static public var SERVERLESS_STAGE(default, never):Null<ServerlessStage> = process.env["SERVERLESS_STAGE"];
     static public var canonicalBase(default, never) = "https://giffon.io";
 
+    static public function R(path:String) {
+        return switch (SERVERLESS_STAGE) {
+            case Production, Master:
+                Path.join(["https://static.giffon.io", SERVERLESS_STAGE, path]);
+            case _:
+                path;
+        };
+    };
+
     static public function ensureLoggedIn(req:Request, res:Response, next:Dynamic):Void {
         if (res.getUser() == null) {
             res.redirect("/");
@@ -410,14 +419,7 @@ class ServerMain {
         app.use(function(req:Request, res:Response, next) {
             res.locals.bodyClasses = [];
             res.locals.canonical = Path.join([canonicalBase, req.path]);
-            res.locals.R = function(path:String) {
-                return switch (SERVERLESS_STAGE) {
-                    case Production, Master:
-                        Path.join(["https://static.giffon.io", SERVERLESS_STAGE, path]);
-                    case _:
-                        path;
-                };
-            };
+            res.locals.R = R;
             if (req.user != null) {
                 res.setUser(req.user);
             }

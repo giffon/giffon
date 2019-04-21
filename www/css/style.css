@@ -1,3 +1,6 @@
+@import 'fontsize.css';
+@import 'color.css';
+
 html {
     position: relative;
     height: 100%;
@@ -6,14 +9,9 @@ html {
 body {
     font-family: 'Work Sans', Arial, sans-serif;
 
-    background:
-        radial-gradient(circle at 0 0, rgb(183,248,219) 25%, rgb(80,167,194) 75%) fixed no-repeat center / 160% 160%,
-        rgb(80,167,194);
+    background:#f5f5f5;
 
-    color: white;
-
-    display: flex;
-    flex-direction: column;
+    color: 222;
     height: 100%; /* Avoid the IE 10-11 `min-height` bug. */
 }
 
@@ -23,7 +21,7 @@ body > .content {
 }
 
 ::selection {
-    background: #50A7C2;
+    background: #B7F8DB;
 }
 
 .width_xs_30 {
@@ -97,21 +95,14 @@ img.emoji, .inline-icon {
     vertical-align: middle;
 }
 
-.bg1 {
-    /*background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);*/
-    background-image: linear-gradient(-225deg, #B7F8DB 0%, #50A7C2 100%);
+#banner {
+    background-image: linear-gradient(to right, rgba(61, 255, 168, 0.1), rgba(80, 167, 194, 0.1)), url(../images/bg1.jpg);
+    background-size: cover;
 }
 
-.bg2 {
-    background-image: linear-gradient(to right, #f83600 0%, #f9d423 100%);
-}
-
-.bg4  {
-    background-image: linear-gradient(120deg, #a6c0fe 0%, #f68084 100%);
-}
-
-.bg5 {
-    background-image: linear-gradient(120deg, #59d7ff 0%, #747dfd 100%);
+.btn-success {
+    background: linear-gradient(15deg, #50A7C2 0%, #50A7C2 100%);
+    border: 0;
 }
 
 .feature {
@@ -290,7 +281,7 @@ img.emoji, .inline-icon {
 }
 
 #profile {
-    background-image: url('../images/us.jpg'); 
+    background-image: url('/images/us.jpg'); 
     background-position: left;
     background-size: cover;
     width: 140px;
@@ -363,10 +354,6 @@ footer {
     display: none;
 }
 
-.page-signin .alert:empty {
-    display: none;
-}
-
 .page-signin img.loading {
     display: none;
 }
@@ -375,6 +362,50 @@ footer {
     display: block;
 }
 
-.btn-item-url-add {
-    display: block;
+.navbar {
+    /*background:
+        radial-gradient(circle at 0 0, #98e0d3 25%, rgb(80,167,194) 75%) fixed no-repeat center / 160% 160%,
+        rgb(80,167,194);
+    */
+    /*background: rgb(45,80,101);*/
+    /*color: white;*/
+}
+
+// Usage as a mixin
+.heading {
+  @include text-hide;
+}
+
+.navbar .logo  {
+    width: 50px;
+}
+
+.navbar a {
+    color: #50A7C2;
+}
+
+.btn.ghost {
+    background:transparent;
+    border: 1px solid;
+}
+
+.border_xs {
+    border:1px solid rgba(51,51,51,0.12);
+}
+.border_xs_t {
+    border-top:1px solid rgba(51,51,51,0.12);
+}
+.border_xs_l {
+    border-left:1px solid rgba(51,51,51,0.12);
+}
+.border_xs_r {
+    border-right:1px solid rgba(51,51,51,0.12);
+}
+.border_xs_b {
+    border-bottom:1px solid rgba(51,51,51,0.12);
+}
+.campaign .image{
+    height: 100px;
+    background-position: center;
+    background-size: cover;
 }

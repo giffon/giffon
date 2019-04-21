@@ -54,6 +54,10 @@ class BrowserMain {
 
     function onReady():Void {
         var bodyClasses = document.body.classList;
+        if (bodyClasses.contains("page-index")) {
+            PageIndex.onReady();
+        }
+
         if (bodyClasses.contains("page-cards")) {
             PageCards.onReady();
         }
