@@ -11,7 +11,7 @@ body {
 
     background:#f5f5f5;
 
-    color: 222;
+    color: #222;
     height: 100%; /* Avoid the IE 10-11 `min-height` bug. */
 }
 
@@ -360,20 +360,6 @@ footer {
 
 .page-signin.successful-login img.loading {
     display: block;
-}
-
-.navbar {
-    /*background:
-        radial-gradient(circle at 0 0, #98e0d3 25%, rgb(80,167,194) 75%) fixed no-repeat center / 160% 160%,
-        rgb(80,167,194);
-    */
-    /*background: rgb(45,80,101);*/
-    /*color: white;*/
-}
-
-// Usage as a mixin
-.heading {
-  @include text-hide;
 }
 
 .navbar .logo  {
