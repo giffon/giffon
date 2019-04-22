@@ -4,8 +4,13 @@ import react.*;
 import react.ReactMacro.jsx;
 import giffon.server.ServerMain.*;
 import haxe.io.*;
+import giffon.db.*;
+using giffon.ResponseTools;
 
 class Page extends ReactComponent {
+    var user(get, never):Null<User>;
+    function get_user() return (this.props.expressResponse:js.npm.express.ExpressResponse).getUser();
+
     function title():String return "Giffon";
 
     function description():Null<String> return null;
@@ -152,7 +157,9 @@ class Page extends ReactComponent {
     ');
 
     function bodyClasses():Array<String> {
-        return [];
+        return [
+            user != null ? "signed-in" : "signed-out",
+        ];
     }
 
     function bodyContent() return null;

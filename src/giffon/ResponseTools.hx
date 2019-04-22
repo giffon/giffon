@@ -29,6 +29,9 @@ class ResponseTools {
     }
 
     static public function sendPage(res:Response, page):Void {
-        res.send("<!DOCTYPE html>" + ReactDOMServer.renderToStaticMarkup(cast React.createElement(page)));
+        var element = React.createElement(page, {
+            expressResponse: res
+        });
+        res.send("<!DOCTYPE html>" + ReactDOMServer.renderToStaticMarkup(cast element));
     }
 }

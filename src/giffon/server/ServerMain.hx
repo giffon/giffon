@@ -465,7 +465,6 @@ class ServerMain {
 
         app.get("/", function(req:Request, res:Response) {
             res.sendPage(Index);
-            //res.render("index");
         });
         app.get("/terms", function(req, res:Response) {
             res.render("terms");
@@ -497,7 +496,7 @@ class ServerMain {
                         return res.sendPlainError(err);
                     }
                     res.setUser(user);
-                    res.redirect('/home');
+                    res.redirect('/');
                 });
             })(req, res, next);
         });

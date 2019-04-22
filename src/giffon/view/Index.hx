@@ -2,12 +2,37 @@ package giffon.view;
 
 import react.*;
 import react.ReactMacro.jsx;
+import haxe.io.*;
+using giffon.ResponseTools;
 
 class Index extends Page {
     override function path() return "";
     override function render() return super.render();
 
     override function bodyClasses() return super.bodyClasses().concat(["page-index"]);
+
+    function navbarSignIn() {
+        if (user != null) {
+            return jsx('
+                <ul className="navbar-nav ml-auto">
+                    <li className="nav-item">
+                        <a className="nav-link user-name" href=${Path.join(["/user", user.user_hashid])}>${user.user_name}</a>
+                    </li>
+                    <li className="nav-item">
+                        <a className="nav-link" href="/signout">Sign Out</a>
+                    </li>
+                </ul>
+            ');
+        } else {
+            return jsx('
+                <ul className="navbar-nav ml-auto">
+                    <li className="nav-item">
+                        <a className="nav-link signInBtn" href="/signin">Sign in<i class="fab fa-facebook"></i></a>
+                    </li>
+                </ul>
+            ');
+        }
+    }
 
     override function bodyContent() return jsx('
         <Fragment>
@@ -28,14 +53,7 @@ class Index extends Page {
                             <a className="nav-link" href="#">Contact Us</a>
                         </li>
                     </ul>
-                    <ul className="navbar-nav ml-auto">
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">Harry Potter</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="#">Sign Out</a>
-                        </li>
-                    </ul>
+                    ${navbarSignIn()}
                 </div>
             </nav>
             <div id="banner" className="font_xs_s font_md_m">
