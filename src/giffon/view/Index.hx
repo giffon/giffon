@@ -37,7 +37,7 @@ class Index extends Page {
     override function bodyContent() return jsx('
         <Fragment>
             <nav className="navbar navbar-expand-md font_xs_s font_md_m">
-                <a className="navbar-brand mr-5" href="#"><h3 className="pl-5" style=${{backgroundImage: 'url("images/logo-blue.svg")', width: '30px', height: '30px', backgroundSize: '30px', backgroundRepeat: 'no-repeat'}}>Giffon</h3></a>
+                <a className="navbar-brand mr-5" href="/"><h3 className="pl-5" style=${{backgroundImage: 'url("images/logo-blue.svg")', width: '30px', height: '30px', backgroundSize: '30px', backgroundRepeat: 'no-repeat'}}>Giffon</h3></a>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon" />
                 </button>
