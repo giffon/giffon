@@ -3,6 +3,7 @@ package giffon.view;
 import react.*;
 import react.ReactMacro.jsx;
 import haxe.io.*;
+import giffon.browser.WishForm;
 using giffon.ResponseTools;
 
 class MakeAWish extends Page {
@@ -13,13 +14,13 @@ class MakeAWish extends Page {
     override function bodyClasses() return super.bodyClasses().concat(["page-make-a-wish"]);
 
     function wishFormHTML() {
-        return ReactDOMServer.renderToString(cast React.createElement(giffon.browser.WishForm));
+        return {__html: ReactDOMServer.renderToString(cast React.createElement(giffon.browser.WishForm))};
     }
 
     override function bodyContent() return jsx('
         <Fragment>
             <h1>Make a wish.</h1>
-            <div id="make-a-wish-root">${wishFormHTML()}</div>
+            <div id="make-a-wish-root" dangerouslySetInnerHTML=${wishFormHTML()}></div>
         </Fragment>
     ');
 }

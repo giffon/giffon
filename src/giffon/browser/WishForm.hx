@@ -129,7 +129,7 @@ class WishForm extends ReactComponent {
                 function sum(nums:Array<Decimal>) {
                     return Lambda.fold(nums, function(a,b) return a+b, Decimal.zero);
                 }
-                var totolPrice = sum(props.values.items.map(function(itm) {
+                var totalPrice = sum(props.values.items.map(function(itm) {
                     return Decimal.fromString(Std.string(itm.item_price)) * Decimal.fromString(Std.string(itm.item_quantity));
                 })).toString();
 
@@ -138,6 +138,11 @@ class WishForm extends ReactComponent {
                 } else {
                     null;
                 }
+
+                var totalPriceElement = if (props.values.currency == "")
+                    jsx('<p>Total price: ${totalPrice}</p>');
+                else
+                    jsx('<p>Total price (${props.values.currency}): ${totalPrice}</p>');
 
                 return jsx('
                     <Fragment>
@@ -153,7 +158,7 @@ class WishForm extends ReactComponent {
                         >
                             Add item
                         </button>
-                        <p>Total price${props.values.currency == "" ? "" : " ("+props.values.currency+")"}: ${totolPrice}</p>
+                        ${totalPriceElement}
                     </Fragment>
                 ');
             }
