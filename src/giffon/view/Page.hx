@@ -162,11 +162,57 @@ class Page extends ReactComponent {
         ];
     }
 
+    function navbarSignIn() {
+        if (user != null) {
+            return jsx('
+                <ul className="navbar-nav ml-auto">
+                    <li className="nav-item">
+                        <a className="nav-link user-name" href=${Path.join(["/user", user.user_hashid])}>${user.user_name}</a>
+                    </li>
+                    <li className="nav-item">
+                        <a className="nav-link" href="/signout">Sign Out</a>
+                    </li>
+                </ul>
+            ');
+        } else {
+            return jsx('
+                <ul className="navbar-nav ml-auto">
+                    <li className="nav-item">
+                        <a className="nav-link signInBtn" href="/signin">Sign in<i class="fab fa-facebook"></i></a>
+                    </li>
+                </ul>
+            ');
+        }
+    }
+
     function bodyContent() return null;
 
     function body() return jsx('
         <body className=${bodyClasses().join(" ")}>
+            <nav className="navbar navbar-expand-md font_xs_s font_md_m">
+                <a className="navbar-brand mr-5" href="/"><h3 className="pl-5" style=${{backgroundImage: 'url("images/logo-blue.svg")', width: '30px', height: '30px', backgroundSize: '30px', backgroundRepeat: 'no-repeat'}}>Giffon</h3></a>
+                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon" />
+                </button>
+                <div className="collapse navbar-collapse" id="navbarsExample04">
+                    <ul className="navbar-nav ml-md-5 mr-auto">
+                        <li className="nav-item active">
+                            <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="#">How it Works</a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="#">Contact Us</a>
+                        </li>
+                    </ul>
+                    ${navbarSignIn()}
+                </div>
+            </nav>
             ${bodyContent()}
+            <footer className="p-5 color_white text-center" style=${{background: '#13547a'}}>
+                Copyright © Giffon. All Rights Reserved.
+            </footer>
         </body>
     ');
 

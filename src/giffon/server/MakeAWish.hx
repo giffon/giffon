@@ -49,9 +49,7 @@ class MakeAWish {
     }
 
     static function handleGet(req, res:Response):Void {
-        res.render("make-a-wish", {
-            wishFormHTML: ReactDOMServer.renderToString(cast React.createElement(WishForm)),
-        });
+        res.sendPage(giffon.view.MakeAWish);
     }
 
     @await static function handlePost(req:Request, res:Response, next:Dynamic){

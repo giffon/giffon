@@ -707,7 +707,7 @@ class ServerMain {
                 return;
             }
         });
-        app.use(MakeAWish.createRouter());
+        app.use(giffon.server.MakeAWish.createRouter());
 
         app.use(function(err, req, res:Response, next) {
             res.sendPlainError(err, 500);
