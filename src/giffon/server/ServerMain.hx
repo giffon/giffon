@@ -15,8 +15,10 @@ import giffon.config.*;
 import giffon.view.*;
 using js.npm.validator.Validator;
 using tink.core.Future.JsPromiseTools;
+using giffon.RequestTools;
 using giffon.ResponseTools;
 using Lambda;
+using StringTools;
 
 @:enum abstract ServerlessStage(String) from String to String {
     var Production = "production";
@@ -45,7 +47,7 @@ class ServerMain {
 
     static public function ensureLoggedIn(req:Request, res:Response, next:Dynamic):Void {
         if (res.getUser() == null) {
-            res.redirect("/");
+            res.redirect("/signin?redirectTo=" + req.path.urlEncode());
         } else {
             next();
         }
@@ -472,7 +474,13 @@ class ServerMain {
         app.get("/privacy", function(req, res:Response) {
             res.render("privacy");
         });
-        app.get("/signin", function(req, res:Response){
+        app.get("/signin", function(req:Request, res:Response){
+            switch (req.query.redirectTo) {
+                case null:
+                    //pass
+                case redirectTo:
+                    req.session.redirectTo = redirectTo;
+            }
             res.redirect("/signin/facebook");
         });
         app.get("/signin/facebook",
@@ -483,7 +491,7 @@ class ServerMain {
                 res.redirect("/");
             }
         );
-        app.get("/callback/facebook", function(req, res:Response, next) {
+        app.get("/callback/facebook", function(req:Request, res:Response, next) {
             Passport.authenticate('facebook', function (err, user:giffon.db.User, info) {
                 if (err != null) {
                     return res.sendPlainError(err);
@@ -496,13 +504,21 @@ class ServerMain {
                         return res.sendPlainError(err);
                     }
                     res.setUser(user);
-                    res.redirect('/');
+                    var redirectTo = switch (req.getRedirectTo()) {
+                        case null: "/";
+                        case r: r;
+                    }
+                    res.redirect(redirectTo);
                 });
             })(req, res, next);
         });
-        app.get("/signout", function(req, res) {
+        app.get("/signout", function(req:Request, res) {
+            var redirectTo = switch (req.getRedirectTo()) {
+                case null: "/";
+                case r: r;
+            }
             req.logout();
-            res.redirect('/');
+            res.redirect(redirectTo);
         });
 
         app.get("/home", ensureLoggedIn, @await function(req:Request, res:Response) {

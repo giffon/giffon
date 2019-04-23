@@ -69,9 +69,12 @@ class Index extends Page {
                             <div className="p-3 p-md-5 bg_white">
                                 Buying a gift for a new family / Thinking of a pricy festive retreat... 
                             </div>
-                            <button className="btn btn-success rounded-0 w-100">
+                            <a
+                                className="btn btn-success rounded-0 w-100"
+                                href="/make-a-wish"
+                            >
                                 Create a campaign
-                            </button>
+                            </a>
                             <br /><br /><br />
                         </div>
                     </div>
@@ -103,7 +106,7 @@ class Index extends Page {
                 </div>
             </div>
             <div className="text-center pb-5">
-                <button className="btn btn-success">Start a Campaign</button>
+                <a className="btn btn-success" href="/make-a-wish">Start a Campaign</a>
             </div>
             <div className="text-center pb-3">
                 <h2>Recent campaigns</h2>
