@@ -6,6 +6,8 @@ import haxe.io.*;
 using giffon.ResponseTools;
 
 class Index extends Page {
+    override function title() return "Giffon: A crowd-gifting platform";
+    override function description() return "A crowd-gifting platform where you can state what you want and let your friends collectively buy it as a gift for you.";
     override function path() return "";
     override function render() return super.render();
 
