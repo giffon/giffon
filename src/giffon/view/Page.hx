@@ -66,22 +66,22 @@ class Page extends ReactComponent {
             <link rel="stylesheet"
                 href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
                 integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
-                crossorigin="anonymous"
+                crossOrigin="anonymous"
             />
             <link rel="stylesheet"
                 href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
                 integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-                crossorigin="anonymous"
+                crossOrigin="anonymous"
             />
             <link rel="stylesheet"
                 href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
                 integrity="sha256-3h45mwconzsKjTUULjY+EoEkoRhXcOIU4l5YAw2tSOU="
-                crossorigin="anonymous"
+                crossOrigin="anonymous"
             />
             <link rel="stylesheet"
                 href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"
                 integrity="sha256-etrwgFLGpqD4oNAFW08ZH9Bzif5ByXK2lXNHKy7LQGo="
-                crossorigin="anonymous"
+                crossOrigin="anonymous"
             />
         </Fragment>
     ');
@@ -91,31 +91,31 @@ class Page extends ReactComponent {
             <script
                 src="https://code.jquery.com/jquery-3.4.0.min.js"
                 integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
-                crossorigin="anonymous"
+                crossOrigin="anonymous"
             ></script>
             <script
                 src="https://cdn.jsdelivr.net/npm/popper.js@1.15.0/dist/umd/popper.min.js"
                 integrity="sha256-fTuUgtT7O2rqoImwjrhDgbXTKUwyxxujIMRIK7TbuNU="
-                crossorigin="anonymous"
+                crossOrigin="anonymous"
             ></script>
             <script
                 src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
                 integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-                crossorigin="anonymous"
+                crossOrigin="anonymous"
             ></script>
             <script
                 src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
                 integrity="sha256-DHF4zGyjT7GOMPBwpeehwoey18z8uiz98G4PRu2lV0A="
-                crossorigin="anonymous"
+                crossOrigin="anonymous"
             ></script>
             <script
                 src="https://cdnjs.cloudflare.com/ajax/libs/jsrsasign/8.0.12/jsrsasign-all-min.js"
                 integrity="sha256-EI1piDYqyKFAy+ykWQZRjH5kkw9eIYE/IahQWg1rXt0="
-                crossorigin="anonymous"></script>
+                crossOrigin="anonymous"></script>
             <script
                 src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"
                 integrity="sha256-9Nt2r+tJnSd2A2CRUvnjgsD+ES1ExvjbjBNqidm9doI="
-                crossorigin="anonymous"></script>
+                crossOrigin="anonymous"></script>
             <script
                 src="https://js.stripe.com/v3/"
             ></script>
@@ -178,7 +178,7 @@ class Page extends ReactComponent {
             return jsx('
                 <ul className="navbar-nav ml-auto">
                     <li className="nav-item">
-                        <a className="nav-link signInBtn" href="/signin">Sign in<i class="fab fa-facebook"></i></a>
+                        <a className="nav-link signInBtn" href="/signin">Sign in<i className="fab fa-facebook"></i></a>
                     </li>
                 </ul>
             ');
