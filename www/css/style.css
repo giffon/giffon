@@ -362,6 +362,21 @@ footer {
     display: block;
 }
 
+.navbar-light a.navbar-brand {
+    padding: 0.5em 1em 0.5em 2em;
+    background-size: auto 60%;
+    background-repeat: no-repeat;
+    background-position: left center;
+}
+
+.navbar-light a.navbar-brand,
+.navbar-light a.navbar-brand:hover,
+.navbar-light a.navbar-brand:active {
+    color: #50A7C2;
+    font-size: 1.5em;
+    line-height: 1em;
+}
+
 .navbar .logo  {
     width: 50px;
 }

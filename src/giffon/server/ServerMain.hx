@@ -137,7 +137,7 @@ class ServerMain {
         }
     }
 
-    @async static function getWishIdFromHash(wish_hashid:String):Null<Int> {
+    @async static public function getWishIdFromHash(wish_hashid:String):Null<Int> {
         var results:QueryResults = (@await dbConnectionPool.query(
             "
                 SELECT `wish_id`
@@ -156,10 +156,10 @@ class ServerMain {
         }
     }
 
-    @async static function getWish(wish_id:Int):giffon.db.Wish {
+    @async static public function getWish(wish_id:Int):giffon.db.Wish {
         var wish_results:QueryResults = (@await dbConnectionPool.query(
             "
-                SELECT `wish_id`, `user_id`, `wish_hashid`, `wish_description`, `wish_state`
+                SELECT `wish_id`, `user_id`, `wish_hashid`, `wish_title`, `wish_description`, `wish_target_date`, `wish_state`
                 FROM wish
                 WHERE `wish_id` = ?
             ",
@@ -204,7 +204,9 @@ class ServerMain {
         var wish = {
             wish_id: wish.wish_id,
             wish_hashid: wish.wish_hashid,
+            wish_title: wish.wish_title,
             wish_description: wish.wish_description,
+            wish_target_date: wish.wish_target_date,
             wish_state: wish.wish_state,
             wish_owner: wish_owner,
             wish_total_price: wish_total_price,
@@ -621,92 +623,8 @@ class ServerMain {
                 return;
             }
         });
-        app.get("/wish/:wish_hashid", @await function(req:Request, res:Response){
-            try {
-                var wish_hashid = req.params.wish_hashid;
-                var wish_id = @await getWishIdFromHash(wish_hashid);
-                if (wish_id == null) {
-                    res.sendPlainError("There is no such wish.", 404);
-                    return;
-                }
-                var wish = @await getWish(wish_id);
-                if (wish == null) {
-                    res.sendPlainError("There is no such wish.", 404);
-                    return;
-                }
-                var user_total_pledge = null;
-                var user = res.getUser();
-                if (user != null) {
-                    var results:QueryResults = (@await dbConnectionPool.query(
-                        "
-                            SELECT SUM(`pledge_amount`) AS `total_pledge`
-                            FROM `pledge`
-                            WHERE `user_id` = ? AND `wish_id` = ?
-                        ",
-                        [user.user_id, wish_id]
-                    ).toPromise()).results;
-
-                    if (results != null && results.length != 0) {
-                        if (results.length != 1) {
-                            res.sendPlainError('SUM(`pledge_amount`) returned ${results.length} results.');
-                            return;
-                        }
-                        user_total_pledge = switch (results[0].total_pledge) {
-                            case null: null;
-                            case str: Decimal.fromString(str).trim();
-                        }
-                    }
-                }
-                res.render("wish", {
-                    wish: wish,
-                    user_total_pledge: user_total_pledge
-                });
-            } catch (err:Dynamic) {
-                res.sendPlainError(err);
-                return;
-            }
-        });
-        app.post("/wish/:wish_hashid/pledge", ensureLoggedIn, @await function(req:Request, res:Response){
-            try {
-                var wish_hashid = req.params.wish_hashid;
-                var wish_id = @await getWishIdFromHash(wish_hashid);
-                if (wish_id == null) {
-                    res.sendPlainError("There is no such wish.", 404);
-                    return;
-                }
-                var wish = @await getWish(wish_id);
-                if (wish == null) {
-                    res.sendPlainError("There is no such wish.", 404);
-                    return;
-                }
-                var user = res.getUser();
-                if (!user.user_has_card) {
-                    res.sendPlainError("You have not configured a payment method.", 400);
-                }
-                var pledge_amount = Decimal.fromString(req.body.pledge_amount);
-                if (pledge_amount < 0) {
-                    res.sendPlainError("Pledge amount must be larger than 0.", 400);
-                    return;
-                }
-                @await dbConnectionPool.query(
-                    "
-                        INSERT INTO `pledge`
-                        SET ?
-                    ",
-                    {
-                        user_id: user.user_id,
-                        wish_id: wish_id,
-                        pledge_amount: pledge_amount.toString(),
-                        pledge_currency: giffon.db.Currency.USD,
-                        pledge_method: giffon.db.PledgeMethod.StripeCard,
-                    }
-                ).toPromise();
-                res.redirect('/wish/$wish_hashid');
-            } catch (err:Dynamic) {
-                res.sendPlainError(err);
-                return;
-            }
-        });
+        
+        app.use(giffon.server.Wish.createRouter());
         app.use(giffon.server.MakeAWish.createRouter());
 
         app.use(function(err, req, res:Response, next) {

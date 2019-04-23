@@ -120,6 +120,8 @@ CREATE TABLE `wish` (
   `wish_description` text COLLATE utf8mb4_bin,
   `wish_state` varchar(64) COLLATE utf8mb4_bin NOT NULL DEFAULT 'created',
   `wish_note` text COLLATE utf8mb4_bin,
+  `wish_title` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
+  `wish_target_date` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`wish_id`),
   UNIQUE KEY `wish_hashid` (`wish_hashid`),
   KEY `user_id` (`user_id`),

@@ -3,7 +3,9 @@ package giffon.db;
 typedef Wish = {
     wish_id:Int,
     wish_hashid: String,
+    wish_title: Null<String>,
     wish_description: Null<String>,
+    wish_target_date: Date,
     wish_state: giffon.db.WishState,
     wish_owner: giffon.db.User,
     wish_total_price: thx.Decimal,

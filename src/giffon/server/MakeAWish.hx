@@ -118,7 +118,9 @@ class MakeAWish {
             [for (itm in wishData.items) [itm.item_name, itm.item_url, itm.item_price, wishData.currency, itm.item_quantity]],
             {
                 user_id: res.getUser().user_id,
+                wish_title: wishData.wish_title,
                 wish_description: wishData.wish_description,
+                wish_target_date: wishData.wish_target_date,
             },
         ]).handleError(next).toPromise()).results;
 

@@ -10,3 +10,9 @@
 [submodule "private"]
 	path = private
 	url = ../giffon-private.git
+[submodule "lib/extern-js-moment"]
+	path = lib/extern-js-moment
+	url = https://github.com/ExternKit/extern-js-moment.git
+[submodule "lib/extern-js"]
+	path = lib/extern-js
+	url = https://github.com/ExternKit/extern-js.git

@@ -6,3 +6,5 @@
 -cmd haxelib dev tink_await lib/tink_await
 -cmd haxelib dev hxnodejs lib/hxnodejs
 -cmd haxelib dev hxnodelibs lib/hxnodelibs
+-cmd haxelib dev extern-js lib/extern-js
+-cmd haxelib dev extern-js-moment lib/extern-js-moment

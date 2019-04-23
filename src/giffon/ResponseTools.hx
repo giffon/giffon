@@ -28,10 +28,11 @@ class ResponseTools {
         }
     }
 
-    static public function sendPage(res:Response, page):Void {
-        var element = React.createElement(page, {
-            expressResponse: res
-        });
+    static public function sendPage(res:Response, page, ?props:Dynamic):Void {
+        if (props == null)
+            props = {};
+        props.expressResponse = res;
+        var element = React.createElement(page, props);
         res.send("<!DOCTYPE html>" + ReactDOMServer.renderToStaticMarkup(cast element));
     }
 }
