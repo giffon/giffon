@@ -3,6 +3,7 @@ package giffon.browser;
 import react.*;
 import react.ReactMacro.jsx;
 import js.npm.formik.*;
+import js.npm.react_datepicker.*;
 import thx.Decimal;
 import js.jquery.*;
 import js.Browser.*;
@@ -77,6 +78,10 @@ class WishForm extends ReactComponent {
             isSubmitting:Bool,
             values:WishFormValues,
             errors:Dynamic,
+            touched:Dynamic,
+            handleBlur:Dynamic,
+            handleChange:Dynamic,
+            handleSubmit:Dynamic,
         }) {
             function fieldArrayRender(arrayHelpers:{
                 push:haxe.Constraints.Function,
@@ -178,6 +183,18 @@ class WishForm extends ReactComponent {
                 jsx('<option key=${c.getName()} value=${c.getName()}>${c.getName()}</option>')
             ];
 
+            function DatePickerField(props:Dynamic) {
+                return jsx('
+                    <DatePicker
+                        selected=${props.form.values[props.field.name]}
+                        onChange=${function(v) { props.form.setFieldValue(props.field.name, v); }}
+                        dateFormat="yyyy-MM-dd"
+                        minDate=${Date.now()}
+                        isClearable=${true}
+                    />
+                ');
+            }
+
             return jsx('
                 <Form>
                     ${submissionError}
@@ -224,6 +241,16 @@ class WishForm extends ReactComponent {
                             placeholder="Because..."
                             required=${true}
                         />
+                    </div>
+                    <div className="form-group">
+                        <Field
+                            id="wish_target_date"
+                            name="wish_target_date"
+                            component=${DatePickerField}
+                        />
+                        <label htmlFor="wish_target_date">
+                            Target date. This is just a hint for your friends to know. You can always complete the wish early/late.
+                        </label>
                     </div>
                     <div>
                         We will ask for your shipping address by email once there is enough pledges collected.

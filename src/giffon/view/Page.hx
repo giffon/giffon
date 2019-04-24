@@ -83,6 +83,11 @@ class Page extends ReactComponent {
                 integrity="sha256-etrwgFLGpqD4oNAFW08ZH9Bzif5ByXK2lXNHKy7LQGo="
                 crossOrigin="anonymous"
             />
+            <link rel="stylesheet"
+                href="https://cdn.jsdelivr.net/npm/react-datepicker@2.4.0/dist/react-datepicker.min.css"
+                integrity="sha256-gqbLY1z4MASV3jriFFdY5GqRszB+KDUkseSY+RYVAVU="
+                crossOrigin="anonymous"
+            />
         </Fragment>
     ');
 
