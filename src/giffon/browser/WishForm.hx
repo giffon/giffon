@@ -231,11 +231,12 @@ class WishForm extends ReactComponent {
                     <div className="form-group">
                         <div className="form-check">
                             <Field
+                                id="acceptTerms"
                                 name="acceptTerms"
                                 className="form-check-input" type="checkbox"
                                 required=${true}
                             />
-                            <label className="form-check-label" htmlFor="checkbox-terms">
+                            <label className="form-check-label" htmlFor="acceptTerms">
                                 Agree to <a href="/terms" target="_blank">terms and conditions</a>
                             </label>
                             <ErrorMessage name="acceptTerms" render=${renderErrorMessage} />
