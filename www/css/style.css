@@ -410,3 +410,10 @@ footer {
     background-position: center;
     background-size: cover;
 }
+
+.wish-owner-avatar {
+    background-size: 100%;
+    background-repeat: no-repeat;
+    width: 90px;
+    height: 90px;
+}

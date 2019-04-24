@@ -33,6 +33,7 @@
     "express-mysql-session": "^2.1.0",
     "express-session": "^1.16.1",
     "formik": "^1.5.2",
+    "gravatar": "^1.8.0",
     "httpolyglot": "^0.1.2",
     "image-data-uri": "^2.0.0",
     "jsrsasign": "^8.0.12",
