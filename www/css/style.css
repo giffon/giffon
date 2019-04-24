@@ -417,3 +417,14 @@ footer {
     width: 90px;
     height: 90px;
 }
+
+.wish-item {
+    font-size: 1.5em;
+    background: none;
+}
+
+.floating-action-bar {
+    right: 1em;
+    bottom: 50%;
+    z-index: 10;
+}

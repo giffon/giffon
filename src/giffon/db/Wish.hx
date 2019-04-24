@@ -18,7 +18,7 @@ typedef Wish = {
     items: Array<{
         item_id: Int,
         item_url: String,
-        item_url_screenshot: js.node.Buffer,
+        item_url_screenshot: Null<String>,
         item_name: String,
         item_price: thx.Decimal,
         item_currency: giffon.db.Currency,

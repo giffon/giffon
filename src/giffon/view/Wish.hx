@@ -34,9 +34,18 @@ class Wish extends Page {
         }
     }
 
+    function wishItems() return [
+        for (itm in wish.items)
+        jsx('
+            <li key=${itm.item_id} className="list-group-item wish-item text-center">
+                <a href=${itm.item_url} target="_blank">${itm.item_name}</a> (${itm.item_currency.getName()} ${itm.item_price.toString()}) × ${itm.item_quantity}
+            </li>
+        ')
+    ];
+
     override function bodyContent() return jsx('
         <Fragment>
-            <div className="position-fixed" style=${{right: '1em', bottom: '50%'}}>
+            <div className="position-fixed floating-action-bar">
                 <button className="btn btn-secondary btn-lg rounded-circle"><i className="fas fa-share-alt" /></button>
                 <br /><br />
                 <button className="btn btn-success btn-lg rounded-circle"><i className="fas fa-child" /></button>
@@ -77,11 +86,15 @@ class Wish extends Page {
                             </div>
                         </div>
                     </div>
-                    <div className="res-slick mb-5">
-                        <div style=${{background: '#ccc', width: '300px', height: '300px'}}>gallery</div>
-                        <div style=${{background: '#bbb', width: '300px', height: '300px'}}>gallery</div>
-                        <div style=${{background: '#ddd', width: '300px', height: '300px'}}>gallery</div>
-                        <div style=${{background: '#aaa', width: '300px', height: '300px'}}>gallery</div>
+                    <div className="row justify-content-md-center">
+                        <ul className="col list-group list-group-flush">
+                            ${wishItems()}
+                        </ul>
+                    </div>
+                    <div className="row justify-content-md-center">
+                        <div className="col text-center">
+                            Total: <span className="wish-total" data-toggle="tooltip" title=${wish.wish_total_needed.breakdown}>${wish.wish_total_needed.amount.toString()} <i className="fas fa-info-circle"></i></span>
+                        </div>
                     </div>
                     <div className="row mx-0 border_xs_b">
                         <div className="col-xs-12 col-sm-12 col-md-4">

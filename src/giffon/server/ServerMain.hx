@@ -201,7 +201,7 @@ class ServerMain {
             }
         }
         var wish_total_price = item_results.fold(function(item, total:Decimal) return total + Decimal.fromString(item.item_price) * Decimal.fromInt(item.item_quantity), Decimal.zero).trim();
-        var wish = {
+        var wish:giffon.db.Wish = {
             wish_id: wish.wish_id,
             wish_hashid: wish.wish_hashid,
             wish_title: wish.wish_title,
@@ -217,7 +217,10 @@ class ServerMain {
                 return {
                     item_id: item.item_id,
                     item_url: item.item_url,
-                    item_url_screenshot: ImageDataUri.encode(item.item_url_screenshot, "PNG"),
+                    item_url_screenshot: switch (item.item_url_screenshot) {
+                        case null: null;
+                        case v: ImageDataUri.encode(v, "PNG");
+                    },
                     item_name: item.item_name,
                     item_price: Decimal.fromString(item.item_price).trim(),
                     item_currency: giffon.db.Currency.USD,
@@ -374,6 +377,7 @@ class ServerMain {
                 return;
             }
             var email = profile.emails[0].value;
+            trace(profile);
 
             // get user_id
             var user_id:Null<Int> = @await getUserIdFromEmail(email);
