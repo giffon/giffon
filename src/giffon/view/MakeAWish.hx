@@ -4,7 +4,6 @@ import react.*;
 import react.ReactMacro.jsx;
 import haxe.io.*;
 import giffon.browser.WishForm;
-using giffon.ResponseTools;
 
 class MakeAWish extends Page {
     override function title() return "Make a wish - Giffon";

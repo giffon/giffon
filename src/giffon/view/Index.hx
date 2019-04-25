@@ -3,7 +3,6 @@ package giffon.view;
 import react.*;
 import react.ReactMacro.jsx;
 import haxe.io.*;
-using giffon.ResponseTools;
 
 class Index extends Page {
     override function title() return "Giffon: A crowd-gifting platform";

@@ -6,7 +6,6 @@ import haxe.io.*;
 import thx.Decimal;
 import js.moment.Moment;
 import js.npm.gravatar.Gravatar;
-using giffon.ResponseTools;
 using DateTools;
 
 class Wish extends Page {
