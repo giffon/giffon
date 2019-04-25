@@ -53,6 +53,10 @@ class BrowserMain {
     }
 
     function onReady():Void {
+        // https://getbootstrap.com/docs/4.0/components/tooltips/
+        var hasTooltip = new JQuery('[data-toggle="tooltip"]');
+        (untyped hasTooltip.tooltip)();
+
         var bodyClasses = document.body.classList;
         if (bodyClasses.contains("page-index")) {
             PageIndex.onReady();

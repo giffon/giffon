@@ -11,8 +11,6 @@ class PageWish {
             new JQuery("form.add-pledge").show();
             addPledgeBtn.hide();
         });
-
-        (untyped new JQuery(".wish-total")).tooltip();
     }
 }
 

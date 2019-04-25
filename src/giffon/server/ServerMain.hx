@@ -228,6 +228,9 @@ class ServerMain {
                 }
             })
         };
+        if (!wish.items.foreach(function(itm) return itm.item_currency == wish.items[0].item_currency)) {
+            throw "All items should be in the same currency";
+        }
         var wish_total_needed = wish.wish_total_needed = ChargeInfo.totalNeeded(wish);
         wish.wish_progress = giffon.db.WishProgress.WishProgressTools.pledgeStateFromAmount(wish_pledged, wish_total_needed.amount);
         return wish;

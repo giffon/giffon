@@ -7,6 +7,7 @@ import thx.Decimal;
 import js.moment.Moment;
 import js.npm.gravatar.Gravatar;
 using giffon.ResponseTools;
+using DateTools;
 
 class Wish extends Page {
     override function title() return '${wish.wish_owner.user_name}\'s Wish${wish.wish_title == null? "" : " - " + wish.wish_title} - Giffon';
@@ -27,8 +28,9 @@ class Wish extends Page {
         } else {
             var moment = Moment.moment({}).to(wish.wish_target_date, true);
             return jsx('
-                <div style=${{flex: 1}}>
-                    ${moment}
+                <div className="wish-target-date col" data-toggle="tooltip" title=${"target: " + wish.wish_target_date.format("%Y-%m-%d")}>
+                    <h4>${moment}</h4>
+                    to go
                 </div>
             ');
         }
@@ -54,12 +56,12 @@ class Wish extends Page {
                 <div className="row my-5">
                     <div className="col-12 col-lg-6 p-3 p-lg-5 color_white card_left" style=${{background: '#13547a'}}>
                         <h2>${wish.wish_title}</h2>
-                        <div className="mt-3 d-flex">
-                            <div style=${{flex: 1}}>
+                        <div className="mt-3 row">
+                            <div className="col">
                                 <h4>20</h4>
                                 supporters
                             </div>
-                            <div style=${{flex: 1}}>
+                            <div className="col">
                                 <h4>80%</h4>
                                 archived
                             </div>
@@ -95,7 +97,7 @@ class Wish extends Page {
                     </div>
                     <div className="row justify-content-md-center">
                         <div className="col text-center">
-                            Total: <span className="wish-total" data-toggle="tooltip" title=${wish.wish_total_needed.breakdown}>${wish.wish_total_needed.amount.toString()} <i className="fas fa-info-circle"></i></span>
+                            Total: <span className="wish-total" data-toggle="tooltip" title=${wish.wish_total_needed.breakdown}>${wish.items[0].item_currency.getName()} ${wish.wish_total_needed.amount.toString()} <i className="fas fa-info-circle"></i></span>
                         </div>
                     </div>
                     <div className="row mx-0 border_xs_b">
