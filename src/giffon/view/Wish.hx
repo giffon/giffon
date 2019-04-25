@@ -52,7 +52,7 @@ class Wish extends Page {
             </div>
             <div className="container mb-5">
                 <div className="row my-5">
-                    <div className="col-12 col-md-6 p-3 p-md-5 color_white card_left" style=${{background: '#13547a'}}>
+                    <div className="col-12 col-lg-6 p-3 p-lg-5 color_white card_left" style=${{background: '#13547a'}}>
                         <h2>${wish.wish_title}</h2>
                         <div className="mt-3 d-flex">
                             <div style=${{flex: 1}}>
@@ -81,15 +81,17 @@ class Wish extends Page {
                             </div>
                         </div>
                         <div className="col-12 col-md-6">
-                            <div className="p-3 p-md-5" style=${{display: 'flex', alignItems: 'center'}}>
+                            <div className="wish-description p-3 p-md-5">
                                 ${wish.wish_description}
                             </div>
                         </div>
                     </div>
-                    <div className="row justify-content-md-center">
-                        <ul className="col list-group list-group-flush">
-                            ${wishItems()}
-                        </ul>
+                    <div className="row justify-content-center">
+                        <div className="col-md-10 my-2">
+                            <ul className="list-group list-group-flush">
+                                ${wishItems()}
+                            </ul>
+                        </div>
                     </div>
                     <div className="row justify-content-md-center">
                         <div className="col text-center">

@@ -335,11 +335,6 @@ footer {
     display: none;
 }
 
-.page-wish .wish-description {
-    margin-top: 2em;
-    margin-bottom: 2em;
-}
-
 .page-wish .has-user-pledge-some form.add-pledge {
     display: none;
 }
@@ -429,4 +424,10 @@ footer {
     right: 1em;
     bottom: 50%;
     z-index: 10;
+}
+
+.wish-description {
+    white-space: pre-wrap;
+    display: flex;
+    align-items: center;
 }
