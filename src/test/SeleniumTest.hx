@@ -46,6 +46,9 @@ class SeleniumTest extends utest.Test {
     };
 
     function setupClass():Void {
+        var capabilities:python.Dict<String,Dynamic> = DesiredCapabilities.CHROME;
+        capabilities.set("acceptSslCerts", true);
+        capabilities.set("chromeOptions", ["--disable-dev-shm-usage"]);
         driver = new Remote(hubUrl, DesiredCapabilities.CHROME);
     }
 
