@@ -42,7 +42,7 @@ build-npm:
     DB_USER: root
     DB_PASSWORD: $MYSQL_ROOT_PASSWORD
   script:
-    - apk add nodejs npm mysql-client openjdk8-jre python3 openssl
+    - apk add nodejs npm mysql-client openjdk8-jre python3 python3-dev openssl gcc libc-dev linux-headers
     # initialize mysql
     - mysql -h mysql -u root --password="$MYSQL_ROOT_PASSWORD" "$MYSQL_DATABASE" -e "source dev/initdb/giffon.sql"
     # figure out host container ip
