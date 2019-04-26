@@ -13,6 +13,7 @@ www/js/vendor.js
 ServerMain.js
 ServerMain.js.map
 test/specs/*.js
+test/*.py
 
 test/errorShots/
 

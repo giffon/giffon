@@ -16,3 +16,9 @@
 [submodule "lib/extern-js"]
 	path = lib/extern-js
 	url = https://github.com/ExternKit/extern-js.git
+[submodule "lib/pyextern"]
+	path = lib/pyextern
+	url = https://github.com/andyli/pyextern.git
+[submodule "lib/utest"]
+	path = lib/utest
+	url = https://github.com/andyli/utest.git

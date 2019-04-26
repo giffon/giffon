@@ -1,4 +1,5 @@
 -cp src
--lib hxnodejs
--main test.Test
--js test/specs/Test.js
+-cp lib/pyextern/out
+-lib utest
+-main test.SeleniumTest
+-python test/SeleniumTest.py

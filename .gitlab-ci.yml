@@ -53,14 +53,16 @@ build-npm:
     - cd dev/ssl
     - ./gen.sh "${WEB_HOST}"
     - cd ../..
-    # test
+    # test (validation)
     - npm start &
     - sleep 3 # allow displaying some server init messages
     - pip3 install html5validator
     - html5validator --html http://localhost:3000
     - html5validator --css www/css/*.css
     - html5validator --svg --errors-only www/images/*.svg
-    - npm test -- --host "${HUB_HOST}" --baseUrl "https://${WEB_HOST}:3000"
+    # test (selenium)
+    - pip3 install -r src/test/requirements.txt
+    - python3 test/SeleniumTest.py
   artifacts:
     when: always
     paths:
@@ -75,17 +77,6 @@ test-chrome:
   variables:
     BROWSER_NAME: chrome
     HUB_HOST: selenium-standalone-chrome
-
-# do not test firefox until I figured out how to make it accepts self-signed cert
-.test-firefox:
-  extends: .test-selenium
-  stage: test-firefox
-  services:
-    - mysql:5.7
-    - selenium/standalone-firefox:3.14.0-krypton
-  variables:
-    BROWSER_NAME: firefox
-    HUB_HOST: selenium-standalone-firefox
 
 deploy-s3:
   stage: deploy

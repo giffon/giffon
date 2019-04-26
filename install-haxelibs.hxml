@@ -8,3 +8,4 @@
 -cmd haxelib dev hxnodelibs lib/hxnodelibs
 -cmd haxelib dev extern-js lib/extern-js
 -cmd haxelib dev extern-js-moment lib/extern-js-moment
+-cmd haxelib dev utest lib/utest
