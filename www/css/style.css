@@ -102,6 +102,11 @@ img.emoji, .inline-icon {
     background-size: cover;
 }
 
+.page-index #banner {
+    background-image: linear-gradient(to right, rgba(57, 86, 73, 0.5), rgba(39, 55, 60, 0.33)), url(../images/bg1.jpg);
+    background-size: cover;
+}
+
 .btn-success {
     background: linear-gradient(15deg, #50A7C2 0%, #50A7C2 100%);
     border: 0;
