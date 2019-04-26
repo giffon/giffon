@@ -7,6 +7,7 @@ import thx.Decimal;
 import js.moment.Moment;
 import js.npm.gravatar.Gravatar;
 using DateTools;
+using giffon.db.WishProgress.WishProgressTools;
 
 class Wish extends Page {
     override function title() return '${wish.wish_owner.user_name}\'s Wish${wish.wish_title == null? "" : " - " + wish.wish_title} - Giffon';
@@ -20,6 +21,28 @@ class Wish extends Page {
 
     var user_total_pledge(get, never):Decimal;
     function get_user_total_pledge() return props.user_total_pledge;
+
+    function numSupporters() {
+        return jsx('
+            <div className="wish-num-supporters col">
+                <h4>${wish.supporters.length}</h4>
+                supporters
+            </div>
+        ');
+    }
+
+    function progress() {
+        var percentText = switch (wish.wish_progress) {
+            case None: "0%";
+            case progress: "> " + progress.lowerBound() + "%";
+        }
+        return jsx('
+            <div className="wish-num-supporters col">
+                <h4>${percentText}</h4>
+                archived
+            </div>
+        ');
+    }
 
     function daysToGo() {
         if (wish.wish_target_date == null) {
@@ -56,14 +79,8 @@ class Wish extends Page {
                     <div className="col-12 col-lg-6 p-3 p-lg-5 color_white card_left" style=${{background: '#13547a'}}>
                         <h2>${wish.wish_title}</h2>
                         <div className="mt-3 row">
-                            <div className="col">
-                                <h4>20</h4>
-                                supporters
-                            </div>
-                            <div className="col">
-                                <h4>80%</h4>
-                                archived
-                            </div>
+                            ${numSupporters()}
+                            ${progress()}
                             ${daysToGo()}
                         </div>
                     </div>

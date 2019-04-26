@@ -170,6 +170,16 @@ class ServerMain {
         if (wish_results.length > 1)
             throw 'There are ${wish_results.length} wishes with wish_id = ${wish_id}.';
         var wish = wish_results[0];
+        var supporter_results:QueryResults = (@await dbConnectionPool.query(
+            "
+                SELECT user_id, SUM(pledge_amount) AS pledge_total_amount, MAX(pledge_time_created) AS pledge_date
+                FROM pledge
+                WHERE wish_id = ?
+                GROUP BY user_id
+                ORDER BY pledge_total_amount DESC, pledge_date ASC
+            ",
+            [wish.wish_id]
+        ).toPromise()).results;
         var item_results:QueryResults = (@await dbConnectionPool.query(
             "
                 SELECT item.`item_id`, `item_url`, `item_url_screenshot`, `item_name`, `item_price`, `item_quantity`
@@ -226,7 +236,14 @@ class ServerMain {
                     item_currency: giffon.db.Currency.USD,
                     item_quantity: item.item_quantity,
                 }
-            })
+            }),
+            supporters: supporter_results.map(function(supporter){
+                return {
+                    user: getUser(supporter.user_id),
+                    pledge_amount: Decimal.fromString(supporter.pledge_total_amount).trim(),
+                    pledge_date: supporter.pledge_date,
+                }
+            }),
         };
         if (!wish.items.foreach(function(itm) return itm.item_currency == wish.items[0].item_currency)) {
             throw "All items should be in the same currency";

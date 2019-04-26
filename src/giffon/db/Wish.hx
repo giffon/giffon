@@ -1,5 +1,7 @@
 package giffon.db;
 
+import thx.Decimal;
+
 typedef Wish = {
     wish_id:Int,
     wish_hashid: String,
@@ -8,13 +10,18 @@ typedef Wish = {
     wish_target_date: Date,
     wish_state: giffon.db.WishState,
     wish_owner: giffon.db.User,
-    wish_total_price: thx.Decimal,
+    wish_total_price: Decimal,
     wish_total_needed: {
-        amount: thx.Decimal,
+        amount: Decimal,
         breakdown: String,
     },
-    wish_pledged: Null<thx.Decimal>,
+    wish_pledged: Null<Decimal>,
     wish_progress: giffon.db.WishProgress,
+    supporters: Array<{
+        user:User,
+        pledge_date: Date,
+        pledge_amount: Decimal,
+    }>,
     items: Array<{
         item_id: Int,
         item_url: String,

@@ -22,4 +22,19 @@ class WishProgressTools {
         else
             None;
     }
+
+    static public function lowerBound(p:WishProgress):Float {
+        return switch (p) {
+            case Done:
+                100;
+            case Almost:
+                85;
+            case Halfway:
+                50;
+            case Started:
+                0;
+            case None:
+                0;
+        }
+    }
 }
