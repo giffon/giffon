@@ -46,7 +46,7 @@ class SeleniumTest extends utest.Test {
     };
 
     function setupClass():Void {
-        driver = new Remote(hubHost, DesiredCapabilities.CHROME);
+        driver = new Remote(hubUrl, DesiredCapabilities.CHROME);
     }
 
     function teardownClass():Void {
