@@ -46,10 +46,10 @@ class SeleniumTest extends utest.Test {
     };
 
     function setupClass():Void {
-        var capabilities:python.Dict<String,Dynamic> = DesiredCapabilities.CHROME;
-        capabilities.set("acceptSslCerts", true);
-        capabilities.set("chromeOptions", ["--disable-dev-shm-usage"]);
-        driver = new Remote(hubUrl, DesiredCapabilities.CHROME);
+        var opts = new ChromeOptions();
+        opts.add_argument("--disable-dev-shm-usage");
+        opts.set_capability("acceptSslCerts", true);
+        driver = new Remote(hubUrl, opts.to_capabilities());
     }
 
     function teardownClass():Void {
