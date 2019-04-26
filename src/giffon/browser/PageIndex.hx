@@ -7,6 +7,7 @@ import giffon.config.*;
 class PageIndex {
     static public function onReady():Void {
         (untyped new JQuery(".res-slick").slick)({
+            arrows: false,
             dots: true,
             infinite: false,
             speed: 300,
