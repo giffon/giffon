@@ -380,7 +380,7 @@ class ServerMain {
                 return;
             }
             var email = profile.emails[0].value;
-            trace(profile);
+            // trace(profile);
 
             // get user_id
             var user_id:Null<Int> = @await getUserIdFromEmail(email);
