@@ -17,9 +17,9 @@ class MakeAWish extends Page {
     }
 
     override function bodyContent() return jsx('
-        <Fragment>
-            <h1>Make a wish.</h1>
-            <div id="make-a-wish-root" dangerouslySetInnerHTML=${wishFormHTML()}></div>
-        </Fragment>
+        <div className="container">
+            <h1>Make a wish</h1>
+            <div id="make-a-wish-root" className="mb-5" dangerouslySetInnerHTML=${wishFormHTML()}></div>
+        </div>
     ');
 }

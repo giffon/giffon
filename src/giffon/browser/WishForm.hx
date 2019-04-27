@@ -90,41 +90,82 @@ class WishForm extends ReactComponent {
                 var rows = [
                     for (idx in 0...props.values.items.length){
                         jsx('
-                            <div key=${idx}>
-                                <div>
-                                    <Field
-                                        name=${'items[$idx].item_name'}
-                                        placeholder="Item name"
-                                        required=${true}
-                                    />
-                                    <Field
-                                        name=${'items[$idx].item_url'}
-                                        type="url"
-                                        placeholder="https://..."
-                                        required=${true}
-                                    />
-                                    <Field
-                                        name=${'items[$idx].item_price'}
-                                        type="number"
-                                        title="unit price"
-                                        min="0.01" max="${WishItemData.item_price_max}" step="0.01"
-                                        required=${true}
-                                    />
-                                    <Field
-                                        name=${'items[$idx].item_quantity'}
-                                        type="number"
-                                        title="quantity"
-                                        min="1" max=${WishItemData.item_quantity_max} step="1"
-                                        required=${true}
-                                    />
+                            <div key=${idx} className="form-row align-items-end">
+                                <div className="form-group col-3">
+                                    <label
+                                        htmlFor=${'items[$idx].item_name'}
+                                    >
+                                        Item name
+                                    </label>
+                                    <div>
+                                        <Field
+                                            className="form-control"
+                                            name=${'items[$idx].item_name'}
+                                            id=${'items[$idx].item_name'}
+                                            required=${true}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="form-group col">
+                                    <label
+                                        htmlFor=${'items[$idx].item_url'}
+                                    >
+                                        Item URL
+                                    </label>
+                                    <div>
+                                        <Field
+                                            className="form-control"
+                                            name=${'items[$idx].item_url'}
+                                            id=${'items[$idx].item_url'}
+                                            type="url"
+                                            placeholder="https://..."
+                                            required=${true}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="form-group col-2">
+                                    <label
+                                        htmlFor=${'items[$idx].item_price'}
+                                    >
+                                        Unit Price${props.values.currency == "" ? null : " (" + props.values.currency + ")"}
+                                    </label>
+                                    <div>
+                                        <Field
+                                            className="form-control"
+                                            name=${'items[$idx].item_price'}
+                                            id=${'items[$idx].item_price'}
+                                            type="number"
+                                            min="0.01" max="${WishItemData.item_price_max}" step="0.01"
+                                            required=${true}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="form-group col-2 col-md-1">
+                                    <label
+                                        htmlFor=${'items[$idx].item_price'}
+                                    >
+                                        Quantity
+                                    </label>
+                                    <div>
+                                        <Field
+                                            className="form-control"
+                                            name=${'items[$idx].item_quantity'}
+                                            id=${'items[$idx].item_quantity'}
+                                            type="number"
+                                            min="1" max=${WishItemData.item_quantity_max} step="1"
+                                            required=${true}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="form-group col-auto ml-auto">
                                     <button
                                         type="button"
-                                        className="btn btn-link"
+                                        className="btn btn-outline-danger"
                                         title="remove item"
                                         onClick=${function(){ arrayHelpers.remove(idx); }}
                                         disabled=${props.values.items.length <= 1}
                                     >
-                                    X
+                                    🗙
                                     </button>
                                 </div>
                             </div>
@@ -145,9 +186,9 @@ class WishForm extends ReactComponent {
                 }
 
                 var totalPriceElement = if (props.values.currency == "")
-                    jsx('<p>Total price: ${totalPrice}</p>');
+                    jsx('<p className="my-2">Total price: ${totalPrice}</p>');
                 else
-                    jsx('<p>Total price (${props.values.currency}): ${totalPrice}</p>');
+                    jsx('<p className="my-2">Total price (${props.values.currency}): ${totalPrice}</p>');
 
                 return jsx('
                     <Fragment>
@@ -186,6 +227,7 @@ class WishForm extends ReactComponent {
             function DatePickerField(props:Dynamic) {
                 return jsx('
                     <DatePicker
+                        className="form-control"
                         selected=${props.form.values[props.field.name]}
                         onChange=${function(v) { props.form.setFieldValue(props.field.name, v); }}
                         dateFormat="yyyy-MM-dd"
@@ -243,16 +285,19 @@ class WishForm extends ReactComponent {
                         />
                     </div>
                     <div className="form-group">
+                        <label htmlFor="wish_target_date" className="d-block">
+                            Target date (optional)
+                        </label>
                         <Field
                             id="wish_target_date"
                             name="wish_target_date"
                             component=${DatePickerField}
                         />
-                        <label htmlFor="wish_target_date">
-                            Target date. This is just a hint for your friends to know. You can always complete the wish early/late.
-                        </label>
+                        <p className="small">
+                            This is just a hint for your friends to know. You can always complete the wish early/late.
+                        </p>
                     </div>
-                    <div>
+                    <div className="my-2">
                         We will ask for your shipping address by email once there is enough pledges collected.
                     </div>
                     <div className="form-group">
