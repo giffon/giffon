@@ -3,6 +3,8 @@ package giffon.view;
 import react.*;
 import react.ReactMacro.jsx;
 import haxe.io.*;
+import giffon.server.ServerMain.*;
+import js.npm.gravatar.Gravatar;
 
 class Index extends Page {
     override function title() return "Giffon: A crowd-gifting platform";
@@ -12,6 +14,33 @@ class Index extends Page {
 
     override function bodyClasses() return super.bodyClasses().concat(["page-index"]);
 
+    function wishBox(wish:giffon.db.Wish) {
+        return jsx('
+            <div key=${wish.wish_id} className="col mx-0">
+                <div className="wish border_xs">
+                    <div className="image border_xs_b">
+                        <div
+                            className="wish-owner-avatar rounded-circle mx-auto d-block m-2"
+                            style=${{backgroundImage: 'url("${Gravatar.url(wish.wish_owner.user_primary_email, {s: 200})}")'}}
+                        />
+                    </div>
+                    <div className="border_xs_b text-truncate">
+                        <i className="far fa-gem p-3 border_xs_r" />
+                        <span className="px-3">${wish.wish_title}</span>
+                    </div>
+                    <div className="wish-description p-3 border_xs_b">${wish.wish_description}</div>
+                    <a className="btn btn-success rounded-0 w-100" href=${"/wish/" + wish.wish_hashid}>
+                        Support!
+                    </a>
+                </div>
+            </div>
+        ');
+    }
+
+    function recentWishes() {
+        var recentWishes:Array<giffon.db.Wish> = props.recentWishes;
+        return recentWishes.map(wishBox);
+    }
 
     override function bodyContent() return jsx('
         <Fragment>
@@ -65,69 +94,10 @@ class Index extends Page {
             <div className="text-center pb-5">
                 <a className="btn btn-success" href="/make-a-wish">Start a Campaign</a>
             </div>
-            <div className="text-center pb-3">
-                <h2>Recent campaigns</h2>
-            </div>
-            <div className="res-slick mb-5">
-                <div className="col-xs-12 col-md-6 col-lg-4 mx-0">
-                    <div>
-                        <div className="campaign border_xs">
-                            <div className="image border_xs_b">
-                            </div>
-                            <div className="row m-0 border_xs_b">
-                                <div className="col-xs-3 border_xs_r">
-                                    <div className="p-3"><i className="far fa-gem" /></div>
-                                </div>
-                                <div className="col-xs-9">
-                                    <div className="p-3">title</div>
-                                </div>
-                            </div>
-                            <div className="p-3 border_xs_b">stories</div>
-                            <button className="btn btn-success rounded-0 w-100">
-                                Support!
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div className="col-xs-12 col-md-6 col-lg-4 mx-0">
-                    <div>
-                        <div className="campaign border_xs">
-                            <div className="image border_xs_b">
-                            </div>
-                            <div className="row m-0 border_xs_b">
-                                <div className="col-xs-3 border_xs_r">
-                                    <div className="p-3"><i className="far fa-gem" /></div>
-                                </div>
-                                <div className="col-xs-9">
-                                    <div className="p-3">title</div>
-                                </div>
-                            </div>
-                            <div className="p-3 border_xs_b">stories</div>
-                            <button className="btn btn-success rounded-0 w-100">
-                                Support!
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div className="col-xs-12 col-md-6 col-lg-4 mx-0">
-                    <div>
-                        <div className="campaign border_xs">
-                            <div className="image border_xs_b">
-                            </div>
-                            <div className="row m-0 border_xs_b">
-                                <div className="col-xs-3 border_xs_r">
-                                    <div className="p-3"><i className="far fa-gem" /></div>
-                                </div>
-                                <div className="col-xs-9">
-                                    <div className="p-3">title</div>
-                                </div>
-                            </div>
-                            <div className="p-3 border_xs_b">stories</div>
-                            <button className="btn btn-success rounded-0 w-100">
-                                Support!
-                            </button>
-                        </div>
-                    </div>
+            <div className="pb-5">
+                <h2 className="text-center pb-3">Recent wishes</h2>
+                <div className="res-slick row mx-1 recent-wishes">
+                    ${recentWishes()}
                 </div>
             </div>
         </Fragment>

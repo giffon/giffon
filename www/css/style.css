@@ -407,11 +407,6 @@ footer {
 .border_xs_b {
     border-bottom:1px solid rgba(51,51,51,0.12);
 }
-.campaign .image{
-    height: 100px;
-    background-position: center;
-    background-size: cover;
-}
 
 .wish-owner-avatar {
     background-size: 100%;
@@ -435,4 +430,8 @@ footer {
     white-space: pre-wrap;
     display: flex;
     align-items: center;
+}
+
+.page-index .slick-slide {
+    outline: none;
 }

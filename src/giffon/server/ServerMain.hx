@@ -253,6 +253,25 @@ class ServerMain {
         return wish;
     }
 
+    @async static function getRecentWishes(num:Int):Array<giffon.db.Wish> {
+        var wish_results:QueryResults = (@await dbConnectionPool.query(
+            '
+                SELECT wish_id
+                FROM wish
+                WHERE wish_state != "cancelled"
+                ORDER BY wish_time_publish DESC
+                LIMIT ?
+            ',
+            [num]
+        ).toPromise()).results;
+
+        var wishes = @await tink.core.Promise.inParallel([
+            for (wish in wish_results)
+            getWish(wish.wish_id)
+        ]);
+        return wishes;
+    }
+
     @async static function getWishes(user_id:Int):Array<giffon.db.Wish> {
         var wish_results:QueryResults = (@await dbConnectionPool.query(
             "
@@ -491,8 +510,10 @@ class ServerMain {
             next();
         });
 
-        app.get("/", function(req:Request, res:Response) {
-            res.sendPage(Index);
+        app.get("/", @await function(req:Request, res:Response) {
+            res.sendPage(Index, {
+                recentWishes: @await getRecentWishes(5),
+            });
         });
         app.get("/terms", function(req, res:Response) {
             res.render("terms");
