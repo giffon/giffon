@@ -516,10 +516,10 @@ class ServerMain {
             });
         });
         app.get("/terms", function(req, res:Response) {
-            res.render("terms");
+            res.sendPage(Terms);
         });
         app.get("/privacy", function(req, res:Response) {
-            res.render("privacy");
+            res.sendPage(Privacy);
         });
         app.get("/signin", function(req:Request, res:Response){
             switch (req.query.redirectTo) {
