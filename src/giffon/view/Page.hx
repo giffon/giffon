@@ -109,8 +109,8 @@ class Page extends ReactComponent {
                 crossOrigin="anonymous"
             ></script>
             <script
-                src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"
-                integrity="sha256-DHF4zGyjT7GOMPBwpeehwoey18z8uiz98G4PRu2lV0A="
+                src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.js"
+                integrity="sha256-m6pXPkN4hzt6yBzLHZVM6bsrGpM5R60wEiY93GBNhQU="
                 crossOrigin="anonymous"
             ></script>
             <script

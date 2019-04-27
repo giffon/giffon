@@ -443,6 +443,6 @@ footer a:hover {
     align-items: center;
 }
 
-.page-index .slick-slide {
+.page-index .slick-slide:focus {
     outline: none;
 }
