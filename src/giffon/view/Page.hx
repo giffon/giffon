@@ -215,8 +215,8 @@ class Page extends ReactComponent {
             </div>
             <footer className="p-5 color_white text-center">
                 <div className="copyright p-2">Copyright © Giffon. All Rights Reserved.</div>
-                <a className="p-2 text-nowrap" href="/terms">Terms and Conditions</a>
-                <a className="p-2 text-nowrap" href="/privacy">Privacy Policy</a>
+                <a className="p-2" href="/terms">Terms and Conditions</a>
+                <a className="p-2" href="/privacy">Privacy Policy</a>
             </footer>
         </body>
     ');
