@@ -165,7 +165,7 @@ class WishForm extends ReactComponent {
                                         onClick=${function(){ arrayHelpers.remove(idx); }}
                                         disabled=${props.values.items.length <= 1}
                                     >
-                                    🗙
+                                    <i class="fas fa-times align-middle"></i>
                                     </button>
                                 </div>
                             </div>
