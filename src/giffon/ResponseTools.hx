@@ -12,6 +12,12 @@ class ResponseTools {
         res.locals.user = user;
     }
 
+    static public function sendPlainText(res:Response, text:String, code:Int = 200):Void {
+        res.status(code);
+        res.type("text/plain");
+        res.send(text);
+    }
+
     static public function sendPlainError(res:Response, err:Dynamic, code:Int = 500, ?pos:haxe.PosInfos):Void {
         res.status(code);
         res.type("text/plain");

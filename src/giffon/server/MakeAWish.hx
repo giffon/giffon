@@ -131,6 +131,6 @@ class MakeAWish {
             ([wish_hashid, wish_id]:Array<Dynamic>)
         ).handleError(next).toPromise();
 
-        res.redirect("/home");
+        res.sendPlainText("/wish/" + wish_hashid);
     };
 }

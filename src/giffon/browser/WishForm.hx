@@ -27,13 +27,12 @@ class WishForm extends ReactComponent {
             contentType: "application/json; charset=utf-8",
             url: "/make-a-wish",
             data: haxe.Json.stringify(values),
-            dataType: "text",
         })
-            .done(function(){
+            .done(function(data:String, textStatus:String, jqXHR){
                 setState({
                     submissionError: null,
                 });
-                document.location.href = "/home";
+                document.location.href = data;
             })
             .fail(function(err){
                 trace(err);
@@ -165,7 +164,7 @@ class WishForm extends ReactComponent {
                                         onClick=${function(){ arrayHelpers.remove(idx); }}
                                         disabled=${props.values.items.length <= 1}
                                     >
-                                    <i class="fas fa-times align-middle"></i>
+                                    <i className="fas fa-times align-middle"></i>
                                     </button>
                                 </div>
                             </div>
