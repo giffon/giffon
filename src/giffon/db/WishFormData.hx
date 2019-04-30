@@ -22,7 +22,7 @@ typedef WishFormValues = {
 }
 
 class WishItemData implements DataClass {
-    static public var item_price_max(default, never) = 10000;
+    static public var item_price_max(default, never) = 200000;
     static public var item_quantity_max(default, never) = 100;
 
     @validate(validateItemUrl(_))
