@@ -134,7 +134,7 @@ class WishForm extends ReactComponent {
                                             name=${'items[$idx].item_price'}
                                             id=${'items[$idx].item_price'}
                                             type="number"
-                                            min="0.01" max="${WishItemData.item_price_max}" step="0.01"
+                                            min="0.01" max=${WishItemData.item_price_max} step="0.01"
                                             required=${true}
                                         />
                                     </div>

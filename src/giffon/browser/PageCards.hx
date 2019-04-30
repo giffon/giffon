@@ -17,7 +17,7 @@ class PageCards {
     }
 
     static public function onReady():Void {
-        var stripe = new Stripe(document.location.hostname.indexOf("giffon.io") < 0 ? StripeInfo.apiTestPubKey : StripeInfo.apiPubKey);
+        var stripe = new Stripe(StripeInfo.apiPubKey);
         var elements = stripe.elements({
             locale: document.documentElement.lang
         });

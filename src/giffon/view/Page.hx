@@ -3,6 +3,7 @@ package giffon.view;
 import react.*;
 import react.ReactMacro.jsx;
 import giffon.server.ServerMain.*;
+import haxe.*;
 import haxe.io.*;
 import giffon.db.*;
 using giffon.ResponseTools;
@@ -167,6 +168,10 @@ class Page extends ReactComponent {
         ];
     }
 
+    function bodyAttributes():DynamicAccess<String> {
+        return {};
+    }
+
     function navbarSignIn() {
         if (user != null) {
             return jsx('
@@ -193,7 +198,7 @@ class Page extends ReactComponent {
     function bodyContent() return null;
 
     function body() return jsx('
-        <body className=${bodyClasses().join(" ")}>
+        <body className=${bodyClasses().join(" ")} {...bodyAttributes()}>
             <div className="content">
                 <nav className="navbar navbar-light navbar-expand-md font_xs_s font_md_m">
                     <a className="navbar-brand" href="/" style=${{backgroundImage: 'url(${R("/images/logo-blue.svg")})'}}>

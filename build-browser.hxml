@@ -2,6 +2,7 @@
 -lib compiletime
 -lib react
 -lib thx.core
+-lib tink_await
 -lib dataclass
 -main giffon.browser.BrowserMain
 -js www/js/BrowserMain.js

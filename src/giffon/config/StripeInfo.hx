@@ -5,10 +5,19 @@ import giffon.Utils.*;
 #end
 
 class StripeInfo {
-    static public var apiTestPubKey(default, never):String = "pk_test_FqNQT96FxmVM42BuCEXEIuEs";
-    static public var apiTestSecKey(default, never):String = "sk_test_S2laxf3AVJM00eKYRwY5kgWI";
-    static public var apiPubKey(default, never):String = "pk_live_KfoBMxxf0oRZ9GOEgVo32653";
+    static public var apiPubKey(default, never):String = switch(Stage.stage) {
+        case Production, Master:
+            "pk_live_KfoBMxxf0oRZ9GOEgVo32653";
+        case Dev:
+            "pk_test_FqNQT96FxmVM42BuCEXEIuEs";
+    }
     #if nodejs
-    static public var apiSecKey(default, never):String = env("STRIPE_SECKEY", apiTestSecKey);
+    static private var _apiSecKey(default, never) = "sk_test_S2laxf3AVJM00eKYRwY5kgWI";
+    static public var apiSecKey(default, never):String = switch(Stage.stage) {
+        case Production, Master:
+            env("STRIPE_SECKEY", _apiSecKey);
+        case Dev:
+            _apiSecKey;
+    }
     #end
 }

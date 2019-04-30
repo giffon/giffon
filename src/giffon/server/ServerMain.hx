@@ -20,12 +20,6 @@ using giffon.ResponseTools;
 using Lambda;
 using StringTools;
 
-@:enum abstract ServerlessStage(String) from String to String {
-    var Production = "production";
-    var Master = "master";
-    var Dev = "dev";
-}
-
 @:jsRequire("passport-facebook", "Strategy")
 extern class FacebookStrategy {
     public function new(options:Dynamic, callb:Dynamic):Void;
@@ -33,13 +27,12 @@ extern class FacebookStrategy {
 
 @await
 class ServerMain {
-    static public var SERVERLESS_STAGE(default, never):Null<ServerlessStage> = process.env["SERVERLESS_STAGE"];
     static public var canonicalBase(default, never) = "https://giffon.io";
 
     static public function R(path:String) {
-        return switch (SERVERLESS_STAGE) {
+        return switch (Stage.stage) {
             case Production, Master:
-                Path.join(["https://static.giffon.io", SERVERLESS_STAGE, path]);
+                Path.join(["https://static.giffon.io", Stage.stage, path]);
             case _:
                 path;
         };
@@ -56,7 +49,7 @@ class ServerMain {
     static public var dbConnectionPool:Pool;
     static public var stripe:Stripe;
 
-    @async static function getStripeCustomerIdFromUser(user:{user_id:Int, user_primary_email:String}):Null<String> {
+    @async static public function getStripeCustomerIdFromUser(user:{user_id:Int, user_primary_email:String}):Null<String> {
         var results:QueryResults = (@await dbConnectionPool.query(
             "
                 SELECT `stripe_customer_id`
@@ -77,8 +70,25 @@ class ServerMain {
             limit: 5
         }).toPromise()).data;
 
-        if (customers == null || customers.length < 1)
-            return null;
+        if (customers == null || customers.length < 1) {
+            var customer = @await stripe.customers.create({
+                email: user.user_primary_email,
+            }).toPromise();
+
+            @await dbConnectionPool.query(
+                "
+                    INSERT INTO `user_stripe`
+                    SET ?
+                ",
+                {
+                    user_id: user.user_id,
+                    stripe_customer_id: customer.id
+                }
+            ).toPromise();
+
+            return customer.id;
+        }
+
         if (customers.length > 1)
             throw 'There are ${customers.length} Stripe customers with email = ${user.user_primary_email}.';
 
@@ -392,7 +402,7 @@ class ServerMain {
             secret: Utils.env("SESSION_SECRET", "secret"),
             store: sessionStore,
             cookie: {
-                secure: switch (SERVERLESS_STAGE) {
+                secure: switch (Stage.stage) {
                     case Production: true;
                     case _: false;
                 }
@@ -503,7 +513,7 @@ class ServerMain {
                         //pass
                 }
             }
-            res.locals.isBeta = switch (SERVERLESS_STAGE) {
+            res.locals.isBeta = switch (Stage.stage) {
                 case Production: false;
                 case _: true;
             }
@@ -642,9 +652,9 @@ class ServerMain {
         });
 
         // print user data
-        switch (SERVERLESS_STAGE) {
-            case Production: //pass
-            case _:
+        switch (Stage.stage) {
+            case Production, Master: //pass
+            case Dev:
                 app.get("/user", ensureLoggedIn, function(req, res:Response) {
                     res.setHeader('Content-Type', 'application/json');
                     res.send(haxe.Json.stringify(res.getUser(), null, "  "));

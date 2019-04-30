@@ -16,6 +16,14 @@ class Wish extends Page {
 
     override function bodyClasses() return super.bodyClasses().concat(["page-wish"]);
 
+    override function bodyAttributes() {
+        var attrs = super.bodyAttributes();
+        attrs["data-wish-hashid"] = wish.wish_hashid;
+        attrs["data-wish-total-needed"] = wish.wish_total_needed.amount.toString();
+        attrs["data-user-total-pledge"] = user_total_pledge.toString();
+        return attrs;
+    }
+
     var wish(get, never):giffon.db.Wish;
     function get_wish():giffon.db.Wish return props.wish;
 
@@ -66,6 +74,20 @@ class Wish extends Page {
             </li>
         ')
     ];
+
+    function pledgeForm() {
+        if (user == null) {
+            return null;
+        }
+
+        if (user.user_id == wish.wish_owner.user_id) {
+            return null;
+        }
+
+        return jsx('
+            <div id="pledge-form-root"></div>
+        ');
+    }
 
     override function bodyContent() return jsx('
         <Fragment>
@@ -136,6 +158,7 @@ class Wish extends Page {
                         </div>
                     </div>
                 </div>
+                ${pledgeForm()}
             </div>
         </Fragment>
     ');

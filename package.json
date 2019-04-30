@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "postinstall": "haxe install-haxelibs.hxml",
-    "build-vendor": "browserify -o www/js/vendor.js -r react -r react-dom -r formik -r react-datepicker -r validator",
+    "build-vendor": "browserify -o www/js/vendor.js -r react -r react-dom -r formik -r react-datepicker -r validator -r react-stripe-elements",
     "build": "npm run-script build-vendor && haxe build.hxml",
     "start": "node ServerMain.js",
     "test": "wdio wdio.conf.js"
@@ -47,6 +47,7 @@
     "react": "^16.8.6",
     "react-datepicker": "^2.4.0",
     "react-dom": "^16.8.6",
+    "react-stripe-elements": "^3.0.0",
     "source-map-support": "^0.5.12",
     "stripe": "^6.28.0",
     "validator": "^10.11.0"
