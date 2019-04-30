@@ -192,7 +192,7 @@ class ServerMain {
         ).toPromise()).results;
         var item_results:QueryResults = (@await dbConnectionPool.query(
             "
-                SELECT item.`item_id`, `item_url`, `item_url_screenshot`, `item_name`, `item_price`, `item_quantity`
+                SELECT item.`item_id`, `item_url`, `item_url_screenshot`, `item_name`, `item_price`, `item_currency`, `item_quantity`
                 FROM item
                 INNER JOIN wish_item ON item.item_id=wish_item.item_id
                 WHERE wish_item.wish_id = ?
@@ -243,7 +243,7 @@ class ServerMain {
                     },
                     item_name: item.item_name,
                     item_price: Decimal.fromString(item.item_price).trim(),
-                    item_currency: giffon.db.Currency.USD,
+                    item_currency: giffon.db.Currency.createByName(item.item_currency),
                     item_quantity: item.item_quantity,
                 }
             }),
