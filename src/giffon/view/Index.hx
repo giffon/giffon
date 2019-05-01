@@ -17,7 +17,7 @@ class Index extends Page {
     function wishBox(wish:giffon.db.Wish) {
         return jsx('
             <div key=${wish.wish_id} className="col mx-0">
-                <div className="wish border_xs">
+                <div className="wish-box border_xs">
                     <div className="image border_xs_b">
                         <div
                             className="wish-owner-avatar rounded-circle mx-auto d-block m-2"

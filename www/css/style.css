@@ -437,10 +437,18 @@ footer a:hover {
     z-index: 10;
 }
 
+.wish-box .btn {
+    box-shadow: 0px -10px 10px 0px white
+}
+
+.wish-box .wish-description {
+    height: 120px;
+    overflow: hidden;
+}
+
 .wish-description {
     white-space: pre-wrap;
     display: flex;
-    align-items: center;
 }
 
 .page-index .slick-slide:focus {
