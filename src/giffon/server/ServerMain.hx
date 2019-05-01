@@ -301,7 +301,7 @@ class ServerMain {
     @async static function getUser(user_id:Int):giffon.db.User {
         var results:QueryResults = (@await dbConnectionPool.query(
             "
-                SELECT `user_id`, `user_hashid`, `user_primary_email`, `user_name`
+                SELECT `user_id`, `user_hashid`, `user_primary_email`, `user_name`, `user_avatar`
                 FROM user
                 WHERE `user_id` = ?
             ",
@@ -316,7 +316,8 @@ class ServerMain {
             user_id:Int,
             user_hashid:String,
             user_primary_email:String,
-            user_name:String
+            user_name:String,
+            user_avatar:js.node.Buffer,
         } = results[0];
         var stripe_customer_id = @await getStripeCustomerIdFromUser(user);
         var stripe_customer = if (stripe_customer_id != null) {
@@ -331,6 +332,12 @@ class ServerMain {
             user_hashid: user.user_hashid,
             user_primary_email: user.user_primary_email,
             user_name: user.user_name,
+            user_avatar: switch (user.user_avatar) {
+                case null:
+                    null;
+                case buf:
+                    ImageDataUri.encode(buf, "JPEG");
+            },
             user_has_card: stripe_customer != null && stripe_customer.default_source != null && stripe_customer.default_source.object == "card",
             stripe_customer: stripe_customer,
         };
@@ -419,7 +426,7 @@ class ServerMain {
             clientID: FacebookInfo.FACEBOOK_CLIENT_ID,
             clientSecret: FacebookInfo.FACEBOOK_APP_SECRET,
             callbackURL: "/callback/facebook",
-            profileFields: ['id', 'displayName', 'email'],
+            profileFields: ['id', 'displayName', 'email', 'picture.type(large)'],
         }, @await function(accessToken, refreshToken, profile:js.npm.passport.Profile, done:Function) {
             if (profile.emails.length <= 0) {
                 done("user has no email info");
@@ -442,10 +449,17 @@ class ServerMain {
                 return;
             }
 
+            var avatarUrl = profile.photos == null || profile.photos.length < 1 ? null : profile.photos[0].value;
+            var avatar:Null<js.node.Buffer> = avatarUrl == null ? null : {
+                var res = @await js.npm.fetch.Fetch.fetch(avatarUrl).toPromise();
+                @await res.buffer().toPromise();
+            };
+
             try {
                 var results:QueryResults = (@await dbConnectionPool.query("INSERT INTO user SET ?", {
                     user_primary_email: userEmail,
                     user_name: profile.displayName,
+                    user_avatar: avatar,
                 }).toPromise()).results;
                 user_id = results.insertId;
                 var user_hashid = new Hashids("user" + DBInfo.salt, 4).encode(user_id);

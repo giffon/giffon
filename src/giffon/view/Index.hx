@@ -14,6 +14,16 @@ class Index extends Page {
 
     override function bodyClasses() return super.bodyClasses().concat(["page-index"]);
 
+    function userAvatarStyle(user:giffon.db.User) {
+        if (user.user_avatar == null) {
+            return {};
+        }
+
+        return {
+            backgroundImage: 'url("${user.user_avatar}")',
+        }
+    }
+
     function wishBox(wish:giffon.db.Wish) {
         return jsx('
             <div key=${wish.wish_id} className="col mx-0">
@@ -21,7 +31,7 @@ class Index extends Page {
                     <div className="image border_xs_b">
                         <div
                             className="wish-owner-avatar rounded-circle mx-auto d-block m-2"
-                            style=${{backgroundImage: 'url("${Gravatar.url(wish.wish_owner.user_primary_email, {s: 200})}")'}}
+                            style=${userAvatarStyle(wish.wish_owner)}
                         />
                     </div>
                     <div className="border_xs_b text-truncate">

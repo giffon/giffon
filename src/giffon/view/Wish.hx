@@ -89,6 +89,16 @@ class Wish extends Page {
         ');
     }
 
+    function userAvatarStyle(user:giffon.db.User) {
+        if (user.user_avatar == null) {
+            return {};
+        }
+
+        return {
+            backgroundImage: 'url("${user.user_avatar}")',
+        }
+    }
+
     override function bodyContent() return jsx('
         <Fragment>
             <div className="position-fixed floating-action-bar">
@@ -113,7 +123,7 @@ class Wish extends Page {
                     <div className="row mx-0 border_xs_b">
                         <div className="col-12 col-md-6">
                             <div className="p-3  p-md-5" style=${{display: 'flex', alignItems: 'center'}}>
-                                <div className="wish-owner-avatar rounded-circle" style=${{backgroundImage: 'url("${Gravatar.url(wish.wish_owner.user_primary_email, {s: 200})}")'}} />
+                                <div className="wish-owner-avatar rounded-circle" style=${userAvatarStyle(wish.wish_owner)} />
                                 <div className="pl-3" style=${{flex: 1}}>
                                     Wish Owner
                                     <h3>${wish.wish_owner.user_name}</h3>
