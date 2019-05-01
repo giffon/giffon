@@ -661,22 +661,22 @@ class ServerMain {
                 });
         }
 
-        app.get("/user/:user_hashid", @await function(req:Request, res:Response) {
-            try {
-                var user_hashid = req.params.user_hashid;
-                var user_id = @await getUserIdFromHash(user_hashid);
-                if (user_id == null) {
-                    res.sendPlainError("There is no such user.", 404);
-                } else {
-                    var wishes = @await getWishes(user_id);
-                    res.render("user", {
-                        wishes: wishes
-                    });
-                }
-            } catch (err:Dynamic) {
-                res.sendPlainError(err);
-                return;
-            }
+        // app.get("/user/:user_hashid", @await function(req:Request, res:Response) {
+        //     try {
+        //         var user_hashid = req.params.user_hashid;
+        //         var user_id = @await getUserIdFromHash(user_hashid);
+        //         if (user_id == null) {
+        //             res.sendPlainError("There is no such user.", 404);
+        //         } else {
+        //             var wishes = @await getWishes(user_id);
+        //             res.render("user", {
+        //                 wishes: wishes
+        //             });
+        //         }
+        //     } catch (err:Dynamic) {
+        //         res.sendPlainError(err);
+        //         return;
+        //     }
         });
         
         app.use(giffon.server.Wish.createRouter());

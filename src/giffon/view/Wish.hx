@@ -116,7 +116,7 @@ class Wish extends Page {
                                 <div className="wish-owner-avatar rounded-circle" style=${{backgroundImage: 'url("${Gravatar.url(wish.wish_owner.user_primary_email, {s: 200})}")'}} />
                                 <div className="pl-3" style=${{flex: 1}}>
                                     Wish Owner
-                                    <h3><a href=${"/user/" + wish.wish_owner.user_hashid}>${wish.wish_owner.user_name}</a></h3>
+                                    <h3>${wish.wish_owner.user_name}</h3>
                                 </div>
                             </div>
                         </div>

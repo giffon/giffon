@@ -185,7 +185,7 @@ class Page extends ReactComponent {
             return jsx('
                 <ul className="navbar-nav ml-auto">
                     <li className="nav-item">
-                        <a className="nav-link user-name" href=${Path.join(["/user", user.user_hashid])}>${user.user_name}</a>
+                        <a className="nav-link user-name">${user.user_name}</a>
                     </li>
                     <li className="nav-item">
                         <a className="nav-link" href=${signoutHref}>Sign Out</a>
