@@ -12,6 +12,7 @@ import giffon.browser.*;
 import tink.core.Error;
 using tink.core.Future.JsPromiseTools;
 using giffon.ResponseTools;
+using giffon.server.PromiseTools;
 
 @await
 class Wish {
@@ -22,7 +23,7 @@ class Wish {
         return router;
     }
 
-    @:await static function handleGet(req, res:Response):Void {
+    @:await static function handleGet(req, res:Response, next):Void {
         var wish_hashid = req.params.wish_hashid;
         var wish_id = @await getWishIdFromHash(wish_hashid);
         if (wish_id == null) {
@@ -44,7 +45,7 @@ class Wish {
                     WHERE `user_id` = ? AND `wish_id` = ?
                 ",
                 [user.user_id, wish_id]
-            ).toPromise()).results;
+            ).handleError(next).toPromise()).results;
 
             if (results != null && results.length != 0) {
                 if (results.length != 1) {
@@ -102,17 +103,27 @@ class Wish {
 
         @await dbConnectionPool.query(
             "
-                INSERT INTO `pledge`
-                SET ?
+                START TRANSACTION;
+                INSERT INTO `pledge` SET ?;
+                SELECT @pledge_id := LAST_INSERT_ID() AS pledge_id;
+                INSERT INTO `pledge_stripe` SET pledge_id = @pledge_id, ?;
+                COMMIT;
             ",
-            {
+            [{
                 user_id: user.user_id,
                 wish_id: wish_id,
                 pledge_amount: pledgeFormData.pledge_amount,
                 pledge_currency: giffon.db.Currency.USD.getName(),
                 pledge_method: giffon.db.PledgeMethod.StripeCard.getName(),
-            }
-        ).toPromise();
+            }, {
+                stripe_charge_id: charge.id,
+            }]
+        ).handleError(next).toPromise();
+
         res.redirect('/wish/$wish_hashid');
     };
+
+    @await static function handlePledgeCancel(req:Request, res:Response, next:Dynamic){
+
+    }
 }

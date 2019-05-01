@@ -66,6 +66,21 @@ CREATE TABLE `pledge` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `pledge_stripe`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pledge_stripe` (
+  `pledge_id` int(11) NOT NULL,
+  `stripe_charge_id` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  PRIMARY KEY (`pledge_id`),
+  UNIQUE KEY `pledge_stripe_UN` (`stripe_charge_id`),
+  CONSTRAINT `pledge_stripe_pledge_FK` FOREIGN KEY (`pledge_id`) REFERENCES `pledge` (`pledge_id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `sessions`
 --
 
@@ -191,4 +206,4 @@ SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-05-01 16:52:42
+-- Dump completed on 2019-05-02  7:28:49
