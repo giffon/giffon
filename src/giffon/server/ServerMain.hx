@@ -677,7 +677,7 @@ class ServerMain {
         //         res.sendPlainError(err);
         //         return;
         //     }
-        });
+        // });
         
         app.use(giffon.server.Wish.createRouter());
         app.use(giffon.server.MakeAWish.createRouter());
