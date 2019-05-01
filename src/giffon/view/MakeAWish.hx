@@ -10,6 +10,8 @@ class MakeAWish extends Page {
     override function path() return "make-a-wish";
     override function render() return super.render();
 
+    override function requiredSignin() return true;
+
     override function bodyClasses() return super.bodyClasses().concat(["page-make-a-wish"]);
 
     function wishFormHTML() {

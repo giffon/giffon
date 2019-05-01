@@ -7,6 +7,7 @@ import haxe.*;
 import haxe.io.*;
 import giffon.db.*;
 using giffon.ResponseTools;
+using StringTools;
 
 class Page extends ReactComponent {
     var user(get, never):Null<User>;
@@ -44,6 +45,8 @@ class Page extends ReactComponent {
     function canonical() return jsx('
         <link rel="canonical" href="${Path.join([canonicalBase, path()])}" />
     ');
+
+    function requiredSignin() return false;
 
     function icons() return jsx('
         <Fragment>
@@ -174,21 +177,27 @@ class Page extends ReactComponent {
 
     function navbarSignIn() {
         if (user != null) {
+            var signoutHref = if (requiredSignin())
+                "/signout";
+            else
+                "/signout?redirectTo=" + Path.join(["/", path()]).urlEncode();
+
             return jsx('
                 <ul className="navbar-nav ml-auto">
                     <li className="nav-item">
                         <a className="nav-link user-name" href=${Path.join(["/user", user.user_hashid])}>${user.user_name}</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="/signout">Sign Out</a>
+                        <a className="nav-link" href=${signoutHref}>Sign Out</a>
                     </li>
                 </ul>
             ');
         } else {
+            var signinHref = "/signin?redirectTo=" + Path.join(["/", path()]).urlEncode();
             return jsx('
                 <ul className="navbar-nav ml-auto">
                     <li className="nav-item">
-                        <a className="nav-link signInBtn" href="/signin">Sign in<i className="fab fa-facebook"></i></a>
+                        <a className="nav-link signInBtn" href=${signinHref}>Sign in<i className="fab fa-facebook"></i></a>
                     </li>
                 </ul>
             ');

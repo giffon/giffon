@@ -570,7 +570,7 @@ class ServerMain {
             })(req, res, next);
         });
         app.get("/signout", function(req:Request, res) {
-            var redirectTo = switch (req.getRedirectTo()) {
+            var redirectTo = switch (req.query.redirectTo) {
                 case null: "/";
                 case r: r;
             }
