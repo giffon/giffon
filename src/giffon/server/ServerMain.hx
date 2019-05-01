@@ -433,12 +433,23 @@ class ServerMain {
                 return;
             }
             var email = profile.emails[0].value;
+            var avatarUrl = profile.photos == null || profile.photos.length < 1 ? null : profile.photos[0].value;
             // trace(profile);
 
             // get user_id
             var user_id:Null<Int> = @await getUserIdFromEmail(email);
             if (user_id != null) {
                 var user = @await getUser(user_id);
+                if (user.user_avatar == null && avatarUrl != null) {
+                    var avatar = {
+                        var res = @await js.npm.fetch.Fetch.fetch(avatarUrl).toPromise();
+                        @await res.buffer().toPromise();
+                    };
+                    @await dbConnectionPool.query("UPDATE user SET ? WHERE user_id = ?", [{
+                        user_avatar: avatar,
+                    }, user_id]).toPromise();
+                    user = @await getUser(user_id);
+                }
                 done(null, user);
                 return;
             }
@@ -449,7 +460,6 @@ class ServerMain {
                 return;
             }
 
-            var avatarUrl = profile.photos == null || profile.photos.length < 1 ? null : profile.photos[0].value;
             var avatar:Null<js.node.Buffer> = avatarUrl == null ? null : {
                 var res = @await js.npm.fetch.Fetch.fetch(avatarUrl).toPromise();
                 @await res.buffer().toPromise();
