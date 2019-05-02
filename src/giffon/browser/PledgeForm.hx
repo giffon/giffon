@@ -26,10 +26,62 @@ class PledgeForm extends ReactComponent {
     var user_total_pledge(get, never):Decimal;
     function get_user_total_pledge() return props.user_total_pledge;
 
+    var isCancellingPledge(get, set):Bool;
+    function get_isCancellingPledge() return state.isCancellingPledge;
+    function set_isCancellingPledge(v) {
+        setState({isCancellingPledge: v});
+        return v;
+    }
+
+    var submissionError(get, set):Null<react.ReactComponent.ReactElement>;
+    function get_submissionError() return state.submissionError;
+    function set_submissionError(v) {
+        setState({submissionError: v});
+        return v;
+    }
+
+    function new(props):Void {
+        super(props);
+        state = {
+            isCancellingPledge: false,
+            submissionError: null,
+        };
+    }
+
+    function cancelPledge(e:ReactEvent) {
+        e.preventDefault();
+        isCancellingPledge = true;
+        JQuery.ajax({
+            type: "DELETE",
+            contentType: "application/json; charset=utf-8",
+            url: Path.join(["/wish", wish_hashid, "pledge"]),
+        })
+            .done(function(data:String){
+                submissionError = null;
+                document.location.reload(true);
+            })
+            .fail(function(err){
+                trace(err);
+                submissionError = jsx('
+                    <Fragment>
+                        ${err.statusText} (${err.status})
+                        <br/>
+                        <pre>
+                        ${err.responseText}
+                        </pre>
+                    </Fragment>
+                ');
+                isCancellingPledge = false;
+            });
+    }
+
     function pledgeInfo() {
         if (user_total_pledge > 0) {
             return jsx('
-                <div>You have currently pledged ${user_total_pledge.toString()}.</div>
+                <div>
+                    You have currently pledged ${user_total_pledge.toString()}.
+                    <button className="btn btn-link" onClick=${cancelPledge} disabled=${isCancellingPledge}>Cancel pledge</button>
+                </div>
             ');
         } else {
             return jsx('
@@ -55,8 +107,21 @@ class PledgeForm extends ReactComponent {
                 </StripeProvider>
             ');
         }
+
+        var submissionErrorElement =
+            if (submissionError != null) {
+                jsx('
+                    <div className="alert alert-danger" role="alert">
+                        ${submissionError}
+                    </div>
+                ');
+            } else {
+                null;
+            }
+
         return jsx('
             <div>
+                ${submissionErrorElement}
                 <div className="py-3">
                     ${pledgeInfo()}
                 </div>
@@ -80,6 +145,13 @@ class _PledgeForm extends ReactComponent {
     var stripe(get, never):StripeInElements;
     function get_stripe() return props.stripe;
 
+    var submissionError(get, set):react.ReactComponent.ReactElement;
+    function get_submissionError() return state.submissionError;
+    function set_submissionError(v) {
+        setState({submissionError: v});
+        return v;
+    }
+
     function new():Void {
         super();
         state = {
@@ -96,13 +168,11 @@ class _PledgeForm extends ReactComponent {
             case { token: t } if (t != null):
                 t;
             case err:
-                setState({
-                    submissionError: jsx('
-                        <Fragment>
-                            ${haxe.Json.stringify(err, null, "  ")}
-                        </Fragment>
-                    ')
-                });
+                submissionError = jsx('
+                    <Fragment>
+                        ${haxe.Json.stringify(err, null, "  ")}
+                    </Fragment>
+                ');
                 props.setSubmitting(false);
                 return;
         }
@@ -114,24 +184,20 @@ class _PledgeForm extends ReactComponent {
             data: haxe.Json.stringify(values),
         })
             .done(function(data:String){
-                setState({
-                    submissionError: null,
-                });
+                submissionError = null;
                 document.location.reload(true);
             })
             .fail(function(err){
                 trace(err);
-                setState({
-                    submissionError: jsx('
-                        <Fragment>
-                            ${err.statusText} (${err.status})
-                            <br/>
-                            <pre>
-                            ${err.responseText}
-                            </pre>
-                        </Fragment>
-                    ')
-                });
+                submissionError = jsx('
+                    <Fragment>
+                        ${err.statusText} (${err.status})
+                        <br/>
+                        <pre>
+                        ${err.responseText}
+                        </pre>
+                    </Fragment>
+                ');
                 props.setSubmitting(false);
             });
     }
@@ -172,11 +238,11 @@ class _PledgeForm extends ReactComponent {
         handleChange:Dynamic,
         handleSubmit:Dynamic,
     }) {
-        var submissionError =
-            if (state.submissionError != null) {
+        var submissionErrorElement =
+            if (submissionError != null) {
                 jsx('
                     <div className="alert alert-danger" role="alert">
-                        ${state.submissionError}
+                        ${submissionError}
                     </div>
                 ');
             } else {
@@ -185,7 +251,7 @@ class _PledgeForm extends ReactComponent {
 
         return jsx('
             <Form>
-                ${submissionError}
+                ${submissionErrorElement}
                 <div className="form-group">
                     <label htmlFor="pledge_amount">
                         Support amount
@@ -201,7 +267,7 @@ class _PledgeForm extends ReactComponent {
                 </div>
                 <div className="form-group">
                     <label htmlFor="card-number">
-                        credit Card
+                        Credit card
                     </label>
                     <CardElement
                         className="form-control"

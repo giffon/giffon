@@ -20,6 +20,7 @@ class Wish {
         var router = new Router();
         router.get("/wish/:wish_hashid", handleGet);
         router.post("/wish/:wish_hashid/pledge", ensureLoggedIn, handlePledge);
+        router.delete("/wish/:wish_hashid/pledge", ensureLoggedIn, handlePledgeCancel);
         return router;
     }
 
@@ -124,6 +125,47 @@ class Wish {
     };
 
     @await static function handlePledgeCancel(req:Request, res:Response, next:Dynamic){
+        var wish_hashid = req.params.wish_hashid;
+        var wish_id = @await getWishIdFromHash(wish_hashid);
+        if (wish_id == null) {
+            res.sendPlainError("There is no such wish.", NotFound);
+            return;
+        }
+        var wish = @await getWish(wish_id);
+        if (wish == null) {
+            res.sendPlainError("There is no such wish.", NotFound);
+            return;
+        }
 
+        var user = res.getUser();
+        var results:QueryResults = (@await dbConnectionPool.query(
+            "
+                SELECT `stripe_charge_id`
+                FROM `pledge_stripe`
+                INNER JOIN `pledge` ON `pledge`.`pledge_id` = `pledge_stripe`.`pledge_id`
+                WHERE `user_id` = ? AND `wish_id` = ?
+            ",
+            [user.user_id, wish.wish_id]
+        ).handleError(next).toPromise()).results;
+
+        var chargeIds:Array<String> = results.map(function(r) return r.stripe_charge_id);
+        for (chargeId in chargeIds) {
+            var charge = @:await stripe.charges.retrieve(chargeId).handleError(next).toPromise();
+            if (charge.amount_refunded != charge.amount) {
+                @:await stripe.charges.refund(chargeId).handleError(next).toPromise();
+                @await dbConnectionPool.query(
+                    "
+                        INSERT INTO `pledge` SET ?;
+                    ",{
+                        user_id: user.user_id,
+                        wish_id: wish_id,
+                        pledge_amount: charge.amount_refunded - charge.amount,
+                        pledge_currency: wish.items[0].item_currency.getName(),
+                        pledge_method: giffon.db.PledgeMethod.StripeCard.getName(),
+                    }
+                ).handleError(next).toPromise();
+            }
+        }
+        res.sendPlainText("done");
     }
 }
