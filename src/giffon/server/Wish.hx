@@ -113,7 +113,7 @@ class Wish {
                 user_id: user.user_id,
                 wish_id: wish_id,
                 pledge_amount: pledgeFormData.pledge_amount,
-                pledge_currency: giffon.db.Currency.USD.getName(),
+                pledge_currency: wish.items[0].item_currency.getName(),
                 pledge_method: giffon.db.PledgeMethod.StripeCard.getName(),
             }, {
                 stripe_charge_id: charge.id,
