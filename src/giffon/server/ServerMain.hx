@@ -319,14 +319,6 @@ class ServerMain {
             user_name:String,
             user_avatar:js.node.Buffer,
         } = results[0];
-        var stripe_customer_id = @await getStripeCustomerIdFromUser(user);
-        var stripe_customer = if (stripe_customer_id != null) {
-            @await stripe.customers.retrieve(stripe_customer_id,{
-                expand: ["default_source"],
-            }).toPromise();
-        } else {
-            null;
-        }
         return {
             user_id: user.user_id,
             user_hashid: user.user_hashid,
@@ -338,8 +330,6 @@ class ServerMain {
                 case buf:
                     ImageDataUri.encode(buf, "JPEG");
             },
-            user_has_card: stripe_customer != null && stripe_customer.default_source != null && stripe_customer.default_source.object == "card",
-            stripe_customer: stripe_customer,
         };
     }
 
@@ -610,66 +600,6 @@ class ServerMain {
                 });
             } catch (err:Dynamic) {
                 trace(err);
-                res.sendPlainError(err);
-                return;
-            }
-        });
-
-        app.get("/cards", ensureLoggedIn, @await function(req:Request, res:Response){
-            res.render("cards");
-        });
-
-        app.post("/cards", ensureLoggedIn, @await function(req:Request, res:Response){
-            try {
-                var user = res.getUser();
-                var stripe_customer_id = @await getStripeCustomerIdFromUser(user);
-
-                if (stripe_customer_id != null) {
-                    var customer = @await stripe.customers.update(stripe_customer_id, {
-                        source: req.body.stripeToken,
-                    }).toPromise();
-                    res.redirect("/cards");
-                    return;
-                } else {
-                    var customer = @await stripe.customers.create({
-                        source: req.body.stripeToken,
-                        email: res.getUser().user_primary_email,
-                    }).toPromise();
-
-                    @await dbConnectionPool.query(
-                        "
-                            INSERT INTO `user_stripe`
-                            SET ?
-                        ",
-                        {
-                            user_id: user.user_id,
-                            stripe_customer_id: customer.id
-                        }
-                    ).toPromise();
-
-                    res.redirect("/cards");
-                    return;
-                }
-            } catch (err:Dynamic) {
-                res.sendPlainError(err);
-                return;
-            }
-        });
-
-        app.get("/card/:card_id/delete", ensureLoggedIn, @await function(req:Request, res:Response){
-            try {
-                var card_id = req.params.card_id;
-                var user = res.getUser();
-                if (!user.stripe_customer.sources.data.exists(function(src) {
-                    return src.id == card_id;
-                })) {
-                    res.sendPlainError("You do not have a card with id " + card_id, 400);
-                    return;
-                }
-                @await stripe.customers.deleteCard(user.stripe_customer.id, card_id).toPromise();
-                res.redirect("/cards");
-                return;
-            } catch (err:Dynamic) {
                 res.sendPlainError(err);
                 return;
             }
