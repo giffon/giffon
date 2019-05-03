@@ -7,6 +7,7 @@ import thx.Decimal;
 import js.moment.Moment;
 import js.npm.gravatar.Gravatar;
 using DateTools;
+using StringTools;
 using giffon.db.WishProgress.WishProgressTools;
 
 class Wish extends Page {
@@ -77,7 +78,11 @@ class Wish extends Page {
 
     function pledgeForm() {
         if (user == null) {
-            return null;
+            return jsx('
+                <div className="py-3">
+                    <a href=${"/signin?redirectTo=" + Path.join(["/", path() + "#pledge-form-root"]).urlEncode()}>Sign in</a> and then pledge your support!
+                </div>
+            ');
         }
 
         if (user.user_id == wish.wish_owner.user_id) {
