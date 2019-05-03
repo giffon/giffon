@@ -58,8 +58,8 @@ CREATE TABLE `pledge` (
   `pledge_note` text COLLATE utf8mb4_bin,
   `pledge_currency` varchar(16) COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`pledge_id`),
-  UNIQUE KEY `wish_id` (`wish_id`) USING BTREE,
   KEY `user_id` (`user_id`),
+  KEY `pledge_wish_FK` (`wish_id`),
   CONSTRAINT `pledge_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE,
   CONSTRAINT `pledge_wish_FK` FOREIGN KEY (`wish_id`) REFERENCES `wish` (`wish_id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
@@ -206,4 +206,4 @@ SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-05-02  7:28:49
+-- Dump completed on 2019-05-02 23:51:38

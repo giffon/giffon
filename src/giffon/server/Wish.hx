@@ -24,7 +24,7 @@ class Wish {
         return router;
     }
 
-    @:await static function handleGet(req, res:Response, next):Void {
+    @await static function handleGet(req, res:Response, next):Void {
         var wish_hashid = req.params.wish_hashid;
         var wish_id = @await getWishIdFromHash(wish_hashid);
         if (wish_id == null) {
@@ -150,16 +150,16 @@ class Wish {
 
         var chargeIds:Array<String> = results.map(function(r) return r.stripe_charge_id);
         for (chargeId in chargeIds) {
-            var charge = @:await stripe.charges.retrieve(chargeId).handleError(next).toPromise();
+            var charge = @await stripe.charges.retrieve(chargeId).handleError(next).toPromise();
             if (charge.amount_refunded != charge.amount) {
-                @:await stripe.charges.refund(chargeId).handleError(next).toPromise();
+                @await stripe.charges.refund(chargeId).toPromise();
                 @await dbConnectionPool.query(
                     "
                         INSERT INTO `pledge` SET ?;
                     ",{
                         user_id: user.user_id,
                         wish_id: wish_id,
-                        pledge_amount: charge.amount_refunded - charge.amount,
+                        pledge_amount: (charge.amount_refunded - charge.amount) * 0.01, //cents -> dollars
                         pledge_currency: wish.items[0].item_currency.getName(),
                         pledge_method: giffon.db.PledgeMethod.StripeCard.getName(),
                     }

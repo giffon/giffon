@@ -186,6 +186,7 @@ class ServerMain {
                 FROM pledge
                 WHERE wish_id = ?
                 GROUP BY user_id
+                HAVING pledge_total_amount > 0
                 ORDER BY pledge_total_amount DESC, pledge_date ASC
             ",
             [wish.wish_id]
