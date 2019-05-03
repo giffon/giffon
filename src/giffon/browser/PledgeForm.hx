@@ -252,27 +252,29 @@ class _PledgeForm extends ReactComponent {
         return jsx('
             <Form>
                 ${submissionErrorElement}
-                <div className="form-group">
-                    <label htmlFor="pledge_amount">
-                        Support amount
-                    </label>
-                    <Field
-                        className="form-control"
-                        name="pledge_amount"
-                        id="pledge_amount"
-                        type="number"
-                        min=${PledgeFormData.pledge_amount_min} max=${Math.min(PledgeFormData.pledge_amount_max, Std.parseFloat(wish_total_needed))} step="0.01"
-                        required=${true}
-                    />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="card-number">
-                        Credit card
-                    </label>
-                    <CardElement
-                        className="form-control"
-                        id="card-number"
-                    />
+                <div className="form-row">
+                    <div className="form-group col-md-4">
+                        <label htmlFor="pledge_amount">
+                            Support amount
+                        </label>
+                        <Field
+                            className="form-control"
+                            name="pledge_amount"
+                            id="pledge_amount"
+                            type="number"
+                            min=${PledgeFormData.pledge_amount_min} max=${Math.min(PledgeFormData.pledge_amount_max, Std.parseFloat(wish_total_needed))} step="0.01"
+                            required=${true}
+                        />
+                    </div>
+                    <div className="form-group col-md-8">
+                        <label htmlFor="card-number">
+                            Credit card
+                        </label>
+                        <CardElement
+                            className="form-control"
+                            id="card-number"
+                        />
+                    </div>
                 </div>
                 <div className="form-group">
                     <div className="form-check">

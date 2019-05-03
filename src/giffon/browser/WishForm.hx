@@ -89,8 +89,8 @@ class WishForm extends ReactComponent {
                 var rows = [
                     for (idx in 0...props.values.items.length){
                         jsx('
-                            <div key=${idx} className="form-row align-items-end">
-                                <div className="form-group col-3">
+                            <div key=${idx} className="wish-item form-row align-items-end">
+                                <div className="form-group col-md-3">
                                     <label
                                         htmlFor=${'items[$idx].item_name'}
                                     >
@@ -122,7 +122,7 @@ class WishForm extends ReactComponent {
                                         />
                                     </div>
                                 </div>
-                                <div className="form-group col-2">
+                                <div className="form-group col-md-2">
                                     <label
                                         htmlFor=${'items[$idx].item_price'}
                                     >
@@ -139,7 +139,7 @@ class WishForm extends ReactComponent {
                                         />
                                     </div>
                                 </div>
-                                <div className="form-group col-2 col-md-1">
+                                <div className="form-group col col-md-1">
                                     <label
                                         htmlFor=${'items[$idx].item_price'}
                                     >

@@ -426,9 +426,19 @@ footer a:hover {
     height: 90px;
 }
 
-.wish-item {
+.page-wish .wish-item {
     font-size: 1.5em;
     background: none;
+}
+
+.page-make-a-wish .wish-item {
+    border-bottom: 1px solid #CCC;
+    margin-bottom: 1em;
+}
+
+.page-make-a-wish .wish-item:last-of-type {
+    border-bottom: none;
+    margin-bottom: 0;
 }
 
 .floating-action-bar {
