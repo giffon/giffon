@@ -85,6 +85,8 @@ class Wish {
             return;
         }
 
+        //TODO: use transaction
+
         @await dbConnectionPool.query(
             "UPDATE wish SET `wish_state` = \"cancelled\" WHERE `wish_id` = ?",
             ([wish_id]:Array<Dynamic>)

@@ -89,6 +89,13 @@ class Wish extends Page {
             return null;
         }
 
+        switch (wish.wish_state) {
+            case Created | Published:
+                //pass
+            case _:
+                return null;
+        }
+
         return jsx('
             <div id="pledge-form-root"></div>
         ');
@@ -105,6 +112,10 @@ class Wish extends Page {
     }
 
     function cancelWishControl() {
+        if (wish.wish_state == Cancelled) {
+            return null;
+        }
+
         return jsx('
             <div>
                 <h4>Cancel Wish</h4>
@@ -115,15 +126,47 @@ class Wish extends Page {
     }
 
     function wishSettings() {
-        if (user.user_id == wish.wish_owner.user_id) {
-            return jsx('
-                <div className="my-3">
-                    <h3>Settings</h3>
-                    ${cancelWishControl()}
-                </div>
-            ');
-        } else {
+        if (user.user_id != wish.wish_owner.user_id) {
             return null;
+        }
+        switch (wish.wish_state) {
+            case Cancelled:
+                return jsx('
+                    <div className="my-3">
+                        <h3>Settings</h3>
+                        <p>Wish cancelled. No operation is allowed.</p>
+                    </div>
+                ');
+            case _:
+                //pass
+        }
+        
+        return jsx('
+            <div className="my-3">
+                <h3>Settings</h3>
+                ${cancelWishControl()}
+            </div>
+        ');
+    }
+
+    function wishState() {
+        switch (wish.wish_state) {
+            case Created | Published | Ended | Succeed | Shipped:
+                return jsx('
+                    <div className="mt-3 d-flex font_xs_xs font_md_s row">
+                        ${numSupporters()}
+                        ${progress()}
+                        ${daysToGo()}
+                    </div>
+                ');
+            case Cancelled:
+                return jsx('
+                    <div className="mt-3 d-flex font_xs_xs font_md_s">
+                        <div className="alert alert-secondary">
+                            Cancelled, all pledges were refunded to the supporters.
+                        </div>
+                    </div>
+                ');
         }
     }
 
@@ -134,11 +177,7 @@ class Wish extends Page {
                     <div className="col-12 col-md-6">
                         <div className="p-3 p-md-5 color_white detail_card_left">
                             <div className="font_xs_l font_md_xl">${wish.wish_title}</div>
-                            <div className="mt-3 d-flex font_xs_xs font_md_s row">
-                                ${numSupporters()}
-                                ${progress()}
-                                ${daysToGo()}
-                            </div>
+                            ${wishState()}
                         </div>
                     </div>
                     <div className="col-12 col-md-6">
