@@ -71,7 +71,7 @@ class Index extends Page {
                         <div className="col-xs-10 col-sm-12 col-md-6 col-lg-4 col-xl-3 px-3 px-md-0 ">
                             <div className="card_right bg_white shaded-shadow">
                                 <div className="p-4 p-md-5">
-                                    When there are enough pledges, Giffon will collect the money and buy you the gift!
+                                    When Giffon collected enough money from your supporters, Giffon will buy you the gift!
                                 </div>
                                 <a className="btn py-md-3 btn-success rounded-0 w-100" href="/make-a-wish">
                                     Make a Wish Now
@@ -89,7 +89,7 @@ class Index extends Page {
             </div>
             
             <div className="text-center pt-5">
-                <h2>Why make wish on Giffon?</h2>
+                <h2>Why make wishes on Giffon?</h2>
             </div>
 
             <div id="set2" className="row my-4 my-md-5 text-center from_right">
