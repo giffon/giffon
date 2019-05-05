@@ -476,7 +476,7 @@ footer a:hover {
 }
 
 .shaded-shadow {
-    box-shadow: 0 10px 14px 0 #50a7c245;
+    box-shadow: 0 10px 14px 0 rgba(80, 167, 194, 0.27);
 }
 
 .wish-owner-avatar {
