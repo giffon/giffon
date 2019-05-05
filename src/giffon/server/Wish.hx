@@ -19,6 +19,7 @@ class Wish {
     static public function createRouter():Router {
         var router = new Router();
         router.get("/wish/:wish_hashid", handleGet);
+        router.delete("/wish/:wish_hashid", ensureLoggedIn, handleWishCancel);
         router.post("/wish/:wish_hashid/pledge", ensureLoggedIn, handlePledge);
         router.delete("/wish/:wish_hashid/pledge", ensureLoggedIn, handlePledgeCancel);
         return router;
@@ -63,6 +64,62 @@ class Wish {
             wish: wish,
             user_total_pledge: user_total_pledge
         });
+    }
+
+    @await static function handleWishCancel(req:Request, res:Response, next:Dynamic){
+        var wish_hashid = req.params.wish_hashid;
+        var wish_id = @await getWishIdFromHash(wish_hashid);
+        if (wish_id == null) {
+            res.sendPlainError("There is no such wish.", NotFound);
+            return;
+        }
+        var wish = @await getWish(wish_id);
+        if (wish == null) {
+            res.sendPlainError("There is no such wish.", NotFound);
+            return;
+        }
+
+        var user = res.getUser();
+        if (user.user_id != wish.wish_owner.user_id) {
+            res.sendPlainError("Only the wish owner can cancel the wish.", Forbidden);
+            return;
+        }
+
+        @await dbConnectionPool.query(
+            "UPDATE wish SET `wish_state` = \"cancelled\" WHERE `wish_id` = ?",
+            ([wish_id]:Array<Dynamic>)
+        ).handleError(next).toPromise();
+
+        var results:QueryResults = (@await dbConnectionPool.query(
+            "
+                SELECT `stripe_charge_id`, `user_id`
+                FROM `pledge_stripe`
+                INNER JOIN `pledge` ON `pledge`.`pledge_id` = `pledge_stripe`.`pledge_id`
+                WHERE `wish_id` = ?
+            ",
+            [wish.wish_id]
+        ).handleError(next).toPromise()).results;
+
+        for (result in results) {
+            var chargeId = result.stripe_charge_id;
+            var user_id = result.user_id;
+            var charge = @await stripe.charges.retrieve(chargeId).handleError(next).toPromise();
+            if (charge.amount_refunded != charge.amount) {
+                @await stripe.charges.refund(chargeId).toPromise();
+                @await dbConnectionPool.query(
+                    "
+                        INSERT INTO `pledge` SET ?;
+                    ",{
+                        user_id: user_id,
+                        wish_id: wish_id,
+                        pledge_amount: (charge.amount_refunded - charge.amount) * 0.01, //cents -> dollars
+                        pledge_currency: wish.items[0].item_currency.getName(),
+                        pledge_method: giffon.db.PledgeMethod.StripeCard.getName(),
+                    }
+                ).handleError(next).toPromise();
+            }
+        }
+        res.sendPlainText("done");
     }
 
     @await static function handlePledge(req:Request, res:Response, next:Dynamic){

@@ -532,3 +532,8 @@ footer a:hover {
 .reason-title {
     font-size: 1.5em;
 }
+
+.page-wish h4 {
+    font-size: 1.2em;
+    padding-top: 0.2em;
+}

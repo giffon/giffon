@@ -104,6 +104,29 @@ class Wish extends Page {
         }
     }
 
+    function cancelWishControl() {
+        return jsx('
+            <div>
+                <h4>Cancel Wish</h4>
+                <p>Once cancelled, all existing pledges will be refunded to the supporters. The action cannot be undone.</p>
+                <button className="cancel-wish-btn btn btn-danger">Cancel Wish</button>
+            </div>
+        ');
+    }
+
+    function wishSettings() {
+        if (user.user_id == wish.wish_owner.user_id) {
+            return jsx('
+                <div className="my-3">
+                    <h3>Settings</h3>
+                    ${cancelWishControl()}
+                </div>
+            ');
+        } else {
+            return null;
+        }
+    }
+
     override function bodyContent() return jsx('
         <Fragment>
             <div className="container mb-xs-4 mb-md-5">
@@ -171,6 +194,7 @@ class Wish extends Page {
                         </div>
                     </div>
                 </div>
+                ${wishSettings()}
                 ${pledgeForm()}
             </div>
         </Fragment>
