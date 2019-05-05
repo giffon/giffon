@@ -537,3 +537,11 @@ footer a:hover {
     font-size: 1.2em;
     padding-top: 0.2em;
 }
+
+.hero-title .title {
+    font-size: 3em;
+}
+
+.hero-title .slogan {
+    font-size: 1.5em;
+}

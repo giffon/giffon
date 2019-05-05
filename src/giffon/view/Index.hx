@@ -58,17 +58,17 @@ class Index extends Page {
             <div id="banner" className="font_xs_xs font_md_s">
                 <div>
                     <div className="row mx-0 p-sm-4 p-md-5">
-                        <div className="col-xs-10 col-md-10 col-lg-4 mx-0 mr-md-auto py-4 my-4 py-lg-5 my-lg-5 color_white">
-                            <div className="font_xs_xl font_md_xxl">Your Crowd-gifting Platform</div>
-                            <div>either for who...or yourself</div>
+                        <div className="hero-title col-xs-10 col-md-10 col-lg-4 mx-0 mr-md-auto py-4 my-4 py-lg-5 my-lg-5 color_white">
+                            <div className="title">Giffon</div>
+                            <div className="slogan">Your Crowd-gifting Platform</div>
                         </div>
-                        <div className="col-xs-10 col-sm-12 col-md-6 col-lg-4 col-xl-3 px-3 px-md-0">
+                        <div className="col-xs-10 col-sm-12 col-md-6 col-lg-4 col-xl-3 px-3 px-md-0 mb-2">
                             <div className="p-4 p-md-5 card_left bg_white_o80">
                                 <div className="font_xs_xl font_md_xl">How to Start?</div>
                                 Choose any of the millions items listed in any online store. Make a wish on Giffon and let your friends know.
                             </div>
                         </div>
-                        <div className="col-xs-10 col-sm-12 col-md-6 col-lg-4 col-xl-3 px-3 px-md-0 ">
+                        <div className="col-xs-10 col-sm-12 col-md-6 col-lg-4 col-xl-3 px-3 px-md-0 mb-2">
                             <div className="card_right bg_white shaded-shadow">
                                 <div className="p-4 p-md-5">
                                     When Giffon collected enough money from your supporters, Giffon will buy you the gift!
