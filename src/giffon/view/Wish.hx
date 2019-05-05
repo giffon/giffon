@@ -34,7 +34,7 @@ class Wish extends Page {
     function numSupporters() {
         return jsx('
             <div className="wish-num-supporters col">
-                <h4>${wish.supporters.length}</h4>
+                <div className="font_xs_l font_md_xl">${wish.supporters.length}</div>
                 supporters
             </div>
         ');
@@ -47,7 +47,7 @@ class Wish extends Page {
         }
         return jsx('
             <div className="wish-num-supporters col">
-                <h4>${percentText}</h4>
+                <div className="font_xs_l font_md_xl">${percentText}</div>
                 archived
             </div>
         ');
@@ -60,7 +60,7 @@ class Wish extends Page {
             var moment = Moment.moment({}).to(wish.wish_target_date, true);
             return jsx('
                 <div className="wish-target-date col" data-toggle="tooltip" title=${"target: " + wish.wish_target_date.format("%Y-%m-%d")}>
-                    <h4>${moment}</h4>
+                    <div className="font_xs_l font_md_xl">${moment}</div>
                     to go
                 </div>
             ');
@@ -106,22 +106,20 @@ class Wish extends Page {
 
     override function bodyContent() return jsx('
         <Fragment>
-            <div className="position-fixed floating-action-bar">
-                <button className="btn btn-secondary btn-lg rounded-circle"><i className="fas fa-share-alt" /></button>
-                <br /><br />
-                <button className="btn btn-success btn-lg rounded-circle"><i className="fas fa-child" /></button>
-            </div>
-            <div className="container mb-5">
-                <div className="row my-5">
-                    <div className="col-12 col-lg-6 p-3 p-lg-5 color_white card_left" style=${{background: '#13547a'}}>
-                        <h2>${wish.wish_title}</h2>
-                        <div className="mt-3 row">
-                            ${numSupporters()}
-                            ${progress()}
-                            ${daysToGo()}
+            <div className="container mb-xs-4 mb-md-5">
+                <div className="row my-md-5">
+                    <div className="col-12 col-md-6">
+                        <div className="p-3 p-md-5 color_white detail_card_left">
+                            <div className="font_xs_l font_md_xl">${wish.wish_title}</div>
+                            <div className="mt-3 d-flex font_xs_xs font_md_s row">
+                                ${numSupporters()}
+                                ${progress()}
+                                ${daysToGo()}
+                            </div>
                         </div>
                     </div>
-                    <div id="banner" className="col-12 col-md-6 card_right">
+                    <div className="col-12 col-md-6">
+                        <div id="banner" className="detail_card_right"></div>
                     </div>
                 </div>
                 <div className="bg_white">
