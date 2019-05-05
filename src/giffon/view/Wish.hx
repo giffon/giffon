@@ -216,19 +216,19 @@ class Wish extends Page {
                     <div className="row mx-0 border_xs_b">
                         <div className="col-xs-12 col-sm-12 col-md-4">
                             <div className="p-5">
-                                <h3>How you can support?</h3>
+                                <h3>How can you support?</h3>
                             </div>
                         </div>
                         <div className="col-xs-12 col-sm-6 col-md-4">
                             <div className="p-5">
                                 <p>Step 1</p>
-                                <p>Pledge</p>
+                                <p>Pledge an amount</p>
                             </div>
                         </div>
                         <div className="col-xs-12 col-sm-6 col-md-4">
                             <div className="p-5">
                                 <p>Step 2</p>
-                                <p>Share the campaign with your friends</p>
+                                <p>Share the wish with your friends</p>
                             </div>
                         </div>
                     </div>
