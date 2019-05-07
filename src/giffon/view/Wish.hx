@@ -5,7 +5,7 @@ import react.ReactMacro.jsx;
 import haxe.io.*;
 import thx.Decimal;
 import js.moment.Moment;
-import js.npm.gravatar.Gravatar;
+import giffon.server.ServerMain.*;
 using DateTools;
 using StringTools;
 using giffon.db.WishProgress.WishProgressTools;
@@ -101,16 +101,6 @@ class Wish extends Page {
         ');
     }
 
-    function userAvatarStyle(user:giffon.db.User) {
-        if (user.user_avatar == null) {
-            return {};
-        }
-
-        return {
-            backgroundImage: 'url("${user.user_avatar}")',
-        }
-    }
-
     function cancelWishControl() {
         if (wish.wish_state == Cancelled) {
             return null;
@@ -191,7 +181,7 @@ class Wish extends Page {
                                 <div className="wish-owner-avatar rounded-circle" style=${userAvatarStyle(wish.wish_owner)} />
                                 <div className="pl-3" style=${{flex: 1}}>
                                     Wish Owner
-                                    <h3>${wish.wish_owner.user_name}</h3>
+                                    <h3><a href=${Path.join(["/user", wish.wish_owner.user_hashid])}>${wish.wish_owner.user_name}</a></h3>
                                 </div>
                             </div>
                         </div>

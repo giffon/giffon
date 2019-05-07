@@ -128,7 +128,7 @@ class ServerMain {
         }
     }
 
-    @async static function getUserIdFromHash(user_hashid:String):Null<Int> {
+    @async static public function getUserIdFromHash(user_hashid:String):Null<Int> {
         var results:QueryResults = (@await dbConnectionPool.query(
             "
                 SELECT `user_id`
@@ -283,7 +283,17 @@ class ServerMain {
         return wishes;
     }
 
-    @async static function getWishes(user_id:Int):Array<giffon.db.Wish> {
+    static public function userAvatarStyle(user:giffon.db.User) {
+        if (user.user_avatar == null) {
+            return {};
+        }
+
+        return {
+            backgroundImage: 'url("${user.user_avatar}")',
+        }
+    }
+
+    @async static public function getWishes(user_id:Int):Array<giffon.db.Wish> {
         var wish_results:QueryResults = (@await dbConnectionPool.query(
             "
                 SELECT `wish_id`
@@ -299,7 +309,7 @@ class ServerMain {
         return wishes;
     }
 
-    @async static function getUser(user_id:Int):giffon.db.User {
+    @async static public function getUser(user_id:Int):giffon.db.User {
         var results:QueryResults = (@await dbConnectionPool.query(
             "
                 SELECT `user_id`, `user_hashid`, `user_primary_email`, `user_name`, `user_avatar`
@@ -633,7 +643,8 @@ class ServerMain {
         //         return;
         //     }
         // });
-        
+
+        app.use(giffon.server.User.createRouter());
         app.use(giffon.server.Wish.createRouter());
         app.use(giffon.server.MakeAWish.createRouter());
 

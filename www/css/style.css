@@ -486,6 +486,18 @@ footer a:hover {
     height: 90px;
 }
 
+.page-user .user-avatar {
+    background-size: 100%;
+    background-repeat: no-repeat;
+    width: 120px;
+    height: 120px;
+    margin: 10px;
+}
+
+.page-user .user-info .user-name {
+    font-size: 1.5em;
+}
+
 .page-wish .wish-item {
     font-size: 1.5em;
     background: none;
@@ -505,6 +517,15 @@ footer a:hover {
     right: 1em;
     bottom: 50%;
     z-index: 10;
+}
+
+.wish-box .wish-owner-name a {
+    text-decoration: underline;
+    color: rgba(0,0,0,1);
+}
+.wish-box .wish-owner-name a:hover {
+    text-decoration: none;
+    color: rgba(0,0,0,1);
 }
 
 .wish-box .btn {

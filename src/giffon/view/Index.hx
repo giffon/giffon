@@ -33,7 +33,7 @@ class Index extends Page {
                             className="wish-owner-avatar rounded-circle mx-auto d-block mt-2 mb-1"
                             style=${userAvatarStyle(wish.wish_owner)}
                         />
-                        <div className="text-center mb-2">${wish.wish_owner.user_name}</div>
+                        <div className="wish-owner-name text-center mb-2"><a href=${Path.join(["/user", wish.wish_owner.user_hashid])}>${wish.wish_owner.user_name}</a></div>
                     </div>
                     <div className="border_xs_b text-truncate">
                         <i className="far fa-gem p-3 border_xs_r" />
