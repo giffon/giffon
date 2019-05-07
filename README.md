@@ -1,5 +1,7 @@
 # Giffon
 
+[![pipeline status](https://gitlab.com/giffon.io/giffon/badges/master/pipeline.svg)](https://gitlab.com/giffon.io/giffon/commits/master)
+
 https://giffon.io
 
 ## Development info
