@@ -126,7 +126,7 @@ class Wish extends Page {
     }
 
     function wishSettings() {
-        if (user.user_id != wish.wish_owner.user_id) {
+        if (user == null || user.user_id != wish.wish_owner.user_id) {
             return null;
         }
         switch (wish.wish_state) {
