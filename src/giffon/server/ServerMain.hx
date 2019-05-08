@@ -37,14 +37,13 @@ class ServerMain {
             null;
     }
     static public function absPath(path:String):String {
-        return path;
-        // if (path.startsWith("https://") || path.startsWith("http://")) {
-        //     return path;
-        // }
-        // return switch (base) {
-        //     case null: path;
-        //     case _: Path.join([base, path]);
-        // }
+        if (path.startsWith("https://") || path.startsWith("http://")) {
+            return path;
+        }
+        return switch (base) {
+            case null: path;
+            case _: Path.join([base, path]);
+        }
     }
 
     static public function R(path:String) {
@@ -432,7 +431,7 @@ class ServerMain {
                     case Production: true;
                     case _: false;
                 },
-                //domain: base.substr(base.indexOf("//")+2,
+                domain: base.substr(base.indexOf("//")+2,
             },
             resave: false,
             saveUninitialized: true
