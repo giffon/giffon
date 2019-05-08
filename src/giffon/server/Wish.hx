@@ -180,7 +180,7 @@ class Wish {
             }]
         ).handleError(next).toPromise();
 
-        res.redirect('/wish/$wish_hashid');
+        res.redirect(absPath('/wish/$wish_hashid'));
     };
 
     @await static function handlePledgeCancel(req:Request, res:Response, next:Dynamic){

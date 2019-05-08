@@ -28,6 +28,23 @@ extern class FacebookStrategy {
 @await
 class ServerMain {
     static public var canonicalBase(default, never) = "https://giffon.io";
+    static public var base(default, never) = switch (Stage.stage) {
+        case Production:
+            canonicalBase;
+        case Master:
+            "https://master.giffon.io";
+        case _:
+            null;
+    }
+    static public function absPath(path:String):String {
+        if (path.startsWith("https://") || path.startsWith("http://")) {
+            return path;
+        }
+        return switch (base) {
+            case null: path;
+            case _: Path.join([base, path]);
+        }
+    }
 
     static public function R(path:String) {
         return switch (Stage.stage) {
@@ -40,7 +57,7 @@ class ServerMain {
 
     static public function ensureLoggedIn(req:Request, res:Response, next:Dynamic):Void {
         if (res.getUser() == null) {
-            res.redirect("/signin?redirectTo=" + req.path.urlEncode());
+            res.redirect(absPath("/signin?redirectTo=" + req.path.urlEncode()));
         } else {
             next();
         }
@@ -426,7 +443,7 @@ class ServerMain {
         var strategy = new FacebookStrategy({
             clientID: FacebookInfo.FACEBOOK_CLIENT_ID,
             clientSecret: FacebookInfo.FACEBOOK_APP_SECRET,
-            callbackURL: "/callback/facebook",
+            callbackURL: absPath("/callback/facebook"),
             profileFields: ['id', 'displayName', 'email', 'picture.type(large)'],
         }, @await function(accessToken, refreshToken, profile:js.npm.passport.Profile, done:Function) {
             if (profile.emails.length <= 0) {
@@ -563,14 +580,14 @@ class ServerMain {
                 case redirectTo:
                     req.session.redirectTo = redirectTo;
             }
-            res.redirect("/signin/facebook");
+            res.redirect(absPath("/signin/facebook"));
         });
         app.get("/signin/facebook",
             Passport.authenticate('facebook', {
                 scope: ["email"]
             }),
             function(req, res:Response) {
-                res.redirect("/");
+                res.redirect(absPath("/"));
             }
         );
         app.get("/callback/facebook", function(req:Request, res:Response, next) {
@@ -590,7 +607,7 @@ class ServerMain {
                         case null: "/";
                         case r: r;
                     }
-                    res.redirect(redirectTo);
+                    res.redirect(absPath(redirectTo));
                 });
             })(req, res, next);
         });
@@ -600,7 +617,7 @@ class ServerMain {
                 case r: r;
             }
             req.logout();
-            res.redirect(redirectTo);
+            res.redirect(absPath(redirectTo));
         });
 
         app.get("/home", ensureLoggedIn, @await function(req:Request, res:Response) {
