@@ -234,9 +234,9 @@ class Page extends ReactComponent {
                     <a className="p-2" href="/privacy">Privacy Policy</a>
                 </div>
                 <div className="social row justify-content-center mt-2">
-                    <div className="col-auto"><a href="https://www.facebook.com/giffon.io" target="_blank"><i className="fab fa-facebook"></i></a></div>
-                    <div className="col-auto"><a href="https://twitter.com/giffon_io" target="_blank"><i className="fab fa-twitter"></i></a></div>
-                    <div className="col-auto"><a href="https://gitlab.com/giffon.io/giffon" target="_blank"><i className="fab fa-github"></i></a></div>
+                    <div className="col-auto"><a href="https://www.facebook.com/giffon.io" target="_blank" title="Giffon on Facebook"><i className="fab fa-facebook"></i></a></div>
+                    <div className="col-auto"><a href="https://twitter.com/giffon_io" target="_blank" title="Giffon on Twitter"><i className="fab fa-twitter"></i></a></div>
+                    <div className="col-auto"><a href="https://gitlab.com/giffon.io/giffon" target="_blank" title="Giffon on GitLab"><i className="fab fa-gitlab"></i></a></div>
                 </div>
             </footer>
         </body>
