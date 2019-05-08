@@ -423,16 +423,19 @@ class ServerMain {
         sessionPoolConfig.connectionLimit = 1;
         sessionPoolConfig.acquireTimeout = 10.0 * 1000.0; //10 seconds
         var sessionStore = untyped __js__("new {0}({1})", MySQLStore, sessionPoolConfig);
+        var cookieSetting:Dynamic = {
+            secure: switch (Stage.stage) {
+                case Production: true;
+                case _: false;
+            },
+        };
+        if (base != null) {
+            cookieSetting.domain = base.substr(base.indexOf("//")+2);
+        }
         var sess = {
             secret: Utils.env("SESSION_SECRET", "secret"),
             store: sessionStore,
-            cookie: {
-                secure: switch (Stage.stage) {
-                    case Production: true;
-                    case _: false;
-                },
-                domain: base.substr(base.indexOf("//")+2,
-            },
+            cookie: cookieSetting,
             resave: false,
             saveUninitialized: true
         };
