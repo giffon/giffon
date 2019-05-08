@@ -442,6 +442,12 @@ class ServerMain {
         //https://stackoverflow.com/questions/20739744/passportjs-callback-switch-between-http-and-https
         app.enable("trust proxy");
 
+        app.use(function(req, res:ExpressResponse, next){
+            res.setHeader("Access-Control-Allow-Origin", "*");
+            res.setHeader("Access-Control-Allow-Credentials", "true");
+            next();
+        });
+
         var strategy = new FacebookStrategy({
             clientID: FacebookInfo.FACEBOOK_CLIENT_ID,
             clientSecret: FacebookInfo.FACEBOOK_APP_SECRET,
