@@ -106,7 +106,7 @@ img.emoji, .inline-icon {
 }
 
 #banner {
-    background-image: radial-gradient(farthest-corner at 88px 40px, #09203f2e 50%, #065af21a 100%), url(../images/bg2.svg);
+    background-image: radial-gradient(farthest-corner at 88px 40px, rgba(9, 32, 63, 0.18) 50%, rgba(6, 90, 242, 0.1) 100%), url(../images/bg2.svg);
 }
 
 .idea-bulb {
