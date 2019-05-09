@@ -72,14 +72,14 @@ class User extends Page {
                 var makeWishHint = if (user != null && user.user_id == pageUser.user_id) {
                     jsx('
                         <Fragment>
-                            <a href="/make-a-wish">Make one now</a>.
+                            <a className="font_xs_xs font_md_s" href="/make-a-wish">Make one now</a>.
                         </Fragment>
                     ');
                 } else {
                     null;
                 };
                 jsx('
-                    <p>No wishes in progress. ${makeWishHint}</p>
+                    <p className="font_xs_xs font_md_s">No wishes in progress. ${makeWishHint}</p>
                 ');
             case wishes:
                 wishesList(wishes);
@@ -87,7 +87,7 @@ class User extends Page {
 
         return jsx('
             <Fragment>
-                <h3>Wishes in Progress</h3>
+                <h3 className="font_xs_l font_md_xxl">Wishes in Progress</h3>
                 ${list}
             </Fragment>
         ');
@@ -97,7 +97,7 @@ class User extends Page {
         var list = switch (wishes.filter(isCompleted)) {
             case []:
                 jsx('
-                    <p>No completed wishes.</p>
+                    <p className="font_xs_xs font_md_s">No completed wishes.</p>
                 ');
             case wishes:
                 wishesList(wishes);
@@ -105,7 +105,7 @@ class User extends Page {
 
         return jsx('
             <Fragment>
-                <h3 className="pt-5">Completed Wishes</h3>
+                <h3 className="pt-5 font_xs_l font_md_xxl">Completed Wishes</h3>
                 ${list}
             </Fragment>
         ');
@@ -119,7 +119,7 @@ class User extends Page {
         var list = switch (wishes.filter(isCancelled)) {
             case []:
                 jsx('
-                    <p>No cancelled wishes.</p>
+                    <p className="font_xs_xs font_md_s">No cancelled wishes.</p>
                 ');
             case wishes:
                 wishesList(wishes);
@@ -127,8 +127,8 @@ class User extends Page {
 
         return jsx('
             <Fragment>
-                <h3 className="pt-5">Cancelled Wishes</h3>
-                <p>Only wish owners can see their list of cancelled wishes.</p>
+                <h3 className="pt-5 font_xs_l font_md_xxl">Cancelled Wishes</h3>
+                <p className="font_xs_xs font_md_s">Only wish owners can see their list of cancelled wishes.</p>
                 ${list}
             </Fragment>
         ');

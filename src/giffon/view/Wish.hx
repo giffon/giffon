@@ -107,8 +107,8 @@ class Wish extends Page {
         }
 
         return jsx('
-            <div>
-                <h4>Cancel Wish</h4>
+            <div className="my-5 p-3 bg_white shaded-shadow font_xs_xs font_md_s">
+                <h4  className="font_xs_l font_md_xxl">Cancel Wish</h4>
                 <p>Once cancelled, all existing pledges will be refunded to the supporters. The action cannot be undone.</p>
                 <button className="cancel-wish-btn btn btn-danger">Cancel Wish</button>
             </div>
@@ -122,8 +122,8 @@ class Wish extends Page {
         switch (wish.wish_state) {
             case Cancelled:
                 return jsx('
-                    <div className="my-3">
-                        <h3>Settings</h3>
+                    <div className="p-3 bg_white shaded-shadow font_xs_xs font_md_s">
+                        <h3 className="font_xs_l font_md_xxl">Settings</h3>
                         <p>Wish cancelled. No operation is allowed.</p>
                     </div>
                 ');
@@ -133,7 +133,7 @@ class Wish extends Page {
         
         return jsx('
             <div className="my-3">
-                <h3>Settings</h3>
+                <h3 className="font_xs_l font_md_xxl">Settings</h3>
                 ${cancelWishControl()}
             </div>
         ');
@@ -166,7 +166,7 @@ class Wish extends Page {
                 <div className="row my-md-5">
                     <div className="col-12 col-md-6">
                         <div className="p-3 p-md-5 color_white detail_card_left">
-                            <div className="font_xs_l font_md_xl">${wish.wish_title}</div>
+                            <div className="font_xs_xl">${wish.wish_title}</div>
                             ${wishState()}
                         </div>
                     </div>
@@ -179,19 +179,19 @@ class Wish extends Page {
                         <div className="col-12 col-md-6">
                             <div className="p-3  p-md-5" style=${{display: 'flex', alignItems: 'center'}}>
                                 <div className="wish-owner-avatar rounded-circle" style=${userAvatarStyle(wish.wish_owner)} />
-                                <div className="pl-3" style=${{flex: 1}}>
+                                <div className="pl-3 font_xs_xs font_md_s" style=${{flex: 1}}>
                                     Wish Owner
-                                    <h3><a href=${Path.join(["/user", wish.wish_owner.user_hashid])}>${wish.wish_owner.user_name}</a></h3>
+                                    <h3 className="font_xs_l font_md_xl"><a href=${Path.join(["/user", wish.wish_owner.user_hashid])}>${wish.wish_owner.user_name}</a></h3>
                                 </div>
                             </div>
                         </div>
                         <div className="col-12 col-md-6">
-                            <div className="wish-description p-3 p-md-5">
+                            <div className="wish-description p-3 p-md-5 font_xs_xs font_md_s">
                                 ${wish.wish_description}
                             </div>
                         </div>
                     </div>
-                    <div className="row justify-content-center">
+                    <div className="row justify-content-center font_xs_xs font_md_s">
                         <div className="col-md-10 my-2">
                             <ul className="list-group list-group-flush">
                                 ${wishItems()}
@@ -203,23 +203,22 @@ class Wish extends Page {
                             Total: <span className="wish-total" data-toggle="tooltip" title=${wish.wish_total_needed.breakdown}>${wish.items[0].item_currency.getName()} ${wish.wish_total_needed.amount.toString()} <i className="fas fa-info-circle"></i></span>
                         </div>
                     </div>
-                    <div className="row mx-0 border_xs_b">
-                        <div className="col-xs-12 col-sm-12 col-md-4">
-                            <div className="p-5">
-                                <h3>How can you support?</h3>
-                            </div>
+                    <div className="mb-5 mt-3 p-3 p-md-5 bg6 d-sm-flex align-items-sm-center">
+                        <div className="p-3 text-center flex-grow-1">
+                            <img className="width_xs_30 mb-2" src=${R("/images/motivation.svg")}/>
+                            <div className="font_xs_l font_md_xl">How can you support?</div>
                         </div>
-                        <div className="col-xs-12 col-sm-6 col-md-4">
-                            <div className="p-5">
-                                <p>Step 1</p>
-                                <p>Pledge an amount</p>
+                        <div class="p-3 p-md-4 mb-3 mb-md-0 bg_white">
+                        <div className="pb-3 font_xs_s font_md_l flex-grow-2">
+                                Share the wish with your friends.
                             </div>
+                            <input type="text" value="123" class="w-100 p-1"/>
                         </div>
-                        <div className="col-xs-12 col-sm-6 col-md-4">
-                            <div className="p-5">
-                                <p>Step 2</p>
-                                <p>Share the wish with your friends</p>
+                        <div className="p-3 p-md-4 ml-md-3 bg_white flex-grow-2">
+                            <div className="pb-3 font_xs_s font_md_l">
+                                Pledge the wish, since every $1 matters.
                             </div>
+                            <button className="btn btn-success w-100"><i className="fas fa-child"></i> Pledge Now</button>
                         </div>
                     </div>
                 </div>

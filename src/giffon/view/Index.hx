@@ -37,12 +37,12 @@ class Index extends Page {
                     </div>
                     <div className="shaded-shadow mt-5 pt-5">
                         <div className="px-3 pb-3 text-center">
-                            <span className="wish-owner-name font_xs_xs font_md_s"><a href=${Path.join(["/user", wish.wish_owner.user_hashid])}>${wish.wish_owner.user_name}</a></span>
+                            <span className="wish-owner-name font_xs_m font_md_l"><a href=${Path.join(["/user", wish.wish_owner.user_hashid])}>${wish.wish_owner.user_name}</a></span>
                     
                             <div className="text-truncate text-left pt-3">
                                 <span className="font_xs_m font_md_l pt-1">${wish.wish_title}</span>
                             </div>
-                            <div className="wish-description text-left font_xs_s">${wish.wish_description}</div>
+                            <div className="wish-description text-left font_xs_xs font_md_s">${wish.wish_description}</div>
                         </div>
                         <a className="btn btn-success rounded-0 w-100" href=${"/wish/" + wish.wish_hashid}>
                             Support!
@@ -63,19 +63,21 @@ class Index extends Page {
             <div id="banner" className="font_xs_xs font_md_s pt-lg-5">
                 <div>
                     <div className="row mx-0 p-sm-4 p-md-5">
-                        <div className="hero-title col-xs-10 col-md-10 col-lg-4 mx-0 mr-md-auto px-3 px-sm-0 pb-4 my-4 pb-lg-5 my-lg-5 color_white">
-                            <div className="title">Giffon</div>
-                            <div className="slogan">Your Crowd-gifting Platform</div>
+                        <div className="hero-title col-xs-10 col-md-10 col-lg-4 mx-0 mr-md-auto px-3 pb-4 px-sm-0 my-4 pb-lg-5 my-lg-5 color_white">
+                            <div className="font_xs_xxl">Giffon</div>
+                            <div className="font_xs_m font_md_l">Your Crowd-gifting Platform</div>
                         </div>
                         <div className="col-xs-10 col-sm-12 col-md-6 col-lg-4 col-xl-3 px-3 px-md-0 mb-2">
                             <div className="card_left bg_white_o80">
-                                <div className="position-absolute banner-bulb"></div>
+                                <div className="position-absolute idea-bulb">
+                                    <img src="../images/idea-y.svg" width="45"/>
+                                </div>
                                 <div className="p-4 p-md-5">
                                 <div className="font_xs_l font_md_xl">How to Start?</div>
                                 Choose any of the millions items listed in any online store. Make a wish on Giffon and let your friends know.</div>
                             </div>
                         </div>
-                        <div className="col-xs-10 col-sm-12 col-md-6 col-lg-4 col-xl-3 px-3 px-md-0 mb-2">
+                        <div className="col-xs-10 col-sm-12 col-md-6 col-lg-4 col-xl-3 px-3 px-md-0 mb-3">
                             <div className="card_right bg_white shaded-shadow">
                                 <div className="p-4 p-md-5">
                                     When Giffon collected enough money from your supporters, Giffon will buy you the gift!
@@ -89,20 +91,20 @@ class Index extends Page {
                 </div>
             </div>
             <div className="pb-5">
-                <h2 className="text-center p-5">Recent wishes</h2>
+                <div className="text-center p-5 font_xs_l font_md_xl">Recent wishes</div>
                 <div className="res-slick row mx-1 recent-wishes">
                     ${recentWishes()}
                 </div>
             </div>
             
-            <div className="text-center pt-5">
-                <h2>Why make wishes on Giffon?</h2>
+            <div className="text-center pt-5 font_xs_l font_md_xl">
+                Why make wishes on Giffon?
             </div>
 
             <div id="set2" className="row my-4 my-md-5 text-center from_right">
                 <div className="col-sm-12 col-md-2 ml-md-auto mr-md-3 bg5 color_white shaded-shadow p-3 flex_container_v_xs d-md-flex">
                 <div className="vbox">
-                    <div className="reason-title">For Wish Makers</div>
+                    <div className="font_xs_m font_md_l">For Wish Makers</div>
                 </div>
                 </div>
             
@@ -154,15 +156,15 @@ class Index extends Page {
                 
             </div>
 
-            <div className="text-center pt-5">
-                <h2>Why support friends on Giffon?</h2>
+            <div className="text-center pt-5 font_xs_l font_md_xl">
+                Why support friends on Giffon?
             </div>
 
             <div id="support" className="row my-4 my-md-5 text-center from_left">
 
                 <div className="col-sm-12 col-md-2 mr-md-auto ml-3 ml-sm-0 ml-md-3 bg5 color_white shaded-shadow p-3 d-xs-flex d-md-none">
                     <div className="vbox">
-                        <div className="reason-title">For Supporters</div>
+                        <div className="font_xs_m font_md_l">For Supporters</div>
                     </div>
                 </div>
 

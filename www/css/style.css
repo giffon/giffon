@@ -55,7 +55,7 @@ body > .content {
 }
 
 .bg_white_o80 {
-    background: rgba(255,255,255,0.8);
+    background: rgba(255,255,255,0.7);
 }
 
 .bg_white {
@@ -72,6 +72,10 @@ body > .content {
 
 .color_white_o50 {
     color: rgba(255,255,255,0.5);
+}
+
+.color_yellow {
+    color: #fff700;
 }
 
 .corner_xs {
@@ -102,7 +106,11 @@ img.emoji, .inline-icon {
 }
 
 #banner {
-    background-image: radial-gradient(farthest-corner at 88px 40px, #09203f 50%, #065af2 100%);
+    background-image: radial-gradient(farthest-corner at 88px 40px, #09203f2e 50%, #065af21a 100%), url(../images/bg2.svg);
+}
+
+.idea-bulb {
+    z-index:9; top:-1.5rem;
 }
 
 .page-wish #banner {
@@ -117,8 +125,8 @@ img.emoji, .inline-icon {
     border: 0;
 }
 
-.btn-success:hover {
-    background: #065af2;
+.btn-success:hover, .btn-success:not(:disabled):not(.disabled).active, .btn-success:not(:disabled):not(.disabled):active, .show>.btn-success.dropdown-toggle {
+    background: #064ed4;
 }
 
 .feature {
@@ -482,7 +490,7 @@ footer .social a:hover {
 }
 
 .bg6 {
-    background: #ffe000;
+    background: #fff700;
 
 }
 
