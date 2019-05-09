@@ -91,7 +91,7 @@ class Index extends Page {
                 </div>
             </div>
             <div className="pb-5">
-                <div className="text-center p-5 font_xs_l font_md_xl">Recent wishes</div>
+                <div className="text-center pt-5 py-md-5 font_xs_l font_md_xl">Recent wishes</div>
                 <div className="res-slick row mx-1 recent-wishes">
                     ${recentWishes()}
                 </div>

@@ -21,10 +21,10 @@ class User extends Page {
     function renderWish(wish:giffon.db.Wish) {
         return jsx('
             <div key=${wish.wish_id} className="col-12 col-md-4 mb-2">
-                <div className="card">
-                    <div className="card-body">
-                        <div className="card-title"><a href=${Path.join(["/wish", wish.wish_hashid])}>${wish.wish_title}</a></div>
-                        <div className="card-text wish-description">${wish.wish_description}</div>
+                <div className="bg_white shadow p-3 font_xs_xs font_md_s">
+                    <div className="">
+                        <div className="font_xs_s font_md_m"><a href=${Path.join(["/wish", wish.wish_hashid])}>${wish.wish_title}</a></div>
+                        <div className="font_xs_xs font_md_s wish-description">${wish.wish_description}</div>
                     </div>
                 </div>
             </div>
@@ -87,7 +87,7 @@ class User extends Page {
 
         return jsx('
             <Fragment>
-                <h3 className="font_xs_l font_md_xxl">Wishes in Progress</h3>
+                <h3 className="pt-5 font_xs_l font_md_xxl">Wishes in Progress</h3>
                 ${list}
             </Fragment>
         ');
