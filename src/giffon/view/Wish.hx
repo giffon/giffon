@@ -146,7 +146,7 @@ class Wish extends Page {
         }
 
         return jsx('
-            <div className="my-5 p-3 bg_white shaded-shadow font_xs_xs font_md_s">
+            <div className="mb-5 p-3 bg_white shaded-shadow font_xs_xs font_md_s">
                 <h4  className="font_xs_l font_md_xxl">Cancel Wish</h4>
                 <p>Once cancelled, all existing pledges will be refunded to the supporters. The action cannot be undone.</p>
                 <button className="cancel-wish-btn btn btn-danger">Cancel Wish</button>
@@ -237,7 +237,7 @@ class Wish extends Page {
                             </ul>
                         </div>
                     </div>
-                    <div className="row justify-content-md-center">
+                    <div className="row justify-content-md-center pb-2">
                         <div className="col text-center">
                             Total: <span className="wish-total" data-toggle="tooltip" title=${wish.wish_total_needed.breakdown}>${wish.items[0].item_currency.getName()} ${wish.wish_total_needed.amount.toString()} <i className="fas fa-info-circle"></i></span>
                         </div>
