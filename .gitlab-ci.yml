@@ -95,7 +95,7 @@ deploy-serverless:
   stage: deploy
   image: node:8-alpine
   script:
-    - npm install -g serverless
+    - npm install -g serverless@1.41.1
     - serverless deploy --stage "${CI_COMMIT_REF_NAME}"
   only:
     - master
