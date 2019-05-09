@@ -136,7 +136,7 @@ class Wish extends Page {
         }
 
         return jsx('
-            <div id="pledge-form-root"></div>
+            <div id="pledge-form-root" className="my-5 p-3 bg_white shaded-shadow font_xs_xs font_md_m"></div>
         ');
     }
 
