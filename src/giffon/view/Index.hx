@@ -70,7 +70,7 @@ class Index extends Page {
                         <div className="col-xs-10 col-sm-12 col-md-6 col-lg-4 col-xl-3 px-3 px-md-0 mb-2">
                             <div className="card_left bg_white_o80">
                                 <div className="position-absolute idea-bulb">
-                                    <img src="../images/idea-y.svg" alt="light bulb" width="45"/>
+                                    <img src=${R("/images/idea-y.svg")} alt="light bulb" width="45"/>
                                 </div>
                                 <div className="p-4 p-md-5">
                                 <div className="font_xs_l font_md_xl">How to Start?</div>
