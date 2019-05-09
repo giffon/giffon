@@ -25,24 +25,29 @@ class Index extends Page {
     }
 
     function wishBox(wish:giffon.db.Wish) {
+        // return null;
         return jsx('
-            <div key=${wish.wish_id} className="col mx-0">
-                <div className="wish-box border_xs">
-                    <div className="image border_xs_b">
+            <div key=${wish.wish_id} className="col mx-0 pb-5">
+                <div className="wish-box position-relative">
+                    <div className="image position-absolute wish-owner">
                         <div
-                            className="wish-owner-avatar rounded-circle mx-auto d-block mt-2 mb-1"
+                            className="wish-owner-avatar rounded-circle"
                             style=${userAvatarStyle(wish.wish_owner)}
-                        />
-                        <div className="wish-owner-name text-center mb-2"><a href=${Path.join(["/user", wish.wish_owner.user_hashid])}>${wish.wish_owner.user_name}</a></div>
+                        ></div>
                     </div>
-                    <div className="border_xs_b text-truncate">
-                        <i className="far fa-gem p-3 border_xs_r" />
-                        <span className="px-3">${wish.wish_title}</span>
+                    <div className="shaded-shadow mt-5 pt-5">
+                        <div className="px-3 pb-3 text-center">
+                            <span className="wish-owner-name font_xs_xs font_md_s"><a href=${Path.join(["/user", wish.wish_owner.user_hashid])}>${wish.wish_owner.user_name}</a></span>
+                    
+                            <div className="text-truncate text-left pt-3">
+                                <span className="font_xs_m font_md_l pt-1">${wish.wish_title}</span>
+                            </div>
+                            <div className="wish-description text-left font_xs_s">${wish.wish_description}</div>
+                        </div>
+                        <a className="btn btn-success rounded-0 w-100" href=${"/wish/" + wish.wish_hashid}>
+                            Support!
+                        </a>
                     </div>
-                    <div className="wish-description p-3 border_xs_b">${wish.wish_description}</div>
-                    <a className="btn btn-success rounded-0 w-100" href=${"/wish/" + wish.wish_hashid}>
-                        Support!
-                    </a>
                 </div>
             </div>
         ');
@@ -55,17 +60,19 @@ class Index extends Page {
 
     override function bodyContent() return jsx('
         <Fragment>
-            <div id="banner" className="font_xs_xs font_md_s">
+            <div id="banner" className="font_xs_xs font_md_s pt-lg-5">
                 <div>
                     <div className="row mx-0 p-sm-4 p-md-5">
-                        <div className="hero-title col-xs-10 col-md-10 col-lg-4 mx-0 mr-md-auto py-4 my-4 py-lg-5 my-lg-5 color_white">
+                        <div className="hero-title col-xs-10 col-md-10 col-lg-4 mx-0 mr-md-auto px-3 px-sm-0 pb-4 my-4 pb-lg-5 my-lg-5 color_white">
                             <div className="title">Giffon</div>
                             <div className="slogan">Your Crowd-gifting Platform</div>
                         </div>
                         <div className="col-xs-10 col-sm-12 col-md-6 col-lg-4 col-xl-3 px-3 px-md-0 mb-2">
-                            <div className="p-4 p-md-5 card_left bg_white_o80">
-                                <div className="font_xs_xl font_md_xl">How to Start?</div>
-                                Choose any of the millions items listed in any online store. Make a wish on Giffon and let your friends know.
+                            <div className="card_left bg_white_o80">
+                                <div className="position-absolute banner-bulb"></div>
+                                <div className="p-4 p-md-5">
+                                <div className="font_xs_l font_md_xl">How to Start?</div>
+                                Choose any of the millions items listed in any online store. Make a wish on Giffon and let your friends know.</div>
                             </div>
                         </div>
                         <div className="col-xs-10 col-sm-12 col-md-6 col-lg-4 col-xl-3 px-3 px-md-0 mb-2">
@@ -93,18 +100,18 @@ class Index extends Page {
             </div>
 
             <div id="set2" className="row my-4 my-md-5 text-center from_right">
-                <div className="col-sm-12 col-md-2 ml-md-auto mr-md-3 bg4 color_white shaded-shadow p-3 flex_container_v_xs d-md-flex">
+                <div className="col-sm-12 col-md-2 ml-md-auto mr-md-3 bg5 color_white shaded-shadow p-3 flex_container_v_xs d-md-flex">
                 <div className="vbox">
                     <div className="reason-title">For Wish Makers</div>
                 </div>
                 </div>
             
                 <div className="col-xs-auto col-sm-6 col-md-2 p-0 mr-3 mr-sm-auto mr-md-3 bg_white_o80 corner_s shaded-shadow">
-                <div className="color_black px-3 py-4 px-md-2 py-md-4">
+                <div className="px-3 pt-3 px-md-2 py-md-4 font_xs_xs font_md_s">
                     <img className="width_xs_30 width_md_60" src=${R("/images/smile.svg")} alt="smile" />
                     
                     <div className="py-3">
-                    <span className="d-inline-block px-2 py-1 color_white corner_xs" style=${{background: "#a6c0fe"}}>#awesome</span>
+                    <span className="d-inline-block px-2 py-1 corner_xs bg6">#awesome</span>
                     </div>
                     <p>get exactly what you want, every single time</p>
                     
@@ -112,10 +119,10 @@ class Index extends Page {
                 </div>
             
                 <div className="col-xs-auto col-sm-6 col-md-2 p-0 mr-3 mr-sm-auto mr-md-3 bg_white_o80 corner_s shaded-shadow">
-                <div className="color_black px-3 py-4 px-md-2 py-md-4">
+                <div className="px-3 pt-3 px-md-2 py-md-4 font_xs_xs font_md_s">
                     <img className="width_xs_30 width_md_60" src=${R("/images/speaker.svg")} alt="speaker" />
                     <div className="py-3">
-                    <span className="d-inline-block px-2 py-1 color_white corner_xs" style=${{background: "#CAA4C9"}}>#speakUp</span>
+                    <span className="d-inline-block px-2 py-1 corner_xs bg6">#speakUp</span>
                     </div>
                     <p>people want to gift you, they just don\'t know what to buy</p>
                     
@@ -123,10 +130,10 @@ class Index extends Page {
                 </div>
             
                 <div className="col-xs-auto col-sm-6 col-md-2 p-0 mr-3 mr-sm-auto mr-md-3 bg_white_o80 corner_s shaded-shadow">
-                <div className="color_black px-3 py-4 px-md-2 py-md-4">
-                    <img className="width_xs_30 width_md_60" src=${R("/images/plant.svg")} alt="plant" />
+                <div className="colr_black px-3 py-4 px-md-2 py-md-4  font_xs_xs font_md_s">
+                    <img className="width_xs_30 width_md_60"  src=${R("/images/plant.svg")} alt="plant" />
                     <div className="py-3">
-                    <span className="d-inline-block px-2 py-1 color_white corner_xs" style=${{background: "#D798B3"}}>#ecoFriendly</span>
+                    <span className="d-inline-block px-2 py-1 bg6 corner_xs">#ecoFriendly</span>
                     </div>
                     <p>no longer need to deal with gifts that have no value to you</p>
                     
@@ -134,10 +141,10 @@ class Index extends Page {
                 </div>
             
                 <div className="col-xs-auto col-sm-6 col-md-2 p-0 mr-3 mr-sm-auto mr-md-3 bg_white_o80 corner_s shaded-shadow">
-                <div className="color_black px-3 py-4 px-md-2 py-md-4">
+                <div className=" px-3 py-4 px-md-2 py-md-4 font_xs_xs font_md_s">
                     <img className="width_xs_30 width_md_60" src=${R("images/piggy.svg")} alt="piggy bank" />
                     <div className="py-3">
-                    <span className="d-inline-block px-2 py-1 color_white corner_xs" style=${{background: "#f68084"}}>#saveMoney</span>
+                    <span className="d-inline-block px-2 py-1 bg6 corner_xs">#saveMoney</span>
                     </div>
                     <p>get what you want for free</p>
                     
@@ -161,10 +168,10 @@ class Index extends Page {
 
 
                 <div className="col-xs-auto col-sm-6 col-md-2 p-0 ml-3 ml-sm-auto ml-md-3 bg_white corner_s shaded-shadow">
-                <div className="color_black px-3 py-4 px-md-2 py-md-4">
+                <div className=" px-3 py-4 px-md-2 py-md-4 font_xs_xs font_md_s">
                     <img className="width_xs_30 width_md_60" src=${R("images/charity.svg")} alt="charity" />
                     <div className="py-3">
-                    <span className="d-inline-block px-2 py-1 color_white corner_xs" style=${{background: "#59d7ff"}}>#sincerity</span>
+                    <span className="d-inline-block px-2 py-1 bg6 corner_xs">#sincerity</span>
                     </div>
                     <p>show that you are thankful, appreciating someone</p>
                     
@@ -172,10 +179,10 @@ class Index extends Page {
                 </div>
         
                 <div className="col-xs-auto col-sm-6 col-md-2 p-0 ml-3 ml-sm-auto ml-md-3 bg_white corner_s shaded-shadow">
-                <div className="color_black px-3 py-4 px-md-2 py-md-4">
+                <div className=" px-3 py-4 px-md-2 py-md-4 font_xs_xs font_md_s">
                     <img className="width_xs_30 width_md_60" src=${R("images/motivation.svg")} alt="certain" />
                     <div className="py-3">
-                    <span className="d-inline-block px-2 py-1 color_white corner_xs" style=${{background: "#61BCFF"}}>#certain</span>
+                    <span className="d-inline-block px-2 py-1 bg6 corner_xs" >#certain</span>
                     </div>
                     <p>your money spent is going to make the receiver happy</p>
                     
@@ -183,10 +190,10 @@ class Index extends Page {
                 </div>
         
                 <div className="col-xs-auto col-sm-6 col-md-2 p-0 ml-3 ml-sm-auto ml-md-3 bg_white corner_s shaded-shadow">
-                <div className="color_black px-3 py-4 px-md-2 py-md-4">
+                <div className=" px-3 py-4 px-md-2 py-md-4  font_xs_xs font_md_s">
                     <img className="width_xs_30 width_md_60" src=${R("images/coins.svg")} alt="coins" />
                     <div className="py-3">
-                    <span className="d-inline-block px-2 py-1 color_white corner_xs" style=${{background: "#6C97FE"}}>#affordable</span>
+                    <span className="d-inline-block px-2 py-1 bg6 corner_xs">#affordable</span>
                     </div>
                     <p>a good gift is never too expensive once your friends chip in</p>
                     
@@ -194,10 +201,10 @@ class Index extends Page {
                 </div>
         
                 <div className="col-xs-auto col-sm-6 col-md-2 p-0 ml-3 ml-sm-auto ml-md-3 bg_white corner_s shaded-shadow">
-                <div className="color_black px-3 py-4 px-md-2 py-md-4">
+                <div className=" px-3 py-4 px-md-2 py-md-4 font_xs_xs font_md_s">
                     <img className="width_xs_30 width_md_60" src=${R("images/title.svg")} alt="trusty" />
                     <div className="py-3">
-                    <span className="d-inline-block px-2 py-1 color_white corner_xs" style=${{background: "#747dfd"}}>#trusty</span>
+                    <span className="d-inline-block px-2 py-1 bg6 corner_xs">#trusty</span>
                     </div>
                     <p>be sure your loved one will receive the nice gift instead of money that may be spent on cigarettes</p>
                     

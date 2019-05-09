@@ -20,7 +20,7 @@ class User extends Page {
 
     function renderWish(wish:giffon.db.Wish) {
         return jsx('
-            <div key=${wish.wish_id} className="col-4 mb-2">
+            <div key=${wish.wish_id} className="col-12 col-md-4 mb-2">
                 <div className="card">
                     <div className="card-body">
                         <div className="card-title"><a href=${Path.join(["/wish", wish.wish_hashid])}>${wish.wish_title}</a></div>
@@ -105,7 +105,7 @@ class User extends Page {
 
         return jsx('
             <Fragment>
-                <h3>Completed Wishes</h3>
+                <h3 className="pt-5">Completed Wishes</h3>
                 ${list}
             </Fragment>
         ');
@@ -127,7 +127,7 @@ class User extends Page {
 
         return jsx('
             <Fragment>
-                <h3>Cancelled Wishes</h3>
+                <h3 className="pt-5">Cancelled Wishes</h3>
                 <p>Only wish owners can see their list of cancelled wishes.</p>
                 ${list}
             </Fragment>
