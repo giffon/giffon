@@ -215,7 +215,7 @@ class Index extends Page {
 
                 <div className="col-sm-12 col-md-2 mr-md-auto ml-3 ml-sm-0 ml-md-3 bg5 color_white shaded-shadow p-3 d-none d-md-flex flex_container_v_xs">
                     <div className="vbox">
-                        <div className="reason-title">For Supporters</div>
+                        <div  className="font_xs_m font_md_l">For Supporters</div>
                     </div>
                 </div>
             </div>
