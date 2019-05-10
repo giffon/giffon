@@ -38,6 +38,7 @@ class Selenium {
             "-P",
             "-p", "5900:5900",
             "-e", "HUB_HOST=" + containerName + "-hub",
+            "-e", "VNC_NO_PASSWORD=1",
             "-v", "/dev/shm:/dev/shm",
             "--rm",
             "selenium/node-chrome-debug:3.141.59-dubnium"
@@ -49,6 +50,7 @@ class Selenium {
             "-P",
             "-p", "5901:5900",
             "-e", "HUB_HOST=" + containerName + "-hub",
+            "-e", "VNC_NO_PASSWORD=1",
             "-v", "/dev/shm:/dev/shm",
             "--rm",
             "selenium/node-firefox-debug:3.141.59-dubnium"
