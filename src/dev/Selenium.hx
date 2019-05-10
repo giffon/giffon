@@ -41,7 +41,7 @@ class Selenium {
             "-e", "VNC_NO_PASSWORD=1",
             "-v", "/dev/shm:/dev/shm",
             "--rm",
-            "selenium/node-chrome-debug:3.141.59-dubnium"
+            "selenium/node-chrome-debug:3.141.59-neon"
         ]);
         Sys.command("docker", [
             "run", "-d",
@@ -53,7 +53,7 @@ class Selenium {
             "-e", "VNC_NO_PASSWORD=1",
             "-v", "/dev/shm:/dev/shm",
             "--rm",
-            "selenium/node-firefox-debug:3.141.59-dubnium"
+            "selenium/node-firefox-debug:3.141.59-neon"
         ]);
     }
 

@@ -73,7 +73,7 @@ test-chrome:
   stage: test-chrome
   services:
     - mysql:5.7
-    - selenium/standalone-chrome:3.14.0-krypton
+    - selenium/standalone-chrome:3.141.59-neon
   variables:
     BROWSER_NAME: chrome
     HUB_HOST: selenium-standalone-chrome
