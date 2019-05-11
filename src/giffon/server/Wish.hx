@@ -114,7 +114,7 @@ class Wish {
                     ",{
                         user_id: user_id,
                         wish_id: wish_id,
-                        pledge_amount: (charge.amount_refunded - charge.amount) * 0.01, //cents -> dollars
+                        pledge_amount: (Decimal.fromFloat(charge.amount_refunded - charge.amount) * 0.01).toFloat(), //cents -> dollars
                         pledge_currency: wish.items[0].item_currency.getName(),
                         pledge_method: giffon.db.PledgeMethod.StripeCard.getName(),
                     }
@@ -150,7 +150,7 @@ class Wish {
 
         var charge = try {
             @await stripe.charges.create({
-                amount: pledgeFormData.pledge_amount * 100, // unit is cents
+                amount: (Decimal.fromFloat(pledgeFormData.pledge_amount) * 100).toInt(), // unit is cents
                 currency: wish.items[0].item_currency.getName().toLowerCase(),
                 // customer: stripe_customer_id,
                 source: pledgeFormData.pledge_data.id,
@@ -218,7 +218,7 @@ class Wish {
                     ",{
                         user_id: user.user_id,
                         wish_id: wish_id,
-                        pledge_amount: (charge.amount_refunded - charge.amount) * 0.01, //cents -> dollars
+                        pledge_amount: (Decimal.fromFloat(charge.amount_refunded - charge.amount) * 0.01).toFloat(), //cents -> dollars
                         pledge_currency: wish.items[0].item_currency.getName(),
                         pledge_method: giffon.db.PledgeMethod.StripeCard.getName(),
                     }
