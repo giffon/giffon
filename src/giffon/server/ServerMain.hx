@@ -46,15 +46,6 @@ class ServerMain {
         }
     }
 
-    static public function R(path:String) {
-        return switch (Stage.stage) {
-            case Production, Master:
-                Path.join(["https://static.giffon.io", Stage.stage, path]);
-            case _:
-                path;
-        };
-    };
-
     static public function ensureLoggedIn(req:Request, res:Response, next:Dynamic):Void {
         if (res.getUser() == null) {
             res.redirect(absPath("/signin?redirectTo=" + req.path.urlEncode()));

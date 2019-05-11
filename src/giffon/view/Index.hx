@@ -3,6 +3,7 @@ package giffon.view;
 import react.*;
 import react.ReactMacro.jsx;
 import haxe.io.*;
+import giffon.R.*;
 import giffon.server.ServerMain.*;
 import js.npm.gravatar.Gravatar;
 

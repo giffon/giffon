@@ -15,7 +15,14 @@ class Wish extends Page {
     override function path() return Path.join(["wish", wish.wish_hashid]);
     override function render() return super.render();
 
-    override function bodyClasses() return super.bodyClasses().concat(["page-wish"]);
+    override function bodyClasses() {
+        var cls = super.bodyClasses();
+        cls.push("page-wish");
+        if (user != null && user.user_id == wish.wish_owner.user_id) {
+            cls.push("user-is-wish-owner");
+        }
+        return cls;
+    }
 
     override function bodyAttributes() {
         var attrs = super.bodyAttributes();
@@ -75,49 +82,6 @@ class Wish extends Page {
             </li>
         ')
     ];
-
-    function howToHelpSection () {
-        var isUserWishOwner = user != null && user.user_id == wish.wish_owner.user_id;
-        if (isUserWishOwner)
-            return null;
-
-        return jsx('
-            <div className="mb-5 mt-3 p-3 p-md-5 bg6 d-sm-flex align-items-sm-center">
-                <div className="p-3 text-center flex-grow-1">
-                    <img className="width_xs_30 mb-2" src=${R("/images/motivation.svg")}/>
-                    <div className="font_xs_l font_md_xl">How can you support?</div>
-                </div>
-                <div className="p-3 p-md-4 mb-3 mb-md-0 bg_white">
-                    <div className="pb-3 font_xs_s font_md_l flex-grow-2">
-                        Share the wish with your friends.
-                    </div>
-                    <input type="text" value=${Path.join([canonicalBase, path()])} className="w-100 p-1"/>
-                </div>
-                <div className="p-3 p-md-4 ml-md-3 bg_white flex-grow-2">
-                    <div className="pb-3 font_xs_s font_md_l">
-                        Pledge the wish, since every $1 matters.
-                    </div>
-                    ${pledgeButton()}
-                </div>
-            </div>
-        ');
-    }
-
-    function pledgeButton() {
-        var href = if (user == null) {
-            "/signin?redirectTo=" + Path.join(["/", path() + "#pledge-form-root"]).urlEncode();
-        } else {
-            "#pledge-form-root";
-        };
-        var label = if (user == null) {
-            "Pledge Now";
-        } else {
-            "Pledge Below";
-        };
-        return jsx('
-            <a className="btn btn-success w-100" href=${href}><i className="fas fa-child"></i> ${label}</a>
-        ');
-    }
 
     function pledgeForm() {
         if (user == null) {
@@ -242,7 +206,7 @@ class Wish extends Page {
                             Total: <span className="wish-total" data-toggle="tooltip" title=${wish.wish_total_needed.breakdown}>${wish.items[0].item_currency.getName()} ${wish.wish_total_needed.amount.toString()} <i className="fas fa-info-circle"></i></span>
                         </div>
                     </div>
-                    ${howToHelpSection()}
+                    <div id="how-to-help-root" />
                 </div>
                 ${wishSettings()}
                 ${pledgeForm()}

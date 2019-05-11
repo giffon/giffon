@@ -6,6 +6,7 @@ import giffon.server.ServerMain.*;
 import haxe.*;
 import haxe.io.*;
 import giffon.db.*;
+import giffon.R.*;
 using giffon.ResponseTools;
 using StringTools;
 
