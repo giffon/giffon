@@ -277,7 +277,7 @@ class ServerMain {
             '
                 SELECT wish_id
                 FROM wish
-                WHERE wish_state != "cancelled"
+                WHERE wish_state != "cancelled" && wish_state != "created"
                 ORDER BY wish_time_publish DESC
                 LIMIT ?
             ',
