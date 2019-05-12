@@ -119,6 +119,7 @@ class MakeAWish {
             {
                 user_id: res.getUser().user_id,
                 wish_title: wishData.wish_title,
+                wish_state: giffon.db.WishState.Published,
                 wish_description: wishData.wish_description,
                 wish_target_date: wishData.wish_target_date,
             },

@@ -141,7 +141,7 @@ class Wish extends Page {
 
     function wishState() {
         switch (wish.wish_state) {
-            case Created | Published | Ended | Succeed | Shipped:
+            case Created | Published | Succeed | Shipped:
                 return jsx('
                     <div className="mt-3 d-flex font_xs_xs font_md_s row">
                         ${numSupporters()}

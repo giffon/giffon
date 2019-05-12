@@ -50,7 +50,7 @@ class User extends Page {
 
     function isCompleted(wish:giffon.db.Wish):Bool {
         return switch (wish.wish_state) {
-            case Ended | Succeed | Shipped:
+            case Succeed | Shipped:
                 true;
             case _:
                 false;
