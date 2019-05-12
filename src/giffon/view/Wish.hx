@@ -48,10 +48,7 @@ class Wish extends Page {
     }
 
     function progress() {
-        var percentText = switch (wish.wish_progress) {
-            case None: "0%";
-            case progress: "> " + progress.lowerBound() + "%";
-        }
+        var percentText = ((wish.wish_pledged / wish.wish_total_needed.amount) * 100).floor().toString() + "%";
         return jsx('
             <div className="wish-num-supporters col">
                 <div className="font_xs_l font_md_xl">${percentText}</div>

@@ -211,7 +211,7 @@ class ServerMain {
 
         var wish_owner = @await getUser(wish.user_id);
 
-        var wish_pledged = null;
+        var wish_pledged = Decimal.zero;
         var pledge_results:QueryResults = (@await dbConnectionPool.query(
             "
                 SELECT SUM(`pledge_amount`) AS `total_pledge`
@@ -225,7 +225,7 @@ class ServerMain {
                 throw 'SUM(`pledge_amount`) returned ${pledge_results.length} results.';
             }
             wish_pledged = switch (pledge_results[0].total_pledge) {
-                case null: null;
+                case null: Decimal.zero;
                 case str: Decimal.fromString(str).trim();
             }
         }

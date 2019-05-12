@@ -15,7 +15,7 @@ typedef Wish = {
         amount: Decimal,
         breakdown: String,
     },
-    wish_pledged: Null<Decimal>,
+    wish_pledged: Decimal,
     wish_progress: giffon.db.WishProgress,
     supporters: Array<{
         user:User,
