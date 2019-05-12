@@ -177,7 +177,7 @@ class ServerMain {
     @async static public function getWish(wish_id:Int):giffon.db.Wish {
         var wish_results:QueryResults = (@await dbConnectionPool.query(
             "
-                SELECT `wish_id`, `user_id`, `wish_hashid`, `wish_title`, `wish_description`, `wish_target_date`, `wish_state`
+                SELECT `wish_id`, `user_id`, `wish_hashid`, `wish_title`, `wish_description`, `wish_target_date`, `wish_state`, `wish_currency`
                 FROM wish
                 WHERE `wish_id` = ?
             ",
@@ -238,6 +238,7 @@ class ServerMain {
             wish_target_date: wish.wish_target_date,
             wish_state: wish.wish_state,
             wish_owner: wish_owner,
+            wish_currency: giffon.db.Currency.createByName(wish.wish_currency),
             wish_total_price: wish_total_price,
             wish_total_needed: null,
             wish_pledged: wish_pledged,
@@ -264,7 +265,7 @@ class ServerMain {
                 }
             }),
         };
-        if (!wish.items.foreach(function(itm) return itm.item_currency == wish.items[0].item_currency)) {
+        if (!wish.items.foreach(function(itm) return itm.item_currency == wish.wish_currency)) {
             throw "All items should be in the same currency";
         }
         var wish_total_needed = wish.wish_total_needed = ChargeInfo.totalNeeded(wish);

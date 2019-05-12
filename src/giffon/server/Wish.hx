@@ -115,7 +115,7 @@ class Wish {
                         user_id: user_id,
                         wish_id: wish_id,
                         pledge_amount: (Decimal.fromFloat(charge.amount_refunded - charge.amount) * 0.01).toFloat(), //cents -> dollars
-                        pledge_currency: wish.items[0].item_currency.getName(),
+                        pledge_currency: wish.wish_currency.getName(),
                         pledge_method: giffon.db.PledgeMethod.StripeCard.getName(),
                     }
                 ).handleError(next).toPromise();
@@ -151,7 +151,7 @@ class Wish {
         var charge = try {
             @await stripe.charges.create({
                 amount: (Decimal.fromFloat(pledgeFormData.pledge_amount) * 100).toInt(), // unit is cents
-                currency: wish.items[0].item_currency.getName().toLowerCase(),
+                currency: wish.wish_currency.getName().toLowerCase(),
                 // customer: stripe_customer_id,
                 source: pledgeFormData.pledge_data.id,
                 description: 'Supporting ${wish.wish_owner.user_name}\'s wish (${wish.wish_title}).',
@@ -173,7 +173,7 @@ class Wish {
                 user_id: user.user_id,
                 wish_id: wish_id,
                 pledge_amount: pledgeFormData.pledge_amount,
-                pledge_currency: wish.items[0].item_currency.getName(),
+                pledge_currency: wish.wish_currency.getName(),
                 pledge_method: giffon.db.PledgeMethod.StripeCard.getName(),
             }, {
                 stripe_charge_id: charge.id,
@@ -219,7 +219,7 @@ class Wish {
                         user_id: user.user_id,
                         wish_id: wish_id,
                         pledge_amount: (Decimal.fromFloat(charge.amount_refunded - charge.amount) * 0.01).toFloat(), //cents -> dollars
-                        pledge_currency: wish.items[0].item_currency.getName(),
+                        pledge_currency: wish.wish_currency.getName(),
                         pledge_method: giffon.db.PledgeMethod.StripeCard.getName(),
                     }
                 ).handleError(next).toPromise();

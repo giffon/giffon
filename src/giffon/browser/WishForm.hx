@@ -68,7 +68,7 @@ class WishForm extends ReactComponent {
                 item_icon_url: "",
                 item_icon_label: "",
             }],
-            currency: "",
+            wish_currency: "",
             wish_title: "My wish",
             wish_description: "",
             wish_target_date: null,
@@ -126,7 +126,7 @@ class WishForm extends ReactComponent {
                                     <label
                                         htmlFor=${'items[$idx].item_price'}
                                     >
-                                        Unit Price${props.values.currency == "" ? null : " (" + props.values.currency + ")"}
+                                        Unit Price${props.values.wish_currency == "" ? null : " (" + props.values.wish_currency + ")"}
                                     </label>
                                     <div>
                                         <Field
@@ -184,10 +184,10 @@ class WishForm extends ReactComponent {
                     null;
                 }
 
-                var totalPriceElement = if (props.values.currency == "")
+                var totalPriceElement = if (props.values.wish_currency == "")
                     jsx('<p className="my-2">Total price: ${totalPrice}</p>');
                 else
-                    jsx('<p className="my-2">Total price (${props.values.currency}): ${totalPrice}</p>');
+                    jsx('<p className="my-2">Total price (${props.values.wish_currency}): ${totalPrice}</p>');
 
                 return jsx('
                     <Fragment>
@@ -251,13 +251,13 @@ class WishForm extends ReactComponent {
                         <ErrorMessage name="wish_title" render=${renderErrorMessage} />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="currency">
+                        <label htmlFor="wish_currency">
                             Currency
                         </label>
                         <Field
                             className="form-control"
                             component="select"
-                            name="currency"
+                            name="wish_currency"
                             required=${true}
                         >
                             <option></option>

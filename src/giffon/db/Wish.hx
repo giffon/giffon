@@ -10,6 +10,7 @@ typedef Wish = {
     wish_target_date: Date,
     wish_state: giffon.db.WishState,
     wish_owner: giffon.db.User,
+    wish_currency: giffon.db.Currency,
     wish_total_price: Decimal,
     wish_total_needed: {
         amount: Decimal,

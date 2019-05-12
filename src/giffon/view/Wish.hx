@@ -200,7 +200,7 @@ class Wish extends Page {
                     </div>
                     <div className="row justify-content-md-center pb-2">
                         <div className="col text-center">
-                            Total: <span className="wish-total" data-toggle="tooltip" title=${wish.wish_total_needed.breakdown}>${wish.items[0].item_currency.getName()} ${wish.wish_total_needed.amount.toString()} <i className="fas fa-info-circle"></i></span>
+                            Total: <span className="wish-total" data-toggle="tooltip" title=${wish.wish_total_needed.breakdown}>${wish.wish_currency.getName()} ${wish.wish_total_needed.amount.toString()} <i className="fas fa-info-circle"></i></span>
                         </div>
                     </div>
                     <div id="how-to-help-root" />

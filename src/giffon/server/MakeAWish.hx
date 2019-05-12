@@ -115,13 +115,14 @@ class MakeAWish {
             /*9*/   DROP TEMPORARY TABLE insert_items;
             /*10*/  COMMIT;
         ", [
-            [for (itm in wishData.items) [itm.item_name, itm.item_url, itm.item_price, wishData.currency, itm.item_quantity]],
+            [for (itm in wishData.items) [itm.item_name, itm.item_url, itm.item_price, wishData.wish_currency, itm.item_quantity]],
             {
                 user_id: res.getUser().user_id,
                 wish_title: wishData.wish_title,
                 wish_state: giffon.db.WishState.Published,
                 wish_description: wishData.wish_description,
                 wish_target_date: wishData.wish_target_date,
+                wish_currency: wishData.wish_currency,
             },
         ]).handleError(next).toPromise()).results;
 
