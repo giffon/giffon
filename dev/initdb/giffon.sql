@@ -116,6 +116,20 @@ CREATE TABLE `user` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `user_role`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_role` (
+  `user_id` int(11) NOT NULL,
+  `user_role` varchar(11) COLLATE utf8mb4_bin NOT NULL,
+  PRIMARY KEY (`user_id`,`user_role`),
+  CONSTRAINT `user_role_FK` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `user_stripe`
 --
 
@@ -146,7 +160,7 @@ CREATE TABLE `wish` (
   `wish_note` text COLLATE utf8mb4_bin,
   `wish_title` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
   `wish_target_date` timestamp NULL DEFAULT NULL,
-  `wish_currency` varchar(16) COLLATE utf8mb4_bin DEFAULT NULL,
+  `wish_currency` varchar(16) COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`wish_id`),
   UNIQUE KEY `wish_hashid` (`wish_hashid`),
   KEY `user_id` (`user_id`),
@@ -207,4 +221,4 @@ SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-05-11 23:24:58
+-- Dump completed on 2019-05-14 11:20:03
