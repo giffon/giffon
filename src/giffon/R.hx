@@ -4,24 +4,31 @@ import haxe.io.*;
 import haxe.macro.*;
 import giffon.config.Stage;
 using StringTools;
+using Lambda;
 
 class R {
+    static public var resourcesDir(default, never) = "www";
+
     #if macro
-    static var hashes(default, never):haxe.DynamicAccess<String> = CompileTime.parseJsonFile("src/resources.json");
+    static var hashes(default, never) = new Map<String,String>();
+    static function hash(path:String) {
+        return switch (hashes[path]) {
+            case null:
+                hashes[path] = haxe.crypto.Md5.make(sys.io.File.getBytes(path)).toHex();
+            case h:
+                h;
+        }
+    }
     #end
 
     macro static public function R(path:String) {
-        var rel = if (!path.startsWith("/")) {
+        if (!path.startsWith("/")) {
             Context.error('$path should relative to root (starts with /)', Context.currentPos());
-        } else {
-            path.substr(1);
         }
-        return switch (hashes[rel]) {
-            case null:
-                Context.error('Cannot find the hash of $path.', Context.currentPos());
-            case hash:
-                macro @:privateAccess giffon.R._R($v{path}, $v{hash});
-        }
+
+        var h = hash(Path.join([resourcesDir, path]));
+
+        return macro @:privateAccess giffon.R._R($v{path}, $v{h});
     };
 
     static function _R(path:String, hash:String):String {

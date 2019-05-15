@@ -1,11 +1,12 @@
 stages:
-  - build
+  - build-npm
+  - build-haxe
   - test-chrome
   # - test-firefox
   - deploy
 
 build-haxe:
-  stage: build
+  stage: build-haxe
   image: haxe:3.4.7-alpine
   variables:
     GIT_SUBMODULE_STRATEGY: recursive
@@ -22,7 +23,7 @@ build-haxe:
       - test/SeleniumTest.py
 
 build-npm:
-  stage: build
+  stage: build-npm
   image: alpine:3.8
   script:
     - apk add nodejs npm python make g++

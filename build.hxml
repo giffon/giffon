@@ -1,4 +1,3 @@
---next build-resources.hxml
 --next build-server.hxml
 --next build-browser.hxml
 --next build-test.hxml
