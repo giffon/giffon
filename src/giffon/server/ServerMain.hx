@@ -62,18 +62,10 @@ class ServerMain {
             return;
         }
 
-        var results:QueryResults = (@await dbConnectionPool.query(
-            "
-                SELECT TRUE
-                FROM user
-                INNER JOIN user_role ON user.user_id = user_role.user_id
-                WHERE user.`user_id` = ? && `user_role` = \"Admin\"
-            ",
-            [user.user_id]
-        ).toPromise()).results;
+        var roles = @await getRoles(user.user_id);
 
-        if (results == null || results.length == 0) {
-            res.sendPlainError("User is not Admin.", Forbidden);
+        if (!roles.exists(function (r) return r.match(Admin))) {
+            res.sendPlainError("User is not an Admin.", Forbidden);
             return;
         }
 
@@ -342,6 +334,23 @@ class ServerMain {
             getWish(wish.wish_id)
         ]);
         return wishes;
+    }
+
+    @async static public function getRoles(user_id:Int):Array<giffon.db.Role> {
+        var results:QueryResults = (@await dbConnectionPool.query(
+            "
+                SELECT user_role
+                FROM user_role
+                INNER JOIN user ON user.user_id = user_role.user_id
+                WHERE user.`user_id` = ?
+            ",
+            [user_id]
+        ).toPromise()).results;
+        return if (results == null) {
+            [];
+        } else {
+            [for (row in results) row.user_role];
+        }
     }
 
     @async static public function getUser(user_id:Int):giffon.db.User {
