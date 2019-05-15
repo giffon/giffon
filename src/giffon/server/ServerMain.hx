@@ -10,6 +10,7 @@ import js.npm.stripe.Stripe;
 import hashids.Hashids;
 import haxe.io.*;
 import thx.Decimal;
+import tink.core.Error;
 import haxe.Constraints;
 import giffon.config.*;
 import giffon.view.*;
@@ -52,6 +53,31 @@ class ServerMain {
         } else {
             next();
         }
+    }
+
+    @await static public function ensureAdmin(req:Request, res:Response, next:Dynamic):Void {
+        var user = res.getUser();
+        if (user == null) {
+            res.redirect(absPath("/signin?redirectTo=" + req.path.urlEncode()));
+            return;
+        }
+
+        var results:QueryResults = (@await dbConnectionPool.query(
+            "
+                SELECT TRUE
+                FROM user
+                INNER JOIN user_role ON user.user_id = user_role.user_id
+                WHERE user.`user_id` = ? && `user_role` = \"Admin\"
+            ",
+            [user.user_id]
+        ).toPromise()).results;
+
+        if (results == null || results.length == 0) {
+            res.sendPlainError("User is not Admin.", Forbidden);
+            return;
+        }
+
+        next();
     }
 
     static public var dbConnectionPool:Pool;
@@ -663,6 +689,7 @@ class ServerMain {
         //     }
         // });
 
+        app.use(giffon.server.Admin.createRouter());
         app.use(giffon.server.User.createRouter());
         app.use(giffon.server.Wish.createRouter());
         app.use(giffon.server.MakeAWish.createRouter());
