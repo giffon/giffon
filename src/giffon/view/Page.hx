@@ -57,9 +57,9 @@ class Page extends ReactComponent {
             <link rel="shortcut icon" sizes="196x196" href=${R("/android-icon-192x192.png")} />
 
             <meta name="msapplication-TileColor" content="#B7F8DB" />
-            <meta name="msapplication-TileImage" content=${R("android-icon-144x144.png")} />
+            <meta name="msapplication-TileImage" content=${R("/android-icon-144x144.png")} />
 
-            <link rel="mask-icon" href=${R("/images/6b.svg")} color="#B7F8DB" />
+            <link rel="mask-icon" href=${R("/images/logo.svg")} color="#B7F8DB" />
         </Fragment>
     ');
 

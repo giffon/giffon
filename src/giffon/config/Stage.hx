@@ -15,7 +15,14 @@ class Stage {
             case v:
                 v;
         }
-    #else
+    #elseif sys
+        switch (Sys.getEnv("SERVERLESS_STAGE")) {
+            case null:
+                Dev;
+            case v:
+                v;
+        }
+    #elseif js
         switch (js.Browser.document.location.hostname) {
             case "giffon.io", "production.giffon.io":
                 Production;
@@ -24,5 +31,7 @@ class Stage {
             case _:
                 Dev;
         }
+    #else
+        #error
     #end
 }

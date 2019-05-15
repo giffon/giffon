@@ -1,0 +1,3 @@
+-cp src
+-main dev.Resources
+--interp

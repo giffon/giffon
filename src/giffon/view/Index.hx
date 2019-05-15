@@ -145,7 +145,7 @@ class Index extends Page {
             
                 <div className="col-xs-auto col-sm-6 col-md-2 p-0 mr-3 mr-sm-auto mr-md-3 bg_white_o80 corner_s shaded-shadow">
                 <div className=" px-3 py-4 px-md-2 py-md-4 font_xs_xs font_md_s">
-                    <img className="width_xs_30 width_md_60" src=${R("images/piggy.svg")} alt="piggy bank" />
+                    <img className="width_xs_30 width_md_60" src=${R("/images/piggy.svg")} alt="piggy bank" />
                     <div className="py-3">
                     <span className="d-inline-block px-2 py-1 bg6 corner_xs">#saveMoney</span>
                     </div>
@@ -172,7 +172,7 @@ class Index extends Page {
 
                 <div className="col-xs-auto col-sm-6 col-md-2 p-0 ml-3 ml-sm-auto ml-md-3 bg_white corner_s shaded-shadow">
                 <div className=" px-3 py-4 px-md-2 py-md-4 font_xs_xs font_md_s">
-                    <img className="width_xs_30 width_md_60" src=${R("images/charity.svg")} alt="charity" />
+                    <img className="width_xs_30 width_md_60" src=${R("/images/charity.svg")} alt="charity" />
                     <div className="py-3">
                     <span className="d-inline-block px-2 py-1 bg6 corner_xs">#sincerity</span>
                     </div>
@@ -183,7 +183,7 @@ class Index extends Page {
         
                 <div className="col-xs-auto col-sm-6 col-md-2 p-0 ml-3 ml-sm-auto ml-md-3 bg_white corner_s shaded-shadow">
                 <div className=" px-3 py-4 px-md-2 py-md-4 font_xs_xs font_md_s">
-                    <img className="width_xs_30 width_md_60" src=${R("images/motivation.svg")} alt="certain" />
+                    <img className="width_xs_30 width_md_60" src=${R("/images/motivation.svg")} alt="certain" />
                     <div className="py-3">
                     <span className="d-inline-block px-2 py-1 bg6 corner_xs" >#certain</span>
                     </div>
@@ -194,7 +194,7 @@ class Index extends Page {
         
                 <div className="col-xs-auto col-sm-6 col-md-2 p-0 ml-3 ml-sm-auto ml-md-3 bg_white corner_s shaded-shadow">
                 <div className=" px-3 py-4 px-md-2 py-md-4  font_xs_xs font_md_s">
-                    <img className="width_xs_30 width_md_60" src=${R("images/coins.svg")} alt="coins" />
+                    <img className="width_xs_30 width_md_60" src=${R("/images/coins.svg")} alt="coins" />
                     <div className="py-3">
                     <span className="d-inline-block px-2 py-1 bg6 corner_xs">#affordable</span>
                     </div>
@@ -205,7 +205,7 @@ class Index extends Page {
         
                 <div className="col-xs-auto col-sm-6 col-md-2 p-0 ml-3 ml-sm-auto ml-md-3 bg_white corner_s shaded-shadow">
                 <div className=" px-3 py-4 px-md-2 py-md-4 font_xs_xs font_md_s">
-                    <img className="width_xs_30 width_md_60" src=${R("images/title.svg")} alt="trusty" />
+                    <img className="width_xs_30 width_md_60" src=${R("/images/title.svg")} alt="trusty" />
                     <div className="py-3">
                     <span className="d-inline-block px-2 py-1 bg6 corner_xs">#trusty</span>
                     </div>

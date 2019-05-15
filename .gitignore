@@ -17,6 +17,8 @@ test/*.py
 
 test/errorShots/
 
+src/resources.json
+
 .env
 
 dev/ssl/keytmp.pem
