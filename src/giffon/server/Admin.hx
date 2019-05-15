@@ -38,7 +38,7 @@ class Admin {
                     ) AS wp
                 INNER JOIN
                     (
-                        SELECT wish.wish_id, CEIL(SUM(item_price * wish_item.item_quantity) * ${giffon.ChargeInfo.serviceChargeRate} * 100.0) / 100.0 AS wish_total_needed
+                        SELECT wish.wish_id, CEIL(SUM(item_price * wish_item.item_quantity) * ${(giffon.ChargeInfo.serviceChargeRate + 1.0).toString()} * 100.0) / 100.0 AS wish_total_needed
                         FROM wish
                         INNER JOIN wish_item ON wish_item.wish_id = wish.wish_id
                         INNER JOIN item ON wish_item.item_id = item.item_id
