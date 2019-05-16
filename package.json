@@ -6,6 +6,7 @@
   "scripts": {
     "postinstall": "haxe install-haxelibs.hxml",
     "build-vendor": "browserify -o www/js/vendor.js -r react -r react-dom -r formik -r react-datepicker -r validator -r react-stripe-elements -r react-clipboard.js",
+    "build-vendor-release": "browserify -r react -r react-dom -r formik -r react-datepicker -r validator -r react-stripe-elements -r react-clipboard.js -g [ envify --NODE_ENV production ] -g uglifyify | uglifyjs --compress --mangle > www/js/vendor.js",
     "build": "npm run-script build-vendor && haxe build.hxml",
     "start": "node ServerMain.js",
     "test": "haxe build-test.hxml && python3 test/SeleniumTest.py"
@@ -55,7 +56,10 @@
   },
   "devDependencies": {
     "browserify": "^16.2.3",
+    "envify": "^4.1.0",
     "serverless-apigw-binary": "^0.4.4",
+    "uglify-js": "^3.5.12",
+    "uglifyify": "^5.0.1",
     "wdio-concise-reporter": "^0.1.2",
     "wdio-jasmine-framework": "^0.3.8"
   }

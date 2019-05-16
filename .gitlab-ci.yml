@@ -28,7 +28,7 @@ build-npm:
   script:
     - apk add nodejs npm python make g++
     - npm install
-    - npm run-script build-vendor
+    - npm run-script build-vendor-release
   artifacts:
     paths:
       - www/js/vendor.js
