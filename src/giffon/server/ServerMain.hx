@@ -429,8 +429,6 @@ class ServerMain {
             app.use(awsServerlessExpressMiddleware.eventContext());
         }
 
-        app.set("view engine", "ejs");
-
         app.use(require("morgan")("tiny"));
 
         app.use(require("cookie-parser")());
