@@ -75,7 +75,7 @@ class Wish extends Page {
         for (itm in wish.items)
         jsx('
             <li key=${itm.item_id} className="list-group-item wish-item text-center">
-                <a href=${itm.item_url} target="_blank">${itm.item_name}</a> (${itm.item_currency.getName()} ${itm.item_price.toString()}) × ${itm.item_quantity}
+                <a href=${itm.item_url} target="_blank" rel="noopener">${itm.item_name}</a> (${itm.item_currency.getName()} ${itm.item_price.toString()}) × ${itm.item_quantity}
             </li>
         ')
     ];
