@@ -90,7 +90,7 @@ class Wish extends Page {
         }
 
         switch (wish.wish_state) {
-            case Created | Published:
+            case Published:
                 //pass
             case _:
                 return null;
@@ -102,8 +102,11 @@ class Wish extends Page {
     }
 
     function cancelWishControl() {
-        if (wish.wish_state == Cancelled) {
-            return null;
+        switch (wish.wish_state) {
+            case Cancelled | Succeed:
+                return null;
+            case _:
+                //pass
         }
 
         return jsx('
@@ -115,16 +118,27 @@ class Wish extends Page {
         ');
     }
 
+    function howToHelpSection() {
+        switch (wish.wish_state) {
+            case Published:
+                //pass
+            case _:
+                return null;
+        }
+
+        return jsx('<div id="how-to-help-root" />');
+    }
+
     function wishSettings() {
         if (user == null || user.user_id != wish.wish_owner.user_id) {
             return null;
         }
         switch (wish.wish_state) {
-            case Cancelled:
+            case Succeed | Cancelled:
                 return jsx('
-                    <div className="p-3 bg_white shaded-shadow font_xs_xs font_md_s">
+                    <div className="my-3">
                         <h3 className="font_xs_l font_md_xxl">Settings</h3>
-                        <p>Wish cancelled. No operation is allowed.</p>
+                        <p>Wish ${wish.wish_state}. No operation is allowed.</p>
                     </div>
                 ');
             case _:
@@ -141,7 +155,7 @@ class Wish extends Page {
 
     function wishState() {
         switch (wish.wish_state) {
-            case Created | Published | Succeed | Shipped:
+            case Created | Published | Succeed:
                 return jsx('
                     <div className="mt-3 d-flex font_xs_xs font_md_s row">
                         ${numSupporters()}
@@ -160,13 +174,27 @@ class Wish extends Page {
         }
     }
 
+    static public function wishBadge(wish:giffon.db.Wish) {
+        switch (wish.wish_state) {
+            case Succeed:
+                return jsx('<span className="badge badge-success ml-2">succeed</span>');
+            case Created:
+                return jsx('<span className="badge badge-secondary ml-2">unpublished</span>');
+            case _:
+                return null;
+        }
+    }
+
     override function bodyContent() return jsx('
         <Fragment>
             <div className="container mb-xs-4 mb-md-5">
                 <div className="row my-md-5">
                     <div className="col-12 col-md-6">
                         <div className="p-3 p-md-5 color_white detail_card_left">
-                            <div className="font_xs_xl">${wish.wish_title}</div>
+                            <div className="d-flex align-items-center">
+                                <span className="font_xs_xl">${wish.wish_title}</span>
+                                ${wishBadge(wish)}
+                            </div>
                             ${wishState()}
                         </div>
                     </div>
@@ -203,7 +231,7 @@ class Wish extends Page {
                             Total: <span className="wish-total" data-toggle="tooltip" title=${wish.wish_total_needed.breakdown}>${wish.wish_currency.getName()} ${wish.wish_total_needed.amount.toString()} <i className="fas fa-info-circle"></i></span>
                         </div>
                     </div>
-                    <div id="how-to-help-root" />
+                    ${howToHelpSection()}
                 </div>
                 ${wishSettings()}
                 ${pledgeForm()}

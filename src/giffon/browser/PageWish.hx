@@ -19,7 +19,11 @@ class PageWish {
                 }), root);
         }
 
-        ReactDOM.render(React.createElement(WishHowToHelpSection), document.getElementById("how-to-help-root"));
+        switch (document.getElementById("how-to-help-root")) {
+            case null: //pass
+            case root:
+                ReactDOM.render(React.createElement(WishHowToHelpSection), root);
+        }
 
         var cancelWishBtn = new JQuery(".cancel-wish-btn");
         cancelWishBtn.click(function(evt){

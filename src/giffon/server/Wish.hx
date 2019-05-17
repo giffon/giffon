@@ -85,6 +85,14 @@ class Wish {
             return;
         }
 
+        switch (wish.wish_state) {
+            case Succeed | Cancelled:
+                res.sendPlainError('Cannot cancel a ${wish.wish_state} wish.', BadRequest);
+                return;
+            case _:
+                //pass
+        }
+
         //TODO: use transaction
 
         @await dbConnectionPool.query(
@@ -145,6 +153,14 @@ class Wish {
             return;
         }
 
+        switch (wish.wish_state) {
+            case Published:
+                //pass
+            case _:
+                res.sendPlainError("Wish is not open for pledge.", BadRequest);
+                return;
+        }
+
         var user = res.getUser();
         var stripe_customer_id = @await getStripeCustomerIdFromUser(user);
 
@@ -194,6 +210,14 @@ class Wish {
         if (wish == null) {
             res.sendPlainError("There is no such wish.", NotFound);
             return;
+        }
+
+        switch (wish.wish_state) {
+            case Succeed | Cancelled:
+                res.sendPlainError('Cannot cancel pledge for a ${wish.wish_state} wish.', BadRequest);
+                return;
+            case _:
+                //pass
         }
 
         var user = res.getUser();
