@@ -1,37 +1,28 @@
 stages:
-  - build-npm
-  - build-haxe
+  - build
   - test-chrome
   # - test-firefox
   - deploy
 
-build-haxe:
-  stage: build-haxe
-  image: haxe:3.4.7-alpine
+build:
+  stage: build
+  image: haxe:3.4.7-alpine3.8
   variables:
     GIT_SUBMODULE_STRATEGY: recursive
   script:
-    - haxe install-haxelibs.hxml
+    - apk add nodejs npm python make g++
+    - npm install
+    - npm run-script build-vendor-release
     - haxelib list
     - haxe build.hxml
   artifacts:
     paths:
       - www/js/BrowserMain.js
       - www/js/BrowserMain.js.map
+      - www/js/vendor.js
       - ServerMain.js
       - ServerMain.js.map
       - test/SeleniumTest.py
-
-build-npm:
-  stage: build-npm
-  image: alpine:3.8
-  script:
-    - apk add nodejs npm python make g++
-    - npm install
-    - npm run-script build-vendor-release
-  artifacts:
-    paths:
-      - www/js/vendor.js
       - node_modules
 
 .test-selenium:
