@@ -11,7 +11,7 @@ build:
     GIT_SUBMODULE_STRATEGY: recursive
   script:
     - apk add nodejs npm python make g++
-    - npm install
+    - npm install --unsafe-perm
     - npm run-script build-vendor-release
     - haxelib list
     - haxe build.hxml
