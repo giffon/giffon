@@ -153,15 +153,43 @@ class Wish extends Page {
         ');
     }
 
+    function supporterList() {
+        return [
+            for (supporter in wish.supporters)
+            jsx('
+                <div key=${supporter.user.user_id}>
+                    <a href=${"/user/" + supporter.user.user_hashid} className="d-inline-flex align-items-center">
+                        <div className="supporter-avatar rounded-circle" style=${userAvatarStyle(supporter.user)} />
+                        <div className="pl-3">${supporter.user.user_name}</div>
+                    </a>
+                </div>
+            ')
+        ];
+    }
+
     function wishState() {
         switch (wish.wish_state) {
-            case Created | Published | Succeed:
+            case Created | Published:
                 return jsx('
                     <div className="mt-3 d-flex font_xs_xs font_md_s row">
                         ${numSupporters()}
                         ${progress()}
                         ${daysToGo()}
                     </div>
+                ');
+            case Succeed:
+                return jsx('
+                    <Fragment>
+                        <div className="mt-3 d-flex font_xs_xs font_md_s row">
+                            ${numSupporters()}
+                            ${progress()}
+                        </div>
+                        <div className="mt-3">
+                            <h3 className="font_xs_l">List of Supporters</h3>
+                            <p className="text-muted font_xs_xs font_md_s">Sorted by support amount in descending order.</p>
+                            ${supporterList()}
+                        </div>
+                    </Fragment>
                 ');
             case Cancelled:
                 return jsx('

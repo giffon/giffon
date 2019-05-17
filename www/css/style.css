@@ -518,6 +518,13 @@ footer .social a:hover {
     height: 80px;
 }
 
+.supporter-avatar {
+    background-size: 100%;
+    background-repeat: no-repeat;
+    width: 40px;
+    height: 40px;
+}
+
 .highlight {
     background: #ffe000;
     padding: 0.2rem 0.3rem;

@@ -248,6 +248,16 @@ class ServerMain {
             }
         }
         var wish_total_price = item_results.fold(function(item, total:Decimal) return total + Decimal.fromString(item.item_price) * Decimal.fromInt(item.item_quantity), Decimal.zero).trim();
+
+        var supporters = [];
+        for (supporter in supporter_results) {
+            supporters.push({
+                user: @await getUser(supporter.user_id),
+                pledge_amount: Decimal.fromString(supporter.pledge_total_amount).trim(),
+                pledge_date: supporter.pledge_date,
+            });
+        }
+
         var wish:giffon.db.Wish = {
             wish_id: wish.wish_id,
             wish_hashid: wish.wish_hashid,
@@ -275,13 +285,7 @@ class ServerMain {
                     item_quantity: item.item_quantity,
                 }
             }),
-            supporters: supporter_results.map(function(supporter){
-                return {
-                    user: getUser(supporter.user_id),
-                    pledge_amount: Decimal.fromString(supporter.pledge_total_amount).trim(),
-                    pledge_date: supporter.pledge_date,
-                }
-            }),
+            supporters: supporters,
         };
         if (!wish.items.foreach(function(itm) return itm.item_currency == wish.wish_currency)) {
             throw "All items should be in the same currency";
