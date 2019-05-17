@@ -55,10 +55,7 @@
   "devDependencies": {
     "browserify": "^16.2.3",
     "envify": "^4.1.0",
-    "serverless-apigw-binary": "^0.4.4",
     "uglify-js": "^3.5.12",
-    "uglifyify": "^5.0.1",
-    "wdio-concise-reporter": "^0.1.2",
-    "wdio-jasmine-framework": "^0.3.8"
+    "uglifyify": "^5.0.1"
   }
 }

@@ -34,6 +34,9 @@ provider:
     SESSION_SECRET: ${ssm:SESSION_SECRET}
     FACEBOOK_CLIENT_ID: ${ssm:FACEBOOK_CLIENT_ID}
     FACEBOOK_APP_SECRET: ${ssm:FACEBOOK_APP_SECRET}
+  apiGateway:
+    binaryMediaTypes:
+      - '*/*'
 
 # you can overwrite defaults here
 #  stage: dev
@@ -117,11 +120,3 @@ functions:
 #     NewOutput:
 #       Description: "Description for the output"
 #       Value: "Some output value"
-
-plugins:
-  - serverless-apigw-binary
-
-custom:
-  apigwBinary:
-    types:
-      - '*/*'
