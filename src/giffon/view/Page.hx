@@ -119,10 +119,6 @@ class Page extends ReactComponent {
                 crossOrigin="anonymous"
             ></script>
             <script
-                src="https://cdnjs.cloudflare.com/ajax/libs/jsrsasign/8.0.12/jsrsasign-all-min.js"
-                integrity="sha256-EI1piDYqyKFAy+ykWQZRjH5kkw9eIYE/IahQWg1rXt0="
-                crossOrigin="anonymous"></script>
-            <script
                 src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"
                 integrity="sha256-9Nt2r+tJnSd2A2CRUvnjgsD+ES1ExvjbjBNqidm9doI="
                 crossOrigin="anonymous"></script>

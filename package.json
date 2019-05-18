@@ -36,7 +36,6 @@
     "gravatar": "^1.8.0",
     "httpolyglot": "^0.1.2",
     "image-data-uri": "^2.0.0",
-    "jsrsasign": "^8.0.12",
     "moment": "^2.24.0",
     "morgan": "^1.9.1",
     "mysql2": "^1.6.5",
