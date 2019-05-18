@@ -69,8 +69,8 @@ class Page extends ReactComponent {
                 href="https://fonts.googleapis.com/css?family=Nothing+You+Could+Do%7CWork+Sans"
             />
             <link rel="stylesheet"
-                href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-                integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+                href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.8.2/css/all.min.css"
+                integrity="sha256-BtbhCIbtfeVWGsqxk1vOHEYXS6qcvQvLMZqjtpWUEx8="
                 crossOrigin="anonymous"
             />
             <link rel="stylesheet"
@@ -99,8 +99,8 @@ class Page extends ReactComponent {
     function depJs() return jsx('
         <Fragment>
             <script
-                src="https://code.jquery.com/jquery-3.4.0.min.js"
-                integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg="
+                src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"
+                integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
                 crossOrigin="anonymous"
             ></script>
             <script
