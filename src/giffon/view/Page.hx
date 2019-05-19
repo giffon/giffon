@@ -22,7 +22,7 @@ class Page extends ReactComponent {
             null;
         case desc:
              jsx('
-                <meta name="description" content="<%=description%>" />
+                <meta name="description" content=${desc} />
             ');
     };
 
