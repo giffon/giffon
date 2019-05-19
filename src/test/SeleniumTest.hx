@@ -68,11 +68,8 @@ class SeleniumTest extends utest.Test {
         password:String,
         name:String
     }):Void {
-        driver.get(baseUrl);
-        var signInBtn:WebElement = driver.find_element_by_class_name("signInBtn");
-        Assert.isTrue(signInBtn.is_displayed());
-        signInBtn.click();
-        
+        driver.get(Path.join([baseUrl, "signin", "facebook"]));
+
         waitUntil(function(){
             var url:String = driver.current_url;
             return url.startsWith("https://www.facebook.com/login.php");
