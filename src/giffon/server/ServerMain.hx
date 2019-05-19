@@ -25,6 +25,10 @@ using StringTools;
 extern class FacebookStrategy {
     public function new(options:Dynamic, callb:Dynamic):Void;
 }
+@:jsRequire("passport-github", "Strategy")
+extern class GitHubStrategy {
+    public function new(options:Dynamic, callb:Dynamic):Void;
+}
 
 @await
 class ServerMain {
@@ -402,6 +406,65 @@ class ServerMain {
         haxe.CallStack.wrapCallSite = sms.wrapCallSite;
     }
 
+    @await static function passportHandler(accessToken, refreshToken, profile:js.npm.passport.Profile, done:Function) {
+        if (profile.emails.length <= 0) {
+            done("user has no email info");
+            return;
+        }
+        var email = profile.emails[0].value;
+        var avatarUrl = profile.photos == null || profile.photos.length < 1 ? null : profile.photos[0].value;
+        // trace(profile);
+
+        // get user_id
+        var user_id:Null<Int> = @await getUserIdFromEmail(email);
+        if (user_id != null) {
+            var user = @await getUser(user_id);
+            if (user.user_avatar == null && avatarUrl != null) {
+                var avatar = {
+                    var res = @await js.npm.fetch.Fetch.fetch(avatarUrl).toPromise();
+                    @await res.buffer().toPromise();
+                };
+                @await dbConnectionPool.query("UPDATE user SET ? WHERE user_id = ?", [{
+                    user_avatar: avatar,
+                }, user_id]).toPromise();
+                user = @await getUser(user_id);
+            }
+            done(null, user);
+            return;
+        }
+        // insert user
+        var userEmail = email;
+        if (userEmail == null) {
+            done("user has no email info");
+            return;
+        }
+
+        var avatar:Null<js.node.Buffer> = avatarUrl == null ? null : {
+            var res = @await js.npm.fetch.Fetch.fetch(avatarUrl).toPromise();
+            @await res.buffer().toPromise();
+        };
+
+        try {
+            var results:QueryResults = (@await dbConnectionPool.query("INSERT INTO user SET ?", {
+                user_primary_email: userEmail,
+                user_name: profile.displayName,
+                user_avatar: avatar,
+            }).toPromise()).results;
+            user_id = results.insertId;
+            var user_hashid = new Hashids("user" + DBInfo.salt, 4).encode(user_id);
+            @await dbConnectionPool.query(
+                "UPDATE user SET `user_hashid` = ? WHERE `user_id` = ?",
+                ([user_hashid, user_id]:Array<Dynamic>)
+            ).toPromise();
+        } catch (err:Dynamic) {
+            done(err);
+            return;
+        }
+
+        var user = @await getUser(user_id);
+        done(null, user);
+    }
+
     @await static function main():Void {
         haxe.Log.trace = haxe.Log.trace;
         var isMain = (untyped __js__("require")).main == module;
@@ -479,69 +542,18 @@ class ServerMain {
             next();
         });
 
-        var strategy = new FacebookStrategy({
+        var fbStrategy = new FacebookStrategy({
             clientID: FacebookInfo.FACEBOOK_CLIENT_ID,
             clientSecret: FacebookInfo.FACEBOOK_APP_SECRET,
             callbackURL: absPath("/callback/facebook"),
             profileFields: ['id', 'displayName', 'email', 'picture.type(large)'],
-        }, @await function(accessToken, refreshToken, profile:js.npm.passport.Profile, done:Function) {
-            if (profile.emails.length <= 0) {
-                done("user has no email info");
-                return;
-            }
-            var email = profile.emails[0].value;
-            var avatarUrl = profile.photos == null || profile.photos.length < 1 ? null : profile.photos[0].value;
-            // trace(profile);
+        }, passportHandler);
 
-            // get user_id
-            var user_id:Null<Int> = @await getUserIdFromEmail(email);
-            if (user_id != null) {
-                var user = @await getUser(user_id);
-                if (user.user_avatar == null && avatarUrl != null) {
-                    var avatar = {
-                        var res = @await js.npm.fetch.Fetch.fetch(avatarUrl).toPromise();
-                        @await res.buffer().toPromise();
-                    };
-                    @await dbConnectionPool.query("UPDATE user SET ? WHERE user_id = ?", [{
-                        user_avatar: avatar,
-                    }, user_id]).toPromise();
-                    user = @await getUser(user_id);
-                }
-                done(null, user);
-                return;
-            }
-            // insert user
-            var userEmail = email;
-            if (userEmail == null) {
-                done("user has no email info");
-                return;
-            }
-
-            var avatar:Null<js.node.Buffer> = avatarUrl == null ? null : {
-                var res = @await js.npm.fetch.Fetch.fetch(avatarUrl).toPromise();
-                @await res.buffer().toPromise();
-            };
-
-            try {
-                var results:QueryResults = (@await dbConnectionPool.query("INSERT INTO user SET ?", {
-                    user_primary_email: userEmail,
-                    user_name: profile.displayName,
-                    user_avatar: avatar,
-                }).toPromise()).results;
-                user_id = results.insertId;
-                var user_hashid = new Hashids("user" + DBInfo.salt, 4).encode(user_id);
-                @await dbConnectionPool.query(
-                    "UPDATE user SET `user_hashid` = ? WHERE `user_id` = ?",
-                    ([user_hashid, user_id]:Array<Dynamic>)
-                ).toPromise();
-            } catch (err:Dynamic) {
-                done(err);
-                return;
-            }
-
-            var user = @await getUser(user_id);
-            done(null, user);
-        });
+        var ghStrategy = new GitHubStrategy({
+            clientID: GitHubInfo.GITHUB_CLIENT_ID,
+            clientSecret: GitHubInfo.GITHUB_CLIENT_SECRET,
+            callbackURL: absPath("/callback/github"),
+        }, passportHandler);
 
         Passport.serializeUser(function (user:giffon.db.User, done) {
             done(null, user.user_id);
@@ -549,7 +561,8 @@ class ServerMain {
         Passport.deserializeUser(@await function (user_id:Int, done) {
             done(null, @await getUser(user_id));
         });
-        Passport.use(strategy);
+        Passport.use(fbStrategy);
+        Passport.use(ghStrategy);
         app.use(Passport.initialize());
         app.use(Passport.session());
 
@@ -619,7 +632,7 @@ class ServerMain {
                 case redirectTo:
                     req.session.redirectTo = redirectTo;
             }
-            res.redirect(absPath("/signin/facebook"));
+            res.sendPage(SignIn);
         });
         app.get("/signin/facebook",
             Passport.authenticate('facebook', {
@@ -629,8 +642,22 @@ class ServerMain {
                 res.redirect(absPath("/"));
             }
         );
-        app.get("/callback/facebook", function(req:Request, res:Response, next) {
-            Passport.authenticate('facebook', function (err, user:giffon.db.User, info) {
+        app.get("/signin/github",
+            Passport.authenticate('github', {}),
+            function(req, res:Response) {
+                res.redirect(absPath("/"));
+            }
+        );
+        app.get("/callback/:auth_method", function(req:Request, res:Response, next) {
+            var auth_method = req.params.auth_method;
+            switch (auth_method) {
+                case "facebook" | "github":
+                    //pass
+                case _:
+                    res.sendPlainError("unknown auth method", NotFound);
+                    return;
+            }
+            Passport.authenticate(auth_method, function (err, user:giffon.db.User, info) {
                 if (err != null) {
                     return res.sendPlainError(err);
                 }

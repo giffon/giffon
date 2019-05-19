@@ -194,7 +194,7 @@ class Page extends ReactComponent {
             return jsx('
                 <ul className="navbar-nav ml-auto">
                     <li className="nav-item">
-                        <a className="nav-link signInBtn" href=${signinHref}>Sign in<i className="fab fa-facebook"></i></a>
+                        <a className="nav-link signInBtn" href=${signinHref}>Sign in / Sign up</a>
                     </li>
                 </ul>
             ');
