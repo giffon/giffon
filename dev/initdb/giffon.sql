@@ -116,6 +116,36 @@ CREATE TABLE `user` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `user_facebook`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_facebook` (
+  `user_id` int(11) NOT NULL,
+  `facebook_id` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `user_facebook_UN` (`facebook_id`),
+  CONSTRAINT `user_facebook_FK` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `user_github`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_github` (
+  `user_id` int(11) NOT NULL,
+  `github_id` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `user_github_UN` (`github_id`),
+  CONSTRAINT `user_github_FK` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `user_role`
 --
 
@@ -139,6 +169,7 @@ CREATE TABLE `user_stripe` (
   `user_id` int(11) NOT NULL,
   `stripe_customer_id` varchar(64) COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`user_id`,`stripe_customer_id`),
+  UNIQUE KEY `user_stripe_UN` (`stripe_customer_id`),
   CONSTRAINT `user_stripe_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -221,4 +252,4 @@ SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-05-14 11:20:03
+-- Dump completed on 2019-05-19 19:11:33

@@ -413,7 +413,7 @@ class ServerMain {
         }
         var email = profile.emails[0].value;
         var avatarUrl = profile.photos == null || profile.photos.length < 1 ? null : profile.photos[0].value;
-        // trace(profile);
+        // trace(haxe.Json.stringify(profile, null, "  "));
 
         // get user_id
         var user_id:Null<Int> = @await getUserIdFromEmail(email);
