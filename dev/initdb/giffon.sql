@@ -161,6 +161,21 @@ CREATE TABLE `user_gitlab` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `user_google`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_google` (
+  `user_id` int(11) NOT NULL,
+  `google_id` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `user_google_UN` (`google_id`),
+  CONSTRAINT `user_google_FK` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `user_role`
 --
 
@@ -282,4 +297,4 @@ SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-05-20 16:07:41
+-- Dump completed on 2019-05-20 17:23:53

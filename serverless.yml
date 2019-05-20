@@ -40,6 +40,8 @@ provider:
     TWITTER_CONSUMER_SECRET: ${ssm:TWITTER_CONSUMER_SECRET}
     GITLAB_APP_ID: ${ssm:GITLAB_APP_ID}
     GITLAB_APP_SECRET: ${ssm:GITLAB_APP_SECRET}
+    GOOGLE_CLIENT_ID: ${ssm:GOOGLE_CLIENT_ID}
+    GOOGLE_CLIENT_SECRET: ${ssm:GOOGLE_CLIENT_SECRET}
   apiGateway:
     binaryMediaTypes:
       - '*/*'

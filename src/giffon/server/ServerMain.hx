@@ -38,6 +38,10 @@ extern class TwitterStrategy {
 extern class GitLabStrategy {
     public function new(options:Dynamic, callb:Dynamic):Void;
 }
+@:jsRequire("passport-google-oauth20", "Strategy")
+extern class GoogleStrategy {
+    public function new(options:Dynamic, callb:Dynamic):Void;
+}
 
 @await
 class ServerMain {
@@ -148,7 +152,7 @@ class ServerMain {
 
     @async static function getUserIdFromPassportProfile(profile:js.npm.passport.Profile):Null<Int> {
         switch(profile.provider) {
-            case p = "facebook" | "github" | "twitter" | "gitlab":
+            case p = "facebook" | "github" | "twitter" | "gitlab" | "google":
                 var results:QueryResults = (@await dbConnectionPool.query(
                     'SELECT user_id FROM user_${p} WHERE ${p}_id=?', 
                     [profile.id]
@@ -435,6 +439,8 @@ class ServerMain {
     }
 
     @await static function passportHandler(accessToken, refreshToken, profile:js.npm.passport.Profile, done:Function) {
+        // trace(haxe.Json.stringify(profile, null, "  "));
+
         if (profile.emails == null || profile.emails.length <= 0) {
             done("user has no email info");
             return;
@@ -448,7 +454,6 @@ class ServerMain {
                 avatarUrl = url;
             case _: //pass
         }
-        // trace(haxe.Json.stringify(profile, null, "  "));
 
         // get user_id
         var user_id:Null<Int> = null;
@@ -514,7 +519,7 @@ class ServerMain {
 
     @async static function savePassportProfile(user_id:Int, profile:js.npm.passport.Profile) {
         switch(profile.provider) {
-            case p = "facebook" | "github" | "twitter" | "gitlab":
+            case p = "facebook" | "github" | "twitter" | "gitlab" | "google":
                 @await dbConnectionPool.query(
                     'INSERT INTO user_${p} SET user_id=?, ${p}_id=?', 
                     ([user_id, profile.id]:Array<Dynamic>)
@@ -628,6 +633,12 @@ class ServerMain {
             callbackURL: absPath("/callback/gitlab"),
         }, passportHandler);
 
+        var ggStrategy = new GoogleStrategy({
+            clientID: GoogleInfo.GOOGLE_CLIENT_ID,
+            clientSecret: GoogleInfo.GOOGLE_CLIENT_SECRET,
+            callbackURL: absPath("/callback/google"),
+        }, passportHandler);
+
         Passport.serializeUser(function (user:giffon.db.User, done) {
             done(null, user.user_id);
         });
@@ -638,6 +649,7 @@ class ServerMain {
         Passport.use(ghStrategy);
         Passport.use(twStrategy);
         Passport.use(glStrategy);
+        Passport.use(ggStrategy);
         app.use(Passport.initialize());
         app.use(Passport.session());
 
@@ -735,10 +747,18 @@ class ServerMain {
                 res.redirect(absPath("/"));
             }
         );
+        app.get("/signin/google",
+            Passport.authenticate('google', {
+                scope: ["email profile"]
+            }),
+            function(req, res:Response) {
+                res.redirect(absPath("/"));
+            }
+        );
         app.get("/callback/:auth_method", function(req:Request, res:Response, next) {
             var auth_method = req.params.auth_method;
             switch (auth_method) {
-                case "facebook" | "github" | "twitter" | "gitlab":
+                case "facebook" | "github" | "twitter" | "gitlab" | "google":
                     //pass
                 case _:
                     res.sendPlainError("unknown auth method", NotFound);

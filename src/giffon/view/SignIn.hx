@@ -21,6 +21,7 @@ class SignIn extends Page {
 
                         <div><a className="d-inline-block py-1" href="/signin/facebook"><i className="fab fa-facebook"></i> Facebook</a></div>
                         <div><a className="d-inline-block py-1" href="/signin/twitter"><i className="fab fa-twitter"></i> Twitter</a></div>
+                        <div><a className="d-inline-block py-1" href="/signin/google"><i className="fab fa-google"></i> Google</a></div>
                         <div><a className="d-inline-block py-1" href="/signin/github"><i className="fab fa-github"></i> GitHub</a></div>
                         <div><a className="d-inline-block py-1" href="/signin/gitlab"><i className="fab fa-gitlab"></i> GitLab</a></div>
                     </div>
