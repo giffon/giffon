@@ -38,6 +38,8 @@ provider:
     GITHUB_CLIENT_SECRET: ${ssm:GITHUB_CLIENT_SECRET_${opt:stage, 'dev'}}
     TWITTER_CONSUMER_KEY: ${ssm:TWITTER_CONSUMER_KEY}
     TWITTER_CONSUMER_SECRET: ${ssm:TWITTER_CONSUMER_SECRET}
+    GITLAB_APP_ID: ${ssm:GITLAB_APP_ID}
+    GITLAB_APP_SECRET: ${ssm:GITLAB_APP_SECRET}
   apiGateway:
     binaryMediaTypes:
       - '*/*'

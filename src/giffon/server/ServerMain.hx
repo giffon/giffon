@@ -34,6 +34,10 @@ extern class GitHubStrategy {
 extern class TwitterStrategy {
     public function new(options:Dynamic, callb:Dynamic):Void;
 }
+@:jsRequire("passport-gitlab2", "Strategy")
+extern class GitLabStrategy {
+    public function new(options:Dynamic, callb:Dynamic):Void;
+}
 
 @await
 class ServerMain {
@@ -144,7 +148,7 @@ class ServerMain {
 
     @async static function getUserIdFromPassportProfile(profile:js.npm.passport.Profile):Null<Int> {
         switch(profile.provider) {
-            case p = "facebook" | "github" | "twitter":
+            case p = "facebook" | "github" | "twitter" | "gitlab":
                 var results:QueryResults = (@await dbConnectionPool.query(
                     'SELECT user_id FROM user_${p} WHERE ${p}_id=?', 
                     [profile.id]
@@ -437,6 +441,13 @@ class ServerMain {
         }
         var email = profile.emails[0].value;
         var avatarUrl = profile.photos == null || profile.photos.length < 1 ? null : profile.photos[0].value;
+
+        // somehow gitlab uses "avatarUrl" instead of "photos"
+        switch [avatarUrl, untyped profile.avatarUrl] {
+            case [null, url] if (url != null):
+                avatarUrl = url;
+            case _: //pass
+        }
         // trace(haxe.Json.stringify(profile, null, "  "));
 
         // get user_id
@@ -503,7 +514,7 @@ class ServerMain {
 
     @async static function savePassportProfile(user_id:Int, profile:js.npm.passport.Profile) {
         switch(profile.provider) {
-            case p = "facebook" | "github" | "twitter":
+            case p = "facebook" | "github" | "twitter" | "gitlab":
                 @await dbConnectionPool.query(
                     'INSERT INTO user_${p} SET user_id=?, ${p}_id=?', 
                     ([user_id, profile.id]:Array<Dynamic>)
@@ -611,6 +622,12 @@ class ServerMain {
             includeEmail: true,
         }, passportHandler);
 
+        var glStrategy = new GitLabStrategy({
+            clientID: GitLabInfo.GITLAB_APP_ID,
+            clientSecret: GitLabInfo.GITLAB_APP_SECRET,
+            callbackURL: absPath("/callback/gitlab"),
+        }, passportHandler);
+
         Passport.serializeUser(function (user:giffon.db.User, done) {
             done(null, user.user_id);
         });
@@ -620,6 +637,7 @@ class ServerMain {
         Passport.use(fbStrategy);
         Passport.use(ghStrategy);
         Passport.use(twStrategy);
+        Passport.use(glStrategy);
         app.use(Passport.initialize());
         app.use(Passport.session());
 
@@ -711,10 +729,16 @@ class ServerMain {
                 res.redirect(absPath("/"));
             }
         );
+        app.get("/signin/gitlab",
+            Passport.authenticate('gitlab', {}),
+            function(req, res:Response) {
+                res.redirect(absPath("/"));
+            }
+        );
         app.get("/callback/:auth_method", function(req:Request, res:Response, next) {
             var auth_method = req.params.auth_method;
             switch (auth_method) {
-                case "facebook" | "github" | "twitter":
+                case "facebook" | "github" | "twitter" | "gitlab":
                     //pass
                 case _:
                     res.sendPlainError("unknown auth method", NotFound);
