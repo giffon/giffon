@@ -20,6 +20,7 @@ class SignIn extends Page {
                         <h2 className="card-title">Sign in / Sign up</h2>
 
                         <div><a className="d-inline-block py-1" href="/signin/facebook"><i className="fab fa-facebook"></i> Facebook</a></div>
+                        <div><a className="d-inline-block py-1" href="/signin/twitter"><i className="fab fa-twitter"></i> Twitter</a></div>
                         <div><a className="d-inline-block py-1" href="/signin/github"><i className="fab fa-github"></i> GitHub</a></div>
                     </div>
                 </div>

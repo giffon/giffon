@@ -30,6 +30,10 @@ extern class FacebookStrategy {
 extern class GitHubStrategy {
     public function new(options:Dynamic, callb:Dynamic):Void;
 }
+@:jsRequire("passport-twitter", "Strategy")
+extern class TwitterStrategy {
+    public function new(options:Dynamic, callb:Dynamic):Void;
+}
 
 @await
 class ServerMain {
@@ -140,7 +144,7 @@ class ServerMain {
 
     @async static function getUserIdFromPassportProfile(profile:js.npm.passport.Profile):Null<Int> {
         switch(profile.provider) {
-            case p = "facebook" | "github":
+            case p = "facebook" | "github" | "twitter":
                 var results:QueryResults = (@await dbConnectionPool.query(
                     'SELECT user_id FROM user_${p} WHERE ${p}_id=?', 
                     [profile.id]
@@ -427,7 +431,7 @@ class ServerMain {
     }
 
     @await static function passportHandler(accessToken, refreshToken, profile:js.npm.passport.Profile, done:Function) {
-        if (profile.emails.length <= 0) {
+        if (profile.emails == null || profile.emails.length <= 0) {
             done("user has no email info");
             return;
         }
@@ -499,7 +503,7 @@ class ServerMain {
 
     @async static function savePassportProfile(user_id:Int, profile:js.npm.passport.Profile) {
         switch(profile.provider) {
-            case p = "facebook" | "github":
+            case p = "facebook" | "github" | "twitter":
                 @await dbConnectionPool.query(
                     'INSERT INTO user_${p} SET user_id=?, ${p}_id=?', 
                     ([user_id, profile.id]:Array<Dynamic>)
@@ -600,6 +604,13 @@ class ServerMain {
             callbackURL: absPath("/callback/github"),
         }, passportHandler);
 
+        var twStrategy = new TwitterStrategy({
+            consumerKey: TwitterInfo.TWITTER_CONSUMER_KEY,
+            consumerSecret: TwitterInfo.TWITTER_CONSUMER_SECRET,
+            callbackURL: absPath("/callback/twitter"),
+            includeEmail: true,
+        }, passportHandler);
+
         Passport.serializeUser(function (user:giffon.db.User, done) {
             done(null, user.user_id);
         });
@@ -608,6 +619,7 @@ class ServerMain {
         });
         Passport.use(fbStrategy);
         Passport.use(ghStrategy);
+        Passport.use(twStrategy);
         app.use(Passport.initialize());
         app.use(Passport.session());
 
@@ -693,10 +705,16 @@ class ServerMain {
                 res.redirect(absPath("/"));
             }
         );
+        app.get("/signin/twitter",
+            Passport.authenticate('twitter', {}),
+            function(req, res:Response) {
+                res.redirect(absPath("/"));
+            }
+        );
         app.get("/callback/:auth_method", function(req:Request, res:Response, next) {
             var auth_method = req.params.auth_method;
             switch (auth_method) {
-                case "facebook" | "github":
+                case "facebook" | "github" | "twitter":
                     //pass
                 case _:
                     res.sendPlainError("unknown auth method", NotFound);
