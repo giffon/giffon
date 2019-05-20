@@ -9,11 +9,13 @@ import haxe.io.*;
 class PageWish {
     static public function onReady():Void {
         var wish_hashid = document.body.getAttribute("data-wish-hashid");
+        var wish_currency = document.body.getAttribute("data-wish-currency");
         switch (document.getElementById("pledge-form-root")) {
             case null: //pass
             case root:
                 ReactDOM.render(React.createElement(PledgeForm, {
                     wish_hashid: wish_hashid,
+                    wish_currency: giffon.db.Currency.createByName(wish_currency),
                     wish_total_needed: Decimal.fromString(document.body.getAttribute("data-wish-total-needed")),
                     user_total_pledge: Decimal.fromString(document.body.getAttribute("data-user-total-pledge")),
                 }), root);

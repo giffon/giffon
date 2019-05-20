@@ -20,6 +20,9 @@ class PledgeForm extends ReactComponent {
     var wish_hashid(get, never):String;
     function get_wish_hashid() return props.wish_hashid;
 
+    var wish_currency(get, never):giffon.db.Currency;
+    function get_wish_currency() return props.wish_currency;
+
     var wish_total_needed(get, never):Decimal;
     function get_wish_total_needed() return props.wish_total_needed;
 
@@ -79,7 +82,7 @@ class PledgeForm extends ReactComponent {
         if (user_total_pledge > 0) {
             return jsx('
                 <div>
-                    You have currently pledged ${user_total_pledge.toString()}.
+                    You have currently pledged ${wish_currency.getName()} ${user_total_pledge.toString()}.
                     <button className="btn btn-link" onClick=${cancelPledge} disabled=${isCancellingPledge}>Cancel pledge</button>
                 </div>
             ');
@@ -96,6 +99,7 @@ class PledgeForm extends ReactComponent {
         } else {
             var injectedPledgeForm = React.createElement(ReactStripeElements.injectStripe(_PledgeForm), {
                 wish_hashid: wish_hashid,
+                wish_currency: wish_currency,
                 wish_total_needed: wish_total_needed,
                 user_total_pledge: user_total_pledge,
             });
@@ -135,6 +139,9 @@ class PledgeForm extends ReactComponent {
 class _PledgeForm extends ReactComponent {
     var wish_hashid(get, never):String;
     function get_wish_hashid() return props.wish_hashid;
+
+    var wish_currency(get, never):giffon.db.Currency;
+    function get_wish_currency() return props.wish_currency;
 
     var wish_total_needed(get, never):Decimal;
     function get_wish_total_needed() return props.wish_total_needed;
@@ -255,7 +262,7 @@ class _PledgeForm extends ReactComponent {
                 <div className="form-row">
                     <div className="form-group col-md-4">
                         <label htmlFor="pledge_amount">
-                            Support amount
+                            Support amount (${wish_currency.getName()})
                         </label>
                         <Field
                             className="form-control"

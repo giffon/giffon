@@ -27,6 +27,7 @@ class Wish extends Page {
     override function bodyAttributes() {
         var attrs = super.bodyAttributes();
         attrs["data-wish-hashid"] = wish.wish_hashid;
+        attrs["data-wish-currency"] = wish.wish_currency.getName();
         attrs["data-wish-total-needed"] = wish.wish_total_needed.amount.toString();
         attrs["data-user-total-pledge"] = user_total_pledge.toString();
         return attrs;
