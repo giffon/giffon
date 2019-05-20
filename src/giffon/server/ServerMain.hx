@@ -18,6 +18,7 @@ using js.npm.validator.Validator;
 using tink.core.Future.JsPromiseTools;
 using giffon.RequestTools;
 using giffon.ResponseTools;
+using giffon.server.PromiseTools;
 using Lambda;
 using StringTools;
 
@@ -135,6 +136,25 @@ class ServerMain {
         ).toPromise();
 
         return stripe_customer_id;
+    }
+
+    @async static function getUserIdFromPassportProfile(profile:js.npm.passport.Profile):Null<Int> {
+        switch(profile.provider) {
+            case p = "facebook" | "github":
+                var results:QueryResults = (@await dbConnectionPool.query(
+                    'SELECT user_id FROM user_${p} WHERE ${p}_id=?', 
+                    [profile.id]
+                ).toPromise()).results;
+                if (results != null && results.length != 0) {
+                    if (results.length != 1) {
+                        throw 'There are ${results.length} Giffon user associated with the ${p} account ${profile.id}.';
+                    }
+                    return results[0].user_id;
+                }
+            case p:
+                trace("unknown provider: " + p);
+        }
+        return null;
     }
 
     @async static function getUserIdFromEmail(email:String):Null<Int> {
@@ -416,9 +436,22 @@ class ServerMain {
         // trace(haxe.Json.stringify(profile, null, "  "));
 
         // get user_id
-        var user_id:Null<Int> = @await getUserIdFromEmail(email);
+        var user_id:Null<Int> = null;
+
+        if (user_id == null)
+            user_id = @await getUserIdFromPassportProfile(profile);
+
+        if (user_id == null) {
+            user_id = @await getUserIdFromEmail(email);
+            if (user_id != null) {
+                @await savePassportProfile(user_id, profile);
+            }
+        }
+
         if (user_id != null) {
             var user = @await getUser(user_id);
+
+            // update avatar if it's not set yet
             if (user.user_avatar == null && avatarUrl != null) {
                 var avatar = {
                     var res = @await js.npm.fetch.Fetch.fetch(avatarUrl).toPromise();
@@ -429,9 +462,11 @@ class ServerMain {
                 }, user_id]).toPromise();
                 user = @await getUser(user_id);
             }
+
             done(null, user);
             return;
         }
+
         // insert user
         var userEmail = email;
         if (userEmail == null) {
@@ -444,25 +479,35 @@ class ServerMain {
             @await res.buffer().toPromise();
         };
 
-        try {
-            var results:QueryResults = (@await dbConnectionPool.query("INSERT INTO user SET ?", {
-                user_primary_email: userEmail,
-                user_name: profile.displayName,
-                user_avatar: avatar,
-            }).toPromise()).results;
-            user_id = results.insertId;
-            var user_hashid = new Hashids("user" + DBInfo.salt, 4).encode(user_id);
-            @await dbConnectionPool.query(
-                "UPDATE user SET `user_hashid` = ? WHERE `user_id` = ?",
-                ([user_hashid, user_id]:Array<Dynamic>)
-            ).toPromise();
-        } catch (err:Dynamic) {
-            done(err);
-            return;
-        }
+        var results:QueryResults = (@await dbConnectionPool.query("INSERT INTO user SET ?", {
+            user_primary_email: userEmail,
+            user_name: profile.displayName,
+            user_avatar: avatar,
+        }).handleError(done).toPromise()).results;
+        user_id = results.insertId;
+        var user_hashid = new Hashids("user" + DBInfo.salt, 4).encode(user_id);
+        @await dbConnectionPool.query(
+            "UPDATE user SET `user_hashid` = ? WHERE `user_id` = ?",
+            ([user_hashid, user_id]:Array<Dynamic>)
+        ).handleError(done).toPromise();
+
+        @await savePassportProfile(user_id, profile);
 
         var user = @await getUser(user_id);
         done(null, user);
+    }
+
+    @async static function savePassportProfile(user_id:Int, profile:js.npm.passport.Profile) {
+        switch(profile.provider) {
+            case p = "facebook" | "github":
+                @await dbConnectionPool.query(
+                    'INSERT INTO user_${p} SET user_id=?, ${p}_id=?', 
+                    ([user_id, profile.id]:Array<Dynamic>)
+                ).toPromise();
+            case p:
+                trace("unknown provider: " + p);
+        }
+        return null;
     }
 
     @await static function main():Void {
