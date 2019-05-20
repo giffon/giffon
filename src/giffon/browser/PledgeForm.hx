@@ -256,13 +256,15 @@ class _PledgeForm extends ReactComponent {
                 null;
             }
 
+        var currencyFlagClass = 'currency-flag currency-flag-${wish_currency.getName().toLowerCase()} align-middle';
+
         return jsx('
             <Form>
                 ${submissionErrorElement}
                 <div className="form-row">
                     <div className="form-group col-md-4">
                         <label htmlFor="pledge_amount">
-                            Support amount (${wish_currency.getName()})
+                            Support amount ( <div class=${currencyFlagClass}></div> ${wish_currency.getName()} )
                         </label>
                         <Field
                             className="form-control"

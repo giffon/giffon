@@ -214,6 +214,11 @@ class Wish extends Page {
         }
     }
 
+    function currencyFlag(currency:giffon.db.Currency) {
+        var cls = 'currency-flag currency-flag-${currency.getName().toLowerCase()} align-middle';
+        return jsx('<div class=${cls}></div>');
+    }
+
     override function bodyContent() return jsx('
         <Fragment>
             <div className="container mb-xs-4 mb-md-5">
@@ -257,7 +262,7 @@ class Wish extends Page {
                     </div>
                     <div className="row justify-content-md-center pb-2">
                         <div className="col text-center">
-                            Total: <span className="wish-total" data-toggle="tooltip" title=${wish.wish_total_needed.breakdown}>${wish.wish_currency.getName()} ${wish.wish_total_needed.amount.toString()} <i className="fas fa-info-circle"></i></span>
+                            Total: <span className="wish-total" data-toggle="tooltip" title=${wish.wish_total_needed.breakdown}>${currencyFlag(wish.wish_currency)} ${wish.wish_currency.getName()} ${wish.wish_total_needed.amount.toString()} <i className="fas fa-info-circle"></i></span>
                         </div>
                     </div>
                     ${howToHelpSection()}

@@ -93,6 +93,11 @@ class Page extends ReactComponent {
                 integrity="sha256-gqbLY1z4MASV3jriFFdY5GqRszB+KDUkseSY+RYVAVU="
                 crossOrigin="anonymous"
             />
+            <link rel="stylesheet"
+                href="https://cdn.jsdelivr.net/npm/currency-flags@1.8.0/dist/currency-flags.min.css"
+                integrity="sha256-93qPfpLSGzRTJsyLOst+lp0VdYmY9Bqzw4z6By0pYhM="
+                crossOrigin="anonymous"
+            />
         </Fragment>
     ');
 
