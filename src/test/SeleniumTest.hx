@@ -5,9 +5,11 @@ import utest.Runner;
 import utest.ui.Report;
 import haxe.io.*;
 import selenium.webdriver.*;
+import selenium.webdriver.support.ui.Select;
 import selenium.webdriver.remote.webelement.*;
 import python.*;
 import giffon.Utils.*;
+import thx.Decimal;
 using Lambda;
 using StringTools;
 
@@ -45,10 +47,12 @@ class SeleniumTest extends utest.Test {
 
     var user1Wish = {
         wishTitle: "Learn Haxe",
-        itemUrl: "https://www.amazon.com/Haxe-Development-Essentials-Jeremy-McCurdy/dp/1785289780",
-        wishUrl: null,
-        itemName: "Haxe Game Development Essentials",
-        itemPrice: 24.99,
+        items: [{
+            itemUrl: "https://www.amazon.com/Haxe-Development-Essentials-Jeremy-McCurdy/dp/1785289780",
+            itemName: "Haxe Game Development Essentials",
+            itemPrice: Decimal.fromFloat(24.99),
+            itemQuantity: 1,
+        }],
         wishDescription: "I believe Haxe is the future!",
     };
 
@@ -101,6 +105,77 @@ class SeleniumTest extends utest.Test {
         Assert.equals(user.name, userNameElement.text);
     }
 
+    static function clearInput(input:WebElement) {
+        var existingValue = Std.string(input.get_property("value"));
+        input.send_keys([[for (i in 0...existingValue.length) String.fromCharCode(57347)]]);
+    }
+
+    function createWish(wish:{
+        wishTitle: String,
+        items: Array<{
+            itemName: String,
+            itemUrl: String,
+            itemPrice: Decimal,
+            itemQuantity: Int,
+        }>,
+        wishDescription: String,
+    }) {
+        driver.get(Path.join([baseUrl, "make-a-wish"]));
+        assertNoLog();
+
+        var titleInput:WebElement = driver.find_element_by_css_selector("input[name='wish_title']");
+        titleInput.click();
+        clearInput(titleInput);
+        titleInput.send_keys([wish.wishTitle]);
+
+        var currencySelect:Select = new Select(driver.find_element_by_css_selector("select[name='wish_currency']"));
+        currencySelect.select_by_value(giffon.db.Currency.USD.getName());
+
+        for (i in 0...wish.items.length) {
+            var item = wish.items[i];
+
+            var itemNameInput:WebElement = driver.find_element_by_css_selector('input[name="items[${i}].item_name"]');
+            itemNameInput.click();
+            itemNameInput.send_keys([item.itemName]);
+
+            var itemUrlInput:WebElement = driver.find_element_by_css_selector('input[name="items[${i}].item_url"]');
+            itemUrlInput.click();
+            itemUrlInput.send_keys([item.itemUrl]);
+
+            var itemPriceInput:WebElement = driver.find_element_by_css_selector('input[name="items[${i}].item_price"]');
+            itemPriceInput.click();
+            clearInput(itemPriceInput);
+            itemPriceInput.send_keys([item.itemPrice.toString()]);
+
+            var itemQuantityInput:WebElement = driver.find_element_by_css_selector('input[name="items[${i}].item_quantity"]');
+            itemQuantityInput.click();
+            clearInput(itemQuantityInput);
+            itemQuantityInput.send_keys([Std.string(item.itemQuantity)]);
+
+            if (i + 1 < wish.items.length) {
+                // click add item btn
+                var addItemBtn:WebElement = driver.find_element_by_css_selector("button.btn-add-item");
+                addItemBtn.click();
+            }
+        }
+
+        var wishDescriptionArea:WebElement = driver.find_element_by_css_selector('textarea[name="wish_description"]');
+        wishDescriptionArea.click();
+        wishDescriptionArea.send_keys([wish.wishDescription]);
+
+        var acceptTermsInput:WebElement = driver.find_element_by_css_selector("input[name='acceptTerms']");
+        acceptTermsInput.click();
+
+        var submitBtn:WebElement = driver.find_element_by_css_selector("button[type='submit']");
+        submitBtn.click();
+
+        waitUntil(function(){
+            var url:String = driver.current_url;
+            return url.indexOf('/make-a-wish') == -1;
+        });
+        assertNoLog();
+    }
+
     function assertNoLog(?pos:haxe.PosInfos):Void {
         var logs:Array<python.Dict<String, Dynamic>> = driver.get_log("browser");
         var logLines:Array<String> = [
@@ -118,6 +193,40 @@ class SeleniumTest extends utest.Test {
 
     function testBasics():Void {
         logInUser(FacebookTestUsers.user1);
+        createWish(user1Wish);
+
+        driver.get(baseUrl);
+        assertNoLog();
+
+        // go to user page
+        var userLink:WebElement = driver.find_element_by_css_selector("a.nav-link.user-name");
+        var userUrl:String = userLink.get_attribute("href");
+        Assert.match(~/\/user\/[A-Za-z0-9]+$/, userUrl);
+        Assert.isTrue(userUrl.startsWith(baseUrl));
+        driver.get(userUrl);
+        assertNoLog();
+
+        // go to wish page
+        var wishLink:WebElement = driver.find_element_by_link_text(user1Wish.wishTitle);
+        var wishUrl:String = wishLink.get_attribute("href");
+        Assert.match(~/\/wish\/[A-Za-z0-9]+$/, wishUrl);
+        Assert.isTrue(wishUrl.startsWith(baseUrl));
+        driver.get(wishUrl);
+        assertNoLog();
+
+        // check wish page content
+
+        Assert.stringContains(user1Wish.wishTitle, driver.title);
+        Assert.stringContains(FacebookTestUsers.user1.name, driver.title);
+
+        for (item in user1Wish.items) {
+            var itemLink:WebElement = driver.find_element_by_link_text(item.itemName);
+            Assert.equals(item.itemUrl, itemLink.get_attribute("href"));
+        }
+
+        var body:WebElement = driver.find_element_by_tag_name("body");
+        var dataWishTotalNeeded:String = body.get_attribute("data-wish-total-needed");
+        Assert.isTrue(Decimal.fromString(dataWishTotalNeeded) > user1Wish.items[0].itemPrice);
     }
 
     static function main():Void {

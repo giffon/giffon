@@ -1,5 +1,6 @@
 -cp src
 -cp lib/pyextern/out
 -lib utest
+-lib thx.core
 -main test.SeleniumTest
 -python test/SeleniumTest.py
