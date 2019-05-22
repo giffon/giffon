@@ -103,10 +103,11 @@ class SeleniumTest extends utest.Test {
 
     function assertNoLog(?pos:haxe.PosInfos):Void {
         var logs:Array<python.Dict<String, Dynamic>> = driver.get_log("browser");
-        for (log in (logs.map(python.Lib.dictAsAnon):Array<BrowserLog>)) {
-            haxe.Log.trace('${log.level} ${log.source} ${log.message}', pos);
-        }
-        Assert.equals(0, logs.length);
+        var logLines:Array<String> = [
+            for (log in (logs.map(python.Lib.dictAsAnon):Array<BrowserLog>))
+            '${log.level} ${log.source} ${log.message}'
+        ];
+        Assert.equals(0, logs.length, 'unexpected browser log:\n${logLines.join("\n")}', pos);
     }
 
     function testSimple():Void {
