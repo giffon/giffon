@@ -216,7 +216,7 @@ class Wish extends Page {
 
     function currencyFlag(currency:giffon.db.Currency) {
         var cls = 'currency-flag currency-flag-${currency.getName().toLowerCase()} align-middle';
-        return jsx('<div class=${cls}></div>');
+        return jsx('<div className=${cls}></div>');
     }
 
     override function bodyContent() return jsx('
