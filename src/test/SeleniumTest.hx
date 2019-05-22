@@ -11,6 +11,13 @@ import giffon.Utils.*;
 using Lambda;
 using StringTools;
 
+typedef BrowserLog = {
+    level:String,
+    message:String,
+    timestamp:Int,
+    source:String,
+}
+
 class SeleniumTest extends utest.Test {
     static function __init__() {
         Dotenv.load_dotenv(Path.join([Sys.getCwd(), "private", ".env"]));
@@ -83,17 +90,29 @@ class SeleniumTest extends utest.Test {
         passInput.send_keys([user.password]);
         var loginBtn:WebElement = driver.find_element_by_css_selector("body #loginbutton");
         loginBtn.click();
+
         waitUntil(function(){
             var url:String = driver.current_url;
             return url.startsWith(baseUrl);
         });
+        assertNoLog();
+
         var userNameElement:WebElement = driver.find_element_by_class_name("user-name");
         Assert.equals(user.name, userNameElement.text);
+    }
+
+    function assertNoLog(?pos:haxe.PosInfos):Void {
+        var logs:Array<python.Dict<String, Dynamic>> = driver.get_log("browser");
+        for (log in (logs.map(python.Lib.dictAsAnon):Array<BrowserLog>)) {
+            haxe.Log.trace('${log.level} ${log.source} ${log.message}', pos);
+        }
+        Assert.equals(0, logs.length);
     }
 
     function testSimple():Void {
         driver.get(baseUrl);
         Assert.stringContains("Giffon", driver.title);
+        assertNoLog();
     }
 
     function testBasics():Void {
