@@ -264,7 +264,7 @@ class _PledgeForm extends ReactComponent {
                 <div className="form-row">
                     <div className="form-group col-md-4">
                         <label htmlFor="pledge_amount">
-                            Support amount ( <div class=${currencyFlagClass}></div> ${wish_currency.getName()} )
+                            Support amount ( <div className=${currencyFlagClass}></div> ${wish_currency.getName()} )
                         </label>
                         <Field
                             className="form-control"
