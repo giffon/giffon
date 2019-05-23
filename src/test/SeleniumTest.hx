@@ -260,6 +260,91 @@ class SeleniumTest extends utest.Test {
         signIn(FacebookTestUsers.user2);
 
         checkWish();
+
+        // pledge
+
+        waitUntil(function(){
+            try {
+                var amountInput:WebElement = driver.find_element_by_css_selector("input[name='pledge_amount']");
+                var disabled = amountInput.get_property("disabled");
+                return !disabled;
+            } catch (e:Dynamic) {}
+            return false;
+        });
+
+        var amountInput:WebElement = driver.find_element_by_css_selector("input[name='pledge_amount']");
+        clearInput(amountInput);
+        amountInput.send_keys(["5"]);
+
+        (driver.switch_to:SwitchTo).frame(driver.find_element_by_css_selector("#card-number iframe"));
+        waitUntil(function(){
+            try {
+                var cardnumberInput:WebElement = driver.find_element_by_css_selector("input[name='cardnumber']");
+                var disabled = cardnumberInput.get_property("disabled");
+                return !disabled;
+            } catch (e:Dynamic) {}
+            return false;
+        });
+        var cardnumberInput:WebElement = driver.find_element_by_css_selector("input[name='cardnumber']");
+        cardnumberInput.send_keys(["4242424242424242"]);
+        var expDateInput:WebElement = driver.find_element_by_css_selector("input[name='exp-date']");
+        expDateInput.send_keys(["0424"]);
+        var cvcInput:WebElement = driver.find_element_by_css_selector("input[name='cvc']");
+        cvcInput.send_keys(["444"]);
+        var postalInput:WebElement = driver.find_element_by_css_selector("input[name='postal']");
+        postalInput.send_keys(["00000"]);
+        (driver.switch_to:SwitchTo).parent_frame();
+
+        var termsInput:WebElement = driver.find_element_by_css_selector("input[name='acceptTerms']");
+        termsInput.click();
+
+        var submitBtn:WebElement = driver.find_element_by_css_selector("button[type='submit']");
+        submitBtn.click();
+
+
+        waitUntil(function(){
+            try {
+                var body:WebElement = driver.find_element_by_tag_name("body");
+                var dataUserTotalPledge:String = body.get_attribute("data-user-total-pledge");
+                return Decimal.fromString(dataUserTotalPledge) == 5;
+            } catch (e:Dynamic) {
+                return false;
+            }
+        });
+        assertNoLog();
+
+        // cancel pledge
+
+        waitUntil(function(){
+            try {
+                var btn:WebElement = driver.find_element_by_css_selector("button.btn-cancel-pledge");
+                var disabled = btn.get_property("disabled");
+                return !disabled;
+            } catch (e:Dynamic) {}
+            return false;
+        });
+        var cancelBtn:WebElement = driver.find_element_by_css_selector("button.btn-cancel-pledge");
+        cancelBtn.click();
+
+        waitUntil(function(){
+            try {
+                var body:WebElement = driver.find_element_by_tag_name("body");
+                var dataUserTotalPledge:String = body.get_attribute("data-user-total-pledge");
+                return Decimal.fromString(dataUserTotalPledge) == 0;
+            } catch (e:Dynamic) {
+                return false;
+            }
+        });
+        assertNoLog();
+
+        waitUntil(function(){
+            try {
+                var amountInput:WebElement = driver.find_element_by_css_selector("input[name='pledge_amount']");
+                var disabled = amountInput.get_property("disabled");
+                return !disabled;
+            } catch (e:Dynamic) {}
+            return false;
+        });
     }
 
     static function main():Void {

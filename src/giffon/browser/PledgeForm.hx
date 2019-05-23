@@ -83,7 +83,7 @@ class PledgeForm extends ReactComponent {
             return jsx('
                 <div>
                     You have currently pledged ${wish_currency.getName()} ${user_total_pledge.toString()}.
-                    <button className="btn btn-link" onClick=${cancelPledge} disabled=${isCancellingPledge}>Cancel pledge</button>
+                    <button className="btn btn-link btn-cancel-pledge" onClick=${cancelPledge} disabled=${isCancellingPledge}>Cancel pledge</button>
                 </div>
             ');
         } else {
