@@ -6,6 +6,7 @@ import utest.ui.Report;
 import haxe.io.*;
 import selenium.webdriver.*;
 import selenium.webdriver.support.ui.Select;
+import selenium.webdriver.remote.switch_to.SwitchTo;
 import selenium.webdriver.remote.webelement.*;
 import python.*;
 import giffon.Utils.*;
@@ -74,7 +75,7 @@ class SeleniumTest extends utest.Test {
         }
     }
 
-    function logInUser(user:{
+    function signIn(user:{
         email:String,
         password:String,
         name:String
@@ -101,8 +102,28 @@ class SeleniumTest extends utest.Test {
         });
         assertNoLog();
 
+        var body:WebElement = driver.find_element_by_tag_name("body");
+        var cls:String = body.get_attribute("class");
+        Assert.stringContains("signed-in", cls);
+
         var userNameElement:WebElement = driver.find_element_by_class_name("user-name");
         Assert.equals(user.name, userNameElement.text);
+    }
+
+    function signOut():Void {
+        driver.get(Path.join([baseUrl, "signout"]));
+        assertNoLog();
+        var body:WebElement = driver.find_element_by_tag_name("body");
+        var cls:String = body.get_attribute("class");
+        Assert.stringContains("signed-out", cls);
+
+        driver.get("https://facebook.com/");
+        driver.delete_all_cookies();
+        driver.refresh();
+        driver.find_element_by_css_selector("body #email");
+
+        // consume the facebook logs to keep the console empty
+        driver.get_log("browser");
     }
 
     static function clearInput(input:WebElement) {
@@ -192,7 +213,7 @@ class SeleniumTest extends utest.Test {
     }
 
     function testBasics():Void {
-        logInUser(FacebookTestUsers.user1);
+        signIn(FacebookTestUsers.user1);
         createWish(user1Wish);
 
         driver.get(baseUrl);
@@ -211,22 +232,34 @@ class SeleniumTest extends utest.Test {
         var wishUrl:String = wishLink.get_attribute("href");
         Assert.match(~/\/wish\/[A-Za-z0-9]+$/, wishUrl);
         Assert.isTrue(wishUrl.startsWith(baseUrl));
-        driver.get(wishUrl);
-        assertNoLog();
+        
 
         // check wish page content
+        function checkWish() {
+            driver.get(wishUrl);
+            assertNoLog();
 
-        Assert.stringContains(user1Wish.wishTitle, driver.title);
-        Assert.stringContains(FacebookTestUsers.user1.name, driver.title);
+            Assert.stringContains(user1Wish.wishTitle, driver.title);
+            Assert.stringContains(FacebookTestUsers.user1.name, driver.title);
 
-        for (item in user1Wish.items) {
-            var itemLink:WebElement = driver.find_element_by_link_text(item.itemName);
-            Assert.equals(item.itemUrl, itemLink.get_attribute("href"));
+            for (item in user1Wish.items) {
+                var itemLink:WebElement = driver.find_element_by_link_text(item.itemName);
+                Assert.equals(item.itemUrl, itemLink.get_attribute("href"));
+            }
+
+            var body:WebElement = driver.find_element_by_tag_name("body");
+            var dataWishTotalNeeded:String = body.get_attribute("data-wish-total-needed");
+            Assert.isTrue(Decimal.fromString(dataWishTotalNeeded) > user1Wish.items[0].itemPrice);
         }
+        checkWish();
 
-        var body:WebElement = driver.find_element_by_tag_name("body");
-        var dataWishTotalNeeded:String = body.get_attribute("data-wish-total-needed");
-        Assert.isTrue(Decimal.fromString(dataWishTotalNeeded) > user1Wish.items[0].itemPrice);
+        signOut();
+
+        checkWish();
+
+        signIn(FacebookTestUsers.user2);
+
+        checkWish();
     }
 
     static function main():Void {
