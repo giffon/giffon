@@ -192,7 +192,10 @@ class WishForm extends ReactComponent {
                 return jsx('
                     <Fragment>
                         <p>What do you want?</p>
-                        <p><small className="form-text text-muted">Paste the online shopping link of the item you wanna receive. Note that we currently only support the Amazon United States store. Support for other stores is in the plan.</small></p>
+                        <p><small className="form-text text-muted">
+                            Paste the online shopping link of the item you wanna receive. 
+                            For example, any items on <a href="https://www.amazon.com/" target="_blank" rel="noopener">Amazon</a>, <a href="https://www.bestbuy.com/" target="_blank" rel="noopener">Best Buy</a>, <a href="https://store.steampowered.com/" target="_blank" rel="noopener">Steam</a>, <a href="https://www.epicgames.com/store/en-US/" target="_blank" rel="noopener">Epic Games Store</a>, or any online stores.
+                        </small></p>
                         ${rows}
                         ${itemsErrorMessage}
                         <button
