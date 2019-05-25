@@ -68,11 +68,30 @@ class SeleniumTest extends utest.Test {
         driver.quit();
     }
 
-    function waitUntil(fn:Void->Bool, timeoutSeconds:Float = 5.0) {
+    function waitUntil(fn:Void->Bool, timeoutSeconds:Float = 5.0, ?pos:haxe.PosInfos) {
+        var fn = function() return try fn() catch(e:Dynamic) false;
         var t = Sys.time();
-        while (!fn() && (Sys.time() - t < timeoutSeconds)) {
+        while (!fn()) {
             Sys.sleep(0.1);
+            if (Sys.time() - t > timeoutSeconds) {
+                Assert.isTrue(fn(), "timeout", pos);
+                return;
+            }
         }
+    }
+
+    function waitExists(fn:Void->WebElement, timeoutSeconds:Float = 5.0, ?pos:haxe.PosInfos):WebElement {
+        var fn = function() return try fn() catch(e:Dynamic) null;
+        var t = Sys.time();
+        var e = null;
+        while ((e = fn()) == null) {
+            Sys.sleep(0.1);
+            if (Sys.time() - t > timeoutSeconds) {
+                Assert.notNull(e = fn(), "timeout", pos);
+                break;
+            }
+        }
+        return e;
     }
 
     function signIn(user:{
@@ -263,30 +282,19 @@ class SeleniumTest extends utest.Test {
 
         // pledge
 
-        waitUntil(function(){
-            try {
-                var amountInput:WebElement = driver.find_element_by_css_selector("input[name='pledge_amount']");
-                var disabled = amountInput.get_property("disabled");
-                return !disabled;
-            } catch (e:Dynamic) {}
-            return false;
+        var amountInput = waitExists(function(){
+            return driver.find_element_by_css_selector("input[name='pledge_amount']");
         });
-
-        var amountInput:WebElement = driver.find_element_by_css_selector("input[name='pledge_amount']");
+        if (amountInput == null) return;
         clearInput(amountInput);
         amountInput.send_keys(["5"]);
 
         (driver.switch_to:SwitchTo).frame(driver.find_element_by_css_selector("#card-number iframe"));
-        waitUntil(function(){
-            try {
-                var cardnumberInput:WebElement = driver.find_element_by_css_selector("input[name='cardnumber']");
-                var disabled = cardnumberInput.get_property("disabled");
-                return !disabled;
-            } catch (e:Dynamic) {}
-            return false;
+        var cardnumberInput = waitExists(function(){
+            return driver.find_element_by_css_selector("input[name='cardnumber']");
         });
-        var cardnumberInput:WebElement = driver.find_element_by_css_selector("input[name='cardnumber']");
-        cardnumberInput.send_keys(["4242424242424242"]);
+        if (cardnumberInput == null) return;
+        cardnumberInput.send_keys(["4242 4242 4242 4242"]);
         var expDateInput:WebElement = driver.find_element_by_css_selector("input[name='exp-date']");
         expDateInput.send_keys(["0424"]);
         var cvcInput:WebElement = driver.find_element_by_css_selector("input[name='cvc']");
@@ -303,47 +311,29 @@ class SeleniumTest extends utest.Test {
 
 
         waitUntil(function(){
-            try {
-                var body:WebElement = driver.find_element_by_tag_name("body");
-                var dataUserTotalPledge:String = body.get_attribute("data-user-total-pledge");
-                return Decimal.fromString(dataUserTotalPledge) == 5;
-            } catch (e:Dynamic) {
-                return false;
-            }
+            var body:WebElement = driver.find_element_by_tag_name("body");
+            var dataUserTotalPledge:String = body.get_attribute("data-user-total-pledge");
+            return Decimal.fromString(dataUserTotalPledge) == 5;
         });
         assertNoLog();
 
         // cancel pledge
 
-        waitUntil(function(){
-            try {
-                var btn:WebElement = driver.find_element_by_css_selector("button.btn-cancel-pledge");
-                var disabled = btn.get_property("disabled");
-                return !disabled;
-            } catch (e:Dynamic) {}
-            return false;
+        var cancelBtn = waitExists(function(){
+            return driver.find_element_by_css_selector("button.btn-cancel-pledge");
         });
-        var cancelBtn:WebElement = driver.find_element_by_css_selector("button.btn-cancel-pledge");
+        if (cancelBtn == null) return;
         cancelBtn.click();
 
         waitUntil(function(){
-            try {
-                var body:WebElement = driver.find_element_by_tag_name("body");
-                var dataUserTotalPledge:String = body.get_attribute("data-user-total-pledge");
-                return Decimal.fromString(dataUserTotalPledge) == 0;
-            } catch (e:Dynamic) {
-                return false;
-            }
+            var body:WebElement = driver.find_element_by_tag_name("body");
+            var dataUserTotalPledge:String = body.get_attribute("data-user-total-pledge");
+            return Decimal.fromString(dataUserTotalPledge) == 0;
         });
         assertNoLog();
 
-        waitUntil(function(){
-            try {
-                var amountInput:WebElement = driver.find_element_by_css_selector("input[name='pledge_amount']");
-                var disabled = amountInput.get_property("disabled");
-                return !disabled;
-            } catch (e:Dynamic) {}
-            return false;
+        waitExists(function(){
+            return driver.find_element_by_css_selector("input[name='pledge_amount']");
         });
     }
 
