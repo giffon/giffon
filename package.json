@@ -29,17 +29,17 @@
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.4",
     "dotenv": "^8.0.0",
-    "express": "^4.16.4",
+    "express": "^4.17.0",
     "express-mysql-session": "^2.1.0",
     "express-session": "^1.16.1",
-    "formik": "^1.5.4",
+    "formik": "^1.5.7",
     "gravatar": "^1.8.0",
     "httpolyglot": "^0.1.2",
     "image-data-uri": "^2.0.0",
     "moment": "^2.24.0",
     "morgan": "^1.9.1",
     "mysql2": "^1.6.5",
-    "node-fetch": "^2.5.0",
+    "node-fetch": "^2.6.0",
     "passport": "^0.4.0",
     "passport-facebook": "^3.0.0",
     "passport-github": "^1.1.0",
@@ -52,13 +52,13 @@
     "react-dom": "^16.8.6",
     "react-stripe-elements": "^3.0.0",
     "source-map-support": "^0.5.12",
-    "stripe": "^6.34.0",
-    "validator": "^10.11.0"
+    "stripe": "^6.36.0",
+    "validator": "^11.0.0"
   },
   "devDependencies": {
     "browserify": "^16.2.3",
     "envify": "^4.1.0",
-    "uglify-js": "^3.5.12",
+    "uglify-js": "^3.5.15",
     "uglifyify": "^5.0.1"
   }
 }
