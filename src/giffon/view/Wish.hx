@@ -43,7 +43,7 @@ class Wish extends Page {
         return jsx('
             <div className="wish-num-supporters col">
                 <div className="font_xs_l font_md_xl">${wish.supporters.length}</div>
-                supporters
+                ${wish.supporters.length == 1 ? "supporter" : "supporters"}
             </div>
         ');
     }
@@ -171,12 +171,35 @@ class Wish extends Page {
     function wishState() {
         switch (wish.wish_state) {
             case Created | Published:
+                var dollar = "$";
+                var overPledgeMsg = if (wish.wish_pledged >= wish.wish_total_needed.amount) {
+                    jsx('
+                        <div className="mt-3">
+                            <div className="alert alert-info" role="alert">
+                                <small>
+                                    <p>
+                                        The wish still accepts additional pledges until Giffon processed the order, which is usually done a few days after 100% is reached.
+                                    </p>
+                                    <p className="mb-0">
+                                        Over-pledged amount will be refunded to the supporters in proportion to their pledge amounts. 
+                                        e.g. If a wish needs ${dollar}120, Luke pledges ${dollar}100 and Leia pledges ${dollar}25, Luke will be refunded ${dollar}4 and Leia will be refunded ${dollar}1.
+                                    </p>
+                                </small>
+                            </div>
+                        </div>
+                    ');
+                } else {
+                    null;
+                }
                 return jsx('
-                    <div className="mt-3 d-flex font_xs_xs font_md_s row">
-                        ${numSupporters()}
-                        ${progress()}
-                        ${daysToGo()}
-                    </div>
+                    <Fragment>
+                        <div className="mt-3 d-flex font_xs_xs font_md_s row">
+                            ${numSupporters()}
+                            ${progress()}
+                            ${daysToGo()}
+                        </div>
+                        ${overPledgeMsg}
+                    </Fragment>
                 ');
             case Succeed:
                 return jsx('

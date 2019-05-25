@@ -79,7 +79,7 @@ class WishHowToHelpSection extends ReactComponent {
                 </div>
                 <div className="p-3 p-md-4 ml-md-3 bg_white flex-grow-2">
                     <div className="pb-3 font_xs_s font_md_l">
-                        Pledge the wish, since every $1 matters.
+                        Pledge the wish, since every ${"$"}1 matters.
                     </div>
                     ${pledgeButton()}
                 </div>
