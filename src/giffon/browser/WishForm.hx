@@ -206,6 +206,11 @@ class WishForm extends ReactComponent {
                         >
                             Add item
                         </button>
+                        <p><small className="form-text text-muted">
+                            Remember to include shipping cost if applicable. 
+                            If there is only one item unit in the wish, you may include shipping cost directly in the unit price. 
+                            If there are more than one item units, add an additional "shipping" item with the online store homepage URL.
+                        </small></p>
                         ${totalPriceElement}
                     </Fragment>
                 ');
