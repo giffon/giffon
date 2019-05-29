@@ -121,6 +121,33 @@ img.emoji, .inline-icon {
     background-position: center center;
 }
 
+.page-make-a-wish .wish-banner {
+    height: 12em;
+    background-size: contain;
+    background-repeat: no-repeat no-repeat;
+    background-position: left center;
+}
+
+.page-make-a-wish #giphyModal .modal-content {
+    background: none;
+    border: none;
+}
+
+.page-make-a-wish .giphy-picker {
+    margin: 0 auto 0 auto;
+    border: none;
+}
+
+.page-make-a-wish .giphy-attribution {
+    object-fit: contain;
+    max-height: 1em;
+    margin: 5px;
+}
+
+.page-make-a-wish .modal-backdrop.show {
+    opacity: 0.8;
+}
+
 .btn-success {
     background: #065af2;
     border: 0;

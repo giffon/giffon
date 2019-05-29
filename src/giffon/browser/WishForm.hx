@@ -8,6 +8,7 @@ import js.npm.react_giphy_component.*;
 import thx.Decimal;
 import js.jquery.*;
 import js.Browser.*;
+import giffon.R.*;
 import giffon.db.WishFormData;
 import giffon.db.WishFormData.*;
 using Lambda;
@@ -252,21 +253,36 @@ class WishForm extends ReactComponent {
                     props.form.setFieldValue(props.field.name, o.original.url);
                 }
                 var url = Reflect.field(props.form.values, props.field.name);
-                var img = if (url == null) {
+                var banner = if (url == null) {
                     null;
                 } else {
-                    jsx('<img src=${url} />');
+                    var bannerStyle = {
+                        backgroundImage: 'url("${url}")',
+                    };
+                    jsx('<div className="wish-banner" style=${bannerStyle} />');
+                }
+                var removeBtn = if (url == null) {
+                    null;
+                } else {
+                    function removeBanner(){
+                        props.form.setFieldValue(props.field.name, null);
+                    }
+                    jsx('<button type="button" className="btn btn-link text-secondary" onClick=${removeBanner}>remove</button>');
                 }
                 return jsx('
                     <Fragment>
-                        <div>${img}<button type="button" className="btn btn-primary" data-toggle="modal" data-target="#giphyModal">select</button></div>
+                        ${banner}
+                        <button type="button" className="btn btn-link" data-toggle="modal" data-target="#giphyModal">${url == null ? "select" : "replace"}</button>
+                        ${removeBtn}
 
-                        <div className="modal fade" id="giphyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div className="modal-dialog" role="document">
+                        <div className="modal fade" id="giphyModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div className="modal-dialog modal-dialog-centered" role="document">
                                 <div className="modal-content">
                                     <Picker
                                         apiKey="sObo4cqyRkWphOday8LUD8zL3YT1o724"
+                                        inputClassName="form-control"
                                         onSelected=${onSelectGif} />
+                                    <img className="giphy-attribution" alt="Powered By GIPHY" src=${R("/images/Poweredby_640px-Black_HorizText.png")} />
                                 </div>
                             </div>
                         </div>
