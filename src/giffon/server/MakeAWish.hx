@@ -123,6 +123,7 @@ class MakeAWish {
                 wish_description: wishData.wish_description,
                 wish_target_date: wishData.wish_target_date,
                 wish_currency: wishData.wish_currency,
+                wish_banner_url: wishData.wish_banner_url,
             },
         ]).handleError(next).toPromise()).results;
 

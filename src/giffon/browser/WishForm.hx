@@ -4,6 +4,7 @@ import react.*;
 import react.ReactMacro.jsx;
 import js.npm.formik.*;
 import js.npm.react_datepicker.*;
+import js.npm.react_giphy_component.*;
 import thx.Decimal;
 import js.jquery.*;
 import js.Browser.*;
@@ -72,6 +73,7 @@ class WishForm extends ReactComponent {
             wish_title: "My wish",
             wish_description: "",
             wish_target_date: null,
+            wish_banner_url: null,
         };
         function formikRender(props:{
             isSubmitting:Bool,
@@ -244,6 +246,34 @@ class WishForm extends ReactComponent {
                 ');
             }
 
+            function BannerField(props:Dynamic) {
+                function onSelectGif(o:Dynamic) {
+                    (untyped new JQuery("#giphyModal").modal)("hide");
+                    props.form.setFieldValue(props.field.name, o.original.url);
+                }
+                var url = Reflect.field(props.form.values, props.field.name);
+                var img = if (url == null) {
+                    null;
+                } else {
+                    jsx('<img src=${url} />');
+                }
+                return jsx('
+                    <Fragment>
+                        <div>${img}<button type="button" className="btn btn-primary" data-toggle="modal" data-target="#giphyModal">select</button></div>
+
+                        <div className="modal fade" id="giphyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div className="modal-dialog" role="document">
+                                <div className="modal-content">
+                                    <Picker
+                                        apiKey="sObo4cqyRkWphOday8LUD8zL3YT1o724"
+                                        onSelected=${onSelectGif} />
+                                </div>
+                            </div>
+                        </div>
+                    </Fragment>
+                ');
+            }
+
             return jsx('
                 <Form>
                     ${submissionError}
@@ -303,6 +333,16 @@ class WishForm extends ReactComponent {
                         <p className="small">
                             This is just a hint for your friends to know. You can always complete the wish early/late.
                         </p>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="wish_banner_url" className="d-block">
+                            Banner (optional)
+                        </label>
+                        <Field
+                            id="wish_banner_url"
+                            name="wish_banner_url"
+                            component=${BannerField}
+                        />
                     </div>
                     <div className="my-2">
                         We will ask for your shipping address by email once there is enough pledges collected.

@@ -11,6 +11,7 @@ typedef Wish = {
     wish_state: giffon.db.WishState,
     wish_owner: giffon.db.User,
     wish_currency: giffon.db.Currency,
+    wish_banner_url: Null<String>,
     wish_total_price: Decimal,
     wish_total_needed: {
         amount: Decimal,

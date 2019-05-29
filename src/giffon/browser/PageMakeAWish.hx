@@ -5,6 +5,6 @@ import react.*;
 
 class PageMakeAWish {
     static public function onReady():Void {
-        ReactDOM.hydrate(React.createElement(WishForm), document.getElementById("make-a-wish-root"));
+        ReactDOM.render(React.createElement(WishForm), document.getElementById("make-a-wish-root"));
     }
 }

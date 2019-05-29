@@ -6,6 +6,7 @@ import haxe.io.*;
 import thx.Decimal;
 import js.moment.Moment;
 import giffon.server.ServerMain.*;
+import giffon.R.*;
 using DateTools;
 using StringTools;
 using giffon.db.WishProgress.WishProgressTools;
@@ -242,6 +243,18 @@ class Wish extends Page {
         return jsx('<div className=${cls}></div>');
     }
 
+    function bannerStyle() {
+        var bannerUrl = if (wish.wish_banner_url != null) {
+            wish.wish_banner_url;
+        } else {
+            R("/images/bg1.jpg");
+        }
+
+        return {
+            backgroundImage: 'url("${bannerUrl}")',
+        };
+    }
+
     override function bodyContent() return jsx('
         <Fragment>
             <div className="container mb-xs-4 mb-md-5">
@@ -256,7 +269,7 @@ class Wish extends Page {
                         </div>
                     </div>
                     <div className="col-12 col-md-6">
-                        <div id="banner" className="detail_card_right"></div>
+                        <div id="banner" className="detail_card_right" style=${bannerStyle()}></div>
                     </div>
                 </div>
                 <div className="bg_white">

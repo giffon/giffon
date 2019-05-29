@@ -19,6 +19,7 @@ typedef WishFormValues = {
     wish_title:String,
     wish_description:String,
     wish_target_date:Null<Date>,
+    wish_banner_url:Null<String>,
 }
 
 class WishItemData implements DataClass {
@@ -67,9 +68,23 @@ class WishFormData implements DataClass {
     @validate(_.getTime() > Date.now().getTime())
     public var wish_target_date:Null<Date>;
 
+    @validate(validateBannerUrl(_))
+    public var wish_banner_url:Null<String>;
+
     @validate(_.length > 0 && _.length <= items_max)
     public var items:Array<WishItemData>;
 
     @validate(_ == true)
     public var acceptTerms:Bool;
+
+    static public function validateBannerUrl(v:String):Bool {
+        if (!v.isURL({
+            protocols: ["https"],
+            require_protocol: true,
+        })) {
+            return false;
+        }
+
+        return true;
+    }
 }

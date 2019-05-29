@@ -231,7 +231,7 @@ class ServerMain {
     @async static public function getWish(wish_id:Int):giffon.db.Wish {
         var wish_results:QueryResults = (@await dbConnectionPool.query(
             "
-                SELECT `wish_id`, `user_id`, `wish_hashid`, `wish_title`, `wish_description`, `wish_target_date`, `wish_state`, `wish_currency`
+                SELECT `wish_id`, `user_id`, `wish_hashid`, `wish_title`, `wish_description`, `wish_target_date`, `wish_state`, `wish_currency`, `wish_banner_url`
                 FROM wish
                 WHERE `wish_id` = ?
             ",
@@ -303,6 +303,7 @@ class ServerMain {
             wish_state: wish.wish_state,
             wish_owner: wish_owner,
             wish_currency: giffon.db.Currency.createByName(wish.wish_currency),
+            wish_banner_url: wish.wish_banner_url,
             wish_total_price: wish_total_price,
             wish_total_needed: null,
             wish_pledged: wish_pledged,

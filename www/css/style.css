@@ -116,8 +116,9 @@ img.emoji, .inline-icon {
 .page-wish #banner {
     min-height: 150px;
     height: 100%;
-    background-image: url('../images/bg1.jpg');
-    background-size: cover;
+    background-size: contain;
+    background-repeat: no-repeat no-repeat;
+    background-position: center center;
 }
 
 .btn-success {

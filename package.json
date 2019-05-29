@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "postinstall": "haxe install-haxelibs.hxml",
-    "build-vendor": "browserify -o www/js/vendor.js -r react -r react-dom -r formik -r react-datepicker -r validator -r react-stripe-elements -r react-clipboard.js",
-    "build-vendor-release": "browserify -r react -r react-dom -r formik -r react-datepicker -r validator -r react-stripe-elements -r react-clipboard.js -g [ envify --NODE_ENV production ] -g uglifyify | uglifyjs --compress --mangle > www/js/vendor.js",
+    "build-vendor": "browserify -o www/js/vendor.js -r react -r react-dom -r formik -r react-datepicker -r validator -r react-stripe-elements -r react-clipboard.js -r react-giphy-component",
+    "build-vendor-release": "browserify -r react -r react-dom -r formik -r react-datepicker -r validator -r react-stripe-elements -r react-clipboard.js -r react-giphy-component -g [ envify --NODE_ENV production ] -g uglifyify | uglifyjs --compress --mangle > www/js/vendor.js",
     "build": "npm run-script build-vendor && haxe build.hxml",
     "start": "node ServerMain.js",
     "test": "haxe build-test.hxml && python3 test/SeleniumTest.py"
@@ -50,6 +50,7 @@
     "react-clipboard.js": "^2.0.7",
     "react-datepicker": "^2.5.0",
     "react-dom": "^16.8.6",
+    "react-giphy-component": "^1.0.5",
     "react-stripe-elements": "^3.0.0",
     "source-map-support": "^0.5.12",
     "stripe": "^6.36.0",
