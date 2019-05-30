@@ -17,7 +17,7 @@ class Settings extends Page {
         var attrs = super.bodyAttributes();
         attrs["data-current-settings"] = haxe.Json.stringify(({
             user_name: user.user_name,
-            user_description: user.user_description,
+            user_description: user.user_description == null ? "" : user.user_description,
         }:giffon.db.SettingsFormData.SettingsFormValues));
         return attrs;
     }
