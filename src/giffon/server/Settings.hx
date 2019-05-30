@@ -37,6 +37,7 @@ class Settings {
             ",
             [{
                 user_name: settingsFormData.user_name,
+                user_description: settingsFormData.user_description.length > 0 ? settingsFormData.user_description : null,
             }, user.user_id]
         ).handleError(next).toPromise();
 

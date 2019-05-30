@@ -11,9 +11,12 @@ typedef SettingsFormValues = {
 }
 
 class SettingsFormData implements DataClass {
-    @validate(_.length > 0 && _.length <= 64 && _ == StringTools.trim(_))
+    static public var user_name_max(default, never):Int = 64;
+    static public var user_description_max(default, never):Int = 300;
+
+    @validate(_.length > 0 && _.length <= user_name_max)
     public var user_name:String;
 
-    @validate(_.length >= 0 && _.length <= 300 && _ == StringTools.trim(_))
+    @validate(_.length >= 0 && _.length <= user_description_max)
     public var user_description:String;
 }

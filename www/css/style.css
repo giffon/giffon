@@ -368,6 +368,10 @@ img.emoji, .inline-icon {
     width: 150px;
 }
 
+.page-user .user-description {
+    white-space: pre-wrap;
+}
+
 #profile {
     background-image: url('/images/us.jpg'); 
     background-position: left;

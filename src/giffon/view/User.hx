@@ -134,6 +134,19 @@ class User extends Page {
         ');
     }
 
+    function sectionDescription() {
+        if (pageUser.user_description == null)
+            return null;
+
+        return jsx('
+            <div className="user-info row justify-content-center">
+                <div className="col user-description">
+                    ${pageUser.user_description}
+                </div>
+            </div>
+        ');
+    }
+
     override function bodyContent() return jsx('
         <div className="container">
             <div className="user-info row justify-content-center">
@@ -142,6 +155,7 @@ class User extends Page {
                     <h1 className="user-name text-center">${pageUser.user_name}</h1>
                 </div>
             </div>
+            ${sectionDescription()}
             ${sectionInProgress()}
             ${sectionCompleted()}
             ${sectionCancelled()}

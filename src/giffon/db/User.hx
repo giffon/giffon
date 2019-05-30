@@ -6,5 +6,5 @@ typedef User = {
     user_primary_email:String,
     user_name:String,
     user_avatar:Null<String>,
-    // user_description:Null<String>,
+    user_description:Null<String>,
 }

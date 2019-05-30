@@ -91,8 +91,24 @@ class SettingsForm extends ReactComponent {
                         <Field
                             className="form-control" id="user_name"
                             name="user_name"
+                            maxlength=${SettingsFormData.user_name_max}
                             required=${true}
                         />
+                        <small className="text-muted float-right">${props.values.user_name.length} / ${SettingsFormData.user_name_max}</small>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="user_description">
+                            Bio
+                        </label>
+                        <Field
+                            component="textarea"
+                            className="form-control" id="user_description"
+                            name="user_description"
+                            maxlength=${SettingsFormData.user_description_max}
+                            rows="3"
+                            placeholder="I am..."
+                        />
+                        <small className="text-muted float-right">${props.values.user_description.length} / ${SettingsFormData.user_description_max}</small>
                     </div>
                     <button type="submit" className="btn btn-primary" disabled={props.isSubmitting}>
                         Submit

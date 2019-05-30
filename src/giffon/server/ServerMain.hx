@@ -397,7 +397,7 @@ class ServerMain {
     @async static public function getUser(user_id:Int):giffon.db.User {
         var results:QueryResults = (@await dbConnectionPool.query(
             "
-                SELECT `user_id`, `user_hashid`, `user_primary_email`, `user_name`, `user_avatar`
+                SELECT `user_id`, `user_hashid`, `user_primary_email`, `user_name`, `user_avatar`, `user_description`
                 FROM user
                 WHERE `user_id` = ?
             ",
@@ -414,6 +414,7 @@ class ServerMain {
             user_primary_email:String,
             user_name:String,
             user_avatar:js.node.Buffer,
+            user_description:Null<String>,
         } = results[0];
         return {
             user_id: user.user_id,
@@ -426,6 +427,7 @@ class ServerMain {
                 case buf:
                     ImageDataUri.encode(buf, "JPEG");
             },
+            user_description: user.user_description,
         };
     }
 
