@@ -189,6 +189,9 @@ class Page extends ReactComponent {
                     <li className="nav-item">
                         <a className="nav-link user-name" href=${Path.join(["/user", user.user_hashid])}>${user.user_name}</a>
                     </li>
+                    <li>
+                        <a className="nav-link" href="/settings">Settings</a>
+                    </li>
                     <li className="nav-item">
                         <a className="nav-link" href=${signoutHref}>Sign Out</a>
                     </li>

@@ -101,6 +101,7 @@ CREATE TABLE `user` (
   `user_deleted` tinyint(1) NOT NULL DEFAULT '0',
   `user_note` text COLLATE utf8mb4_bin,
   `user_avatar` longblob,
+  `user_description` varchar(300) COLLATE utf8mb4_bin DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_hashid` (`user_hashid`),
   KEY `user_primary_email` (`user_primary_email`)

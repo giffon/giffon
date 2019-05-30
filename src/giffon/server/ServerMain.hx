@@ -839,6 +839,7 @@ class ServerMain {
         app.use(giffon.server.User.createRouter());
         app.use(giffon.server.Wish.createRouter());
         app.use(giffon.server.MakeAWish.createRouter());
+        app.use(giffon.server.Settings.createRouter());
 
         app.use(function(err, req, res:Response, next) {
             res.sendPlainError(err, 500);

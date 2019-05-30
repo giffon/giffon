@@ -73,6 +73,10 @@ class BrowserMain {
         if (bodyClasses.contains("page-make-a-wish")) {
             PageMakeAWish.onReady();
         }
+
+        if (bodyClasses.contains("page-settings")) {
+            PageSettings.onReady();
+        }
     }
 
     static function removeHash():Void { 
