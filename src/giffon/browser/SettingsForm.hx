@@ -94,7 +94,18 @@ class SettingsForm extends ReactComponent {
                             maxlength=${SettingsFormData.user_name_max}
                             required=${true}
                         />
-                        <small className="text-muted float-right">${props.values.user_name.length} / ${SettingsFormData.user_name_max}</small>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="user_primary_email">
+                            Email
+                        </label>
+                        <Field
+                            className="form-control" id="user_primary_email"
+                            name="user_primary_email"
+                            type="email"
+                            maxlength=${SettingsFormData.user_primary_email_max}
+                        />
+                        <small className="text-muted">Giffon will use this email address to ask for your shipping address when your wishes complete.</small>
                     </div>
                     <div className="form-group">
                         <label htmlFor="user_description">
