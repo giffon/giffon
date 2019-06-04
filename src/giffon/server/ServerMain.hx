@@ -803,8 +803,15 @@ class ServerMain {
             var socialConnections:DynamicAccess<String> = @await getSocialConnections(user.user_id);
             var social_id = socialConnections['${auth_method}_id'];
 
+            var numConnected = [for (k in socialConnections.keys()) if (socialConnections[k] != null) 1].length;
+            if (numConnected <= 1) {
+                res.sendPlainError('Cannot disconnect the only social connection.', BadRequest);
+                return;
+            }
+
             if (social_id == null) {
                 res.sendPlainError('User has no existing ${auth_method} connection.', BadRequest);
+                return;
             }
 
             @await dbConnectionPool.query(
@@ -899,6 +906,7 @@ class ServerMain {
 
         app.use(function(err, req, res:Response, next) {
             res.sendPlainError(err, 500);
+            return;
         });
 
         module.exports.app = app;

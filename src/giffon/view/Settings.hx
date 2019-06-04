@@ -3,6 +3,7 @@ package giffon.view;
 import react.*;
 import react.ReactMacro.jsx;
 import haxe.io.*;
+import haxe.*;
 using StringTools;
 
 class Settings extends Page {
@@ -33,6 +34,8 @@ class Settings extends Page {
     };
     function get_socialConnections() return props.socialConnections;
 
+    function numSocialConnections() return [for (k in Reflect.fields(socialConnections)) if (Reflect.field(socialConnections, k) != null) 1].length;
+
     function socialButton(name:String) {
         var isConnected = switch (name) {
             case "facebook":
@@ -54,13 +57,27 @@ class Settings extends Page {
         else
             '/disconnect/${name}';
 
+        var disallowDisconnect = numSocialConnections() <= 1;
+
         var classes = ["btn", "btn-link"];
         if (isConnected) {
             classes.push("text-muted");
+
+            if (disallowDisconnect)
+                classes.push("disabled");
+        }
+
+        var title = if (isConnected) {
+            if (disallowDisconnect)
+                "Cannot disconnect the only connected social account. Otherwise, there would be no way for you to sign in.";
+            else
+                'Disconnect from ${name}';
+        } else {
+            'Connect to ${name}';
         }
 
         return jsx('
-            <a className=${classes.join(" ")} href=${href}>${isConnected ? "Disconnect": "Connect"}</a>
+            <a className=${classes.join(" ")} href=${href} title=${title}>${isConnected ? "Disconnect": "Connect"}</a>
         ');
     }
 
