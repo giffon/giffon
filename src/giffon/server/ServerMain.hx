@@ -792,6 +792,29 @@ class ServerMain {
                 Passport.authenticate(auth_method_lower, authOptions)
             );
         }
+
+        app.get("/disconnect/:auth_method", ensureLoggedIn, @await function(req:Request, res:Response, next) {
+            var auth_method = req.params.auth_method;
+            if (!Type.allEnums(giffon.db.AuthMethod).exists(function(a) return a.getName().toLowerCase() == auth_method)) {
+                res.sendPlainError("unknown auth method", NotFound);
+                return;
+            }
+            var user = res.getUser();
+            var socialConnections:DynamicAccess<String> = @await getSocialConnections(user.user_id);
+            var social_id = socialConnections['${auth_method}_id'];
+
+            if (social_id == null) {
+                res.sendPlainError('User has no existing ${auth_method} connection.', BadRequest);
+            }
+
+            @await dbConnectionPool.query(
+                'DELETE FROM user_${auth_method} WHERE user_id = ? && ${auth_method}_id = ?',
+                [res.getUser().user_id, social_id]
+            ).toPromise();
+
+            res.redirect("/settings");
+        });
+
         app.get("/callback/:auth_method", function(req:Request, res:Response, next) {
             var auth_method = req.params.auth_method;
             if (!Type.allEnums(giffon.db.AuthMethod).exists(function(a) return a.getName().toLowerCase() == auth_method)) {

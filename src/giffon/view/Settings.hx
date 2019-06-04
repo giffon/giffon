@@ -49,10 +49,18 @@ class Settings extends Page {
                 throw "unknow social network name: " + name;
         }
 
-        var href = '/signin/${name}?redirectTo=${"/settings".urlEncode()}';
+        var href = if (!isConnected)
+            '/signin/${name}?redirectTo=${"/settings".urlEncode()}';
+        else
+            '/disconnect/${name}';
+
+        var classes = ["btn", "btn-link"];
+        if (isConnected) {
+            classes.push("text-muted");
+        }
 
         return jsx('
-            <a className="d-inline-block py-1" href=${href}>${isConnected ? "Disconnect": "Connect"}</a>
+            <a className=${classes.join(" ")} href=${href}>${isConnected ? "Disconnect": "Connect"}</a>
         ');
     }
 
@@ -65,31 +73,31 @@ class Settings extends Page {
                 <div className="col">
                     <h2 className="">Social Accounts</h2>
 
-                    <div className="form-group row">
+                    <div className="form-group row my-0">
                         <label className="col-4 col-lg-2 col-form-label"><i className="fab fa-facebook"></i> Facebook</label>
                         <div className="col">
                             ${socialButton("facebook")}
                         </div>
                     </div>
-                    <div className="form-group row">
+                    <div className="form-group row my-0">
                         <label className="col-4 col-lg-2 col-form-label"><i className="fab fa-twitter"></i> Twitter</label>
                         <div className="col">
                             ${socialButton("twitter")}
                         </div>
                     </div>
-                    <div className="form-group row">
+                    <div className="form-group row my-0">
                         <label className="col-4 col-lg-2 col-form-label"><i className="fab fa-google"></i> Google</label>
                         <div className="col">
                             ${socialButton("google")}
                         </div>
                     </div>
-                    <div className="form-group row">
+                    <div className="form-group row my-0">
                         <label className="col-4 col-lg-2 col-form-label"><i className="fab fa-github"></i> GitHub</label>
                         <div className="col">
                             ${socialButton("github")}
                         </div>
                     </div>
-                    <div className="form-group row">
+                    <div className="form-group row my-0">
                         <label className="col-4 col-lg-2 col-form-label"><i className="fab fa-gitlab"></i> GitLab</label>
                         <div className="col">
                             ${socialButton("gitlab")}
