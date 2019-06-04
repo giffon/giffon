@@ -3,10 +3,12 @@ package giffon.server;
 import js.npm.express.*;
 import giffon.server.ServerMain.*;
 import tink.core.Error;
+import giffon.Utils.*;
 using tink.core.Future.JsPromiseTools;
 using giffon.ResponseTools;
 using giffon.server.PromiseTools;
 
+@await
 class Settings {
     static public function createRouter():Router {
         var router = new Router();
@@ -15,8 +17,11 @@ class Settings {
         return router;
     }
 
-    static function handleGet(req, res:Response):Void {
-        res.sendPage(giffon.view.Settings);
+    @await static function handleGet(req, res:Response):Void {
+        var user = res.getUser();
+        res.sendPage(giffon.view.Settings, {
+            socialConnections: @await getSocialConnections(user.user_id),
+        });
     }
 
     @await static function handlePost(req:Request, res:Response, next:Dynamic){

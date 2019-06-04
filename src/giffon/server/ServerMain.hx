@@ -400,6 +400,34 @@ class ServerMain {
         }
     }
 
+    @async static public function getSocialConnections(user_id:Int):{
+        facebook_id:Null<String>,
+        twitter_id:Null<String>,
+        google_id:Null<String>,
+        github_id:Null<String>,
+        gitlab_id:Null<String>,
+    } {
+        var results:QueryResults = (@await dbConnectionPool.query(
+            "
+                SELECT facebook_id, twitter_id, google_id, github_id, gitlab_id
+                FROM user
+                LEFT OUTER JOIN user_facebook ON user.user_id = user_facebook.user_id
+                LEFT OUTER JOIN user_twitter ON user.user_id = user_twitter.user_id
+                LEFT OUTER JOIN user_google ON user.user_id = user_google.user_id
+                LEFT OUTER JOIN user_github ON user.user_id = user_github.user_id
+                LEFT OUTER JOIN user_gitlab ON user.user_id = user_gitlab.user_id
+                WHERE user.user_id = ?
+            ",
+            [user_id]
+        ).toPromise()).results;
+        if (results == null || results.length < 1)
+            throw "user not found";
+        if (results.length > 1)
+            throw 'There are ${results == null ? 0 : results.length} users with user_id = ${user_id}.';
+
+        return results[0];
+    }
+
     @async static public function getUser(user_id:Int):giffon.db.User {
         var results:QueryResults = (@await dbConnectionPool.query(
             "
