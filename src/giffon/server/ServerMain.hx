@@ -753,48 +753,38 @@ class ServerMain {
             }
             res.sendPage(SignIn);
         });
-        app.get("/signin/facebook",
-            Passport.authenticate('facebook', {
-                scope: ["email"]
-            }),
-            function(req, res:Response) {
-                res.redirect(absPath("/"));
+        for (auth_method in Type.allEnums(giffon.db.AuthMethod)) {
+            var authOptions = switch (auth_method) {
+                case Facebook:
+                    {
+                        scope: ["email"],
+                    };
+                case Google:
+                    {
+                        scope: ["email profile"],
+                    };
+                case _:
+                    {};
             }
-        );
-        app.get("/signin/github",
-            Passport.authenticate('github', {}),
-            function(req, res:Response) {
-                res.redirect(absPath("/"));
-            }
-        );
-        app.get("/signin/twitter",
-            Passport.authenticate('twitter', {}),
-            function(req, res:Response) {
-                res.redirect(absPath("/"));
-            }
-        );
-        app.get("/signin/gitlab",
-            Passport.authenticate('gitlab', {}),
-            function(req, res:Response) {
-                res.redirect(absPath("/"));
-            }
-        );
-        app.get("/signin/google",
-            Passport.authenticate('google', {
-                scope: ["email profile"]
-            }),
-            function(req, res:Response) {
-                res.redirect(absPath("/"));
-            }
-        );
+            var auth_method_lower = auth_method.getName().toLowerCase();
+            app.get('/signin/${auth_method_lower}',
+                function(req:Request, res:Response, next) {
+                    switch (req.query.redirectTo) {
+                        case null:
+                            //pass
+                        case redirectTo:
+                            req.session.redirectTo = redirectTo;
+                    }
+                    next();
+                },
+                Passport.authenticate(auth_method_lower, authOptions)
+            );
+        }
         app.get("/callback/:auth_method", function(req:Request, res:Response, next) {
             var auth_method = req.params.auth_method;
-            switch (auth_method) {
-                case "facebook" | "github" | "twitter" | "gitlab" | "google":
-                    //pass
-                case _:
-                    res.sendPlainError("unknown auth method", NotFound);
-                    return;
+            if (!Type.allEnums(giffon.db.AuthMethod).exists(function(a) return a.getName().toLowerCase() == auth_method)) {
+                res.sendPlainError("unknown auth method", NotFound);
+                return;
             }
             Passport.authenticate(auth_method, function (err, user:giffon.db.User, info) {
                 if (err != null) {
