@@ -49,8 +49,7 @@ class Settings extends Page {
                 throw "unknow social network name: " + name;
         }
 
-        var action = isConnected ? "disconnect" : "connect";
-        var href = '/signin/${name}?action=${action}&redirectTo=${"/settings".urlEncode()}';
+        var href = '/signin/${name}?redirectTo=${"/settings".urlEncode()}';
 
         return jsx('
             <a className="d-inline-block py-1" href=${href}>${isConnected ? "Disconnect": "Connect"}</a>

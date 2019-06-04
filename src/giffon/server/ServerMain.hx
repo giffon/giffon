@@ -475,8 +475,9 @@ class ServerMain {
         haxe.CallStack.wrapCallSite = sms.wrapCallSite;
     }
 
-    @await static function passportHandler(accessToken, refreshToken, profile:js.npm.passport.Profile, done:Function) {
+    @await static function passportHandler(req:Request, accessToken, refreshToken, profile:js.npm.passport.Profile, done:Function) {
         // trace(haxe.Json.stringify(profile, null, "  "));
+        var signedInUser:Null<giffon.db.User> = req.user;
 
         var email = if (profile.emails == null || profile.emails.length <= 0) {
             null;
@@ -494,6 +495,12 @@ class ServerMain {
 
         // get user_id
         var user_id:Null<Int> = null;
+
+        if (signedInUser != null) {
+            //connect
+            user_id = signedInUser.user_id;
+            @await savePassportProfile(user_id, profile);
+        }
 
         if (user_id == null)
             user_id = @await getUserIdFromPassportProfile(profile);
@@ -644,12 +651,14 @@ class ServerMain {
             clientSecret: FacebookInfo.FACEBOOK_APP_SECRET,
             callbackURL: absPath("/callback/facebook"),
             profileFields: ['id', 'displayName', 'email', 'picture.type(large)'],
+            passReqToCallback: true,
         }, passportHandler);
 
         var ghStrategy = new GitHubStrategy({
             clientID: GitHubInfo.GITHUB_CLIENT_ID,
             clientSecret: GitHubInfo.GITHUB_CLIENT_SECRET,
             callbackURL: absPath("/callback/github"),
+            passReqToCallback: true,
         }, passportHandler);
 
         var twStrategy = new TwitterStrategy({
@@ -657,18 +666,21 @@ class ServerMain {
             consumerSecret: TwitterInfo.TWITTER_CONSUMER_SECRET,
             callbackURL: absPath("/callback/twitter"),
             includeEmail: true,
+            passReqToCallback: true,
         }, passportHandler);
 
         var glStrategy = new GitLabStrategy({
             clientID: GitLabInfo.GITLAB_APP_ID,
             clientSecret: GitLabInfo.GITLAB_APP_SECRET,
             callbackURL: absPath("/callback/gitlab"),
+            passReqToCallback: true,
         }, passportHandler);
 
         var ggStrategy = new GoogleStrategy({
             clientID: GoogleInfo.GOOGLE_CLIENT_ID,
             clientSecret: GoogleInfo.GOOGLE_CLIENT_SECRET,
             callbackURL: absPath("/callback/google"),
+            passReqToCallback: true,
         }, passportHandler);
 
         Passport.serializeUser(function (user:giffon.db.User, done) {
