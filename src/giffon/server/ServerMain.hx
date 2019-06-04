@@ -9,6 +9,7 @@ import js.npm.image_data_uri.ImageDataUri;
 import js.npm.stripe.Stripe;
 import hashids.Hashids;
 import haxe.io.*;
+import haxe.*;
 import thx.Decimal;
 import tink.core.Error;
 import haxe.Constraints;
@@ -92,7 +93,7 @@ class ServerMain {
     static public var dbConnectionPool:Pool;
     static public var stripe:Stripe;
 
-    @async static public function getStripeCustomerIdFromUser(user:{user_id:Int, user_primary_email:String}):Null<String> {
+    @async static public function getStripeCustomerIdFromUser(user:{user_id:Int, user_primary_email:Null<String>}):Null<String> {
         var results:QueryResults = (@await dbConnectionPool.query(
             "
                 SELECT `stripe_customer_id`
@@ -114,9 +115,10 @@ class ServerMain {
         }).toPromise()).data;
 
         if (customers == null || customers.length < 1) {
-            var customer = @await stripe.customers.create({
-                email: user.user_primary_email,
-            }).toPromise();
+            var customerInfo:DynamicAccess<Dynamic> = {};
+            if (user.user_primary_email != null)
+                customerInfo["email"] = user.user_primary_email;
+            var customer = @await stripe.customers.create(customerInfo).toPromise();
 
             @await dbConnectionPool.query(
                 "
@@ -169,9 +171,13 @@ class ServerMain {
         return null;
     }
 
-    @async static function getUserIdFromEmail(email:String):Null<Int> {
+    @async static function getUserIdFromEmail(email:Null<String>):Null<Int> {
+        if (email == null)
+            return null;
+
         if (!Validator.isEmail(email))
             throw '$email is not valid email address';
+
         var results:QueryResults = (@await dbConnectionPool.query(
             "
                 SELECT `user_id`
@@ -411,7 +417,7 @@ class ServerMain {
         var user:{
             user_id:Int,
             user_hashid:String,
-            user_primary_email:String,
+            user_primary_email:Null<String>,
             user_name:String,
             user_avatar:js.node.Buffer,
             user_description:Null<String>,
@@ -444,11 +450,11 @@ class ServerMain {
     @await static function passportHandler(accessToken, refreshToken, profile:js.npm.passport.Profile, done:Function) {
         // trace(haxe.Json.stringify(profile, null, "  "));
 
-        if (profile.emails == null || profile.emails.length <= 0) {
-            done("user has no email info");
-            return;
+        var email = if (profile.emails == null || profile.emails.length <= 0) {
+            null;
+        } else {
+            profile.emails[0].value;
         }
-        var email = profile.emails[0].value;
         var avatarUrl = profile.photos == null || profile.photos.length < 1 ? null : profile.photos[0].value;
 
         // somehow gitlab uses "avatarUrl" instead of "photos"
@@ -491,11 +497,6 @@ class ServerMain {
         }
 
         // insert user
-        var userEmail = email;
-        if (userEmail == null) {
-            done("user has no email info");
-            return;
-        }
 
         var avatar:Null<js.node.Buffer> = avatarUrl == null ? null : {
             var res = @await js.npm.fetch.Fetch.fetch(avatarUrl).toPromise();
@@ -503,7 +504,7 @@ class ServerMain {
         };
 
         var results:QueryResults = (@await dbConnectionPool.query("INSERT INTO user SET ?", {
-            user_primary_email: userEmail,
+            user_primary_email: email,
             user_name: profile.displayName,
             user_avatar: avatar,
         }).handleError(done).toPromise()).results;

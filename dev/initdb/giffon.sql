@@ -95,7 +95,7 @@ CREATE TABLE `sessions` (
 CREATE TABLE `user` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_hashid` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
-  `user_primary_email` varchar(128) COLLATE utf8mb4_bin NOT NULL,
+  `user_primary_email` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
   `user_name` varchar(64) COLLATE utf8mb4_bin DEFAULT NULL,
   `user_birthday` date DEFAULT NULL,
   `user_deleted` tinyint(1) NOT NULL DEFAULT '0',
