@@ -476,7 +476,7 @@ class ServerMain {
     }
 
     @await static function passportHandler(req:Request, accessToken, refreshToken, profile:js.npm.passport.Profile, done:Function) {
-        trace(haxe.Json.stringify(profile, null, "  "));
+        // trace(haxe.Json.stringify(profile, null, "  "));
         var signedInUser:Null<giffon.db.User> = req.user;
 
         var email = if (profile.emails == null || profile.emails.length <= 0) {
