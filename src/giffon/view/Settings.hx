@@ -25,29 +25,29 @@ class Settings extends Page {
         return attrs;
     }
 
-    var socialConnections(get, never):{
+    var socialProfiles(get, never):{
         facebook_profile:Null<js.npm.passport.Profile>,
         twitter_profile:Null<js.npm.passport.Profile>,
         google_profile:Null<js.npm.passport.Profile>,
         github_profile:Null<js.npm.passport.Profile>,
         gitlab_profile:Null<js.npm.passport.Profile>,
     };
-    function get_socialConnections() return props.socialConnections;
+    function get_socialProfiles() return props.socialProfiles;
 
-    function numSocialConnections() return [for (k in Reflect.fields(socialConnections)) if (Reflect.field(socialConnections, k) != null) 1].length;
+    function numSocialConnections() return [for (k in Reflect.fields(socialProfiles)) if (Reflect.field(socialProfiles, k) != null) 1].length;
 
     function socialButton(name:String) {
         var isConnected = switch (name) {
             case "facebook":
-                socialConnections.facebook_profile != null;
+                socialProfiles.facebook_profile != null;
             case "twitter":
-                socialConnections.twitter_profile != null;
+                socialProfiles.twitter_profile != null;
             case "google":
-                socialConnections.google_profile != null;
+                socialProfiles.google_profile != null;
             case "github":
-                socialConnections.github_profile != null;
+                socialProfiles.github_profile != null;
             case "gitlab":
-                socialConnections.gitlab_profile != null;
+                socialProfiles.gitlab_profile != null;
             case _:
                 throw "unknow social network name: " + name;
         }
@@ -79,15 +79,15 @@ class Settings extends Page {
         var text = if (isConnected) {
             switch (name) {
                 case "facebook":
-                    'Disconnect (${socialConnections.facebook_profile.displayName})';
+                    'Disconnect (${socialProfiles.facebook_profile.displayName})';
                 case "twitter":
-                    'Disconnect (${socialConnections.twitter_profile.username})';
+                    'Disconnect (${socialProfiles.twitter_profile.username})';
                 case "google":
-                    'Disconnect (${socialConnections.google_profile.displayName})';
+                    'Disconnect (${socialProfiles.google_profile.displayName})';
                 case "github":
-                    'Disconnect (${socialConnections.github_profile.username})';
+                    'Disconnect (${socialProfiles.github_profile.username})';
                 case "gitlab":
-                    'Disconnect (${socialConnections.gitlab_profile.username})';
+                    'Disconnect (${socialProfiles.gitlab_profile.username})';
                 case _:
                     throw "unknow social network name: " + name;
             }

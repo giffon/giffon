@@ -400,7 +400,7 @@ class ServerMain {
         }
     }
 
-    @async static public function getSocialConnections(user_id:Int):{
+    @async static public function getSocialProfiles(user_id:Int):{
         facebook_profile:Null<js.npm.passport.Profile>,
         twitter_profile:Null<js.npm.passport.Profile>,
         google_profile:Null<js.npm.passport.Profile>,
@@ -410,6 +410,34 @@ class ServerMain {
         var results:QueryResults = (@await dbConnectionPool.query(
             "
                 SELECT user_facebook.passport_profile AS facebook_profile, user_twitter.passport_profile AS twitter_profile, user_google.passport_profile AS google_profile, user_github.passport_profile AS github_profile, user_gitlab.passport_profile AS gitlab_profile
+                FROM user
+                LEFT OUTER JOIN user_facebook ON user.user_id = user_facebook.user_id
+                LEFT OUTER JOIN user_twitter ON user.user_id = user_twitter.user_id
+                LEFT OUTER JOIN user_google ON user.user_id = user_google.user_id
+                LEFT OUTER JOIN user_github ON user.user_id = user_github.user_id
+                LEFT OUTER JOIN user_gitlab ON user.user_id = user_gitlab.user_id
+                WHERE user.user_id = ?
+            ",
+            [user_id]
+        ).toPromise()).results;
+        if (results == null || results.length < 1)
+            throw "user not found";
+        if (results.length > 1)
+            throw 'There are ${results == null ? 0 : results.length} users with user_id = ${user_id}.';
+
+        return results[0];
+    }
+
+    @async static public function getSocialIds(user_id:Int):{
+        facebook_id:Null<String>,
+        twitter_id:Null<String>,
+        google_id:Null<String>,
+        github_id:Null<String>,
+        gitlab_id:Null<String>,
+    } {
+        var results:QueryResults = (@await dbConnectionPool.query(
+            "
+                SELECT facebook_id, twitter_id, google_id, github_id, gitlab_id
                 FROM user
                 LEFT OUTER JOIN user_facebook ON user.user_id = user_facebook.user_id
                 LEFT OUTER JOIN user_twitter ON user.user_id = user_twitter.user_id
@@ -499,12 +527,16 @@ class ServerMain {
         if (signedInUser != null) {
             //connect
             user_id = signedInUser.user_id;
-            try {
-                @await savePassportProfile(user_id, profile);
-            } catch(err:Dynamic) {
-                done(err);
-                return;
-            }
+
+            var socialIds:DynamicAccess<String> = @await getSocialIds(user_id);
+
+            if (socialIds[profile.provider + "_id"] == null)
+                try {
+                    @await savePassportProfile(user_id, profile);
+                } catch(err:Dynamic) {
+                    done(err);
+                    return;
+                }
         }
 
         if (user_id == null)
@@ -835,10 +867,10 @@ class ServerMain {
                 return;
             }
             var user = res.getUser();
-            var socialConnections:DynamicAccess<js.npm.passport.Profile> = @await getSocialConnections(user.user_id);
-            var social_profile = socialConnections['${auth_method}_profile'];
+            var socialProfiles:DynamicAccess<js.npm.passport.Profile> = @await getSocialProfiles(user.user_id);
+            var social_profile = socialProfiles['${auth_method}_profile'];
 
-            var numConnected = [for (k in socialConnections.keys()) if (socialConnections[k] != null) 1].length;
+            var numConnected = [for (k in socialProfiles.keys()) if (socialProfiles[k] != null) 1].length;
             if (numConnected <= 1) {
                 res.sendPlainError('Cannot disconnect the only social connection.', BadRequest);
                 return;

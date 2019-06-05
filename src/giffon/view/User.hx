@@ -12,14 +12,14 @@ class User extends Page {
     var wishes(get, never):Array<giffon.db.Wish>;
     function get_wishes() return props.wishes;
 
-    var socialConnections(get, never):{
+    var socialProfiles(get, never):{
         facebook_profile:Null<js.npm.passport.Profile>,
         twitter_profile:Null<js.npm.passport.Profile>,
         google_profile:Null<js.npm.passport.Profile>,
         github_profile:Null<js.npm.passport.Profile>,
         gitlab_profile:Null<js.npm.passport.Profile>,
     };
-    function get_socialConnections() return props.socialConnections;
+    function get_socialProfiles() return props.socialProfiles;
 
     override function title() return '${pageUser.user_name} - Giffon';
     override function path() return Path.join(["user", pageUser.user_hashid]);
@@ -30,15 +30,15 @@ class User extends Page {
     function socialProfile(name:String) {
         var profile = switch (name) {
             case "facebook":
-                socialConnections.facebook_profile;
+                socialProfiles.facebook_profile;
             case "twitter":
-                socialConnections.twitter_profile;
+                socialProfiles.twitter_profile;
             case "google":
-                socialConnections.google_profile;
+                socialProfiles.google_profile;
             case "github":
-                socialConnections.github_profile;
+                socialProfiles.github_profile;
             case "gitlab":
-                socialConnections.gitlab_profile;
+                socialProfiles.gitlab_profile;
             case _:
                 throw "unknow social network name: " + name;
         }
@@ -63,15 +63,15 @@ class User extends Page {
 
         var text = switch (name) {
             case "facebook":
-                '${socialConnections.facebook_profile.displayName}';
+                '${socialProfiles.facebook_profile.displayName}';
             case "twitter":
-                '@${socialConnections.twitter_profile.username}';
+                '@${socialProfiles.twitter_profile.username}';
             case "google":
-                '${socialConnections.google_profile.displayName}';
+                '${socialProfiles.google_profile.displayName}';
             case "github":
-                '@${socialConnections.github_profile.username}';
+                '@${socialProfiles.github_profile.username}';
             case "gitlab":
-                '@${socialConnections.gitlab_profile.username}';
+                '@${socialProfiles.gitlab_profile.username}';
             case _:
                 throw "unknow social network name: " + name;
         }

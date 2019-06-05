@@ -20,7 +20,7 @@ class Settings {
     @await static function handleGet(req, res:Response):Void {
         var user = res.getUser();
         res.sendPage(giffon.view.Settings, {
-            socialConnections: @await getSocialConnections(user.user_id),
+            socialProfiles: @await getSocialProfiles(user.user_id),
         });
     }
 
