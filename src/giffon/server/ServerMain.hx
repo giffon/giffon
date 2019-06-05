@@ -476,7 +476,7 @@ class ServerMain {
     }
 
     @await static function passportHandler(req:Request, accessToken, refreshToken, profile:js.npm.passport.Profile, done:Function) {
-        // trace(haxe.Json.stringify(profile, null, "  "));
+        trace(haxe.Json.stringify(profile, null, "  "));
         var signedInUser:Null<giffon.db.User> = req.user;
 
         var email = if (profile.emails == null || profile.emails.length <= 0) {
@@ -499,7 +499,12 @@ class ServerMain {
         if (signedInUser != null) {
             //connect
             user_id = signedInUser.user_id;
-            @await savePassportProfile(user_id, profile);
+            try {
+                @await savePassportProfile(user_id, profile);
+            } catch(err:Dynamic) {
+                done(err);
+                return;
+            }
         }
 
         if (user_id == null)
@@ -508,12 +513,25 @@ class ServerMain {
         if (user_id == null) {
             user_id = @await getUserIdFromEmail(email);
             if (user_id != null) {
-                @await savePassportProfile(user_id, profile);
+                try {
+                    @await savePassportProfile(user_id, profile);
+                } catch (err:Dynamic) {
+                    done(err);
+                    return;
+                }
             }
         }
 
         if (user_id != null) {
             var user = @await getUser(user_id);
+
+            // update passport_profile
+            try {
+                @await updatePassportProfile(user_id, profile);
+            } catch (err:Dynamic) {
+                done(err);
+                return;
+            }
 
             // update avatar if it's not set yet
             if (user.user_avatar == null && avatarUrl != null) {
@@ -550,7 +568,11 @@ class ServerMain {
             ([user_hashid, user_id]:Array<Dynamic>)
         ).handleError(done).toPromise();
 
-        @await savePassportProfile(user_id, profile);
+        try{
+            @await savePassportProfile(user_id, profile);
+        } catch (err:Dynamic) {
+            done(err);
+        }
 
         var user = @await getUser(user_id);
         done(null, user);
@@ -559,9 +581,22 @@ class ServerMain {
     @async static function savePassportProfile(user_id:Int, profile:js.npm.passport.Profile) {
         switch(profile.provider) {
             case p = "facebook" | "github" | "twitter" | "gitlab" | "google":
-                @await dbConnectionPool.query(
-                    'INSERT INTO user_${p} SET user_id=?, ${p}_id=?', 
-                    ([user_id, profile.id]:Array<Dynamic>)
+                return @await dbConnectionPool.query(
+                    'INSERT INTO user_${p} SET user_id=?, ${p}_id=?, passport_profile=?',
+                    ([user_id, profile.id, Json.stringify(profile)]:Array<Dynamic>)
+                ).toPromise();
+            case p:
+                trace("unknown provider: " + p);
+        }
+        return null;
+    }
+
+    @async static function updatePassportProfile(user_id:Int, profile:js.npm.passport.Profile) {
+        switch(profile.provider) {
+            case p = "facebook" | "github" | "twitter" | "gitlab" | "google":
+                return @await dbConnectionPool.query(
+                    'UPDATE user_${p} SET passport_profile=? WHERE user_id=? && ${p}_id=?',
+                    ([Json.stringify(profile), user_id, profile.id]:Array<Dynamic>)
                 ).toPromise();
             case p:
                 trace("unknown provider: " + p);

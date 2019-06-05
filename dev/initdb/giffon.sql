@@ -117,6 +117,7 @@ CREATE TABLE `user` (
 CREATE TABLE `user_facebook` (
   `user_id` int(11) NOT NULL,
   `facebook_id` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  `passport_profile` json DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_facebook_UN` (`facebook_id`),
   CONSTRAINT `user_facebook_FK` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
@@ -132,6 +133,7 @@ CREATE TABLE `user_facebook` (
 CREATE TABLE `user_github` (
   `user_id` int(11) NOT NULL,
   `github_id` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  `passport_profile` json DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_github_UN` (`github_id`),
   CONSTRAINT `user_github_FK` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
@@ -147,6 +149,7 @@ CREATE TABLE `user_github` (
 CREATE TABLE `user_gitlab` (
   `user_id` int(11) NOT NULL,
   `gitlab_id` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  `passport_profile` json DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_gitlab_UN` (`gitlab_id`),
   CONSTRAINT `user_gitlab_FK` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
@@ -162,6 +165,7 @@ CREATE TABLE `user_gitlab` (
 CREATE TABLE `user_google` (
   `user_id` int(11) NOT NULL,
   `google_id` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  `passport_profile` json DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_google_UN` (`google_id`),
   CONSTRAINT `user_google_FK` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
@@ -206,6 +210,7 @@ CREATE TABLE `user_stripe` (
 CREATE TABLE `user_twitter` (
   `user_id` int(11) NOT NULL,
   `twitter_id` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  `passport_profile` json DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_twitter_UN` (`twitter_id`),
   CONSTRAINT `user_twitter_FK` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
