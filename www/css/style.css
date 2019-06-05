@@ -372,6 +372,10 @@ img.emoji, .inline-icon {
     white-space: pre-wrap;
 }
 
+.page-user .user-social-accounts .btn.disabled {
+    opacity: 1;
+}
+
 #profile {
     background-image: url('/images/us.jpg'); 
     background-position: left;

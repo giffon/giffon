@@ -31,9 +31,11 @@ class User {
         }
         var pageUser = @await getUser(pageUser_id);
         var wishes = @await getWishes(pageUser_id);
+        var socialConnections = @await getSocialConnections(pageUser_id);
         res.sendPage(giffon.view.User, {
             pageUser: pageUser,
             wishes: wishes,
+            socialConnections: socialConnections,
         });
     }
 }

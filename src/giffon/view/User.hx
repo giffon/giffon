@@ -12,11 +12,74 @@ class User extends Page {
     var wishes(get, never):Array<giffon.db.Wish>;
     function get_wishes() return props.wishes;
 
+    var socialConnections(get, never):{
+        facebook_profile:Null<js.npm.passport.Profile>,
+        twitter_profile:Null<js.npm.passport.Profile>,
+        google_profile:Null<js.npm.passport.Profile>,
+        github_profile:Null<js.npm.passport.Profile>,
+        gitlab_profile:Null<js.npm.passport.Profile>,
+    };
+    function get_socialConnections() return props.socialConnections;
+
     override function title() return '${pageUser.user_name} - Giffon';
     override function path() return Path.join(["user", pageUser.user_hashid]);
     override function render() return super.render();
 
     override function bodyClasses() return super.bodyClasses().concat(["page-user"]);
+
+    function socialProfile(name:String) {
+        var profile = switch (name) {
+            case "facebook":
+                socialConnections.facebook_profile;
+            case "twitter":
+                socialConnections.twitter_profile;
+            case "google":
+                socialConnections.google_profile;
+            case "github":
+                socialConnections.github_profile;
+            case "gitlab":
+                socialConnections.gitlab_profile;
+            case _:
+                throw "unknow social network name: " + name;
+        }
+        var isConnected = profile != null;
+
+        if (!isConnected)
+            return null;
+
+        var href = switch (name) {
+            case "facebook", "google": null;
+            case "twitter": 'https://twitter.com/${profile.username}';
+            case "github": 'https://github.com/${profile.username}';
+            case "gitlab": 'https://gitlab.com/${profile.username}';
+            case _: throw "unknow social network name: " + name;
+        }
+
+        var classes = ["btn", "btn-link"];
+        if (href == null)
+            classes.push("disabled");
+        
+        var iconClasses = ["fab", 'fa-${name}', "text-body"];
+
+        var text = switch (name) {
+            case "facebook":
+                '${socialConnections.facebook_profile.displayName}';
+            case "twitter":
+                '@${socialConnections.twitter_profile.username}';
+            case "google":
+                '${socialConnections.google_profile.displayName}';
+            case "github":
+                '@${socialConnections.github_profile.username}';
+            case "gitlab":
+                '@${socialConnections.gitlab_profile.username}';
+            case _:
+                throw "unknow social network name: " + name;
+        }
+
+        return jsx('
+            <a className=${classes.join(" ")} href=${href} target="_blank" rel="noopener"><i className=${iconClasses.join(" ")}> ${text}</i></a>
+        ');
+    }
 
     function renderWish(wish:giffon.db.Wish) {
         return jsx('
@@ -153,6 +216,15 @@ class User extends Page {
                 <div className="col-md-4">
                     <div className="user-avatar rounded-circle mx-auto" style=${userAvatarStyle(pageUser)} />
                     <h1 className="user-name text-center">${pageUser.user_name}</h1>
+                </div>
+            </div>
+            <div className="row user-social-accounts">
+                <div className="col text-center">
+                    ${socialProfile("facebook")}
+                    ${socialProfile("twitter")}
+                    ${socialProfile("google")}
+                    ${socialProfile("github")}
+                    ${socialProfile("gitlab")}
                 </div>
             </div>
             ${sectionDescription()}
