@@ -26,11 +26,11 @@ class Settings extends Page {
     }
 
     var socialConnections(get, never):{
-        facebook_id:Null<String>,
-        twitter_id:Null<String>,
-        google_id:Null<String>,
-        github_id:Null<String>,
-        gitlab_id:Null<String>,
+        facebook_profile:Null<js.npm.passport.Profile>,
+        twitter_profile:Null<js.npm.passport.Profile>,
+        google_profile:Null<js.npm.passport.Profile>,
+        github_profile:Null<js.npm.passport.Profile>,
+        gitlab_profile:Null<js.npm.passport.Profile>,
     };
     function get_socialConnections() return props.socialConnections;
 
@@ -39,15 +39,15 @@ class Settings extends Page {
     function socialButton(name:String) {
         var isConnected = switch (name) {
             case "facebook":
-                socialConnections.facebook_id != null;
+                socialConnections.facebook_profile != null;
             case "twitter":
-                socialConnections.twitter_id != null;
+                socialConnections.twitter_profile != null;
             case "google":
-                socialConnections.google_id != null;
+                socialConnections.google_profile != null;
             case "github":
-                socialConnections.github_id != null;
+                socialConnections.github_profile != null;
             case "gitlab":
-                socialConnections.gitlab_id != null;
+                socialConnections.gitlab_profile != null;
             case _:
                 throw "unknow social network name: " + name;
         }
@@ -76,8 +76,27 @@ class Settings extends Page {
             'Connect to ${name}';
         }
 
+        var text = if (isConnected) {
+            switch (name) {
+                case "facebook":
+                    'Disconnect (${socialConnections.facebook_profile.displayName})';
+                case "twitter":
+                    'Disconnect (${socialConnections.twitter_profile.username})';
+                case "google":
+                    'Disconnect (${socialConnections.google_profile.displayName})';
+                case "github":
+                    'Disconnect (${socialConnections.github_profile.username})';
+                case "gitlab":
+                    'Disconnect (${socialConnections.gitlab_profile.username})';
+                case _:
+                    throw "unknow social network name: " + name;
+            }
+        } else {
+            'Connect';
+        }
+
         return jsx('
-            <a className=${classes.join(" ")} href=${href} title=${title}>${isConnected ? "Disconnect": "Connect"}</a>
+            <a className=${classes.join(" ")} href=${href} title=${title}>${text}</a>
         ');
     }
 

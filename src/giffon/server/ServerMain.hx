@@ -401,15 +401,15 @@ class ServerMain {
     }
 
     @async static public function getSocialConnections(user_id:Int):{
-        facebook_id:Null<String>,
-        twitter_id:Null<String>,
-        google_id:Null<String>,
-        github_id:Null<String>,
-        gitlab_id:Null<String>,
+        facebook_profile:Null<js.npm.passport.Profile>,
+        twitter_profile:Null<js.npm.passport.Profile>,
+        google_profile:Null<js.npm.passport.Profile>,
+        github_profile:Null<js.npm.passport.Profile>,
+        gitlab_profile:Null<js.npm.passport.Profile>,
     } {
         var results:QueryResults = (@await dbConnectionPool.query(
             "
-                SELECT facebook_id, twitter_id, google_id, github_id, gitlab_id
+                SELECT user_facebook.passport_profile AS facebook_profile, user_twitter.passport_profile AS twitter_profile, user_google.passport_profile AS google_profile, user_github.passport_profile AS github_profile, user_gitlab.passport_profile AS gitlab_profile
                 FROM user
                 LEFT OUTER JOIN user_facebook ON user.user_id = user_facebook.user_id
                 LEFT OUTER JOIN user_twitter ON user.user_id = user_twitter.user_id
@@ -835,8 +835,8 @@ class ServerMain {
                 return;
             }
             var user = res.getUser();
-            var socialConnections:DynamicAccess<String> = @await getSocialConnections(user.user_id);
-            var social_id = socialConnections['${auth_method}_id'];
+            var socialConnections:DynamicAccess<js.npm.passport.Profile> = @await getSocialConnections(user.user_id);
+            var social_profile = socialConnections['${auth_method}_profile'];
 
             var numConnected = [for (k in socialConnections.keys()) if (socialConnections[k] != null) 1].length;
             if (numConnected <= 1) {
@@ -844,14 +844,14 @@ class ServerMain {
                 return;
             }
 
-            if (social_id == null) {
+            if (social_profile == null) {
                 res.sendPlainError('User has no existing ${auth_method} connection.', BadRequest);
                 return;
             }
 
             @await dbConnectionPool.query(
                 'DELETE FROM user_${auth_method} WHERE user_id = ? && ${auth_method}_id = ?',
-                [res.getUser().user_id, social_id]
+                [res.getUser().user_id, social_profile.id]
             ).toPromise();
 
             res.redirect("/settings");

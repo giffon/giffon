@@ -1,6 +1,6 @@
 package js.npm.passport;
 
-typedef Profile = {
+extern class Profile implements Dynamic<Dynamic> {
     @:optional public var provider:String;
     @:optional public var id:String;
     @:optional public var displayName:String;
