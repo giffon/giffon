@@ -98,125 +98,127 @@ class Index extends Page {
                 </div>
             </div>
             
-            <div className="text-center pt-5 font_xs_l font_md_xl">
-                Why make wishes on Giffon?
-            </div>
+            <div className="container-fluid">
+                <div className="text-center pt-5 font_xs_l font_md_xl">
+                    Why make wishes on Giffon?
+                </div>
 
-            <div id="set2" className="row my-4 my-md-5 text-center from_right">
-                <div className="col-sm-12 col-md-2 ml-md-auto mr-md-3 bg5 color_white shaded-shadow p-3 flex_container_v_xs d-md-flex">
-                <div className="vbox">
-                    <div className="font_xs_m font_md_l">For Wish Makers</div>
-                </div>
-                </div>
-            
-                <div className="col-xs-auto col-sm-6 col-md-2 p-0 mr-3 mr-sm-auto mr-md-3 bg_white_o80 corner_s shaded-shadow">
-                <div className="px-3 pt-3 px-md-2 py-md-4 font_xs_xs font_md_s">
-                    <img className="width_xs_30 width_md_60" src=${R("/images/smile.svg")} alt="smile" />
-                    
-                    <div className="py-3">
-                    <span className="d-inline-block px-2 py-1 corner_xs bg6">#awesome</span>
+                <div id="set2" className="row my-4 my-md-5 text-center from_right">
+                    <div className="col-sm-12 col-md-2 ml-md-auto mr-md-3 bg5 color_white shaded-shadow p-3 flex_container_v_xs d-md-flex">
+                    <div className="vbox">
+                        <div className="font_xs_m font_md_l">For Wish Makers</div>
                     </div>
-                    <p>get exactly what you want, every single time</p>
-                    
-                </div>
-                </div>
-            
-                <div className="col-xs-auto col-sm-6 col-md-2 p-0 mr-3 mr-sm-auto mr-md-3 bg_white_o80 corner_s shaded-shadow">
-                <div className="px-3 pt-3 px-md-2 py-md-4 font_xs_xs font_md_s">
-                    <img className="width_xs_30 width_md_60" src=${R("/images/speaker.svg")} alt="speaker" />
-                    <div className="py-3">
-                    <span className="d-inline-block px-2 py-1 corner_xs bg6">#speakUp</span>
                     </div>
-                    <p>people want to gift you, they just don\'t know what to buy</p>
-                    
-                </div>
-                </div>
-            
-                <div className="col-xs-auto col-sm-6 col-md-2 p-0 mr-3 mr-sm-auto mr-md-3 bg_white_o80 corner_s shaded-shadow">
-                <div className="colr_black px-3 py-4 px-md-2 py-md-4  font_xs_xs font_md_s">
-                    <img className="width_xs_30 width_md_60"  src=${R("/images/plant.svg")} alt="plant" />
-                    <div className="py-3">
-                    <span className="d-inline-block px-2 py-1 bg6 corner_xs">#ecoFriendly</span>
-                    </div>
-                    <p>no longer need to deal with gifts that have no value to you</p>
-                    
-                </div>
-                </div>
-            
-                <div className="col-xs-auto col-sm-6 col-md-2 p-0 mr-3 mr-sm-auto mr-md-3 bg_white_o80 corner_s shaded-shadow">
-                <div className=" px-3 py-4 px-md-2 py-md-4 font_xs_xs font_md_s">
-                    <img className="width_xs_30 width_md_60" src=${R("/images/piggy.svg")} alt="piggy bank" />
-                    <div className="py-3">
-                    <span className="d-inline-block px-2 py-1 bg6 corner_xs">#saveMoney</span>
-                    </div>
-                    <p>get what you want for free</p>
-                    
-                </div>
-                </div>
-            
                 
-            </div>
-
-            <div className="text-center pt-5 font_xs_l font_md_xl">
-                Why support friends on Giffon?
-            </div>
-
-            <div id="support" className="row my-4 my-md-5 text-center from_left">
-
-                <div className="col-sm-12 col-md-2 mr-md-auto ml-3 ml-sm-0 ml-md-3 bg5 color_white shaded-shadow p-3 d-xs-flex d-md-none">
-                    <div className="vbox">
-                        <div className="font_xs_m font_md_l">For Supporters</div>
+                    <div className="col-xs-auto col-sm-6 col-md-2 p-0 mr-3 mr-sm-auto mr-md-3 bg_white_o80 corner_s shaded-shadow">
+                    <div className="px-3 pt-3 px-md-2 py-md-4 font_xs_xs font_md_s">
+                        <img className="width_xs_30 width_md_60" src=${R("/images/smile.svg")} alt="smile" />
+                        
+                        <div className="py-3">
+                        <span className="d-inline-block px-2 py-1 corner_xs bg6">#awesome</span>
+                        </div>
+                        <p>get exactly what you want, every single time</p>
+                        
                     </div>
-                </div>
-
-
-                <div className="col-xs-auto col-sm-6 col-md-2 p-0 ml-3 ml-sm-auto ml-md-3 bg_white corner_s shaded-shadow">
-                <div className=" px-3 py-4 px-md-2 py-md-4 font_xs_xs font_md_s">
-                    <img className="width_xs_30 width_md_60" src=${R("/images/charity.svg")} alt="charity" />
-                    <div className="py-3">
-                    <span className="d-inline-block px-2 py-1 bg6 corner_xs">#sincerity</span>
                     </div>
-                    <p>show that you are thankful, appreciating someone</p>
+                
+                    <div className="col-xs-auto col-sm-6 col-md-2 p-0 mr-3 mr-sm-auto mr-md-3 bg_white_o80 corner_s shaded-shadow">
+                    <div className="px-3 pt-3 px-md-2 py-md-4 font_xs_xs font_md_s">
+                        <img className="width_xs_30 width_md_60" src=${R("/images/speaker.svg")} alt="speaker" />
+                        <div className="py-3">
+                        <span className="d-inline-block px-2 py-1 corner_xs bg6">#speakUp</span>
+                        </div>
+                        <p>people want to gift you, they just don\'t know what to buy</p>
+                        
+                    </div>
+                    </div>
+                
+                    <div className="col-xs-auto col-sm-6 col-md-2 p-0 mr-3 mr-sm-auto mr-md-3 bg_white_o80 corner_s shaded-shadow">
+                    <div className="colr_black px-3 py-4 px-md-2 py-md-4  font_xs_xs font_md_s">
+                        <img className="width_xs_30 width_md_60"  src=${R("/images/plant.svg")} alt="plant" />
+                        <div className="py-3">
+                        <span className="d-inline-block px-2 py-1 bg6 corner_xs">#ecoFriendly</span>
+                        </div>
+                        <p>no longer need to deal with gifts that have no value to you</p>
+                        
+                    </div>
+                    </div>
+                
+                    <div className="col-xs-auto col-sm-6 col-md-2 p-0 mr-3 mr-sm-auto mr-md-3 bg_white_o80 corner_s shaded-shadow">
+                    <div className=" px-3 py-4 px-md-2 py-md-4 font_xs_xs font_md_s">
+                        <img className="width_xs_30 width_md_60" src=${R("/images/piggy.svg")} alt="piggy bank" />
+                        <div className="py-3">
+                        <span className="d-inline-block px-2 py-1 bg6 corner_xs">#saveMoney</span>
+                        </div>
+                        <p>get what you want for free</p>
+                        
+                    </div>
+                    </div>
+                
                     
                 </div>
-                </div>
-        
-                <div className="col-xs-auto col-sm-6 col-md-2 p-0 ml-3 ml-sm-auto ml-md-3 bg_white corner_s shaded-shadow">
-                <div className=" px-3 py-4 px-md-2 py-md-4 font_xs_xs font_md_s">
-                    <img className="width_xs_30 width_md_60" src=${R("/images/motivation.svg")} alt="certain" />
-                    <div className="py-3">
-                    <span className="d-inline-block px-2 py-1 bg6 corner_xs" >#certain</span>
-                    </div>
-                    <p>your money spent is going to make the receiver happy</p>
-                    
-                </div>
-                </div>
-        
-                <div className="col-xs-auto col-sm-6 col-md-2 p-0 ml-3 ml-sm-auto ml-md-3 bg_white corner_s shaded-shadow">
-                <div className=" px-3 py-4 px-md-2 py-md-4  font_xs_xs font_md_s">
-                    <img className="width_xs_30 width_md_60" src=${R("/images/coins.svg")} alt="coins" />
-                    <div className="py-3">
-                    <span className="d-inline-block px-2 py-1 bg6 corner_xs">#affordable</span>
-                    </div>
-                    <p>a good gift is never too expensive once your friends chip in</p>
-                    
-                </div>
-                </div>
-        
-                <div className="col-xs-auto col-sm-6 col-md-2 p-0 ml-3 ml-sm-auto ml-md-3 bg_white corner_s shaded-shadow">
-                <div className=" px-3 py-4 px-md-2 py-md-4 font_xs_xs font_md_s">
-                    <img className="width_xs_30 width_md_60" src=${R("/images/title.svg")} alt="trusty" />
-                    <div className="py-3">
-                    <span className="d-inline-block px-2 py-1 bg6 corner_xs">#trusty</span>
-                    </div>
-                    <p>be sure your loved one will receive the nice gift instead of money that may be spent on cigarettes</p>
-                    
-                </div>  
+
+                <div className="text-center pt-5 font_xs_l font_md_xl">
+                    Why support friends on Giffon?
                 </div>
 
-                <div className="col-sm-12 col-md-2 mr-md-auto ml-3 ml-sm-0 ml-md-3 bg5 color_white shaded-shadow p-3 d-none d-md-flex flex_container_v_xs">
-                    <div className="vbox">
-                        <div  className="font_xs_m font_md_l">For Supporters</div>
+                <div id="support" className="row my-4 my-md-5 text-center from_left">
+
+                    <div className="col-sm-12 col-md-2 mr-md-auto ml-3 ml-sm-0 ml-md-3 bg5 color_white shaded-shadow p-3 d-xs-flex d-md-none">
+                        <div className="vbox">
+                            <div className="font_xs_m font_md_l">For Supporters</div>
+                        </div>
+                    </div>
+
+
+                    <div className="col-xs-auto col-sm-6 col-md-2 p-0 ml-3 ml-sm-auto ml-md-3 bg_white corner_s shaded-shadow">
+                    <div className=" px-3 py-4 px-md-2 py-md-4 font_xs_xs font_md_s">
+                        <img className="width_xs_30 width_md_60" src=${R("/images/charity.svg")} alt="charity" />
+                        <div className="py-3">
+                        <span className="d-inline-block px-2 py-1 bg6 corner_xs">#sincerity</span>
+                        </div>
+                        <p>show that you are thankful, appreciating someone</p>
+                        
+                    </div>
+                    </div>
+            
+                    <div className="col-xs-auto col-sm-6 col-md-2 p-0 ml-3 ml-sm-auto ml-md-3 bg_white corner_s shaded-shadow">
+                    <div className=" px-3 py-4 px-md-2 py-md-4 font_xs_xs font_md_s">
+                        <img className="width_xs_30 width_md_60" src=${R("/images/motivation.svg")} alt="certain" />
+                        <div className="py-3">
+                        <span className="d-inline-block px-2 py-1 bg6 corner_xs" >#certain</span>
+                        </div>
+                        <p>your money spent is going to make the receiver happy</p>
+                        
+                    </div>
+                    </div>
+            
+                    <div className="col-xs-auto col-sm-6 col-md-2 p-0 ml-3 ml-sm-auto ml-md-3 bg_white corner_s shaded-shadow">
+                    <div className=" px-3 py-4 px-md-2 py-md-4  font_xs_xs font_md_s">
+                        <img className="width_xs_30 width_md_60" src=${R("/images/coins.svg")} alt="coins" />
+                        <div className="py-3">
+                        <span className="d-inline-block px-2 py-1 bg6 corner_xs">#affordable</span>
+                        </div>
+                        <p>a good gift is never too expensive once your friends chip in</p>
+                        
+                    </div>
+                    </div>
+            
+                    <div className="col-xs-auto col-sm-6 col-md-2 p-0 ml-3 ml-sm-auto ml-md-3 bg_white corner_s shaded-shadow">
+                    <div className=" px-3 py-4 px-md-2 py-md-4 font_xs_xs font_md_s">
+                        <img className="width_xs_30 width_md_60" src=${R("/images/title.svg")} alt="trusty" />
+                        <div className="py-3">
+                        <span className="d-inline-block px-2 py-1 bg6 corner_xs">#trusty</span>
+                        </div>
+                        <p>be sure your loved one will receive the nice gift instead of money that may be spent on cigarettes</p>
+                        
+                    </div>  
+                    </div>
+
+                    <div className="col-sm-12 col-md-2 mr-md-auto ml-3 ml-sm-0 ml-md-3 bg5 color_white shaded-shadow p-3 d-none d-md-flex flex_container_v_xs">
+                        <div className="vbox">
+                            <div  className="font_xs_m font_md_l">For Supporters</div>
+                        </div>
                     </div>
                 </div>
             </div>

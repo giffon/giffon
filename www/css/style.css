@@ -626,10 +626,6 @@ footer .social a:hover {
     outline: none;
 }
 
-.page-index .content {
-    overflow-x: hidden;
-}
-
 .reason-title {
     font-size: 1.5em;
 }
