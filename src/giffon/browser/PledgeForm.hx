@@ -26,8 +26,8 @@ class PledgeForm extends ReactComponent {
     var wish_total_needed(get, never):Decimal;
     function get_wish_total_needed() return props.wish_total_needed;
 
-    var user_total_pledge(get, never):Decimal;
-    function get_user_total_pledge() return props.user_total_pledge;
+    var user_support(get, never):Null<giffon.db.Wish.WishSupport>;
+    function get_user_support() return props.user_support;
 
     var isCancellingPledge(get, set):Bool;
     function get_isCancellingPledge() return state.isCancellingPledge;
@@ -79,11 +79,23 @@ class PledgeForm extends ReactComponent {
     }
 
     function pledgeInfo() {
-        if (user_total_pledge > 0) {
+        var visibilityInfo = if (user_support == null) {
+            null;
+        } else switch (user_support.pledge_visibility) {
+            case HiddenFromAll:
+                "The pledge amount is hidden.";
+            case VisibleToWishOwner:
+                "The pledge amount will be visible to the wish owner once the wish is completed.";
+            case VisibleToAll:
+                "The pledge amount will be visible to all once the wish is completed.";
+        }
+        if (user_support != null && user_support.pledge_amount > 0) {
             return jsx('
                 <div>
-                    You have currently pledged ${wish_currency.getName()} ${user_total_pledge.toString()}.
+                    You have currently pledged ${wish_currency.getName()} ${user_support.pledge_amount.toString()}.
                     <button className="btn btn-link btn-cancel-pledge" onClick=${cancelPledge} disabled=${isCancellingPledge}>Cancel pledge</button>
+                    <br/>
+                    ${visibilityInfo}
                 </div>
             ');
         } else {
@@ -94,14 +106,14 @@ class PledgeForm extends ReactComponent {
     }
 
     override function render() {
-        var form = if (user_total_pledge > 0) {
+        var form = if (user_support != null && user_support.pledge_amount > 0) {
             null;
         } else {
             var injectedPledgeForm = React.createElement(ReactStripeElements.injectStripe(_PledgeForm), {
                 wish_hashid: wish_hashid,
                 wish_currency: wish_currency,
                 wish_total_needed: wish_total_needed,
-                user_total_pledge: user_total_pledge,
+                user_support: user_support,
             });
             jsx('
                 <StripeProvider apiKey=${StripeInfo.apiPubKey}>
@@ -146,8 +158,8 @@ class _PledgeForm extends ReactComponent {
     var wish_total_needed(get, never):Decimal;
     function get_wish_total_needed() return props.wish_total_needed;
 
-    var user_total_pledge(get, never):Decimal;
-    function get_user_total_pledge() return props.user_total_pledge;
+    var user_support(get, never):Null<giffon.db.Wish.WishSupport>;
+    function get_user_support() return props.user_support;
 
     var stripe(get, never):StripeInElements;
     function get_stripe() return props.stripe;
@@ -214,11 +226,12 @@ class _PledgeForm extends ReactComponent {
             acceptTerms: false,
             pledge_method: StripeCard.getName(),
             pledge_amount:
-                if (user_total_pledge > 0)
-                    user_total_pledge
+                if (user_support != null && user_support.pledge_amount > 0)
+                    user_support.pledge_amount
                 else
                     Math.min(PledgeFormData.pledge_amount_min*2, Std.parseFloat(wish_total_needed)),
             pledge_data: null,
+            pledge_visibility: giffon.db.PledgeVisibility.HiddenFromAll.getName(),
         };
 
         return jsx('
@@ -284,6 +297,52 @@ class _PledgeForm extends ReactComponent {
                             id="card-number"
                         />
                     </div>
+                </div>
+                <div className="form-group">
+                    <div className="mb-1">
+                        <p className="mb-0">Pledge amount visibility</p>
+                        <small>
+                            After the wish completes, everyone will be able to see your pledge, optionally with the amount.
+                        </small>
+                    </div>
+                    <Field
+                        name="pledge_visibility"
+                        component="div"
+                    >
+                        <div className="form-check">
+                            <input
+                                id="pledge_visibility_hiddenFromAll"
+                                name="pledge_visibility"
+                                className="form-check-input" type="radio" value=${giffon.db.PledgeVisibility.HiddenFromAll.getName()}
+                                defaultChecked=${props.values.pledge_visibility == giffon.db.PledgeVisibility.HiddenFromAll.getName()}
+                            />
+                            <label className="form-check-label" htmlFor="pledge_visibility_hiddenFromAll">
+                                Pledge amount be hidden from all
+                            </label>
+                        </div>
+                        <div className="form-check">
+                            <input
+                                id="pledge_visibility_visibleToWishOwner"
+                                name="pledge_visibility"
+                                className="form-check-input" type="radio" value=${giffon.db.PledgeVisibility.VisibleToWishOwner.getName()}
+                                defaultChecked=${props.values.pledge_visibility == giffon.db.PledgeVisibility.VisibleToWishOwner.getName()}
+                            />
+                            <label className="form-check-label" htmlFor="pledge_visibility_visibleToWishOwner">
+                                Pledge amount be visible to wish owner, hidden from others
+                            </label>
+                        </div>
+                        <div className="form-check">
+                            <input
+                                id="pledge_visibility_visibleToAll"
+                                name="pledge_visibility"
+                                className="form-check-input" type="radio" value=${giffon.db.PledgeVisibility.VisibleToAll.getName()}
+                                defaultChecked=${props.values.pledge_visibility == giffon.db.PledgeVisibility.VisibleToAll.getName()}
+                            />
+                            <label className="form-check-label" htmlFor="pledge_visibility_visibleToAll">
+                                Pledge amount be visible to all
+                            </label>
+                        </div>
+                    </Field>
                 </div>
                 <div className="form-group">
                     <div className="form-check">

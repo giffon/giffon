@@ -7,6 +7,7 @@ import thx.Decimal;
 import js.moment.Moment;
 import giffon.server.ServerMain.*;
 import giffon.R.*;
+import giffon.Utils.*;
 using DateTools;
 using StringTools;
 using giffon.db.WishProgress.WishProgressTools;
@@ -19,7 +20,7 @@ class Wish extends Page {
     override function bodyClasses() {
         var cls = super.bodyClasses();
         cls.push("page-wish");
-        if (user != null && user.user_id == wish.wish_owner.user_id) {
+        if (userIsWishOwner()) {
             cls.push("user-is-wish-owner");
         }
         return cls;
@@ -30,15 +31,15 @@ class Wish extends Page {
         attrs["data-wish-hashid"] = wish.wish_hashid;
         attrs["data-wish-currency"] = wish.wish_currency.getName();
         attrs["data-wish-total-needed"] = wish.wish_total_needed.amount.toString();
-        attrs["data-user-total-pledge"] = user_total_pledge.toString();
+        attrs["data-user-support"] = haxe.Serializer.run(user_support);
         return attrs;
     }
 
     var wish(get, never):giffon.db.Wish;
     function get_wish():giffon.db.Wish return props.wish;
 
-    var user_total_pledge(get, never):Decimal;
-    function get_user_total_pledge() return props.user_total_pledge;
+    var user_support(get, never):giffon.db.Wish.WishSupport;
+    function get_user_support() return props.user_support;
 
     function numSupporters() {
         return jsx('
@@ -154,19 +155,61 @@ class Wish extends Page {
             </div>
         ');
     }
+    function userIsWishOwner() return user != null && user.user_id == wish.wish_owner.user_id;
+    function supportAmountIsVisible(supporter:{
+        user:User,
+        pledge_date: Date,
+        pledge_amount: Decimal,
+        pledge_visibility: giffon.db.PledgeVisibility,
+    }) {
+        return switch (supporter.pledge_visibility) {
+            case HiddenFromAll: false;
+            case VisibleToAll: true;
+            case VisibleToWishOwner: userIsWishOwner();
+        }
+    }
 
-    function supporterList() {
+    function supporterListSection(amountVisible:Bool) {
+        var info = if (amountVisible) {
+            "Supporters with visible support amounts.";
+        } else {
+            "
+            Supporters with hidden support amounts. 
+            Sorted by support amount in descending order.
+            ";
+        }
+        var list = supporterList(amountVisible);
+        return list.length <= 0 ? null : jsx('
+            <div>
+                <p className="text-muted font_xs_xs font_md_s mb-1">
+                    ${info}
+                </p>
+                ${list}
+            </div>
+        ');
+    }
+
+    function supporterList(amountVisible:Bool) {
         return [
             for (supporter in wish.supporters)
+            if (supportAmountIsVisible(supporter) == amountVisible)
             jsx('
                 <div key=${supporter.user.user_id}>
-                    <a href=${"/user/" + supporter.user.user_hashid} className="d-inline-flex align-items-center">
+                    <a href=${"/user/" + supporter.user.user_hashid} className="d-inline-flex flex-nowrap align-items-center text-light">
                         <div className="supporter-avatar rounded-circle" style=${userAvatarStyle(supporter.user)} />
-                        <div className="pl-3">${supporter.user.user_name}</div>
+                        <div className="pl-2">${supporter.user.user_name}${supportAmount(supporter)}</div>
                     </a>
                 </div>
             ')
         ];
+    }
+
+    function supportAmount(supporter:giffon.db.Wish.WishSupport) {
+        var userIsSupporter = user != null && user.user_id == supporter.user.user_id;
+        if (!supportAmountIsVisible(supporter) && !userIsSupporter)
+            return null;
+
+        return jsx('<span className="badge badge-pill badge-info font-weight-light ml-2">${"$"}${supporter.pledge_amount.toString()}</span>');
     }
 
     function wishState() {
@@ -211,8 +254,8 @@ class Wish extends Page {
                         </div>
                         <div className="mt-3">
                             <h3 className="font_xs_l">List of Supporters</h3>
-                            <p className="text-muted font_xs_xs font_md_s">Sorted by support amount in descending order.</p>
-                            ${supporterList()}
+                            ${supporterListSection(true)}
+                            ${supporterListSection(false)}
                         </div>
                     </Fragment>
                 ');

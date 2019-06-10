@@ -2,6 +2,13 @@ package giffon.db;
 
 import thx.Decimal;
 
+typedef WishSupport = {
+    user:User,
+    pledge_date: Date,
+    pledge_amount: Decimal,
+    pledge_visibility: giffon.db.PledgeVisibility,
+}
+
 typedef Wish = {
     wish_id:Int,
     wish_hashid: String,
@@ -19,11 +26,7 @@ typedef Wish = {
     },
     wish_pledged: Decimal,
     wish_progress: giffon.db.WishProgress,
-    supporters: Array<{
-        user:User,
-        pledge_date: Date,
-        pledge_amount: Decimal,
-    }>,
+    supporters: Array<WishSupport>,
     items: Array<{
         item_id: Int,
         item_url: String,

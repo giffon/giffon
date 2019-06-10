@@ -10,6 +10,7 @@ typedef PledgeFormValues = {
     pledge_method:String,
     pledge_amount:Float,
     pledge_data:Dynamic,
+    pledge_visibility:String,
 }
 
 class PledgeFormData implements DataClass {
@@ -22,8 +23,15 @@ class PledgeFormData implements DataClass {
     @validate(Type.allEnums(PledgeMethod).exists(function(m) return m.getName() == _))
     public var pledge_method:String;
 
+    @validate(validatePledgeVisibility(_))
+    public var pledge_visibility:String;
+
     public var pledge_data:Dynamic;
 
     @validate(_ == true)
     public var acceptTerms:Bool;
+
+    static public function validatePledgeVisibility(_:String):Bool {
+        return Type.allEnums(PledgeVisibility).exists(function(v) return v.getName() == _);
+    }
 }

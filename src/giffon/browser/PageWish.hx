@@ -17,7 +17,7 @@ class PageWish {
                     wish_hashid: wish_hashid,
                     wish_currency: giffon.db.Currency.createByName(wish_currency),
                     wish_total_needed: Decimal.fromString(document.body.getAttribute("data-wish-total-needed")),
-                    user_total_pledge: Decimal.fromString(document.body.getAttribute("data-user-total-pledge")),
+                    user_support: haxe.Unserializer.run(document.body.getAttribute("data-user-support")),
                 }), root);
         }
 

@@ -13,6 +13,7 @@ import tink.core.Error;
 using tink.core.Future.JsPromiseTools;
 using giffon.ResponseTools;
 using giffon.server.PromiseTools;
+using Lambda;
 
 @await
 class Wish {
@@ -39,30 +40,9 @@ class Wish {
         }
         var user_total_pledge = Decimal.zero;
         var user = res.getUser();
-        if (user != null) {
-            var results:QueryResults = (@await dbConnectionPool.query(
-                "
-                    SELECT SUM(`pledge_amount`) AS `total_pledge`
-                    FROM `pledge`
-                    WHERE `user_id` = ? AND `wish_id` = ?
-                ",
-                [user.user_id, wish_id]
-            ).handleError(next).toPromise()).results;
-
-            if (results != null && results.length != 0) {
-                if (results.length != 1) {
-                    res.sendPlainError('SUM(`pledge_amount`) returned ${results.length} results.');
-                    return;
-                }
-                user_total_pledge = switch (results[0].total_pledge) {
-                    case null: Decimal.zero;
-                    case str: Decimal.fromString(str).trim();
-                }
-            }
-        }
         res.sendPage(giffon.view.Wish, {
             wish: wish,
-            user_total_pledge: user_total_pledge
+            user_support: user == null ? null : wish.supporters.find(function(s) return s.user.user_id == user.user_id),
         });
     }
 
@@ -191,6 +171,7 @@ class Wish {
                 pledge_amount: pledgeFormData.pledge_amount,
                 pledge_currency: wish.wish_currency.getName(),
                 pledge_method: giffon.db.PledgeMethod.StripeCard.getName(),
+                pledge_visibility: pledgeFormData.pledge_visibility,
             }, {
                 stripe_charge_id: charge.id,
             }]
