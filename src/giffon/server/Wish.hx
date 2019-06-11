@@ -21,6 +21,7 @@ class Wish {
         var router = new Router();
         router.get("/wish/:wish_hashid", handleGet);
         router.delete("/wish/:wish_hashid", ensureLoggedIn, handleWishCancel);
+        router.post("/wish/:wish_hashid/coupon", ensureLoggedIn, handleCoupon);
         router.post("/wish/:wish_hashid/pledge", ensureLoggedIn, handlePledge);
         router.delete("/wish/:wish_hashid/pledge", ensureLoggedIn, handlePledgeCancel);
         return router;
@@ -109,6 +110,73 @@ class Wish {
                 ).handleError(next).toPromise();
             }
         }
+        res.sendPlainText("done");
+    }
+
+    @await static function handleCoupon(req:Request, res:Response, next:Dynamic){
+        var wish_hashid = req.params.wish_hashid;
+        var wish_id = @await getWishIdFromHash(wish_hashid);
+        if (wish_id == null) {
+            res.sendPlainError("There is no such wish.", NotFound);
+            return;
+        }
+        var wish = @await getWish(wish_id);
+        if (wish == null) {
+            res.sendPlainError("There is no such wish.", NotFound);
+            return;
+        }
+
+        switch (wish.wish_state) {
+            case Succeed | Cancelled:
+                res.sendPlainError('Cannot apply coupon to a ${wish.wish_state} wish.', BadRequest);
+                return;
+            case _:
+                //pass
+        }
+
+        if (wish.appliedCoupons.length >= 1) {
+            res.sendPlainError("There can be at most one coupon applied to a wish.", BadRequest);
+            return;
+        }
+
+        var user = res.getUser();
+        if (user.user_id != wish.wish_owner.user_id) {
+            res.sendPlainError("Only the wish owner can apply coupon.", Forbidden);
+            return;
+        }
+
+        var coupon_code:String = req.body;
+        var coupon:Null<giffon.db.Coupon> = @await getCouponFromCode(coupon_code.toUpperCase());
+        if (coupon == null) {
+            res.sendPlainError("Invalid coupon code", BadRequest);
+            return;
+        }
+        if (coupon.coupon_deadline != null && coupon.coupon_deadline.getTime() < Date.now().getTime()) {
+            res.sendPlainError("Coupon expired", BadRequest);
+        }
+        // TODO check quota
+        var coupon_value:Decimal = Reflect.field(coupon, "coupon_value_" + wish.wish_currency.getName());
+
+        @await dbConnectionPool.query(
+            "
+                START TRANSACTION;
+                INSERT INTO `pledge` SET ?;
+                SELECT @pledge_id := LAST_INSERT_ID() AS pledge_id;
+                INSERT INTO `pledge_coupon` SET pledge_id = @pledge_id, ?;
+                COMMIT;
+            ",
+            [{
+                user_id: coupon.coupon_creator_id,
+                wish_id: wish_id,
+                pledge_amount: coupon_value,
+                pledge_currency: wish.wish_currency.getName(),
+                pledge_method: giffon.db.PledgeMethod.Coupon.getName(),
+                pledge_visibility: giffon.db.PledgeVisibility.VisibleToAll.getName(),
+            }, {
+                coupon_id: coupon.coupon_id,
+            }]
+        ).handleError(next).toPromise();
+
         res.sendPlainText("done");
     }
 

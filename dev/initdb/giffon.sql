@@ -16,6 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `coupon`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `coupon` (
+  `coupon_id` int(11) NOT NULL AUTO_INCREMENT,
+  `coupon_creator_id` int(11) DEFAULT NULL,
+  `coupon_code` varchar(32) COLLATE utf8mb4_bin DEFAULT NULL,
+  `coupon_value_HKD` decimal(16,4) DEFAULT NULL,
+  `coupon_value_USD` decimal(16,4) DEFAULT NULL,
+  `coupon_quota` int(11) DEFAULT NULL,
+  `coupon_deadline` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`coupon_id`),
+  UNIQUE KEY `coupon_UN` (`coupon_code`),
+  KEY `coupon_user_FK` (`coupon_creator_id`),
+  CONSTRAINT `coupon_user_FK` FOREIGN KEY (`coupon_creator_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `item`
 --
 
@@ -56,6 +77,22 @@ CREATE TABLE `pledge` (
   CONSTRAINT `pledge_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE,
   CONSTRAINT `pledge_wish_FK` FOREIGN KEY (`wish_id`) REFERENCES `wish` (`wish_id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `pledge_coupon`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pledge_coupon` (
+  `pledge_id` int(11) NOT NULL,
+  `coupon_id` int(11) NOT NULL,
+  PRIMARY KEY (`pledge_id`),
+  KEY `pledge_coupon_coupon_FK` (`coupon_id`),
+  CONSTRAINT `pledge_coupon_coupon_FK` FOREIGN KEY (`coupon_id`) REFERENCES `coupon` (`coupon_id`) ON UPDATE CASCADE,
+  CONSTRAINT `pledge_coupon_pledge_FK` FOREIGN KEY (`pledge_id`) REFERENCES `pledge` (`pledge_id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

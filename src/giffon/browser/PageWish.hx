@@ -5,6 +5,7 @@ import js.jquery.JQuery;
 import thx.Decimal;
 import react.*;
 import haxe.io.*;
+using StringTools;
 
 class PageWish {
     static public function onReady():Void {
@@ -40,6 +41,27 @@ class PageWish {
                 })
                 .fail(function(err){
                     alert(err);
+                });
+        });
+
+        var applyCouponForm = new JQuery(".apply-coupon-form");
+        applyCouponForm.submit(function(evt){
+            evt.preventDefault();
+            var coupon_code:String = new JQuery("input[name='coupon_code']").val().trim();
+            if (coupon_code == null || coupon_code == "") {
+                return;
+            }
+            JQuery.ajax({
+                type: "POST",
+                contentType: "text/plain; charset=utf-8",
+                url: Path.join(["/wish", wish_hashid, "coupon"]),
+                data: coupon_code,
+            })
+                .done(function(data:String){
+                    document.location.reload(true);
+                })
+                .fail(function(err){
+                    alert(err.responseText == null ? err.statusText : err.responseText);
                 });
         });
     }

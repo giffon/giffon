@@ -584,6 +584,12 @@ footer .social a:hover {
     background: none;
 }
 
+.page-wish .coupon_code.badge {
+    font-size: 1em;
+    padding: 0.2em 1em;
+    font-weight: 100;
+}
+
 .page-make-a-wish .wish-item {
     border-bottom: 1px solid #CCC;
     margin-bottom: 1em;

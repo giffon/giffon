@@ -113,12 +113,48 @@ class Wish extends Page {
         }
 
         return jsx('
-            <div className="mb-5 p-3 bg_white shaded-shadow font_xs_xs font_md_s">
+            <div className="mb-3 p-3 bg_white shaded-shadow font_xs_xs font_md_s">
                 <h4  className="font_xs_l font_md_xxl">Cancel Wish</h4>
                 <p>Once cancelled, all existing pledges will be refunded to the supporters. The action cannot be undone.</p>
                 <button className="cancel-wish-btn btn btn-danger">Cancel Wish</button>
             </div>
         ');
+    }
+
+    function couponControl() {
+        switch (wish.wish_state) {
+            case Cancelled | Succeed:
+                return null;
+            case _:
+                //pass
+        }
+
+        if (wish.appliedCoupons.length <= 0) {
+            return jsx('
+                <div className="mb-3 p-3 bg_white shaded-shadow font_xs_xs font_md_s container-fluid">
+                    <h4  className="font_xs_l font_md_xxl">Apply Coupon</h4>
+                    <form className="apply-coupon-form row mx-0">
+                        <input type="text" className="form-control col col-md-4 mr-1 text-uppercase" name="coupon_code" placeholder="COUPON_CODE" />
+                        <button type="submit" className="apply-coupon-btn btn btn-primary col-auto">Apply</button>
+                    </form>
+                </div>
+            ');
+        } else {
+            var couponList = [
+                for (c in wish.appliedCoupons)
+                jsx('
+                    <span class="badge badge-success coupon_code" key=${c.coupon_id}>${c.coupon_code}</span>
+                ')
+            ];
+            return jsx('
+                <div className="mb-3 p-3 bg_white shaded-shadow font_xs_xs font_md_s container-fluid">
+                    <h4  className="font_xs_l font_md_xxl">Applied Coupon</h4>
+                    <div className="row mx-0">
+                        ${couponList}
+                    </div>
+                </div>
+            ');
+        }
     }
 
     function howToHelpSection() {
@@ -151,6 +187,7 @@ class Wish extends Page {
         return jsx('
             <div className="my-3">
                 <h3 className="font_xs_l font_md_xxl">Settings</h3>
+                ${couponControl()}
                 ${cancelWishControl()}
             </div>
         ');

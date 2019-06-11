@@ -36,4 +36,5 @@ typedef Wish = {
         item_currency: giffon.db.Currency,
         item_quantity: Int,
     }>,
+    appliedCoupons: Array<giffon.db.Coupon>,
 }

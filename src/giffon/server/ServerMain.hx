@@ -342,6 +342,7 @@ class ServerMain {
                 }
             }),
             supporters: supporters,
+            appliedCoupons: @await getCouponsAppliedToWish(wish.wish_id),
         };
         if (!wish.items.foreach(function(itm) return itm.item_currency == wish.wish_currency)) {
             throw "All items should be in the same currency";
@@ -504,6 +505,84 @@ class ServerMain {
             },
             user_description: user.user_description,
         };
+    }
+
+    @async static public function getCouponsAppliedToWish(wish_id:Int):Array<giffon.db.Coupon> {
+        var results:QueryResults = (@await dbConnectionPool.query(
+            "
+                SELECT coupon_id
+                FROM wish
+                INNER JOIN pledge ON wish.wish_id = pledge.wish_id
+                INNER JOIN pledge_coupon ON pledge.pledge_id = pledge_coupon.pledge_id
+                WHERE wish.wish_id = ?
+            ",
+            [wish_id]
+        ).toPromise()).results;
+
+        if (results == null || results.length < 1)
+            return [];
+
+        var coupons = [];
+        for (r in results) {
+            coupons.push(@await getCoupon(r.coupon_id));
+        }
+        return coupons;
+    }
+
+    @async static public function getCouponFromCode(coupon_code:Null<String>):Null<giffon.db.Coupon> {
+        if (coupon_code == null) return null;
+
+        var results:QueryResults = (@await dbConnectionPool.query(
+            "
+                SELECT coupon_id
+                FROM coupon
+                WHERE coupon_code = ?
+            ",
+            [coupon_code]
+        ).toPromise()).results;
+        if (results == null || results.length < 1)
+            return null;
+        if (results.length > 1)
+            throw 'There are ${results == null ? 0 : results.length} coupons with coupon_code = ${coupon_code}.';
+
+        var r:{
+            coupon_id:Int,
+        } = results[0];
+        return @await getCoupon(r.coupon_id);
+    }
+
+    @async static public function getCoupon(coupon_id:Int):Null<giffon.db.Coupon> {
+        var results:QueryResults = (@await dbConnectionPool.query(
+            "
+                SELECT coupon_id, coupon_creator_id, coupon_code, coupon_value_HKD, coupon_value_USD, coupon_quota, coupon_deadline
+                FROM coupon
+                WHERE coupon_id = ?
+            ",
+            [coupon_id]
+        ).toPromise()).results;
+        if (results == null || results.length < 1)
+            return null;
+        if (results.length > 1)
+            throw 'There are ${results == null ? 0 : results.length} coupons with coupon_id = ${coupon_id}.';
+        
+        var r:{
+            coupon_id:Int,
+            coupon_creator_id:Null<Int>,
+            coupon_code:Null<String>,
+            coupon_value_HKD:Null<String>,
+            coupon_value_USD:Null<String>,
+            coupon_quota:Null<Int>,
+            coupon_deadline:Null<Date>,
+        } = results[0];
+        return {
+            coupon_id: r.coupon_id,
+            coupon_creator_id: r.coupon_creator_id,
+            coupon_code: r.coupon_code,
+            coupon_value_HKD: Decimal.fromString(r.coupon_value_HKD),
+            coupon_value_USD: Decimal.fromString(r.coupon_value_USD),
+            coupon_quota: r.coupon_quota,
+            coupon_deadline: r.coupon_deadline,
+        }
     }
 
     static function __init__():Void {
@@ -687,6 +766,7 @@ class ServerMain {
             extended: false
         }));
         app.use(require("body-parser").json());
+        app.use(require("body-parser").text());
 
         app.use(Express.Static("www", {
             dotfiles: "ignore",
