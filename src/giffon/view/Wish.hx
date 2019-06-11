@@ -273,7 +273,7 @@ class Wish extends Page {
     static public function wishBadge(wish:giffon.db.Wish) {
         switch (wish.wish_state) {
             case Succeed:
-                return jsx('<span className="badge badge-success ml-2">succeed</span>');
+                return jsx('<span className="badge badge-success ml-2">succeeded</span>');
             case Created:
                 return jsx('<span className="badge badge-secondary ml-2">unpublished</span>');
             case _:
