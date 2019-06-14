@@ -12,6 +12,7 @@ import haxe.io.*;
 import haxe.*;
 import thx.Decimal;
 import tink.core.Error;
+import tink.CoreApi;
 import haxe.Constraints;
 import giffon.config.*;
 import giffon.view.*;
@@ -507,6 +508,25 @@ class ServerMain {
         };
     }
 
+    @async static public function getCouponUsedByUser(user_id:Int):Array<giffon.db.Coupon> {
+        var results:QueryResults = (@await dbConnectionPool.query(
+            '
+                SELECT coupon_id
+                FROM wish
+                INNER JOIN pledge ON wish.wish_id = pledge.wish_id
+                INNER JOIN pledge_coupon ON pledge.pledge_id = pledge_coupon.pledge_id
+                WHERE wish.user_id = ? AND wish.wish_state != "cancelled"
+            ',
+            [user_id]
+        ).toPromise()).results;
+
+        if (results == null || results.length < 1)
+            return [];
+
+        var p = @await Promise.inParallel([for (r in results) getCoupon(r.coupon_id)]);
+        return p.filter(function(c) return c != null);
+    }
+
     @async static public function getCouponsAppliedToWish(wish_id:Int):Array<giffon.db.Coupon> {
         var results:QueryResults = (@await dbConnectionPool.query(
             "
@@ -522,11 +542,8 @@ class ServerMain {
         if (results == null || results.length < 1)
             return [];
 
-        var coupons = [];
-        for (r in results) {
-            coupons.push(@await getCoupon(r.coupon_id));
-        }
-        return coupons;
+        var p = @await Promise.inParallel([for (r in results) getCoupon(r.coupon_id)]);
+        return p.filter(function(c) return c != null);
     }
 
     @async static public function getCouponFromCode(coupon_code:Null<String>):Null<giffon.db.Coupon> {

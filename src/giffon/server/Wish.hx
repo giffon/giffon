@@ -154,6 +154,13 @@ class Wish {
         if (coupon.coupon_deadline != null && coupon.coupon_deadline.getTime() < Date.now().getTime()) {
             res.sendPlainError("Coupon expired", BadRequest);
         }
+
+        var usedCoupons = @await getCouponUsedByUser(user.user_id);
+        if (usedCoupons.exists(function(c) return c.coupon_code == coupon.coupon_code)) {
+            res.sendPlainError("Coupon has already been used by user.", Forbidden);
+            return;
+        }
+
         // TODO check quota
         var coupon_value:Decimal = Reflect.field(coupon, "coupon_value_" + wish.wish_currency.getName());
 

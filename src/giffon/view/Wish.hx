@@ -143,7 +143,7 @@ class Wish extends Page {
             var couponList = [
                 for (c in wish.appliedCoupons)
                 jsx('
-                    <span class="badge badge-success coupon_code" key=${c.coupon_id}>${c.coupon_code}</span>
+                    <span className="badge badge-success coupon_code" key=${c.coupon_id}>${c.coupon_code}</span>
                 ')
             ];
             return jsx('
