@@ -361,7 +361,8 @@ class WishForm extends ReactComponent {
                         />
                     </div>
                     <div className="my-2">
-                        We will ask for your shipping address by email once there is enough pledges collected.
+                        <p>We will ask for your shipping address by email once there is enough pledges collected.</p>
+                        <p>If you have a coupon, you can apply it after the wish is created.</p>
                     </div>
                     <div className="form-group">
                         <div className="form-check">
