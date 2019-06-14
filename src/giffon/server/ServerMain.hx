@@ -907,7 +907,7 @@ class ServerMain {
 
         app.get("/", @await function(req:Request, res:Response) {
             res.sendPage(Index, {
-                recentWishes: @await getRecentWishes(5),
+                recentWishes: @await getRecentWishes(10),
             });
         });
         app.get("/terms", function(req, res:Response) {

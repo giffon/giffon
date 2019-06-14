@@ -6,6 +6,7 @@ import haxe.io.*;
 import giffon.R.*;
 import giffon.server.ServerMain.*;
 import js.npm.gravatar.Gravatar;
+using thx.Arrays;
 
 class Index extends Page {
     override function title() return "Giffon: A crowd-gifting platform";
@@ -56,7 +57,7 @@ class Index extends Page {
 
     function recentWishes() {
         var recentWishes:Array<giffon.db.Wish> = props.recentWishes;
-        return recentWishes.map(wishBox);
+        return recentWishes.shuffle().map(wishBox);
     }
 
     override function bodyContent() return jsx('
