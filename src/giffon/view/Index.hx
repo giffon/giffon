@@ -39,9 +39,8 @@ class Index extends Page {
                     <div className="shaded-shadow mt-5 pt-5">
                         <div className="px-3 pb-3 text-center">
                             <span className="wish-owner-name font_xs_m font_md_l"><a href=${Path.join(["/user", wish.wish_owner.user_hashid])}>${wish.wish_owner.user_name}</a></span>
-                    
-                            <div className="d-flex align-items-center text-truncate text-left pt-3">
-                                <span className="font_xs_m font_md_l pt-1">${wish.wish_title}</span>
+                            <div className="d-flex align-items-center text-left">
+                                <span className="wish-title text-truncate font_xs_m font_md_l pt-1">${wish.wish_title}</span>
                                 ${Wish.wishBadge(wish)}
                             </div>
                             <div className="wish-description text-left font_xs_xs font_md_s">${wish.wish_description}</div>
