@@ -496,7 +496,8 @@ footer .social a:hover {
 }
 
 .nav-link {
-    padding: 0 1em;
+    padding-left: 1em;
+    padding-right: 1em;
 }
 
 .btn.ghost {
