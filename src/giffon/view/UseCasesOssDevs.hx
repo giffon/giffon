@@ -27,7 +27,7 @@ class UseCasesOssDevs extends Page {
                 Eventually, people are tired and projects go unmaintained <span className="ec ec-weary"></span>.
             </p>
             <p>
-                Giffon provides a easy way for users to show their appreciation to the open source developers. 
+                Giffon provides users an easy way to show their appreciation to the open source developers. 
                 The open source community as a whole can keep the good vibes, avoid developer burnout, and build the next-big-thing together <span className="ec ec-dark-sunglasses"></span>.
             </p>
 
