@@ -660,14 +660,21 @@ footer .social a:hover {
     top:-1.5rem;
 }
 
-.page-use-cases-video-creators .card-img-top {
+.page-use-cases .card-img-top {
     position:relative;
     overflow:hidden;
     padding-bottom:75%;
     background-size: cover;
 }
 
-.page-use-cases-video-creators .jumbotron {
+.page-use-cases .jumbotron {
     background-size: cover;
+}
+
+.page-use-cases.page-use-cases-video-creators .jumbotron {
     background-position-y: 100%;
+}
+
+.page-use-cases.page-use-cases-oss-developers .jumbotron {
+    background-position-y: 60%;
 }

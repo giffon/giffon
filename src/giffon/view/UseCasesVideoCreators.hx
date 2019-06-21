@@ -10,7 +10,7 @@ class UseCasesVideoCreators extends Page {
     override function path() return "use-cases/video-creators";
     override function render() return super.render();
 
-    override function bodyClasses() return super.bodyClasses().concat(["page-use-cases-video-creators"]);
+    override function bodyClasses() return super.bodyClasses().concat(["page-use-cases", "page-use-cases-video-creators"]);
 
     function bgStyle(bg:String) {
         return {
@@ -22,13 +22,13 @@ class UseCasesVideoCreators extends Page {
         <div className="container">
             <h1>Giffon for Video Creators</h1>
             <p>
-                Producing videos may cost a lot <span className="ec ec-money-with-wings"></span>. You need recording equipments, post-production softwares, props etc.
+                Producing videos may cost a lot <span className="ec ec-money-with-wings"></span>. You need recording equipments, post-production software, props etc.
             </p>
             <p>
                 Let your fans help you to cut your cost, and to produce better videos <span className="ec ec-video-camera"></span>.
             </p>
 
-            <h2>Gift ideas</h2>
+            <h2>Wish ideas</h2>
 
             <div className="row">
                 <div className="col-6 col-md mb-4">

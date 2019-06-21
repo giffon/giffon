@@ -237,6 +237,7 @@ class Page extends ReactComponent {
                                 </a>
                                 <div className="dropdown-menu" aria-labelledby="navbarUseCasesDropdownMenuLink">
                                     <a className="dropdown-item" href="/use-cases/video-creators">for video creators</a>
+                                    <a className="dropdown-item" href="/use-cases/oss-developers">for open source developers</a>
                                 </div>
                             </li>
                         </ul>
