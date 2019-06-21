@@ -27,8 +27,10 @@ class UseCasesVideoCreators extends Page {
             <p>
                 Let your fans help you to cut your cost, and to produce better videos <span className="ec ec-video-camera"></span>.
             </p>
+            <p><a href="/make-a-wish">Make a wish</a> in Giffon and let the community buy you a gift!</p>
 
             <h2>Wish ideas</h2>
+            <p>Here are some goodies that can be useful to video creators.</p>
 
             <div className="row">
                 <div className="col-12 col-sm-6 col-md mb-4">

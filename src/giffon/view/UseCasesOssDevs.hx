@@ -30,8 +30,10 @@ class UseCasesOssDevs extends Page {
                 Giffon provides users an easy way to show their appreciation to the open source developers. 
                 The open source community as a whole can keep the good vibes, avoid developer burnout, and build the next-big-thing together <span className="ec ec-dark-sunglasses"></span>.
             </p>
+            <p><a href="/make-a-wish">Make a wish</a> in Giffon and let the community buy you a gift!</p>
 
             <h2>Wish ideas</h2>
+            <p>Here are some goodies that can be useful to open source developers.</p>
 
             <div className="row">
                 <div className="col-12 col-sm-6 col-md mb-4">
@@ -39,7 +41,7 @@ class UseCasesOssDevs extends Page {
                         <div className="card-img-top" style=${bgStyle("https://media.giphy.com/media/BHkzSycc5fZrG/giphy.gif")} />
                         <div className="card-body">
                             <h5 className="card-title">IDE License <span className="ec ec-keyboard"></span></h5>
-                            <p className="card-text">Buy a license to use the pro version of a good IDE to enhance development. JetBrains? Sublime? Visual Studio? Your choice.</p>
+                            <p className="card-text">Get a license to use the pro version of a good IDE to enhance development. JetBrains? Sublime? Visual Studio? Your choice.</p>
                         </div>
                     </div>
                 </div>
