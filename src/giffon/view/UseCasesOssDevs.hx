@@ -34,7 +34,7 @@ class UseCasesOssDevs extends Page {
             <h2>Wish ideas</h2>
 
             <div className="row">
-                <div className="col-6 col-md mb-4">
+                <div className="col-12 col-sm-6 col-md mb-4">
                     <div className="card">
                         <div className="card-img-top" style=${bgStyle("https://media.giphy.com/media/BHkzSycc5fZrG/giphy.gif")} />
                         <div className="card-body">
@@ -43,7 +43,7 @@ class UseCasesOssDevs extends Page {
                         </div>
                     </div>
                 </div>
-                <div className="col-6 col-md mb-4">
+                <div className="col-12 col-sm-6 col-md mb-4">
                     <div className="card">
                         <div className="card-img-top" style=${bgStyle("https://media.giphy.com/media/d6WWh3Em7kWHu/giphy.gif")} />
                         <div className="card-body">
@@ -52,7 +52,7 @@ class UseCasesOssDevs extends Page {
                         </div>
                     </div>
                 </div>
-                <div className="col-6 col-md mb-4">
+                <div className="col-12 col-sm-6 col-md mb-4">
                     <div className="card">
                         <div className="card-img-top" style=${bgStyle("https://media.giphy.com/media/11DRQ1VQ5p5iPm/giphy.gif")} />
                         <div className="card-body">

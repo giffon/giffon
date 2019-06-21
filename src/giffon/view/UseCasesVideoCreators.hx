@@ -31,7 +31,7 @@ class UseCasesVideoCreators extends Page {
             <h2>Wish ideas</h2>
 
             <div className="row">
-                <div className="col-6 col-md mb-4">
+                <div className="col-12 col-sm-6 col-md mb-4">
                     <div className="card">
                         <div className="card-img-top" style=${bgStyle("https://media.giphy.com/media/L4gKRkblWlYoE/giphy.gif")} />
                         <div className="card-body">
@@ -40,7 +40,7 @@ class UseCasesVideoCreators extends Page {
                         </div>
                     </div>
                 </div>
-                <div className="col-6 col-md mb-4">
+                <div className="col-12 col-sm-6 col-md mb-4">
                     <div className="card">
                         <div className="card-img-top" style=${bgStyle("https://media.giphy.com/media/6nZR9Hl2e716wWvwBb/giphy.gif")} />
                         <div className="card-body">
@@ -49,7 +49,7 @@ class UseCasesVideoCreators extends Page {
                         </div>
                     </div>
                 </div>
-                <div className="col-6 col-md mb-4">
+                <div className="col-12 col-sm-6 col-md mb-4">
                     <div className="card">
                         <div className="card-img-top" style=${bgStyle("https://media.giphy.com/media/gK0Lv2068NnAD8zkDU/giphy.gif")} />
                         <div className="card-body">
