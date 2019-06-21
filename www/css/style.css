@@ -666,3 +666,8 @@ footer .social a:hover {
     padding-bottom:75%;
     background-size: cover;
 }
+
+.page-use-cases-video-creators .jumbotron {
+    background-size: cover;
+    background-position-y: 100%;
+}

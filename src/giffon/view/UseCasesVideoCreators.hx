@@ -3,6 +3,7 @@ package giffon.view;
 import react.*;
 import react.ReactMacro.jsx;
 import haxe.io.*;
+import giffon.R.*;
 
 class UseCasesVideoCreators extends Page {
     override function title() return 'For Video Creators - Giffon';
@@ -11,7 +12,7 @@ class UseCasesVideoCreators extends Page {
 
     override function bodyClasses() return super.bodyClasses().concat(["page-use-cases-video-creators"]);
 
-    function cardImgStyle(bg:String) {
+    function bgStyle(bg:String) {
         return {
             backgroundImage: 'url("${bg}")',
         };
@@ -32,7 +33,7 @@ class UseCasesVideoCreators extends Page {
             <div className="row">
                 <div className="col-6 col-md mb-4">
                     <div className="card">
-                        <div className="card-img-top" style=${cardImgStyle("https://media.giphy.com/media/L4gKRkblWlYoE/giphy.gif")} />
+                        <div className="card-img-top" style=${bgStyle("https://media.giphy.com/media/L4gKRkblWlYoE/giphy.gif")} />
                         <div className="card-body">
                             <h5 className="card-title">Studio Microphone <span className="ec ec-microphone"></span></h5>
                             <p className="card-text">Your fans deserve hearing you in good quality.</p>
@@ -41,7 +42,7 @@ class UseCasesVideoCreators extends Page {
                 </div>
                 <div className="col-6 col-md mb-4">
                     <div className="card">
-                        <div className="card-img-top" style=${cardImgStyle("https://media.giphy.com/media/6nZR9Hl2e716wWvwBb/giphy.gif")} />
+                        <div className="card-img-top" style=${bgStyle("https://media.giphy.com/media/6nZR9Hl2e716wWvwBb/giphy.gif")} />
                         <div className="card-body">
                             <h5 className="card-title">Action Camera <span className="ec ec-camera"></span></h5>
                             <p className="card-text">Your outdoor action looks different with a professional action camera.</p>
@@ -50,7 +51,7 @@ class UseCasesVideoCreators extends Page {
                 </div>
                 <div className="col-6 col-md mb-4">
                     <div className="card">
-                        <div className="card-img-top" style=${cardImgStyle("https://media.giphy.com/media/gK0Lv2068NnAD8zkDU/giphy.gif")} />
+                        <div className="card-img-top" style=${bgStyle("https://media.giphy.com/media/gK0Lv2068NnAD8zkDU/giphy.gif")} />
                         <div className="card-body">
                             <h5 className="card-title">Multimedia Software <span className="ec ec-computer"></span></h5>
                             <p className="card-text">Get professional graphic/video editing software to produce better works.</p>
@@ -59,11 +60,13 @@ class UseCasesVideoCreators extends Page {
                 </div>
             </div>
 
-            <div className="text-center">
-                <a className="btn btn-success mt-3 my-5" href="/make-a-wish">
-                    Make a Wish Now
-                </a>
-            <div>
+            <div className="jumbotron" style=${bgStyle(R("/images/max-nelson-1668370-unsplash-blur.jpg"))}>
+                <p className="lead text-center">
+                    <a className="btn btn-primary btn-lg mt-3 my-5" href="/make-a-wish">
+                        Make a Wish Now
+                    </a>
+                </p>
+            </div>
         </div>
     ');
 }
