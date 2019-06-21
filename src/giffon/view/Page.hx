@@ -98,6 +98,11 @@ class Page extends ReactComponent {
                 integrity="sha256-93qPfpLSGzRTJsyLOst+lp0VdYmY9Bqzw4z6By0pYhM="
                 crossOrigin="anonymous"
             />
+            <link rel="stylesheet"
+                href="https://cdn.jsdelivr.net/npm/emoji.css@1.0.4/dist/emoji.min.css"
+                integrity="sha256-DTsMpJD6Zg8GpZTJVOCEp2BLvkkQ9wwhAkBbrOGC0cw="
+                crossOrigin="anonymous"
+            />
         </Fragment>
     ');
 
@@ -215,7 +220,7 @@ class Page extends ReactComponent {
         <body className=${bodyClasses().join(" ")} {...bodyAttributes()}>
             <div className="content">
                 <nav className="navbar navbar-light navbar-expand-md font_xs_s font_md_m">
-                    <a className="navbar-brand" href="/" style=${{backgroundImage: 'url(${R("/images/logo-blue.svg")})'}}>
+                    <a className="navbar-brand mr-0" href="/" style=${{backgroundImage: 'url(${R("/images/logo-blue.svg")})'}}>
                         Giffon
                     </a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
@@ -225,6 +230,14 @@ class Page extends ReactComponent {
                         <ul className="navbar-nav mr-auto">
                             <li className="nav-item">
                                 <a className="nav-link" href="/make-a-wish">Make a Wish</a>
+                            </li>
+                            <li className="nav-item dropdown">
+                                <a className="nav-link dropdown-toggle" href="#" id="navbarUseCasesDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Use Cases
+                                </a>
+                                <div className="dropdown-menu" aria-labelledby="navbarUseCasesDropdownMenuLink">
+                                    <a className="dropdown-item" href="/use-cases/video-creators">for video creators</a>
+                                </div>
                             </li>
                         </ul>
                         ${navbarSignIn()}

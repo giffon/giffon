@@ -933,6 +933,9 @@ class ServerMain {
         app.get("/privacy", function(req, res:Response) {
             res.sendPage(Privacy);
         });
+        app.get("/use-cases/video-creators", function(req, res:Response) {
+            res.sendPage(UseCasesVideoCreators);
+        });
         app.get("/signin", function(req:Request, res:Response){
             switch (req.query.redirectTo) {
                 case null:

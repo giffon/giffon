@@ -495,6 +495,10 @@ footer .social a:hover {
     color: #919292;
 }
 
+.nav-link {
+    padding: 0 1em;
+}
+
 .btn.ghost {
     background:transparent;
     border: 1px solid;
@@ -653,4 +657,11 @@ footer .social a:hover {
 .banner-bulb {
     z-index:9;
     top:-1.5rem;
+}
+
+.page-use-cases-video-creators .card-img-top {
+    position:relative;
+    overflow:hidden;
+    padding-bottom:75%;
+    background-size: cover;
 }
