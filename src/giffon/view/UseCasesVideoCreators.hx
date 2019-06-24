@@ -62,6 +62,103 @@ class UseCasesVideoCreators extends Page {
                 </div>
             </div>
 
+            <div>
+                <h2>How does Giffon compare to other services?</h2>
+
+                <div className="row">
+                    <div className="col-12 col-md-6 col-lg-4 mb-4">
+                        <div className="card border-success">
+                            <div className="card-header text-center">
+                                <img className="logo" src=${R("/images/logo-bg.png")} alt="Giffon logo" />
+                                Giffon
+                            </div>
+                            <div className="card-body">
+                                <ul className="list-group">
+                                    <li className="list-group-item">
+                                        <p>Creators receive gifts <i className="fas fa-check text-success"></i></p>
+                                        <p className="text-muted mb-0">
+                                            It is more likely for people to contribute if they know how their money will be spent.
+                                        </p>
+                                    </li>
+                                    <li className="list-group-item">
+                                        <p>${(giffon.ChargeInfo.serviceChargeRate*100).trim().toString()}% fee <i className="fas fa-check text-success"></i></p>
+                                        <p className="text-muted mb-0">
+                                            The service charge is ${(giffon.ChargeInfo.serviceChargeRate*100).trim().toString()}% of the wish value, paid by contributions. Giffon is 100% free for creators.
+                                        </p>
+                                    </li>
+                                    <li className="list-group-item">
+                                        <p>No rewards required <i className="fas fa-check text-success"></i></p>
+                                        <p className="text-muted mb-0">
+                                            Your work is your contributors\' best reward. Do not get sidetracked for preparing ad hoc swags.
+                                        </p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-12 col-md-6 col-lg-4 mb-4">
+                        <div className="card">
+                            <div className="card-header text-center">
+                                <img className="logo" src=${R("/images/Patreon_Mark_Primary.png")} alt="Patreon logo" />
+                                Patreon
+                            </div>
+                            <div className="card-body">
+                                <ul className="list-group">
+                                    <li className="list-group-item">
+                                        <p>Creators receive money</p>
+                                        <p className="text-muted mb-0">
+                                            Contributors do not know how their money contribution is spent.
+                                        </p>
+                                    </li>
+                                    <li className="list-group-item">
+                                        <p>5 to 12% + payment processor fees + payout fees</p>
+                                        <p className="text-muted mb-0">
+                                            5 to 12% depended on the plan in use, plus payment processor fees ranged from 2.9-6% + 10-30cents, plus payout fees.
+                                        </p>
+                                    </li>
+                                    <li className="list-group-item">
+                                        <p>Patron rewards recommended</p>
+                                        <p className="text-muted mb-0">
+                                            It is common for creators to prepare many patron-only rewards, which distract creators from their creative work.
+                                        </p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-12 col-md-6 col-lg-4 mb-4">
+                        <div className="card">
+                            <div className="card-header text-center">
+                                <img className="logo" src=${R("/images/kickstarter-logo-color.png")} alt="Kickstarter logo" />
+                                Kickstarter
+                            </div>
+                            <div className="card-body">
+                                <ul className="list-group">
+                                    <li className="list-group-item">
+                                        <p>Creators receive money</p>
+                                        <p className="text-muted mb-0">
+                                            Contributors do not know how their money contribution is spent.
+                                        </p>
+                                    </li>
+                                    <li className="list-group-item">
+                                        <p>5% + payment processor fees</p>
+                                        <p className="text-muted mb-0">
+                                            5% fee to the funds collected for creators, plus payment processing fees (roughly 3-5%).
+                                        </p>
+                                    </li>
+                                    <li className="list-group-item">
+                                        <p>Backer rewards recommended</p>
+                                        <p className="text-muted mb-0">
+                                            It is common for creators to prepare many backer rewards, which distract creators from their creative work.
+                                        </p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div className="jumbotron" style=${bgStyle(R("/images/max-nelson-1668370-unsplash-blur.jpg"))}>
                 <p className="lead text-center">
                     <a className="btn btn-primary btn-lg mt-3 my-5" href="/make-a-wish">

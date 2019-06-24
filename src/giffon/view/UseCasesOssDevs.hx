@@ -79,15 +79,15 @@ class UseCasesOssDevs extends Page {
                                 <ul className="list-group">
                                     <li className="list-group-item">Good for individuals</li>
                                     <li className="list-group-item">
-                                        <p>Individuals receive gifts <i className="fas fa-check text-success"></i></p>
+                                        <p>Developers receive gifts <i className="fas fa-check text-success"></i></p>
                                         <p className="text-muted mb-0">
-                                            Contributors know exactly how their money contribution is spent.
+                                            It is more likely for people to contribute if they know how their money will be spent.
                                         </p>
                                     </li>
                                     <li className="list-group-item">
-                                        <p>Free for developers <i className="fas fa-check text-success"></i></p>
+                                        <p>${(giffon.ChargeInfo.serviceChargeRate*100).trim().toString()}% fee <i className="fas fa-check text-success"></i></p>
                                         <p className="text-muted mb-0">
-                                            Giffon only imposes a 10% serive charge on the wish total value, which is shared among contributors.
+                                            The service charge is ${(giffon.ChargeInfo.serviceChargeRate*100).trim().toString()}% of the wish value, paid by contributions. Giffon is 100% free for developers.
                                         </p>
                                     </li>
                                 </ul>
@@ -110,9 +110,9 @@ class UseCasesOssDevs extends Page {
                                         </p>
                                     </li>
                                     <li className="list-group-item">
-                                        <p>Receive/pay out fees apply</p>
+                                        <p>5 or 10% + payment processor fees + payout fees</p>
                                         <p className="text-muted mb-0">
-                                            Up to 10% + payment processor fees depended on receive/pay out methods.
+                                            5 or 10% depended on handling method, plus roughly 3-5% payment processor fees, plus payout fees.
                                         </p>
                                     </li>
                                 </ul>
@@ -135,9 +135,9 @@ class UseCasesOssDevs extends Page {
                                         </p>
                                     </li>
                                     <li className="list-group-item">
-                                        <p>Processing fees apply (in future)</p>
+                                        <p>Unknown processing fees apply (in the future)</p>
                                         <p className="text-muted mb-0">
-                                            GitHub Sponsors is free in its first year, but it stated it may charge a nominal processing fee in the future.
+                                            GitHub Sponsors is free in its first year, but it <a href="https://help.github.com/en/articles/about-github-sponsors#about-the-github-sponsors-matching-fund" target="_blank" rel="noopener">stated</a> it may charge a nominal processing fee in the future.
                                         </p>
                                     </li>
                                 </ul>
