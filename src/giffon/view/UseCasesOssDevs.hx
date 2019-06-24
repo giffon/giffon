@@ -65,6 +65,88 @@ class UseCasesOssDevs extends Page {
                 </div>
             </div>
 
+            <div>
+                <h2>How does Giffon compare to other services?</h2>
+
+                <div className="row">
+                    <div className="col-12 col-md-6 col-lg-4 mb-4">
+                        <div className="card border-success">
+                            <div className="card-header text-center">
+                                <img className="logo" src=${R("/images/logo-bg.png")} alt="Giffon logo" />
+                                Giffon
+                            </div>
+                            <div className="card-body">
+                                <ul className="list-group">
+                                    <li className="list-group-item">Good for individuals</li>
+                                    <li className="list-group-item">
+                                        <p>Individuals receive gifts <i className="fas fa-check text-success"></i></p>
+                                        <p className="text-muted mb-0">
+                                            Contributors know exactly how their money contribution is spent.
+                                        </p>
+                                    </li>
+                                    <li className="list-group-item">
+                                        <p>Free for developers <i className="fas fa-check text-success"></i></p>
+                                        <p className="text-muted mb-0">
+                                            Giffon only imposes a 10% serive charge on the wish total value, which is shared among contributors.
+                                        </p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-12 col-md-6 col-lg-4 mb-4">
+                        <div className="card">
+                            <div className="card-header text-center">
+                                <img className="logo" src=${R("/images/opencollective.png")} alt="Open Collective logo" />
+                                Open Collective
+                            </div>
+                            <div className="card-body">
+                                <ul className="list-group">
+                                    <li className="list-group-item">Project/team-based</li>
+                                    <li className="list-group-item">
+                                        <p>Projects/teams receive money</p>
+                                        <p className="text-muted mb-0">
+                                            People state how the money is spent, but there is no enforcement or varification.
+                                        </p>
+                                    </li>
+                                    <li className="list-group-item">
+                                        <p>Receive/pay out fees apply</p>
+                                        <p className="text-muted mb-0">
+                                            Up to 10% + payment processor fees depended on receive/pay out methods.
+                                        </p>
+                                    </li>
+                                </ul>
+                                </div>
+                        </div>
+                    </div>
+                    <div className="col-12 col-md-6 col-lg-4 mb-4">
+                        <div className="card">
+                            <div className="card-header text-center">
+                                <img className="logo" src=${R("/images/mona-heart-featured.png")} alt="GitHub Sponsors logo" />
+                                GitHub Sponsors
+                            </div>
+                            <div className="card-body">
+                                <ul className="list-group">
+                                    <li className="list-group-item">Good for individuals</li>
+                                    <li className="list-group-item">
+                                        <p>Individuals receive money</p>
+                                        <p className="text-muted mb-0">
+                                            Contributors do not know how their money contribution is spent.
+                                        </p>
+                                    </li>
+                                    <li className="list-group-item">
+                                        <p>Processing fees apply (in future)</p>
+                                        <p className="text-muted mb-0">
+                                            GitHub Sponsors is free in its first year, but it stated it may charge a nominal processing fee in the future.
+                                        </p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div className="jumbotron" style=${bgStyle(R("/images/jefferson-santos-450403-unsplash-blur.jpg"))}>
                 <p className="lead text-center">
                     <a className="btn btn-primary btn-lg mt-3 my-5" href="/make-a-wish">

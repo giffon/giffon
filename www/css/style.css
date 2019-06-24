@@ -678,3 +678,10 @@ footer .social a:hover {
 .page-use-cases.page-use-cases-oss-developers .jumbotron {
     background-position-y: 60%;
 }
+
+.page-use-cases .card-header .logo {
+    object-fit: cover;
+    height: 5em;
+    display: block;
+    margin: 0 auto 1em auto;
+}
