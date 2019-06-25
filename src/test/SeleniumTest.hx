@@ -246,7 +246,7 @@ class SeleniumTest extends utest.Test {
         // go to user page
         var userLink:WebElement = driver.find_element_by_css_selector("a.nav-link.user-name");
         var userUrl:String = userLink.get_attribute("href");
-        Assert.match(~/\/user\/[A-Za-z0-9]+$/, userUrl);
+        Assert.match(~/\/user\?id=[A-Za-z0-9]+$/, userUrl);
         Assert.isTrue(userUrl.startsWith(baseUrl));
         driver.get(userUrl);
         assertNoLog();
