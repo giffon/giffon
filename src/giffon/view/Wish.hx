@@ -232,7 +232,7 @@ class Wish extends Page {
             if (supportAmountIsVisible(supporter) == amountVisible)
             jsx('
                 <div key=${supporter.user.user_id}>
-                    <a href=${"/user/" + supporter.user.user_hashid} className="d-inline-flex flex-nowrap align-items-center text-light">
+                    <a href=${supporter.user.user_profile_url} className="d-inline-flex flex-nowrap align-items-center text-light">
                         <div className="supporter-avatar rounded-circle" style=${userAvatarStyle(supporter.user)} />
                         <div className="pl-2">${supporter.user.user_name}${supportAmount(supporter)}</div>
                     </a>
@@ -359,7 +359,7 @@ class Wish extends Page {
                                 <div className="wish-owner-avatar rounded-circle" style=${userAvatarStyle(wish.wish_owner)} />
                                 <div className="pl-3 font_xs_xs font_md_s" style=${{flex: 1}}>
                                     Wish Owner
-                                    <h3 className="font_xs_l font_md_xl"><a href=${Path.join(["/user", wish.wish_owner.user_hashid])}>${wish.wish_owner.user_name}</a></h3>
+                                    <h3 className="font_xs_l font_md_xl"><a href=${wish.wish_owner.user_profile_url}>${wish.wish_owner.user_name}</a></h3>
                                 </div>
                             </div>
                         </div>

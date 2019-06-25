@@ -47,6 +47,6 @@ class Settings {
             }, user.user_id]
         ).handleError(next).toPromise();
 
-        res.sendPlainText(absPath('/user/${user.user_hashid}'));
+        res.sendPlainText(absPath(user.user_profile_url));
     };
 }

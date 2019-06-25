@@ -22,7 +22,7 @@ class User extends Page {
     function get_socialProfiles() return props.socialProfiles;
 
     override function title() return '${pageUser.user_name} - Giffon';
-    override function path() return Path.join(["user", pageUser.user_hashid]);
+    override function path() return pageUser.user_profile_url;
     override function render() return super.render();
 
     override function bodyClasses() return super.bodyClasses().concat(["page-user"]);

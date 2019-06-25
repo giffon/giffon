@@ -18,12 +18,30 @@ using giffon.server.PromiseTools;
 class User {
     static public function createRouter():Router {
         var router = new Router();
-        router.get("/user/:pageUser_hashid", handleGet);
+        router.get("/user/:pageUser_url", handleGetByUrl);
+        router.get("/user", handleGetByHashId);
         return router;
     }
 
-    @await static function handleGet(req, res:Response, next):Void {
-        var pageUser_hashid = req.params.pageUser_hashid;
+    @await static function handleGetByUrl(req:Request, res:Response, next):Void {
+        var pageUser_url = req.params.pageUser_url;
+        var pageUser_id = @await getUserIdFromUrl(pageUser_url);
+        if (pageUser_id == null) {
+            res.sendPlainError("There is no such user.", 404);
+            return;
+        }
+        var pageUser = @await getUser(pageUser_id);
+        var wishes = @await getWishes(pageUser_id);
+        var socialProfiles = @await getSocialProfiles(pageUser_id);
+        res.sendPage(giffon.view.User, {
+            pageUser: pageUser,
+            wishes: wishes,
+            socialProfiles: socialProfiles,
+        });
+    }
+
+    @await static function handleGetByHashId(req:Request, res:Response, next):Void {
+        var pageUser_hashid = req.query.id;
         var pageUser_id = @await getUserIdFromHash(pageUser_hashid);
         if (pageUser_id == null) {
             res.sendPlainError("There is no such user.", 404);

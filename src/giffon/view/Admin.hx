@@ -23,7 +23,7 @@ class Admin extends Page {
                 <div className="bg_white shadow p-3 font_xs_xs font_md_s">
                     <div className="">
                         <div className="font_xs_s font_md_m"><a href=${Path.join(["/wish", wish.wish_hashid])}>${wish.wish_title}</a></div>
-                        <div className="font_xs_s font_md_m"><a href=${Path.join(["/user", wish.wish_owner.user_hashid])}>${wish.wish_owner.user_name}</a></div>
+                        <div className="font_xs_s font_md_m"><a href=${wish.wish_owner.user_profile_url}>${wish.wish_owner.user_name}</a></div>
                         <div className="font_xs_s font_md_m">${wish.wish_currency.getName()} ${wish.wish_pledged.toString()} / ${wish.wish_total_needed.amount.toString()}</div>
                     </div>
                 </div>

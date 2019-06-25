@@ -211,7 +211,26 @@ class ServerMain {
             return null;
         } else if (results.length > 1) {
             throw 'There are ${results.length} users with the hashid ${user_hashid}.';
-        } else  {
+        } else {
+            return results[0].user_id;
+        }
+    }
+
+    @async static public function getUserIdFromUrl(user_url:String):Null<Int> {
+        var results:QueryResults = (@await dbConnectionPool.query(
+            "
+                SELECT `user_id`
+                FROM user_url
+                WHERE `user_url` = ?
+            ",
+            [user_url]
+        ).toPromise()).results;
+
+        if (results == null || results.length == 0) {
+            return null;
+        } else if (results.length > 1) {
+            throw 'There are ${results.length} users with the url ${user_url}.';
+        } else {
             return results[0].user_id;
         }
     }
@@ -474,12 +493,13 @@ class ServerMain {
     @async static public function getUser(user_id:Int):giffon.db.User {
         var results:QueryResults = (@await dbConnectionPool.query(
             "
-                SELECT `user_id`, `user_hashid`, `user_primary_email`, `user_name`, `user_avatar`, `user_description`
-                FROM user
-                WHERE `user_id` = ?
+                SELECT user.`user_id`, `user_hashid`, `user_primary_email`, `user_name`, `user_avatar`, `user_description`, `user_url`
+                FROM user LEFT JOIN user_url ON user.user_id = user_url.user_id
+                WHERE user.`user_id` = ?
             ",
             [user_id]
         ).toPromise()).results;
+
         if (results == null || results.length < 1)
             return null;
         if (results.length > 1)
@@ -492,6 +512,7 @@ class ServerMain {
             user_name:String,
             user_avatar:js.node.Buffer,
             user_description:Null<String>,
+            user_url:Null<String>,
         } = results[0];
         return {
             user_id: user.user_id,
@@ -505,6 +526,12 @@ class ServerMain {
                     ImageDataUri.encode(buf, "JPEG");
             },
             user_description: user.user_description,
+            user_profile_url: switch (user.user_url) {
+                case null:
+                    '/user?id=${user.user_hashid}';
+                case url:
+                    '/user/${url}';
+            },
         };
     }
 
@@ -1052,34 +1079,6 @@ class ServerMain {
                 return;
             }
         });
-
-        // print user data
-        switch (Stage.stage) {
-            case Production, Master: //pass
-            case Dev:
-                app.get("/user", ensureLoggedIn, function(req, res:Response) {
-                    res.setHeader('Content-Type', 'application/json');
-                    res.send(haxe.Json.stringify(res.getUser(), null, "  "));
-                });
-        }
-
-        // app.get("/user/:user_hashid", @await function(req:Request, res:Response) {
-        //     try {
-        //         var user_hashid = req.params.user_hashid;
-        //         var user_id = @await getUserIdFromHash(user_hashid);
-        //         if (user_id == null) {
-        //             res.sendPlainError("There is no such user.", 404);
-        //         } else {
-        //             var wishes = @await getWishes(user_id);
-        //             res.render("user", {
-        //                 wishes: wishes
-        //             });
-        //         }
-        //     } catch (err:Dynamic) {
-        //         res.sendPlainError(err);
-        //         return;
-        //     }
-        // });
 
         app.use(giffon.server.Admin.createRouter());
         app.use(giffon.server.User.createRouter());
