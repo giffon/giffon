@@ -1,9 +1,12 @@
 package giffon.server;
 
 import js.npm.express.*;
+import js.npm.mysql2.*;
+import js.moment.Moment;
 import giffon.server.ServerMain.*;
 import tink.core.Error;
 import giffon.Utils.*;
+using thx.Dates;
 using tink.core.Future.JsPromiseTools;
 using giffon.ResponseTools;
 using giffon.server.PromiseTools;
@@ -37,15 +40,67 @@ class Settings {
 
         @await dbConnectionPool.query(
             "
-                UPDATE `user` SET ?
-                WHERE `user_id` = ?;
+                UPDATE `user` SET ? WHERE `user_id` = ?;
             ",
-            [{
-                user_name: settingsFormData.user_name,
-                user_primary_email: settingsFormData.user_primary_email.length > 0 ? settingsFormData.user_primary_email : null,
-                user_description: settingsFormData.user_description.length > 0 ? settingsFormData.user_description : null,
-            }, user.user_id]
+            [
+                {
+                    user_name: settingsFormData.user_name,
+                    user_primary_email: settingsFormData.user_primary_email.length > 0 ? settingsFormData.user_primary_email : null,
+                    user_description: settingsFormData.user_description.length > 0 ? settingsFormData.user_description : null,
+                },
+                user.user_id,
+            ]
         ).handleError(next).toPromise();
+
+        if (settingsFormData.user_url == "") {
+            @await dbConnectionPool.query(
+                "
+                    UPDATE user_url SET is_latest=0 WHERE user_id = ?;
+                ",
+                [
+                    user.user_id,
+                ]
+            ).handleError(next).toPromise();
+        } else if (user.user_profile_url != '/user/${settingsFormData.user_url}') {
+            // check the latest update time
+            var results:QueryResults = (@await dbConnectionPool.query(
+                "
+                    SELECT time_created
+                    FROM user_url
+                    WHERE user_id = ?
+                    ORDER BY time_created DESC
+                    LIMIT 1
+                ",
+                [user.user_id]
+            ).toPromise()).results;
+
+            if (results != null && results.length > 0) {
+                var lastUpdated:Date = results[0].time_created;
+                var cantUpdateBefore:Date = lastUpdated.jump(Day, 1);
+                if (Date.now().less(cantUpdateBefore)) {
+                    res.sendPlainError('Cannot update custom profile URL before ${Moment.moment(cantUpdateBefore).format()}', BadRequest);
+                    return;
+                }
+            }
+
+            @await dbConnectionPool.query(
+                "
+                    START TRANSACTION;
+                    UPDATE user_url SET is_latest=0 WHERE user_id = ?;
+                    INSERT INTO user_url SET ?;
+                    COMMIT;
+                ",
+                [
+                    user.user_id,
+                    {
+                        user_id: user.user_id,
+                        user_url: settingsFormData.user_url,
+                    }
+                ]
+            ).handleError(next).toPromise();
+        }
+
+        user = @await getUser(user.user_id);
 
         res.sendPlainText(absPath(user.user_profile_url));
     };

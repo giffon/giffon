@@ -96,6 +96,20 @@ class SettingsForm extends ReactComponent {
                         />
                     </div>
                     <div className="form-group">
+                        <label htmlFor="user_url">
+                            Custom profile url
+                        </label>
+                        <div className="d-flex align-items-center">
+                            <span className="pr-1">https://giffon.io/user/</span>
+                            <Field
+                                className="form-control" id="user_url"
+                                name="user_url"
+                                maxlength=${SettingsFormData.user_url_max}
+                            />
+                        </div>
+                        <small className="text-muted">Once set, it can not be changed within 24 hours. Available characters: <pre className="d-inline">A-Z a-z 0-9 . _</pre></small>
+                    </div>
+                    <div className="form-group">
                         <label htmlFor="user_primary_email">
                             Email
                         </label>

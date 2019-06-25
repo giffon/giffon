@@ -494,7 +494,7 @@ class ServerMain {
         var results:QueryResults = (@await dbConnectionPool.query(
             "
                 SELECT user.`user_id`, `user_hashid`, `user_primary_email`, `user_name`, `user_avatar`, `user_description`, `user_url`
-                FROM user LEFT JOIN user_url ON user.user_id = user_url.user_id
+                FROM user LEFT JOIN (SELECT * FROM user_url WHERE is_latest=1) AS user_url ON user.user_id = user_url.user_id
                 WHERE user.`user_id` = ?
             ",
             [user_id]
