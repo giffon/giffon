@@ -114,7 +114,7 @@ class UseCasesOssDevs extends Page {
                                     <li className="list-group-item">
                                         <p>Projects/teams receive money</p>
                                         <p className="text-muted mb-0">
-                                            People state how the money is spent, but there is no enforcement or varification.
+                                            People state how the money is spent, but there is no enforcement or verification.
                                         </p>
                                     </li>
                                     <li className="list-group-item">
