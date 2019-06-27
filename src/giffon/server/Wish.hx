@@ -151,8 +151,20 @@ class Wish {
             res.sendPlainError("Invalid coupon code", BadRequest);
             return;
         }
+
         if (coupon.coupon_deadline != null && coupon.coupon_deadline.getTime() < Date.now().getTime()) {
             res.sendPlainError("Coupon expired", BadRequest);
+            return;
+        }
+
+        switch (coupon.coupon_social) {
+            case null: //pass
+            case socials:
+                var profiles = @await getSocialProfiles(user.user_id);
+                if (!socials.exists(function(s) return Reflect.field(profiles, '${s}_profile') != null)) {
+                    res.sendPlainError('Coupon is only applicable to accounts that are connected to ${socials.join(" or ")}.', BadRequest);
+                    return;
+                }
         }
 
         var usedCoupons = @await getCouponUsedByUser(user.user_id);

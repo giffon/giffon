@@ -598,7 +598,7 @@ class ServerMain {
     @async static public function getCoupon(coupon_id:Int):Null<giffon.db.Coupon> {
         var results:QueryResults = (@await dbConnectionPool.query(
             "
-                SELECT coupon_id, coupon_creator_id, coupon_code, coupon_value_HKD, coupon_value_USD, coupon_quota, coupon_deadline
+                SELECT coupon_id, coupon_creator_id, coupon_code, coupon_value_HKD, coupon_value_USD, coupon_quota, coupon_deadline, coupon_social
                 FROM coupon
                 WHERE coupon_id = ?
             ",
@@ -617,6 +617,7 @@ class ServerMain {
             coupon_value_USD:Null<String>,
             coupon_quota:Null<Int>,
             coupon_deadline:Null<Date>,
+            coupon_social:Null<Array<String>>,
         } = results[0];
         return {
             coupon_id: r.coupon_id,
@@ -626,6 +627,7 @@ class ServerMain {
             coupon_value_USD: Decimal.fromString(r.coupon_value_USD),
             coupon_quota: r.coupon_quota,
             coupon_deadline: r.coupon_deadline,
+            coupon_social: r.coupon_social,
         }
     }
 

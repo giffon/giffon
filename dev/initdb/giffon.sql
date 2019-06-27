@@ -29,6 +29,7 @@ CREATE TABLE `coupon` (
   `coupon_value_USD` decimal(16,4) DEFAULT NULL,
   `coupon_quota` int(11) DEFAULT NULL,
   `coupon_deadline` timestamp NULL DEFAULT NULL,
+  `coupon_social` json DEFAULT NULL,
   PRIMARY KEY (`coupon_id`),
   UNIQUE KEY `coupon_UN` (`coupon_code`),
   KEY `coupon_user_FK` (`coupon_creator_id`),

@@ -10,4 +10,5 @@ typedef Coupon = {
     coupon_value_USD:Null<Decimal>,
     coupon_quota:Null<Int>,
     coupon_deadline:Null<Date>,
+    coupon_social:Null<Array<String>>,
 }
