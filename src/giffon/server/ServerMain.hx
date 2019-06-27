@@ -554,6 +554,24 @@ class ServerMain {
         return p.filter(function(c) return c != null);
     }
 
+    @async static public function getCouponNumUsed(coupon_id:Int):Int {
+        var results:QueryResults = (@await dbConnectionPool.query(
+            '
+                SELECT COUNT(coupon_id) AS num_used
+                FROM wish
+                INNER JOIN pledge ON wish.wish_id = pledge.wish_id
+                INNER JOIN pledge_coupon ON pledge.pledge_id = pledge_coupon.pledge_id
+                WHERE pledge_coupon.coupon_id = ? AND wish.wish_state != "cancelled"
+            ',
+            [coupon_id]
+        ).toPromise()).results;
+
+        if (results == null || results.length < 1)
+            return 0;
+        
+        return results[0].num_used;
+    }
+
     @async static public function getCouponsAppliedToWish(wish_id:Int):Array<giffon.db.Coupon> {
         var results:QueryResults = (@await dbConnectionPool.query(
             "

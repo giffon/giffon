@@ -173,7 +173,16 @@ class Wish {
             return;
         }
 
-        // TODO check quota
+        switch (coupon.coupon_quota) {
+            case null: //pass
+            case quota:
+                var numUsed = @await getCouponNumUsed(coupon.coupon_id);
+                if (numUsed >= quota) {
+                    res.sendPlainError('Coupon quota is full (${quota}).', BadRequest);
+                    return;
+                }
+        }
+
         var coupon_value:Decimal = Reflect.field(coupon, "coupon_value_" + wish.wish_currency.getName());
 
         @await dbConnectionPool.query(
