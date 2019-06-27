@@ -32,6 +32,14 @@ class UseCasesOssDevs extends Page {
             </p>
             <p><a href="/make-a-wish">Make a wish</a> in Giffon and let the community buy you a gift!</p>
 
+            <div class="row justify-content-md-center">
+                <div className="alert alert-info col-md-8" role="alert">
+                    <h4 class="alert-heading"><i className="fas fa-ticket-alt"></i> Coupon</h4>
+                    <p>Use the coupon code <span className="d-inline border bg-light p-1">OSS_ROCKS_JULY</span> on your wish to instantly get a 35 HKD or 5 USD pledge from Giffon.</p>
+                    <p className="text-muted mb-0">Applicable only to users connected with a GitHub or GitLab account. Valid until 2019-07-31. Limited quota: 50 users only!</p>
+                </div>
+            </div>
+
             <h2>Wish ideas</h2>
             <p>Here are some goodies that can be useful to open source developers.</p>
 
