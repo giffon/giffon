@@ -920,7 +920,7 @@ class ServerMain {
             passReqToCallback: true,
         }, passportHandler);
 
-        var ggStrategy = new YoutubeV3Strategy({
+        var ytStrategy = new YoutubeV3Strategy({
             clientID: GoogleInfo.GOOGLE_CLIENT_ID,
             clientSecret: GoogleInfo.GOOGLE_CLIENT_SECRET,
             callbackURL: absPath("/callback/youtube"),
@@ -939,6 +939,7 @@ class ServerMain {
         Passport.use(twStrategy);
         Passport.use(glStrategy);
         Passport.use(ggStrategy);
+        Passport.use(ytStrategy);
         app.use(Passport.initialize());
         app.use(Passport.session());
 
