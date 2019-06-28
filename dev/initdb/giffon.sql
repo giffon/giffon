@@ -188,7 +188,7 @@ CREATE TABLE `user_github` (
 CREATE TABLE `user_gitlab` (
   `user_id` int(11) NOT NULL,
   `gitlab_id` varchar(64) COLLATE utf8mb4_bin NOT NULL,
-  `passport_profile` json DEFAULT NULL,
+  `passport_profile` json NOT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_gitlab_UN` (`gitlab_id`),
   CONSTRAINT `user_gitlab_FK` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
@@ -204,7 +204,7 @@ CREATE TABLE `user_gitlab` (
 CREATE TABLE `user_google` (
   `user_id` int(11) NOT NULL,
   `google_id` varchar(64) COLLATE utf8mb4_bin NOT NULL,
-  `passport_profile` json DEFAULT NULL,
+  `passport_profile` json NOT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_google_UN` (`google_id`),
   CONSTRAINT `user_google_FK` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
@@ -241,6 +241,22 @@ CREATE TABLE `user_stripe` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `user_twitch`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_twitch` (
+  `user_id` int(11) NOT NULL,
+  `twitch_id` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  `passport_profile` json NOT NULL,
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `user_twitch_UN` (`twitch_id`),
+  CONSTRAINT `user_twitch_user_FK` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `user_twitter`
 --
 
@@ -249,7 +265,7 @@ CREATE TABLE `user_stripe` (
 CREATE TABLE `user_twitter` (
   `user_id` int(11) NOT NULL,
   `twitter_id` varchar(64) COLLATE utf8mb4_bin NOT NULL,
-  `passport_profile` json DEFAULT NULL,
+  `passport_profile` json NOT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_twitter_UN` (`twitter_id`),
   CONSTRAINT `user_twitter_FK` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
@@ -282,7 +298,10 @@ CREATE TABLE `user_url` (
 CREATE TABLE `user_youtube` (
   `user_id` int(11) NOT NULL,
   `youtube_id` varchar(64) COLLATE utf8mb4_bin NOT NULL,
-  `passport_profile` json NOT NULL
+  `passport_profile` json NOT NULL,
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `user_youtube_UN` (`youtube_id`),
+  CONSTRAINT `user_youtube_user_FK` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
