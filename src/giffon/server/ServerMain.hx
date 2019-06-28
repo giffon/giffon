@@ -5,6 +5,7 @@ import js.npm.express.*;
 import js.npm.mysql2.*;
 import js.npm.mysql2.promise.*;
 import js.npm.passport.*;
+import js.npm.passport.strategy.*;
 import js.npm.image_data_uri.ImageDataUri;
 import js.npm.stripe.Stripe;
 import hashids.Hashids;
@@ -23,31 +24,6 @@ using giffon.ResponseTools;
 using giffon.server.PromiseTools;
 using Lambda;
 using StringTools;
-
-@:jsRequire("passport-facebook", "Strategy")
-extern class FacebookStrategy {
-    public function new(options:Dynamic, callb:Dynamic):Void;
-}
-@:jsRequire("passport-github", "Strategy")
-extern class GitHubStrategy {
-    public function new(options:Dynamic, callb:Dynamic):Void;
-}
-@:jsRequire("passport-twitter", "Strategy")
-extern class TwitterStrategy {
-    public function new(options:Dynamic, callb:Dynamic):Void;
-}
-@:jsRequire("passport-gitlab2", "Strategy")
-extern class GitLabStrategy {
-    public function new(options:Dynamic, callb:Dynamic):Void;
-}
-@:jsRequire("passport-google-oauth20", "Strategy")
-extern class GoogleStrategy {
-    public function new(options:Dynamic, callb:Dynamic):Void;
-}
-@:jsRequire("passport-youtube-v3", "Strategy")
-extern class YoutubeV3Strategy {
-    public function new(options:Dynamic, callb:Dynamic):Void;
-}
 
 @await
 class ServerMain {
