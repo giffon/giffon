@@ -6,4 +6,5 @@ enum AuthMethod {
     Twitter;
     Gitlab;
     Google;
+    Youtube;
 }

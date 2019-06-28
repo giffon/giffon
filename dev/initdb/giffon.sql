@@ -34,7 +34,7 @@ CREATE TABLE `coupon` (
   UNIQUE KEY `coupon_UN` (`coupon_code`),
   KEY `coupon_user_FK` (`coupon_creator_id`),
   CONSTRAINT `coupon_user_FK` FOREIGN KEY (`coupon_creator_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -144,7 +144,7 @@ CREATE TABLE `user` (
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_hashid` (`user_hashid`),
   KEY `user_primary_email` (`user_primary_email`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -270,6 +270,19 @@ CREATE TABLE `user_url` (
   PRIMARY KEY (`user_url`),
   KEY `user_url_user_FK` (`user_id`),
   CONSTRAINT `user_url_user_FK` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `user_youtube`
+--
+
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_youtube` (
+  `user_id` int(11) NOT NULL,
+  `youtube_id` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  `passport_profile` json NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

@@ -18,6 +18,7 @@ class User extends Page {
         google_profile:Null<js.npm.passport.Profile>,
         github_profile:Null<js.npm.passport.Profile>,
         gitlab_profile:Null<js.npm.passport.Profile>,
+        youtube_profile:Null<js.npm.passport.Profile>,
     };
     function get_socialProfiles() return props.socialProfiles;
 
@@ -39,6 +40,8 @@ class User extends Page {
                 socialProfiles.github_profile;
             case "gitlab":
                 socialProfiles.gitlab_profile;
+            case "youtube":
+                socialProfiles.youtube_profile;
             case _:
                 throw "unknow social network name: " + name;
         }
@@ -52,6 +55,7 @@ class User extends Page {
             case "twitter": 'https://twitter.com/${profile.username}';
             case "github": 'https://github.com/${profile.username}';
             case "gitlab": 'https://gitlab.com/${profile.username}';
+            case "youtube": 'https://www.youtube.com/channel/${profile.id}';
             case _: throw "unknow social network name: " + name;
         }
 
@@ -72,6 +76,8 @@ class User extends Page {
                 '@${socialProfiles.github_profile.username}';
             case "gitlab":
                 '@${socialProfiles.gitlab_profile.username}';
+            case "youtube":
+                '${socialProfiles.youtube_profile.displayName}';
             case _:
                 throw "unknow social network name: " + name;
         }
@@ -225,6 +231,7 @@ class User extends Page {
                     ${socialProfile("google")}
                     ${socialProfile("github")}
                     ${socialProfile("gitlab")}
+                    ${socialProfile("youtube")}
                 </div>
             </div>
             ${sectionDescription()}

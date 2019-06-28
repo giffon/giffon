@@ -44,6 +44,10 @@ extern class GitLabStrategy {
 extern class GoogleStrategy {
     public function new(options:Dynamic, callb:Dynamic):Void;
 }
+@:jsRequire("passport-youtube-v3", "Strategy")
+extern class YoutubeV3Strategy {
+    public function new(options:Dynamic, callb:Dynamic):Void;
+}
 
 @await
 class ServerMain {
@@ -155,7 +159,7 @@ class ServerMain {
 
     @async static function getUserIdFromPassportProfile(profile:js.npm.passport.Profile):Null<Int> {
         switch(profile.provider) {
-            case p = "facebook" | "github" | "twitter" | "gitlab" | "google":
+            case p = "facebook" | "github" | "twitter" | "gitlab" | "google" | "youtube":
                 var results:QueryResults = (@await dbConnectionPool.query(
                     'SELECT user_id FROM user_${p} WHERE ${p}_id=?', 
                     [profile.id]
@@ -440,16 +444,23 @@ class ServerMain {
         google_profile:Null<js.npm.passport.Profile>,
         github_profile:Null<js.npm.passport.Profile>,
         gitlab_profile:Null<js.npm.passport.Profile>,
+        youtube_profile:Null<js.npm.passport.Profile>,
     } {
         var results:QueryResults = (@await dbConnectionPool.query(
             "
-                SELECT user_facebook.passport_profile AS facebook_profile, user_twitter.passport_profile AS twitter_profile, user_google.passport_profile AS google_profile, user_github.passport_profile AS github_profile, user_gitlab.passport_profile AS gitlab_profile
+                SELECT  user_facebook.passport_profile AS facebook_profile,
+                        user_twitter.passport_profile AS twitter_profile,
+                        user_google.passport_profile AS google_profile,
+                        user_github.passport_profile AS github_profile,
+                        user_gitlab.passport_profile AS gitlab_profile,
+                        user_youtube.passport_profile AS youtube_profile
                 FROM user
                 LEFT OUTER JOIN user_facebook ON user.user_id = user_facebook.user_id
                 LEFT OUTER JOIN user_twitter ON user.user_id = user_twitter.user_id
                 LEFT OUTER JOIN user_google ON user.user_id = user_google.user_id
                 LEFT OUTER JOIN user_github ON user.user_id = user_github.user_id
                 LEFT OUTER JOIN user_gitlab ON user.user_id = user_gitlab.user_id
+                LEFT OUTER JOIN user_youtube ON user.user_id = user_youtube.user_id
                 WHERE user.user_id = ?
             ",
             [user_id]
@@ -468,16 +479,18 @@ class ServerMain {
         google_id:Null<String>,
         github_id:Null<String>,
         gitlab_id:Null<String>,
+        youtube_id:Null<String>,
     } {
         var results:QueryResults = (@await dbConnectionPool.query(
             "
-                SELECT facebook_id, twitter_id, google_id, github_id, gitlab_id
+                SELECT facebook_id, twitter_id, google_id, github_id, gitlab_id, youtube_id
                 FROM user
                 LEFT OUTER JOIN user_facebook ON user.user_id = user_facebook.user_id
                 LEFT OUTER JOIN user_twitter ON user.user_id = user_twitter.user_id
                 LEFT OUTER JOIN user_google ON user.user_id = user_google.user_id
                 LEFT OUTER JOIN user_github ON user.user_id = user_github.user_id
                 LEFT OUTER JOIN user_gitlab ON user.user_id = user_gitlab.user_id
+                LEFT OUTER JOIN user_youtube ON user.user_id = user_youtube.user_id
                 WHERE user.user_id = ?
             ",
             [user_id]
@@ -768,7 +781,7 @@ class ServerMain {
 
     @async static function savePassportProfile(user_id:Int, profile:js.npm.passport.Profile) {
         switch(profile.provider) {
-            case p = "facebook" | "github" | "twitter" | "gitlab" | "google":
+            case p = "facebook" | "github" | "twitter" | "gitlab" | "google" | "youtube":
                 return @await dbConnectionPool.query(
                     'INSERT INTO user_${p} SET user_id=?, ${p}_id=?, passport_profile=?',
                     ([user_id, profile.id, Json.stringify(profile)]:Array<Dynamic>)
@@ -781,7 +794,7 @@ class ServerMain {
 
     @async static function updatePassportProfile(user_id:Int, profile:js.npm.passport.Profile) {
         switch(profile.provider) {
-            case p = "facebook" | "github" | "twitter" | "gitlab" | "google":
+            case p = "facebook" | "github" | "twitter" | "gitlab" | "google" | "youtube":
                 return @await dbConnectionPool.query(
                     'UPDATE user_${p} SET passport_profile=? WHERE user_id=? && ${p}_id=?',
                     ([Json.stringify(profile), user_id, profile.id]:Array<Dynamic>)
@@ -904,6 +917,14 @@ class ServerMain {
             clientID: GoogleInfo.GOOGLE_CLIENT_ID,
             clientSecret: GoogleInfo.GOOGLE_CLIENT_SECRET,
             callbackURL: absPath("/callback/google"),
+            passReqToCallback: true,
+        }, passportHandler);
+
+        var ggStrategy = new YoutubeV3Strategy({
+            clientID: GoogleInfo.GOOGLE_CLIENT_ID,
+            clientSecret: GoogleInfo.GOOGLE_CLIENT_SECRET,
+            callbackURL: absPath("/callback/youtube"),
+            scope: ['https://www.googleapis.com/auth/youtube.readonly'],
             passReqToCallback: true,
         }, passportHandler);
 
