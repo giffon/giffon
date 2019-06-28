@@ -152,6 +152,7 @@ class ServerMain {
             }
             return results[0].user_id;
         }
+        return null;
     }
 
     @async static function getUserIdFromEmail(email:Null<String>):Null<Int> {
@@ -681,8 +682,12 @@ class ServerMain {
             user_id = signedInUser.user_id;
 
             var socialIds:DynamicAccess<String> = @await getSocialIds(user_id);
+            var p = switch (profile.provider) {
+                case "twitch.js": "twitch";
+                case p: p;
+            }
 
-            if (socialIds[profile.provider + "_id"] == null)
+            if (socialIds[p + "_id"] == null)
                 try {
                     @await savePassportProfile(user_id, profile);
                 } catch(err:Dynamic) {
@@ -1029,7 +1034,7 @@ class ServerMain {
             var auth_method_lower = auth_method.getName().toLowerCase();
             var pName = switch(auth_method) {
                 case Twitch: "twitch.js";
-                case m: auth_method_lower;
+                case _: auth_method_lower;
             };
             app.get('/signin/${auth_method_lower}',
                 function(req:Request, res:Response, next) {
@@ -1082,7 +1087,7 @@ class ServerMain {
             }
             var pName = switch(auth_method) {
                 case "twitch": "twitch.js";
-                case m: m;
+                case _: auth_method;
             }
             Passport.authenticate(pName, function (err, user:giffon.db.User, info) {
                 if (err != null) {
