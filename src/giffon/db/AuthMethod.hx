@@ -7,4 +7,5 @@ enum AuthMethod {
     Gitlab;
     Google;
     Youtube;
+    Twitch;
 }

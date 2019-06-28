@@ -40,6 +40,7 @@ class Settings extends Page {
         github_profile:Null<js.npm.passport.Profile>,
         gitlab_profile:Null<js.npm.passport.Profile>,
         youtube_profile:Null<js.npm.passport.Profile>,
+        twitch_profile:Null<js.npm.passport.Profile>,
     };
     function get_socialProfiles() return props.socialProfiles;
 
@@ -59,6 +60,8 @@ class Settings extends Page {
                 socialProfiles.gitlab_profile != null;
             case "youtube":
                 socialProfiles.youtube_profile != null;
+            case "twitch":
+                socialProfiles.twitch_profile != null;
             case _:
                 throw "unknow social network name: " + name;
         }
@@ -101,6 +104,8 @@ class Settings extends Page {
                     'Disconnect (${socialProfiles.gitlab_profile.username})';
                 case "youtube":
                     'Disconnect (${socialProfiles.youtube_profile.displayName})';
+                case "twitch":
+                    'Disconnect (${socialProfiles.twitch_profile.login})';
                 case _:
                     throw "unknow social network name: " + name;
             }
@@ -156,6 +161,12 @@ class Settings extends Page {
                         <label className="col-4 col-lg-2 col-form-label"><i className="fab fa-youtube"></i> YouTube</label>
                         <div className="col">
                             ${socialButton("youtube")}
+                        </div>
+                    </div>
+                    <div className="form-group row my-0">
+                        <label className="col-4 col-lg-2 col-form-label"><i className="fab fa-twitch"></i> Twitch</label>
+                        <div className="col">
+                            ${socialButton("twitch")}
                         </div>
                     </div>
                 </div>

@@ -42,6 +42,8 @@ provider:
     GITLAB_APP_SECRET: ${ssm:GITLAB_APP_SECRET}
     GOOGLE_CLIENT_ID: ${ssm:GOOGLE_CLIENT_ID}
     GOOGLE_CLIENT_SECRET: ${ssm:GOOGLE_CLIENT_SECRET}
+    TWITCH_CLIENT_ID: ${ssm:TWITCH_CLIENT_ID}
+    TWITCH_CLIENT_SECRET: ${ssm:TWITCH_CLIENT_SECRET}
   apiGateway:
     binaryMediaTypes:
       - '*/*'
