@@ -32,11 +32,36 @@ class SignIn extends Page {
                         <h2 className="card-title mb-4">Sign in / Sign up</h2>
 
                         <div style=${{fontFamily: "Roboto"}}>
-                            <div className="mb-2"><a className="signInBtn d-flex align-items-center border-bottom rounded-sm shadow-sm p-2" href="/signin/facebook"><img className="logo mx-1" src=${R('/images/Facebook logo 2019.svg')} alt="Facebook logo"/><span className="flex-grow-1 text-center">Sign in with Facebook</span></a></div>
-                            <div className="mb-2"><a className="signInBtn d-flex align-items-center border-bottom rounded-sm shadow-sm p-2" href="/signin/twitter"><img className="logo mx-1" src=${R('/images/Twitter_Logo_WhiteOnBlue.svg')} alt="Twitter logo"/><span className="flex-grow-1 text-center">Sign in with Twitter</span></a></div>
-                            <div className="mb-2"><a className="signInBtn d-flex align-items-center border-bottom rounded-sm shadow-sm p-2" href="/signin/google"><img className="logo mx-1" src=${R('/images/Google__G__Logo.svg')} alt="Google logo"/><span className="flex-grow-1 text-center">Sign in with Google</span></a></div>
-                            <div className="mb-2"><a className="signInBtn d-flex align-items-center border-bottom rounded-sm shadow-sm p-2" href="/signin/github"><img className="logo mx-1" src=${R('/images/github-seeklogo.com.svg')} alt="GitHub logo"/><span className="flex-grow-1 text-center">Sign in with GitHub</span></a></div>
-                            <div className="mb-2"><a className="signInBtn d-flex align-items-center border-bottom rounded-sm shadow-sm p-2" href="/signin/github"><img className="logo mx-1" src=${R('/images/gitlab-icon-rgb.svg')} alt="GitLab logo"/><span className="flex-grow-1 text-center">Sign in with GitLab</span></a></div>
+                            <SignInButton
+                                networkName="Facebook"
+                                logo=${R("/images/Facebook logo 2019.svg")}
+                                href="/signin/facebook"
+                                label="Sign in with Facebook"
+                            />
+                            <SignInButton
+                                networkName="Twitter"
+                                logo=${R("/images/Twitter_Logo_WhiteOnBlue.svg")}
+                                href="/signin/twitter"
+                                label="Sign in with Twitter"
+                            />
+                            <SignInButton
+                                networkName="Google"
+                                logo=${R("/images/Google__G__Logo.svg")}
+                                href="/signin/google"
+                                label="Sign in with Google"
+                            />
+                            <SignInButton
+                                networkName="GitHub"
+                                logo=${R("/images/github-seeklogo.com.svg")}
+                                href="/signin/github"
+                                label="Sign in with Github"
+                            />
+                            <SignInButton
+                                networkName="GitLab"
+                                logo=${R("/images/gitlab-icon-rgb.svg")}
+                                href="/signin/gitlab"
+                                label="Sign in with GitLab"
+                            />
                         </div>
                     </div>
                 </div>
