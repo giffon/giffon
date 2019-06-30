@@ -4,7 +4,9 @@ import react.*;
 import react.ReactMacro.jsx;
 import haxe.io.*;
 import giffon.server.ServerMain.*;
+import giffon.db.AuthMethod;
 import giffon.R.*;
+using giffon.db.AuthMethod.AuthMethodTools;
 
 class SignIn extends Page {
     override function title() return 'Sign in - Giffon';
@@ -31,34 +33,34 @@ class SignIn extends Page {
                     <div className="card-body">
                         <h2 className="card-title mb-4">Sign in / Sign up</h2>
 
-                        <div style=${{fontFamily: "Roboto"}}>
+                        <div>
                             <SignInButton
-                                networkName="Facebook"
-                                logo=${R("/images/Facebook logo 2019.svg")}
+                                authMethod=${Facebook}
+                                logo=${Facebook.logoImage()}
                                 href="/signin/facebook"
                                 label="Sign in with Facebook"
                             />
                             <SignInButton
-                                networkName="Twitter"
-                                logo=${R("/images/Twitter_Logo_WhiteOnBlue.svg")}
+                                authMethod=${Twitter}
+                                logo=${Twitter.logoImage()}
                                 href="/signin/twitter"
                                 label="Sign in with Twitter"
                             />
                             <SignInButton
-                                networkName="Google"
-                                logo=${R("/images/Google__G__Logo.svg")}
+                                authMethod=${Google}
+                                logo=${Google.logoImage()}
                                 href="/signin/google"
                                 label="Sign in with Google"
                             />
                             <SignInButton
-                                networkName="GitHub"
-                                logo=${R("/images/github-seeklogo.com.svg")}
+                                authMethod=${GitHub}
+                                logo=${GitHub.logoImage()}
                                 href="/signin/github"
                                 label="Sign in with Github"
                             />
                             <SignInButton
-                                networkName="GitLab"
-                                logo=${R("/images/gitlab-icon-rgb.svg")}
+                                authMethod=${GitLab}
+                                logo=${GitLab.logoImage()}
                                 href="/signin/gitlab"
                                 label="Sign in with GitLab"
                             />

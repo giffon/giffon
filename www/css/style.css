@@ -472,20 +472,22 @@ footer .social a:hover {
     display: block;
 }
 
-.page-signin img.logo {
+
+a.signInBtn img.logo {
     width: 1.25em;
     height: 1.25em;
 }
 
-
-.page-signin a.signInBtn {
+a.signInBtn {
     color: #777;
+    font-family: 'Roboto';
 }
 
-.page-signin a.signInBtn:hover {
+a.signInBtn:hover {
     text-decoration: none;
     color: #000;
 }
+
 
 .navbar-light a.navbar-brand {
     padding: 0.5em 1em 0.5em 2em;

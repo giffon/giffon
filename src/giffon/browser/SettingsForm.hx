@@ -91,7 +91,7 @@ class SettingsForm extends ReactComponent {
                         <Field
                             className="form-control" id="user_name"
                             name="user_name"
-                            maxlength=${SettingsFormData.user_name_max}
+                            maxLength=${SettingsFormData.user_name_max}
                             required=${true}
                         />
                     </div>
@@ -104,7 +104,7 @@ class SettingsForm extends ReactComponent {
                             <Field
                                 className="form-control" id="user_url"
                                 name="user_url"
-                                maxlength=${SettingsFormData.user_url_max}
+                                maxLength=${SettingsFormData.user_url_max}
                             />
                         </div>
                         <small className="text-muted">Once set, it can not be changed within 24 hours. Available characters: <pre className="d-inline">A-Z a-z 0-9 . _</pre></small>
@@ -117,7 +117,7 @@ class SettingsForm extends ReactComponent {
                             className="form-control" id="user_primary_email"
                             name="user_primary_email"
                             type="email"
-                            maxlength=${SettingsFormData.user_primary_email_max}
+                            maxLength=${SettingsFormData.user_primary_email_max}
                         />
                         <small className="text-muted">Giffon will use this email address to ask for your shipping address when your wishes complete.</small>
                     </div>
@@ -129,7 +129,7 @@ class SettingsForm extends ReactComponent {
                             component="textarea"
                             className="form-control" id="user_description"
                             name="user_description"
-                            maxlength=${SettingsFormData.user_description_max}
+                            maxLength=${SettingsFormData.user_description_max}
                             rows="3"
                             placeholder="I am..."
                         />

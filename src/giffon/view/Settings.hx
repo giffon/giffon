@@ -4,7 +4,9 @@ import react.*;
 import react.ReactMacro.jsx;
 import haxe.io.*;
 import haxe.*;
+import giffon.R.*;
 using StringTools;
+using giffon.db.AuthMethod.AuthMethodTools;
 
 class Settings extends Page {
     override function title() return "Settings - Giffon";
@@ -12,6 +14,17 @@ class Settings extends Page {
     override function render() return super.render();
 
     override function requiredSignin() return true;
+
+    override function depCss() {
+        return jsx('
+            <Fragment>
+                ${super.depCss()}
+                <link rel="stylesheet"
+                    href="https://fonts.googleapis.com/css?family=Roboto:500"
+                />
+            </Fragment>
+        ');
+    }
 
     override function bodyClasses() return super.bodyClasses().concat(["page-settings"]);
 
@@ -84,35 +97,44 @@ class Settings extends Page {
             if (disallowDisconnect)
                 "Cannot disconnect the only connected social account. Otherwise, there would be no way for you to sign in.";
             else
-                'Disconnect from ${name}';
+                'Disconnect from ${authMethod.getName()}';
         } else {
-            'Connect to ${name}';
+            'Connect to ${authMethod.getName()}';
         }
 
         var text = if (isConnected) {
             switch (authMethod) {
                 case Facebook:
-                    'Disconnect (${socialProfiles.facebook_profile.displayName})';
+                    'Disconnect from ${authMethod.getName()} (${socialProfiles.facebook_profile.displayName})';
                 case Twitter:
-                    'Disconnect (${socialProfiles.twitter_profile.username})';
+                    'Disconnect from ${authMethod.getName()} (${socialProfiles.twitter_profile.username})';
                 case Google:
-                    'Disconnect (${socialProfiles.google_profile.displayName})';
+                    'Disconnect from ${authMethod.getName()} (${socialProfiles.google_profile.displayName})';
                 case GitHub:
-                    'Disconnect (${socialProfiles.github_profile.username})';
+                    'Disconnect from ${authMethod.getName()} (${socialProfiles.github_profile.username})';
                 case GitLab:
-                    'Disconnect (${socialProfiles.gitlab_profile.username})';
+                    'Disconnect from ${authMethod.getName()} (${socialProfiles.gitlab_profile.username})';
                 case YouTube:
-                    'Disconnect (${socialProfiles.youtube_profile.displayName})';
+                    'Disconnect from ${authMethod.getName()} (${socialProfiles.youtube_profile.displayName})';
                 case Twitch:
-                    'Disconnect (${socialProfiles.twitch_profile.login})';
+                    'Disconnect from ${authMethod.getName()} (${socialProfiles.twitch_profile.login})';
             }
         } else {
-            'Connect';
+            'Connect to ${authMethod.getName()}';
         }
 
-        return jsx('
-            <a className=${classes.join(" ")} href=${href} title=${title}>${text}</a>
+        var btn = jsx('
+            <SignInButton
+                authMethod=${authMethod}
+                logo=${authMethod.logoImage()}
+                href=${href}
+                label=${text}
+                disabled=${isConnected && disallowDisconnect}
+                title=${title}
+            />
         ');
+
+        return btn;
     }
 
     override function bodyContent() return jsx('
@@ -121,51 +143,15 @@ class Settings extends Page {
             <div id="settings-root" className="mb-5"></div>
             
             <div className="row mb-5">
-                <div className="col">
-                    <h2 className="">Social Accounts</h2>
-
-                    <div className="form-group row my-0">
-                        <label className="col-4 col-lg-2 col-form-label"><i className="fab fa-facebook"></i> Facebook</label>
-                        <div className="col">
-                            ${socialButton(Facebook)}
-                        </div>
-                    </div>
-                    <div className="form-group row my-0">
-                        <label className="col-4 col-lg-2 col-form-label"><i className="fab fa-twitter"></i> Twitter</label>
-                        <div className="col">
-                            ${socialButton(Twitter)}
-                        </div>
-                    </div>
-                    <div className="form-group row my-0">
-                        <label className="col-4 col-lg-2 col-form-label"><i className="fab fa-google"></i> Google</label>
-                        <div className="col">
-                            ${socialButton(Google)}
-                        </div>
-                    </div>
-                    <div className="form-group row my-0">
-                        <label className="col-4 col-lg-2 col-form-label"><i className="fab fa-github"></i> GitHub</label>
-                        <div className="col">
-                            ${socialButton(GitHub)}
-                        </div>
-                    </div>
-                    <div className="form-group row my-0">
-                        <label className="col-4 col-lg-2 col-form-label"><i className="fab fa-gitlab"></i> GitLab</label>
-                        <div className="col">
-                            ${socialButton(GitLab)}
-                        </div>
-                    </div>
-                    <div className="form-group row my-0 d-none">
-                        <label className="col-4 col-lg-2 col-form-label"><i className="fab fa-youtube"></i> YouTube</label>
-                        <div className="col">
-                            ${socialButton(YouTube)}
-                        </div>
-                    </div>
-                    <div className="form-group row my-0">
-                        <label className="col-4 col-lg-2 col-form-label"><i className="fab fa-twitch"></i> Twitch</label>
-                        <div className="col">
-                            ${socialButton(Twitch)}
-                        </div>
-                    </div>
+                <div className="col col-md-8 col-lg-6">
+                    <h2>Social Accounts</h2>
+                    ${socialButton(Facebook)}
+                    ${socialButton(Twitter)}
+                    ${socialButton(Google)}
+                    ${socialButton(GitHub)}
+                    ${socialButton(GitLab)}
+                    ${socialButton(YouTube)}
+                    ${socialButton(Twitch)}
                 </div>
             </div>
         </div>
