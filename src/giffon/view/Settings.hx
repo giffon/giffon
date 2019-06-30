@@ -157,7 +157,7 @@ class Settings extends Page {
                             ${socialButton("gitlab")}
                         </div>
                     </div>
-                    <div className="form-group row my-0">
+                    <div className="form-group row my-0 d-none">
                         <label className="col-4 col-lg-2 col-form-label"><i className="fab fa-youtube"></i> YouTube</label>
                         <div className="col">
                             ${socialButton("youtube")}
