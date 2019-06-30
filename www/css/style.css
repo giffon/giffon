@@ -472,6 +472,21 @@ footer .social a:hover {
     display: block;
 }
 
+.page-signin img.logo {
+    width: 1.25em;
+    height: 1.25em;
+}
+
+
+.page-signin a.signInBtn {
+    color: #777;
+}
+
+.page-signin a.signInBtn:hover {
+    text-decoration: none;
+    color: #000;
+}
+
 .navbar-light a.navbar-brand {
     padding: 0.5em 1em 0.5em 2em;
     background-size: auto 60%;
