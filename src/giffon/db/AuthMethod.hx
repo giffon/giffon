@@ -2,10 +2,10 @@ package giffon.db;
 
 enum AuthMethod {
     Facebook;
-    Github;
+    GitHub;
     Twitter;
-    Gitlab;
+    GitLab;
     Google;
-    Youtube;
+    YouTube;
     Twitch;
 }

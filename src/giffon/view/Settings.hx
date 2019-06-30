@@ -46,24 +46,23 @@ class Settings extends Page {
 
     function numSocialConnections() return [for (k in Reflect.fields(socialProfiles)) if (Reflect.field(socialProfiles, k) != null) 1].length;
 
-    function socialButton(name:String) {
-        var isConnected = switch (name) {
-            case "facebook":
+    function socialButton(authMethod:giffon.db.AuthMethod) {
+        var name = authMethod.getName().toLowerCase();
+        var isConnected = switch (authMethod) {
+            case Facebook:
                 socialProfiles.facebook_profile != null;
-            case "twitter":
+            case Twitter:
                 socialProfiles.twitter_profile != null;
-            case "google":
+            case Google:
                 socialProfiles.google_profile != null;
-            case "github":
+            case GitHub:
                 socialProfiles.github_profile != null;
-            case "gitlab":
+            case GitLab:
                 socialProfiles.gitlab_profile != null;
-            case "youtube":
+            case YouTube:
                 socialProfiles.youtube_profile != null;
-            case "twitch":
+            case Twitch:
                 socialProfiles.twitch_profile != null;
-            case _:
-                throw "unknow social network name: " + name;
         }
 
         var href = if (!isConnected)
@@ -91,23 +90,21 @@ class Settings extends Page {
         }
 
         var text = if (isConnected) {
-            switch (name) {
-                case "facebook":
+            switch (authMethod) {
+                case Facebook:
                     'Disconnect (${socialProfiles.facebook_profile.displayName})';
-                case "twitter":
+                case Twitter:
                     'Disconnect (${socialProfiles.twitter_profile.username})';
-                case "google":
+                case Google:
                     'Disconnect (${socialProfiles.google_profile.displayName})';
-                case "github":
+                case GitHub:
                     'Disconnect (${socialProfiles.github_profile.username})';
-                case "gitlab":
+                case GitLab:
                     'Disconnect (${socialProfiles.gitlab_profile.username})';
-                case "youtube":
+                case YouTube:
                     'Disconnect (${socialProfiles.youtube_profile.displayName})';
-                case "twitch":
+                case Twitch:
                     'Disconnect (${socialProfiles.twitch_profile.login})';
-                case _:
-                    throw "unknow social network name: " + name;
             }
         } else {
             'Connect';
@@ -130,43 +127,43 @@ class Settings extends Page {
                     <div className="form-group row my-0">
                         <label className="col-4 col-lg-2 col-form-label"><i className="fab fa-facebook"></i> Facebook</label>
                         <div className="col">
-                            ${socialButton("facebook")}
+                            ${socialButton(Facebook)}
                         </div>
                     </div>
                     <div className="form-group row my-0">
                         <label className="col-4 col-lg-2 col-form-label"><i className="fab fa-twitter"></i> Twitter</label>
                         <div className="col">
-                            ${socialButton("twitter")}
+                            ${socialButton(Twitter)}
                         </div>
                     </div>
                     <div className="form-group row my-0">
                         <label className="col-4 col-lg-2 col-form-label"><i className="fab fa-google"></i> Google</label>
                         <div className="col">
-                            ${socialButton("google")}
+                            ${socialButton(Google)}
                         </div>
                     </div>
                     <div className="form-group row my-0">
                         <label className="col-4 col-lg-2 col-form-label"><i className="fab fa-github"></i> GitHub</label>
                         <div className="col">
-                            ${socialButton("github")}
+                            ${socialButton(GitHub)}
                         </div>
                     </div>
                     <div className="form-group row my-0">
                         <label className="col-4 col-lg-2 col-form-label"><i className="fab fa-gitlab"></i> GitLab</label>
                         <div className="col">
-                            ${socialButton("gitlab")}
+                            ${socialButton(GitLab)}
                         </div>
                     </div>
                     <div className="form-group row my-0 d-none">
                         <label className="col-4 col-lg-2 col-form-label"><i className="fab fa-youtube"></i> YouTube</label>
                         <div className="col">
-                            ${socialButton("youtube")}
+                            ${socialButton(YouTube)}
                         </div>
                     </div>
                     <div className="form-group row my-0">
                         <label className="col-4 col-lg-2 col-form-label"><i className="fab fa-twitch"></i> Twitch</label>
                         <div className="col">
-                            ${socialButton("twitch")}
+                            ${socialButton(Twitch)}
                         </div>
                     </div>
                 </div>

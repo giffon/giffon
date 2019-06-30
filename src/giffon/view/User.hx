@@ -29,38 +29,36 @@ class User extends Page {
 
     override function bodyClasses() return super.bodyClasses().concat(["page-user"]);
 
-    function socialProfile(name:String) {
-        var profile = switch (name) {
-            case "facebook":
+    function socialProfile(authMethod:giffon.db.AuthMethod) {
+        var name = authMethod.getName().toLowerCase();
+        var profile = switch (authMethod) {
+            case Facebook:
                 socialProfiles.facebook_profile;
-            case "twitter":
+            case Twitter:
                 socialProfiles.twitter_profile;
-            case "google":
+            case Google:
                 socialProfiles.google_profile;
-            case "github":
+            case GitHub:
                 socialProfiles.github_profile;
-            case "gitlab":
+            case GitLab:
                 socialProfiles.gitlab_profile;
-            case "youtube":
+            case YouTube:
                 socialProfiles.youtube_profile;
-            case "twitch":
+            case Twitch:
                 socialProfiles.twitch_profile;
-            case _:
-                throw "unknow social network name: " + name;
         }
         var isConnected = profile != null;
 
         if (!isConnected)
             return null;
 
-        var href = switch (name) {
-            case "facebook", "google": null;
-            case "twitter": 'https://twitter.com/${profile.username}';
-            case "github": 'https://github.com/${profile.username}';
-            case "gitlab": 'https://gitlab.com/${profile.username}';
-            case "youtube": 'https://www.youtube.com/channel/${profile.id}';
-            case "twitch": 'https://www.twitch.tv/${profile.login}';
-            case _: throw "unknow social network name: " + name;
+        var href = switch (authMethod) {
+            case Facebook | Google: null;
+            case Twitter: 'https://twitter.com/${profile.username}';
+            case GitHub: 'https://github.com/${profile.username}';
+            case GitLab: 'https://gitlab.com/${profile.username}';
+            case YouTube: 'https://www.youtube.com/channel/${profile.id}';
+            case Twitch: 'https://www.twitch.tv/${profile.login}';
         }
 
         var classes = ["btn", "btn-link"];
@@ -69,20 +67,20 @@ class User extends Page {
         
         var iconClasses = ["fab", 'fa-${name}', "text-body"];
 
-        var text = switch (name) {
-            case "facebook":
+        var text = switch (authMethod) {
+            case Facebook:
                 '${socialProfiles.facebook_profile.displayName}';
-            case "twitter":
+            case Twitter:
                 '@${socialProfiles.twitter_profile.username}';
-            case "google":
+            case Google:
                 '${socialProfiles.google_profile.displayName}';
-            case "github":
+            case GitHub:
                 '@${socialProfiles.github_profile.username}';
-            case "gitlab":
+            case GitLab:
                 '@${socialProfiles.gitlab_profile.username}';
-            case "youtube":
+            case YouTube:
                 '${socialProfiles.youtube_profile.displayName}';
-            case "twitch":
+            case Twitch:
                 '${socialProfiles.twitch_profile.login}';
             case _:
                 throw "unknow social network name: " + name;
@@ -232,13 +230,13 @@ class User extends Page {
             </div>
             <div className="row user-social-accounts">
                 <div className="col text-center">
-                    ${socialProfile("facebook")}
-                    ${socialProfile("twitter")}
-                    ${socialProfile("google")}
-                    ${socialProfile("github")}
-                    ${socialProfile("gitlab")}
-                    ${socialProfile("youtube")}
-                    ${socialProfile("twitch")}
+                    ${socialProfile(Facebook)}
+                    ${socialProfile(Twitter)}
+                    ${socialProfile(Google)}
+                    ${socialProfile(GitHub)}
+                    ${socialProfile(GitLab)}
+                    ${socialProfile(YouTube)}
+                    ${socialProfile(Twitch)}
                 </div>
             </div>
             ${sectionDescription()}
