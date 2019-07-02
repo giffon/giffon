@@ -530,7 +530,7 @@ class ServerMain {
                 case null:
                     '/user?id=${user.user_hashid}';
                 case url:
-                    '/user/${url}';
+                    '/${url}';
             },
         };
     }
@@ -1152,10 +1152,10 @@ class ServerMain {
         });
 
         app.use(giffon.server.Admin.createRouter());
-        app.use(giffon.server.User.createRouter());
         app.use(giffon.server.Wish.createRouter());
         app.use(giffon.server.MakeAWish.createRouter());
         app.use(giffon.server.Settings.createRouter());
+        app.use(giffon.server.User.createRouter());
 
         app.use(function(err, req, res:Response, next) {
             res.sendPlainError(err, 500);

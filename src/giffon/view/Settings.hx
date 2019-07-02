@@ -35,7 +35,7 @@ class Settings extends Page {
             user_primary_email: user.user_primary_email == null ? "" : user.user_primary_email,
             user_description: user.user_description == null ? "" : user.user_description,
             user_url: {
-                var rx = ~/\/user\/(.+)/;
+                var rx = ~/^\/(.+)$/;
                 if (rx.match(user.user_profile_url)) {
                     rx.matched(1);
                 } else {

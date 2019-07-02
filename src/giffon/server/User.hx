@@ -20,6 +20,7 @@ class User {
         var router = new Router();
         router.get("/user/:pageUser_url", handleGetByUrl);
         router.get("/user", handleGetByHashId);
+        router.get("/:pageUser_url", handleGetByUrl);
         return router;
     }
 
@@ -31,6 +32,11 @@ class User {
             return;
         }
         var pageUser = @await getUser(pageUser_id);
+
+        if (pageUser.user_profile_url != req.path) {
+            res.redirect(pageUser.user_profile_url);
+            return;
+        }
         var wishes = @await getWishes(pageUser_id);
         var socialProfiles = @await getSocialProfiles(pageUser_id);
         res.sendPage(giffon.view.User, {
@@ -48,6 +54,10 @@ class User {
             return;
         }
         var pageUser = @await getUser(pageUser_id);
+        if (pageUser.user_profile_url != req.path) {
+            res.redirect(pageUser.user_profile_url);
+            return;
+        }
         var wishes = @await getWishes(pageUser_id);
         var socialProfiles = @await getSocialProfiles(pageUser_id);
         res.sendPage(giffon.view.User, {

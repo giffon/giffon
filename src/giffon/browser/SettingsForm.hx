@@ -120,7 +120,7 @@ class SettingsForm extends ReactComponent {
                             Custom profile url
                         </label>
                         <div className="d-flex align-items-center">
-                            <span className="pr-1">https://giffon.io/user/</span>
+                            <span className="pr-1">https://giffon.io/</span>
                             <Field
                                 className="form-control" id="user_url"
                                 name="user_url"
