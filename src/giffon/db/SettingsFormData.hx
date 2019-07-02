@@ -10,6 +10,7 @@ typedef SettingsFormValues = {
     user_primary_email:String,
     user_description:String,
     user_url:String,
+    user_avatar:Null<String>,
 }
 
 class SettingsFormData implements DataClass {
@@ -29,4 +30,7 @@ class SettingsFormData implements DataClass {
 
     @validate(_.length >= 0 && _.length <= user_url_max && ~/^[A-Za-z0-9\._]*$/.match(_))
     public var user_url:String;
+
+    @validate(_ == null || _.length <= 16777215 && _.startsWith("data:image/"))
+    public var user_avatar:Null<String>;
 }

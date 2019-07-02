@@ -490,7 +490,7 @@ class ServerMain {
     @async static public function getUser(user_id:Int):giffon.db.User {
         var results:QueryResults = (@await dbConnectionPool.query(
             "
-                SELECT user.`user_id`, `user_hashid`, `user_primary_email`, `user_name`, `user_avatar`, `user_description`, `user_url`
+                SELECT user.`user_id`, `user_hashid`, `user_primary_email`, `user_name`, `user_avatar`, `user_avatar_url`, `user_description`, `user_url`
                 FROM user LEFT JOIN (SELECT * FROM user_url WHERE is_latest=1) AS user_url ON user.user_id = user_url.user_id
                 WHERE user.`user_id` = ?
             ",
@@ -508,6 +508,7 @@ class ServerMain {
             user_primary_email:Null<String>,
             user_name:String,
             user_avatar:js.node.Buffer,
+            user_avatar_url:Null<String>,
             user_description:Null<String>,
             user_url:Null<String>,
         } = results[0];
@@ -516,11 +517,13 @@ class ServerMain {
             user_hashid: user.user_hashid,
             user_primary_email: user.user_primary_email,
             user_name: user.user_name,
-            user_avatar: switch (user.user_avatar) {
-                case null:
-                    null;
-                case buf:
+            user_avatar: switch [user.user_avatar, user.user_avatar_url] {
+                case [_, url] if (url != null):
+                    url;
+                case [buf, _] if (buf != null):
                     ImageDataUri.encode(buf, "JPEG");
+                case _:
+                    null;
             },
             user_description: user.user_description,
             user_profile_url: switch (user.user_url) {
@@ -834,7 +837,9 @@ class ServerMain {
         app.use(require("body-parser").urlencoded({
             extended: false
         }));
-        app.use(require("body-parser").json());
+        app.use(require("body-parser").json({
+            limit: '16mb',
+        }));
         app.use(require("body-parser").text());
 
         app.use(Express.Static("www", {

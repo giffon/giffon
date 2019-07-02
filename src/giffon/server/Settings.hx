@@ -6,6 +6,7 @@ import js.moment.Moment;
 import giffon.server.ServerMain.*;
 import tink.core.Error;
 import giffon.Utils.*;
+import haxe.*;
 using thx.Dates;
 using tink.core.Future.JsPromiseTools;
 using giffon.ResponseTools;
@@ -37,17 +38,22 @@ class Settings {
         }
 
         var user = res.getUser();
+        var changes:DynamicAccess<String> = {
+            user_name: settingsFormData.user_name,
+            user_primary_email: settingsFormData.user_primary_email.length > 0 ? settingsFormData.user_primary_email : null,
+            user_description: settingsFormData.user_description.length > 0 ? settingsFormData.user_description : null,
+        };
+
+        if (settingsFormData.user_avatar != null) {
+            changes["user_avatar_url"] = settingsFormData.user_avatar;
+        }
 
         @await dbConnectionPool.query(
             "
                 UPDATE `user` SET ? WHERE `user_id` = ?;
             ",
             [
-                {
-                    user_name: settingsFormData.user_name,
-                    user_primary_email: settingsFormData.user_primary_email.length > 0 ? settingsFormData.user_primary_email : null,
-                    user_description: settingsFormData.user_description.length > 0 ? settingsFormData.user_description : null,
-                },
+                changes,
                 user.user_id,
             ]
         ).handleError(next).toPromise();

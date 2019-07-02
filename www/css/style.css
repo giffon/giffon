@@ -703,3 +703,7 @@ a.btn.signInBtn:hover {
     display: block;
     margin: 0.5em auto 1em auto;
 }
+
+.page-settings input[type='file'] {
+    height: fit-content;
+}

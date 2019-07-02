@@ -59,6 +59,26 @@ class SettingsForm extends ReactComponent {
         ');
     }
 
+    function FileInputComponent(props:Dynamic) {
+        function handleFileChange(event) {
+            var file:js.html.File = event.currentTarget.files[0];
+
+            var reader = new js.html.FileReader();
+            reader.onload = function(e) {
+                var dataUri:String = e.target.result;
+                props.form.setFieldValue(props.field.name, dataUri);
+            };
+            reader.readAsDataURL(file);
+        }
+        return jsx('
+            <input
+                className="form-control"
+                type="file"
+                onChange=${handleFileChange}
+            />
+        ');
+    }
+
     override function render() {
         var initialValues:SettingsFormValues = current_settings;
         function formikRender(props:{
@@ -134,6 +154,16 @@ class SettingsForm extends ReactComponent {
                             placeholder="I am..."
                         />
                         <small className="text-muted float-right">${props.values.user_description.length} / ${SettingsFormData.user_description_max}</small>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="user_avatar">
+                            Avatar
+                        </label>
+                        <Field
+                            id="user_avatar"
+                            name="user_avatar"
+                            component=${FileInputComponent}
+                        />
                     </div>
                     <button type="submit" className="btn btn-primary" disabled={props.isSubmitting}>
                         Submit

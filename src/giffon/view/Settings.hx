@@ -42,6 +42,7 @@ class Settings extends Page {
                     "";
                 }
             },
+            user_avatar: null, //TODO
         }:giffon.db.SettingsFormData.SettingsFormValues));
         return attrs;
     }
