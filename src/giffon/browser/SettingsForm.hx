@@ -127,7 +127,7 @@ class SettingsForm extends ReactComponent {
                                 maxLength=${SettingsFormData.user_url_max}
                             />
                         </div>
-                        <small className="text-muted">Once set, it can not be changed within 24 hours. Available characters: <pre className="d-inline">A-Z a-z 0-9 . _</pre></small>
+                        <small className="text-muted">Case-insensitive. Once set, it can not be changed within 24 hours. Available characters: <pre className="d-inline">A-Z a-z 0-9 _</pre></small>
                     </div>
                     <div className="form-group">
                         <label htmlFor="user_primary_email">

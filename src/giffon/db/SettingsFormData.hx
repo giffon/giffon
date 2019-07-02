@@ -28,7 +28,15 @@ class SettingsFormData implements DataClass {
     @validate(_.length >= 0 && _.length <= user_description_max)
     public var user_description:String;
 
-    @validate(_.length >= 0 && _.length <= user_url_max && ~/^[A-Za-z0-9\._]*$/.match(_))
+    @validate(
+        _.length >= 0 && _.length <= user_url_max
+
+        // define valid characters
+        && ~/^[A-Za-z0-9_]*$/.match(_)
+
+        // avoid name crashes with existing pages
+        && !["terms", "privacy", "settings", "signout", "signin", "admin", "user", "wish", "connect", "disconnect", "callback"].has(_.toLowerCase())
+    )
     public var user_url:String;
 
     @validate(_ == null || _.length <= 16777215 && _.startsWith("data:image/"))
