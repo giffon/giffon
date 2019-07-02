@@ -570,15 +570,17 @@ a.btn.signInBtn:hover {
 }
 
 .wish-owner-avatar {
-    background-size: 100%;
+    background-size: cover;
     background-repeat: no-repeat;
+    background-position: 50% 50%;
     width: 80px;
     height: 80px;
 }
 
 .supporter-avatar {
-    background-size: 100%;
+    background-size: cover;
     background-repeat: no-repeat;
+    background-position: 50% 50%;
     width: 40px;
     height: 40px;
     flex: 0 0 40px;
@@ -590,8 +592,9 @@ a.btn.signInBtn:hover {
 }
 
 .page-user .user-avatar {
-    background-size: 100%;
+    background-size: cover;
     background-repeat: no-repeat;
+    background-position: 50% 50%;
     width: 120px;
     height: 120px;
     margin: 10px;
