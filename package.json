@@ -25,6 +25,7 @@
   "dependencies": {
     "amazon-helpers": "^0.2.0",
     "amazon-product-api": "^0.4.4",
+    "aws-sdk": "^2.486.0",
     "aws-serverless-express": "^3.3.6",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.4",
@@ -36,6 +37,7 @@
     "gravatar": "^1.8.0",
     "httpolyglot": "^0.1.2",
     "image-data-uri": "^2.0.0",
+    "image-type": "^4.1.0",
     "moment": "^2.24.0",
     "morgan": "^1.9.1",
     "mysql2": "^1.6.5",

@@ -613,6 +613,19 @@ class ServerMain {
         return @await getCoupon(r.coupon_id);
     }
 
+    @async static public function uploadUserImage(img:js.node.Buffer):String {
+        var fileBytes = haxe.io.Bytes.ofData(img.buffer);
+        var hash = haxe.crypto.Md5.make(fileBytes).toHex();
+        var fileExt = js.npm.image_type.ImageType.imageType(img).ext;
+        var fileName = hash + "." + fileExt;
+        @await (new js.npm.aws_sdk.S3().upload({
+            Bucket: "giffon-user",
+            Key: fileName,
+            Body: img,
+        }).promise().toPromise());
+        return "https://d1ksq9ahsv51u8.cloudfront.net/" + fileName;
+    }
+
     @async static public function getCoupon(coupon_id:Int):Null<giffon.db.Coupon> {
         var results:QueryResults = (@await dbConnectionPool.query(
             "
@@ -731,8 +744,9 @@ class ServerMain {
                     var res = @await js.npm.fetch.Fetch.fetch(avatarUrl).toPromise();
                     @await res.buffer().toPromise();
                 };
+                var url = @await uploadUserImage(avatar);
                 @await dbConnectionPool.query("UPDATE user SET ? WHERE user_id = ?", [{
-                    user_avatar: avatar,
+                    user_avatar_url: url,
                 }, user_id]).toPromise();
                 user = @await getUser(user_id);
             }
@@ -747,11 +761,12 @@ class ServerMain {
             var res = @await js.npm.fetch.Fetch.fetch(avatarUrl).toPromise();
             @await res.buffer().toPromise();
         };
+        var avatar_url = @await uploadUserImage(avatar);
 
         var results:QueryResults = (@await dbConnectionPool.query("INSERT INTO user SET ?", {
             user_primary_email: email,
             user_name: profile.displayName,
-            user_avatar: avatar,
+            user_avatar_url: avatar_url,
         }).handleError(done).toPromise()).results;
         user_id = results.insertId;
         var user_hashid = new Hashids("user" + DBInfo.salt, 4).encode(user_id);

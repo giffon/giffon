@@ -7,6 +7,7 @@ import giffon.server.ServerMain.*;
 import tink.core.Error;
 import giffon.Utils.*;
 import haxe.*;
+using StringTools;
 using thx.Dates;
 using tink.core.Future.JsPromiseTools;
 using giffon.ResponseTools;
@@ -45,7 +46,9 @@ class Settings {
         };
 
         if (settingsFormData.user_avatar != null) {
-            changes["user_avatar_url"] = settingsFormData.user_avatar;
+            var file = js.npm.image_data_uri.ImageDataUri.decode(settingsFormData.user_avatar);
+            var url = @await uploadUserImage(file.dataBuffer);
+            changes["user_avatar_url"] = url;
         }
 
         @await dbConnectionPool.query(
