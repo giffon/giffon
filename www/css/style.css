@@ -478,12 +478,12 @@ a.signInBtn img.logo {
     height: 1.25em;
 }
 
-a.signInBtn {
+a.btn.signInBtn {
     color: #777;
     font-family: 'Roboto';
 }
 
-a.signInBtn:hover {
+a.btn.signInBtn:hover {
     text-decoration: none;
     color: #000;
 }
