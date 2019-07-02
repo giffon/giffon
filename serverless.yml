@@ -47,16 +47,15 @@ provider:
   apiGateway:
     binaryMediaTypes:
       - '*/*'
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "s3:PutObject"
+      Resource: "arn:aws:s3:::giffon-user/*"
 
 # you can overwrite defaults here
 #  stage: dev
 #  region: us-east-1
-
-iamRoleStatements:
-  - Effect: "Allow"
-    Action:
-      - "s3:PutObject"
-    Resource: "arn:aws:s3:::giffon-user/*"
 
 package:
   exclude:
