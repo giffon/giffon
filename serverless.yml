@@ -44,8 +44,6 @@ provider:
     GOOGLE_CLIENT_SECRET: ${ssm:GOOGLE_CLIENT_SECRET}
     TWITCH_CLIENT_ID: ${ssm:TWITCH_CLIENT_ID}
     TWITCH_CLIENT_SECRET: ${ssm:TWITCH_CLIENT_SECRET}
-    AWS_ACCESS_KEY_ID: ${ssm:GIFFON_USER_AWS_ACCESS_KEY_ID}
-    AWS_SECRET_ACCESS_KEY: ${ssm:GIFFON_USER_AWS_SECRET_ACCESS_KEY}
   apiGateway:
     binaryMediaTypes:
       - '*/*'
@@ -54,21 +52,11 @@ provider:
 #  stage: dev
 #  region: us-east-1
 
-# you can add statements to the Lambda function's IAM Role here
-#  iamRoleStatements:
-#    - Effect: "Allow"
-#      Action:
-#        - "s3:ListBucket"
-#      Resource: { "Fn::Join" : ["", ["arn:aws:s3:::", { "Ref" : "ServerlessDeploymentBucket" } ] ]  }
-#    - Effect: "Allow"
-#      Action:
-#        - "s3:PutObject"
-#      Resource:
-#        Fn::Join:
-#          - ""
-#          - - "arn:aws:s3:::"
-#            - "Ref" : "ServerlessDeploymentBucket"
-#            - "/*"
+iamRoleStatements:
+  - Effect: "Allow"
+    Action:
+      - "s3:PutObject"
+    Resource: "arn:aws:s3:::giffon-user/*"
 
 package:
   exclude:
