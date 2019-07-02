@@ -13,6 +13,7 @@ import tink.core.Error;
 using tink.core.Future.JsPromiseTools;
 using giffon.ResponseTools;
 using giffon.server.PromiseTools;
+using StringTools;
 
 @await
 class User {
@@ -54,7 +55,7 @@ class User {
             return;
         }
         var pageUser = @await getUser(pageUser_id);
-        if (pageUser.user_profile_url != req.path) {
+        if (!pageUser.user_profile_url.startsWith("/user?")) {
             res.redirect(pageUser.user_profile_url);
             return;
         }
