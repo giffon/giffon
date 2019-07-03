@@ -8,6 +8,7 @@ using js.npm.validator.Validator;
 typedef WishFormValues = {
     acceptTerms:Bool,
     items:Array<{
+        item_id:Int,
         item_url:String,
         item_name:String,
         item_price:Float,
@@ -25,6 +26,9 @@ typedef WishFormValues = {
 class WishItemData implements DataClass {
     static public var item_price_max(default, never) = 200000;
     static public var item_quantity_max(default, never) = 100;
+
+    @validate(_ >= -1)
+    public var item_id:Int;
 
     @validate(validateItemUrl(_))
     public var item_url:String;

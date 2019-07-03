@@ -14,6 +14,12 @@ import giffon.db.WishFormData.*;
 using Lambda;
 
 class WishForm extends ReactComponent {
+    var wish(get, never):Null<giffon.db.Wish>;
+    function get_wish():giffon.db.Wish return props.wish;
+
+    var submissionUrl(get, never):String;
+    function get_submissionUrl() return props.submissionUrl;
+
     function new():Void {
         super(props);
         state = {
@@ -27,7 +33,7 @@ class WishForm extends ReactComponent {
         JQuery.ajax({
             type: "POST",
             contentType: "application/json; charset=utf-8",
-            url: "/make-a-wish",
+            url: submissionUrl,
             data: haxe.Json.stringify(values),
         })
             .done(function(data:String, textStatus:String, jqXHR){
@@ -59,23 +65,48 @@ class WishForm extends ReactComponent {
         ');
     }
 
-    override function render() {
-        var initialValues:WishFormValues = {
-            acceptTerms: false,
-            items: [{
-                item_url: "",
-                item_name: "",
-                item_price: 0,
-                item_quantity: 1,
+    function getInitialValue():WishFormValues {
+        if (wish == null) {
+            return {
+                acceptTerms: false,
+                items: [{
+                    item_id: -1,
+                    item_url: "",
+                    item_name: "",
+                    item_price: 0,
+                    item_quantity: 1,
+                    item_icon_url: "",
+                    item_icon_label: "",
+                }],
+                wish_currency: "",
+                wish_title: "My wish",
+                wish_description: "",
+                wish_target_date: null,
+                wish_banner_url: null,
+            };
+        }
+
+        return {
+            acceptTerms: true,
+            items: [for (item in wish.items) {
+                item_id: item.item_id,
+                item_url: item.item_url,
+                item_name: item.item_name,
+                item_price: item.item_price.toFloat(),
+                item_quantity: item.item_quantity,
                 item_icon_url: "",
                 item_icon_label: "",
             }],
-            wish_currency: "",
-            wish_title: "My wish",
-            wish_description: "",
-            wish_target_date: null,
-            wish_banner_url: null,
+            wish_currency: wish.wish_currency.getName(),
+            wish_title: wish.wish_title,
+            wish_description: wish.wish_description,
+            wish_target_date: wish.wish_target_date,
+            wish_banner_url: wish.wish_banner_url,
         };
+    }
+
+    override function render() {
+        var initialValues:WishFormValues = getInitialValue();
         function formikRender(props:{
             isSubmitting:Bool,
             values:WishFormValues,
@@ -93,6 +124,11 @@ class WishForm extends ReactComponent {
                     for (idx in 0...props.values.items.length){
                         jsx('
                             <div key=${idx} className="wish-item form-row align-items-end">
+                                <Field
+                                    name=${'items[$idx].item_id'}
+                                    id=${'items[$idx].item_id'}
+                                    type="hidden"
+                                />
                                 <div className="form-group col-md-3">
                                     <label
                                         htmlFor=${'items[$idx].item_name'}
@@ -105,6 +141,7 @@ class WishForm extends ReactComponent {
                                             name=${'items[$idx].item_name'}
                                             id=${'items[$idx].item_name'}
                                             required=${true}
+                                            disabled=${wish != null}
                                         />
                                     </div>
                                 </div>
@@ -122,6 +159,7 @@ class WishForm extends ReactComponent {
                                             type="url"
                                             placeholder="https://..."
                                             required=${true}
+                                            disabled=${wish != null}
                                         />
                                     </div>
                                 </div>
@@ -139,12 +177,13 @@ class WishForm extends ReactComponent {
                                             type="number"
                                             min="0.01" max=${WishItemData.item_price_max} step="0.01"
                                             required=${true}
+                                            disabled=${wish != null}
                                         />
                                     </div>
                                 </div>
                                 <div className="form-group col col-md-1">
                                     <label
-                                        htmlFor=${'items[$idx].item_price'}
+                                        htmlFor=${'items[$idx].item_quantity'}
                                     >
                                         Quantity
                                     </label>
@@ -154,8 +193,9 @@ class WishForm extends ReactComponent {
                                             name=${'items[$idx].item_quantity'}
                                             id=${'items[$idx].item_quantity'}
                                             type="number"
-                                            min="1" max=${WishItemData.item_quantity_max} step="1"
+                                            min="1" max=${wish == null ? WishItemData.item_quantity_max : wish.items[idx].item_quantity} step="1"
                                             required=${true}
+                                            disabled=${wish != null}
                                         />
                                     </div>
                                 </div>
@@ -165,7 +205,7 @@ class WishForm extends ReactComponent {
                                         className="btn btn-outline-danger"
                                         title="remove item"
                                         onClick=${function(){ arrayHelpers.remove(idx); }}
-                                        disabled=${props.values.items.length <= 1}
+                                        disabled=${wish != null || props.values.items.length <= 1}
                                     >
                                     <i className="fas fa-times align-middle"></i>
                                     </button>
@@ -205,7 +245,7 @@ class WishForm extends ReactComponent {
                             type="button"
                             className="btn btn-link"
                             onClick=${function(){ arrayHelpers.push(initialValues.items[0]); }}
-                            disabled=${props.values.items.length >= WishFormData.items_max}
+                            disabled=${wish != null || props.values.items.length >= WishFormData.items_max}
                         >
                             Add item
                         </button>
@@ -291,7 +331,7 @@ class WishForm extends ReactComponent {
             }
 
             return jsx('
-                <Form>
+                <Form className="wish-form">
                     ${submissionError}
                     <div className="form-group">
                         <label htmlFor="wish_title">
@@ -313,6 +353,7 @@ class WishForm extends ReactComponent {
                             component="select"
                             name="wish_currency"
                             required=${true}
+                            disabled=${wish != null}
                         >
                             <option></option>
                             ${currencyOptions}
@@ -371,6 +412,7 @@ class WishForm extends ReactComponent {
                                 name="acceptTerms"
                                 className="form-check-input" type="checkbox"
                                 required=${true}
+                                checked=${props.values.acceptTerms}
                             />
                             <label className="form-check-label" htmlFor="acceptTerms">
                                 Agree to <a href="/terms" target="_blank">terms and conditions</a>

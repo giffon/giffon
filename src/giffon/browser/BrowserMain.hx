@@ -74,6 +74,10 @@ class BrowserMain {
             PageMakeAWish.onReady();
         }
 
+        if (bodyClasses.contains("page-edit-wish")) {
+            PageEditWish.onReady();
+        }
+
         if (bodyClasses.contains("page-settings")) {
             PageSettings.onReady();
         }

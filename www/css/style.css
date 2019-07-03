@@ -121,30 +121,30 @@ img.emoji, .inline-icon {
     background-position: center center;
 }
 
-.page-make-a-wish .wish-banner {
+.wish-form .wish-banner {
     height: 12em;
     background-size: contain;
     background-repeat: no-repeat no-repeat;
     background-position: left center;
 }
 
-.page-make-a-wish #giphyModal .modal-content {
+.wish-form #giphyModal .modal-content {
     background: none;
     border: none;
 }
 
-.page-make-a-wish .giphy-picker {
+.wish-form .giphy-picker {
     margin: 0 auto 0 auto;
     border: none;
 }
 
-.page-make-a-wish .giphy-attribution {
+.wish-form .giphy-attribution {
     object-fit: contain;
     max-height: 1em;
     margin: 5px;
 }
 
-.page-make-a-wish .modal-backdrop.show {
+.wish-form .modal-backdrop.show {
     opacity: 0.8;
 }
 
@@ -615,12 +615,12 @@ a.btn.signInBtn:hover {
     font-weight: 100;
 }
 
-.page-make-a-wish .wish-item {
+.wish-form .wish-item {
     border-bottom: 1px solid #CCC;
     margin-bottom: 1em;
 }
 
-.page-make-a-wish .wish-item:last-of-type {
+.wish-form .wish-item:last-of-type {
     border-bottom: none;
     margin-bottom: 0;
 }

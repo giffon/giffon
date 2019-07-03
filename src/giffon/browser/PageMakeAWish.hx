@@ -5,6 +5,8 @@ import react.*;
 
 class PageMakeAWish {
     static public function onReady():Void {
-        ReactDOM.render(React.createElement(WishForm), document.getElementById("make-a-wish-root"));
+        ReactDOM.render(React.createElement(WishForm, {
+            submissionUrl: "/make-a-wish",
+        }), document.getElementById("make-a-wish-root"));
     }
 }
