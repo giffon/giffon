@@ -27,6 +27,12 @@ class Page extends ReactComponent {
     };
 
     function gtag() {
+        // only track production traffic
+        switch (giffon.config.Stage.stage) {
+            case Production: //pass
+            case _: return null;
+        }
+
         var scriptContent = "
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
