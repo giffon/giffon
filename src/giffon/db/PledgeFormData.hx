@@ -14,7 +14,7 @@ typedef PledgeFormValues = {
 }
 
 class PledgeFormData implements DataClass {
-    static public var pledge_amount_min(default, never) = 5;
+    static public var pledge_amount_min(default, never) = 1;
     static public var pledge_amount_max(default, never) = 500000;
 
     @validate(_ >= pledge_amount_min && _ <= pledge_amount_max)
