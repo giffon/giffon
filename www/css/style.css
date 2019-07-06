@@ -148,6 +148,10 @@ img.emoji, .inline-icon {
     opacity: 0.8;
 }
 
+.page-wish .tooltip-inner {
+    white-space: pre-wrap;
+}
+
 .btn-success {
     background: #065af2;
     border: 0;

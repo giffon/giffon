@@ -124,6 +124,11 @@ class MakeAWish {
                 wish_target_date: wishData.wish_target_date,
                 wish_currency: wishData.wish_currency,
                 wish_banner_url: wishData.wish_banner_url,
+                wish_additional_cost_amount : wishData.wish_additional_cost_amount,
+                wish_additional_cost_description : switch (wishData.wish_additional_cost_description) {
+                    case "": null;
+                    case v: v;
+                },
             },
         ]).handleError(next).toPromise()).results;
 

@@ -78,6 +78,8 @@ class WishForm extends ReactComponent {
                     item_icon_url: "",
                     item_icon_label: "",
                 }],
+                wish_additional_cost_description: "",
+                wish_additional_cost_amount: 0,
                 wish_currency: "",
                 wish_title: "My wish",
                 wish_description: "",
@@ -97,6 +99,11 @@ class WishForm extends ReactComponent {
                 item_icon_url: "",
                 item_icon_label: "",
             }],
+            wish_additional_cost_description: switch(wish.wish_additional_cost_description) {
+                case null: "";
+                case v: v;
+            },
+            wish_additional_cost_amount: wish.wish_additional_cost_amount.toFloat(),
             wish_currency: wish.wish_currency.getName(),
             wish_title: wish.wish_title,
             wish_description: wish.wish_description,
@@ -217,9 +224,9 @@ class WishForm extends ReactComponent {
                 function sum(nums:Array<Decimal>) {
                     return Lambda.fold(nums, function(a,b) return a+b, Decimal.zero);
                 }
-                var totalPrice = sum(props.values.items.map(function(itm) {
+                var totalPrice = (sum(props.values.items.map(function(itm) {
                     return Decimal.fromString(Std.string(itm.item_price)) * Decimal.fromString(Std.string(itm.item_quantity));
-                })).toString();
+                })) + Decimal.fromString(Std.string(props.values.wish_additional_cost_amount))).toString();
 
                 var itemsErrorMessage = if (props.errors.items != null && Std.is(props.errors.items, String)) {
                     jsx('<ErrorMessage name="items" render=${renderErrorMessage} />');
@@ -239,7 +246,9 @@ class WishForm extends ReactComponent {
                             Paste the online shopping link of the item you wanna receive. 
                             For example, any items on <a href="https://www.amazon.com/" target="_blank" rel="noopener">Amazon</a>, <a href="https://www.bestbuy.com/" target="_blank" rel="noopener">Best Buy</a>, <a href="https://store.steampowered.com/" target="_blank" rel="noopener">Steam</a>, <a href="https://www.epicgames.com/store/en-US/" target="_blank" rel="noopener">Epic Games Store</a>, or any online stores.
                         </small></p>
-                        ${rows}
+                        <div>
+                            ${rows}
+                        </div>
                         ${itemsErrorMessage}
                         <button
                             type="button"
@@ -249,11 +258,41 @@ class WishForm extends ReactComponent {
                         >
                             Add item
                         </button>
-                        <p><small className="form-text text-muted">
-                            Remember to include shipping cost if applicable. 
-                            If there is only one item unit in the wish, you may include shipping cost directly in the unit price. 
-                            If there are more than one item units, add an additional "shipping" item with the online store homepage URL.
-                        </small></p>
+
+                        <div className="form-row align-items-end mt-2">
+                            <div className="form-group col-md-8">
+                                <label
+                                    htmlFor="wish_additional_cost_description"
+                                >
+                                    Additional cost
+                                </label>
+                                <div>
+                                    <Field
+                                        className="form-control"
+                                        name="wish_additional_cost_description"
+                                        id="wish_additional_cost_description"
+                                        placeholder="e.g. standard shipping or priority shipping"
+                                    />
+                                </div>
+                            </div>
+                            <div className="form-group col-md-4">
+                                <label
+                                    htmlFor="wish_additional_cost_amount"
+                                >
+                                    Amount${props.values.wish_currency == "" ? null : " (" + props.values.wish_currency + ")"}
+                                </label>
+                                <div>
+                                    <Field
+                                        className="form-control"
+                                        name="wish_additional_cost_amount"
+                                        id="wish_additional_cost_amount"
+                                        type="number"
+                                        min="0.00" max=${WishItemData.item_price_max} step="0.01"
+                                        required=${true}
+                                    />
+                                </div>
+                            </div>
+                        </div>
                         ${totalPriceElement}
                     </Fragment>
                 ');

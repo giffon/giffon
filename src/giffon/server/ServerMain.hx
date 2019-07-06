@@ -240,7 +240,18 @@ class ServerMain {
     @async static public function getWish(wish_id:Int):giffon.db.Wish {
         var wish_results:QueryResults = (@await dbConnectionPool.query(
             "
-                SELECT `wish_id`, `user_id`, `wish_hashid`, `wish_title`, `wish_description`, `wish_target_date`, `wish_state`, `wish_currency`, `wish_banner_url`
+                SELECT
+                    `wish_id`,
+                    `user_id`,
+                    `wish_hashid`,
+                    `wish_title`,
+                    `wish_description`,
+                    `wish_target_date`,
+                    `wish_state`,
+                    `wish_currency`,
+                    `wish_banner_url`,
+                    `wish_additional_cost_description`,
+                    `wish_additional_cost_amount`
                 FROM wish
                 WHERE `wish_id` = ?
             ",
@@ -304,6 +315,7 @@ class ServerMain {
                 case str: Decimal.fromString(str).trim();
             }
         }
+        var wish_additional_cost_amount = Decimal.fromString(wish.wish_additional_cost_amount);
         var wish_total_price = item_results.fold(function(item, total:Decimal) return total + Decimal.fromString(item.item_price) * Decimal.fromInt(item.item_quantity), Decimal.zero).trim();
 
         var supporters = [];
@@ -344,6 +356,8 @@ class ServerMain {
                     item_quantity: item.item_quantity,
                 }
             }),
+            wish_additional_cost_amount: wish_additional_cost_amount,
+            wish_additional_cost_description: wish.wish_additional_cost_description,
             supporters: supporters,
             appliedCoupons: @await getCouponsAppliedToWish(wish.wish_id),
         };

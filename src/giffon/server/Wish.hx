@@ -434,6 +434,11 @@ class Wish {
                 wish_description: wishData.wish_description,
                 wish_target_date: wishData.wish_target_date,
                 wish_banner_url: wishData.wish_banner_url,
+                wish_additional_cost_amount : wishData.wish_additional_cost_amount,
+                wish_additional_cost_description : switch (wishData.wish_additional_cost_description) {
+                    case "": null;
+                    case v: v;
+                },
             },
             wish.wish_id
         ]).handleError(next).toPromise()).results;
