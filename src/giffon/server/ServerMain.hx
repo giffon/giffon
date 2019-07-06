@@ -315,7 +315,12 @@ class ServerMain {
                 case str: Decimal.fromString(str).trim();
             }
         }
-        var wish_additional_cost_amount = Decimal.fromString(wish.wish_additional_cost_amount);
+        var wish_additional_cost_amount = switch(wish.wish_additional_cost_amount) {
+            case null:
+                Decimal.zero;
+            case amount:
+                Decimal.fromString(amount);
+        };
         var wish_total_price = item_results.fold(function(item, total:Decimal) return total + Decimal.fromString(item.item_price) * Decimal.fromInt(item.item_quantity), Decimal.zero).trim();
 
         var supporters = [];
