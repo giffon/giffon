@@ -43,7 +43,7 @@ class Wish extends Page {
 
     function numSupporters() {
         return jsx('
-            <div className="wish-num-supporters col">
+            <div className="wish-num-supporters col px-1">
                 <div className="font_xs_l font_md_xl">${wish.supporters.length}</div>
                 ${wish.supporters.length == 1 ? "supporter" : "supporters"}
             </div>
@@ -53,7 +53,7 @@ class Wish extends Page {
     function progress() {
         var percentText = ((wish.wish_pledged / wish.wish_total_needed.amount) * 100).floor().toString() + "%";
         return jsx('
-            <div className="wish-num-supporters col">
+            <div className="wish-num-supporters col px-1">
                 <div className="font_xs_l font_md_xl">${percentText}</div>
                 archived
             </div>
@@ -66,7 +66,7 @@ class Wish extends Page {
         } else {
             var moment = Moment.moment({}).to(wish.wish_target_date, true);
             return jsx('
-                <div className="wish-target-date col" data-toggle="tooltip" title=${"target: " + wish.wish_target_date.format("%Y-%m-%d")}>
+                <div className="wish-target-date col px-1" data-toggle="tooltip" title=${"target: " + wish.wish_target_date.format("%Y-%m-%d")}>
                     <div className="font_xs_l font_md_xl">${moment}</div>
                     to go
                 </div>
@@ -100,7 +100,13 @@ class Wish extends Page {
         }
 
         return jsx('
-            <div id="pledge-form-root" className="my-5 p-3 bg_white shaded-shadow font_xs_xs font_md_m"></div>
+            <div className="bg6 p-3 px-md-5 pb-md-5 mb-md-5">
+                <div className="text-center pb-3">
+                    <img className="width_xs_15 mb-2" src=${R("/images/motivation.svg")}/>
+                    <div className="font_xs_l font_md_xl">Support the Wish</div>
+                </div>
+                <div id="pledge-form-root" className="p-3 bg_white font_xs_xs font_md_m"></div>
+            </div>
         ');
     }
 
@@ -113,10 +119,10 @@ class Wish extends Page {
         }
 
         return jsx('
-            <div className="mb-3 p-3 bg_white shaded-shadow font_xs_xs font_md_s">
-                <h4  className="font_xs_l font_md_xxl">Cancel Wish</h4>
-                <p>Once cancelled, all existing pledges will be refunded to the supporters. The action cannot be undone.</p>
-                <button className="cancel-wish-btn btn btn-danger">Cancel Wish</button>
+            <div className="py-3 px-2 p-md-3 mb-3 mb-md-0 bg_white col ml-sm-3">
+                <h4 className="font_xs_m font_md_l">Cancel the Wish ;(</h4>
+                <p className="font_xs_xs font_md_s">Once cancelled, all existing pledges will be refunded to the supporters. The action cannot be undone.</p>
+                <button className="cancel-wish-btn btn btn-danger rounded-0 w-100">Cancel Wish</button>
             </div>
         ');
     }
@@ -131,11 +137,12 @@ class Wish extends Page {
 
         if (wish.appliedCoupons.length <= 0) {
             return jsx('
-                <div className="mb-3 p-3 bg_white shaded-shadow font_xs_xs font_md_s container-fluid">
-                    <h4  className="font_xs_l font_md_xxl">Apply Coupon</h4>
-                    <form className="apply-coupon-form row mx-0">
-                        <input type="text" className="form-control col col-md-4 mr-1 text-uppercase" name="coupon_code" placeholder="COUPON_CODE" />
-                        <button type="submit" className="apply-coupon-btn btn btn-primary col-auto">Apply</button>
+                <div className="py-3 px-2 p-md-3 mb-3 mb-md-0 bg_white col">
+                    <h4 className="font_xs_m font_md_l">Use a Coupon?</h4>
+                    <p className="font_xs_xs font_md_s">Try any coupon codes you can imagine.</p>
+                    <form className="input-group font_xs_s font_md_m apply-coupon-form">
+                        <input type="text" className="col text-uppercase" name="coupon_code" placeholder="COUPON_CODE" />
+                        <button type="submit" className="input-group-append apply-coupon-btn btn btn-primary rounded-0">Apply</button>
                     </form>
                 </div>
             ');
@@ -147,8 +154,8 @@ class Wish extends Page {
                 ')
             ];
             return jsx('
-                <div className="mb-3 p-3 bg_white shaded-shadow font_xs_xs font_md_s container-fluid">
-                    <h4  className="font_xs_l font_md_xxl">Applied Coupon</h4>
+                <div className="py-3 px-2 p-md-3 mb-3 mb-md-0 bg_white col">
+                    <h4 className="font_xs_m font_md_l">Applied Coupon</h4>
                     <div className="row mx-0">
                         ${couponList}
                     </div>
@@ -165,6 +172,9 @@ class Wish extends Page {
                 return null;
         }
 
+        if(user!=null) 
+            return null;
+
         return jsx('<div id="how-to-help-root" />');
     }
 
@@ -175,8 +185,8 @@ class Wish extends Page {
         switch (wish.wish_state) {
             case Succeed | Cancelled:
                 return jsx('
-                    <div className="my-3">
-                        <h3 className="font_xs_l font_md_xxl">Settings</h3>
+                    <div className="p-3 px-md-0 pb-md-5 mb-md-5">
+                        <h3 className="text-center pb-3 font_xs_l font_md_xxl">Settings</h3>
                         <p>Wish ${wish.wish_state}. No operation is allowed.</p>
                     </div>
                 ');
@@ -185,10 +195,12 @@ class Wish extends Page {
         }
         
         return jsx('
-            <div className="my-3">
-                <h3 className="font_xs_l font_md_xxl">Settings</h3>
-                ${couponControl()}
-                ${cancelWishControl()}
+            <div className=" p-3 px-md-0 pb-md-5 mb-md-5">
+                <h3 className="text-center pb-3 font_xs_l font_md_xxl">Settings</h3>
+                <div className="d-sm-flex">
+                    ${couponControl()}
+                    ${cancelWishControl()}
+                </div>
             </div>
         ');
     }
@@ -218,10 +230,12 @@ class Wish extends Page {
         var list = supporterList(amountVisible);
         return list.length <= 0 ? null : jsx('
             <div>
-                <p className="text-muted font_xs_xs font_md_s mb-1">
+                <p className="text-muted font_xs_xs font_md_s text-center mb-1">
                     ${info}
                 </p>
-                ${list}
+                <div className="bg_white row mx-0 justify-content-center p-3 font_xs_s font_md_m">
+                    ${list}
+                </div>
             </div>
         ');
     }
@@ -231,10 +245,10 @@ class Wish extends Page {
             for (supporter in wish.supporters)
             if (supportAmountIsVisible(supporter) == amountVisible)
             jsx('
-                <div key=${supporter.user.user_id}>
-                    <a href=${supporter.user.user_profile_url} className="d-inline-flex flex-nowrap align-items-center text-light">
-                        <div className="supporter-avatar rounded-circle" style=${userAvatarStyle(supporter.user)} />
-                        <div className="pl-2">${supporter.user.user_name}${supportAmount(supporter)}</div>
+                <div className="col-6 col-md-4 text-center" key=${supporter.user.user_id}>
+                    <a href=${supporter.user.user_profile_url} className="py-3">
+                        <div className="supporter-avatar rounded-circle shadow mx-auto mb-2" style=${userAvatarStyle(supporter.user)} />
+                        <div className="">${supporter.user.user_name}${supportAmount(supporter)}</div>
                     </a>
                 </div>
             ')
@@ -255,7 +269,7 @@ class Wish extends Page {
                 var dollar = "$";
                 var overPledgeMsg = if (wish.wish_pledged >= wish.wish_total_needed.amount) {
                     jsx('
-                        <div className="mt-3">
+                        <div className="bg_white p-3 pt-md-4 px-md-5 font_xs_s font_md_m text-justify">
                             <div className="alert alert-info" role="alert">
                                 <small>
                                     <p>
@@ -274,10 +288,16 @@ class Wish extends Page {
                 }
                 return jsx('
                     <Fragment>
-                        <div className="mt-3 d-flex font_xs_xs font_md_s row">
-                            ${numSupporters()}
-                            ${progress()}
-                            ${daysToGo()}
+                        <div className="ribbon-wrapper">
+                            <div className="ribbon-front">
+                                <div className="p-3 px-md-5 d-flex font_xs_xs font_md_s color_white text-center">
+                                    ${numSupporters()}
+                                    ${progress()}
+                                    ${daysToGo()}
+                                </div>
+                            </div>
+                            <div className="ribbon-edge-topleft"></div>
+                            <div className="ribbon-edge-bottomright"></div>
                         </div>
                         ${overPledgeMsg}
                     </Fragment>
@@ -285,14 +305,15 @@ class Wish extends Page {
             case Succeed:
                 return jsx('
                     <Fragment>
-                        <div className="mt-3 d-flex font_xs_xs font_md_s row">
-                            ${numSupporters()}
-                            ${progress()}
-                        </div>
-                        <div className="mt-3">
-                            <h3 className="font_xs_l">List of Supporters</h3>
-                            ${supporterListSection(true)}
-                            ${supporterListSection(false)}
+                        <div className="ribbon-wrapper">
+                            <div className="ribbon-front">
+                                <div className="p-3 px-md-5 d-flex font_xs_xs font_md_s color_white text-center">
+                                    ${numSupporters()}
+                                    ${progress()}
+                                </div>
+                            </div>
+                            <div className="ribbon-edge-topleft"></div>
+                            <div className="ribbon-edge-bottomright"></div>
                         </div>
                     </Fragment>
                 ');
@@ -304,6 +325,26 @@ class Wish extends Page {
                         </div>
                     </div>
                 ');
+        }
+    }
+
+    function wishSupporterList() {
+        switch (wish.wish_state) {
+            case Succeed:
+                return jsx('
+                    <Fragment>
+                        <div className="bg6 p-3 px-md-5 pb-md-5 mb-md-5">
+                            <div className="text-center pb-3">
+                                 <img className="width_xs_15 mb-2" src=${R("/images/celebration.svg")}/>
+                                <h3 className="font_xs_l font_md_xl">Bibbidi Bobbidi Boom!<br/>Wish fulfilled! Great thanks for the following friends!</h3>
+                            </div>
+                            ${supporterListSection(true)}
+                            ${supporterListSection(false)}
+                        </div>
+                    </Fragment>
+                ');    
+            case _:
+                return null;        
         }
     }
 
@@ -327,7 +368,8 @@ class Wish extends Page {
         var bannerUrl = if (wish.wish_banner_url != null) {
             wish.wish_banner_url;
         } else {
-            R("/images/bg1.jpg");
+            //R("/images/bg1.jpg");
+            ("https://media.giphy.com/media/RKMWXB2EUqeFB4CpKm/giphy.gif");
         }
 
         return {
@@ -335,21 +377,85 @@ class Wish extends Page {
         };
     }
 
+    function wishTotalBg() {
+        if ((user != null)&&(user.user_id == wish.wish_owner.user_id)) {
+            return {
+                background: 'none'
+            };
+        }
+        else {
+            return {
+                background: '#fff700'
+            }
+        }
+    }
+
     override function bodyContent() return jsx('
         <Fragment>
-            <div className="container mb-xs-4 mb-md-5">
+            <div></div>
+            <div className="detail_banner position-relative" style=${bannerStyle()}>
+                <div className="wish-owner-avatar position-absolute rounded-circle shadow" style=${userAvatarStyle(wish.wish_owner)} />
+            </div>
+
+            <div className="pt-5 pb-3 pb-md-5 text-center">
+                <a className="font_xs_l font_md_xl" href=${wish.wish_owner.user_profile_url}>${wish.wish_owner.user_name}</a>
+            </div>
+
+            <div className="row justify-content-center">      
+                <div className="col-12 col-md-9">
+                
+                    <div className="bg_white p-3 pt-md-5 px-md-5 pb-md-4 text-center">
+                        <span className="font_xs_l font_md_xl">${wish.wish_title}</span>
+                        ${wishBadge(wish)}
+                        <br/><button className="btn btn-link"><i className="far fa-copy"></i> Share</button>
+                    </div>
+
+                    ${wishState()}
+                    
+                    <div className="bg_white p-3 pt-md-4 px-md-5 font_xs_s font_md_m text-center-justify">${wish.wish_description}</div>
+
+                    <div className="d-flex">
+                        <div className="custom-border col">&nbsp;</div>
+                        <div className="bg_white px-3 font_xs_s font_md_m">Well, I want...</div>
+                        <div className="custom-border col">&nbsp;</div>
+                    </div>
+
+                    <div className="bg_white p-3 px-md-5 font_xs_m font_md_l text-center">
+                        <ul className="list-group list-group-flush">
+                            ${wishItems()}
+                        </ul>
+                    </div>
+
+                    <div className="pb-4" style=${wishTotalBg()}>
+                        <div className="p-2 bg_white shadow text-center font_xs_m font_md_l">
+                                Total: <span className="wish-total" data-toggle="tooltip" title=${wish.wish_total_needed.breakdown}>${currencyFlag(wish.wish_currency)} ${wish.wish_currency.getName()} ${wish.wish_total_needed.amount.toString()} <i className="fas fa-info-circle"></i></span>
+                        </div>
+                    </div>
+                    
+                    ${wishSupporterList()}
+                    ${wishSettings()}
+                    ${howToHelpSection()}
+                    ${pledgeForm()}
+                    
+
+                    
+
+                </div>
+            </div>
+
+            <div className="d-none container mb-xs-4 mb-md-5">
                 <div className="row my-md-5">
                     <div className="col-12 col-md-6">
                         <div className="p-3 p-md-5 color_white detail_card_left">
                             <div className="d-flex align-items-center">
                                 <span className="font_xs_xl">${wish.wish_title}</span>
-                                ${wishBadge(wish)}
+                                
                             </div>
                             ${wishState()}
                         </div>
                     </div>
                     <div className="col-12 col-md-6">
-                        <div id="banner" className="detail_card_right" style=${bannerStyle()}></div>
+                        <div id="banner" className="" style=${bannerStyle()}></div>
                     </div>
                 </div>
                 <div className="bg_white">

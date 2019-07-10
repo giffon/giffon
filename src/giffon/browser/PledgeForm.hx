@@ -93,14 +93,14 @@ class PledgeForm extends ReactComponent {
             return jsx('
                 <div>
                     You have currently pledged ${wish_currency.getName()} ${user_support.pledge_amount.toString()}.
-                    <button className="btn btn-link btn-cancel-pledge" onClick=${cancelPledge} disabled=${isCancellingPledge}>Cancel pledge</button>
+                    <button className="btn btn-link btn-cancel-pledge font_xs_s font_md_m" onClick=${cancelPledge} disabled=${isCancellingPledge}>Cancel pledge</button>
                     <br/>
                     ${visibilityInfo}
                 </div>
             ');
         } else {
             return jsx('
-                <div>You haven\'t pledged your support yet.</div>
+                <div className="pb-3">You haven\'t pledged your support yet.</div>
             ');
         }
     }
@@ -138,7 +138,7 @@ class PledgeForm extends ReactComponent {
         return jsx('
             <div>
                 ${submissionErrorElement}
-                <div className="py-3">
+                <div className="text-center">
                     ${pledgeInfo()}
                 </div>
                 ${form}
@@ -358,7 +358,7 @@ class _PledgeForm extends ReactComponent {
                         <ErrorMessage name="acceptTerms" render=${renderErrorMessage} />
                     </div>
                 </div>
-                <button type="submit" className="btn btn-primary" disabled={props.isSubmitting}>
+                <button type="submit" className="btn btn-primary rounded-0" disabled={props.isSubmitting}>
                     Submit
                 </button>
             </Form>

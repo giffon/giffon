@@ -26,6 +26,10 @@ body > .content {
     background: #B7F8DB;
 }
 
+.width_xs_15 {
+    width: 15%;
+}
+
 .width_xs_30 {
     width: 30%;
 }
@@ -572,16 +576,19 @@ a.signInBtn:hover {
 .wish-owner-avatar {
     background-size: 100%;
     background-repeat: no-repeat;
-    width: 80px;
-    height: 80px;
+    width:90px;
+    height: 90px;
+    border:3px solid #FFF;
+    left: calc(50% - 45px);
+    bottom: -45px;
 }
 
 .supporter-avatar {
     background-size: 100%;
     background-repeat: no-repeat;
-    width: 40px;
-    height: 40px;
-    flex: 0 0 40px;
+    width: 90px;
+    height: 90px;
+    border:3px solid #FFF;
 }
 
 .highlight {
@@ -602,7 +609,7 @@ a.signInBtn:hover {
 }
 
 .page-wish .wish-item {
-    font-size: 1.5em;
+    /* font-size: 1.5em; */
     background: none;
 }
 
@@ -702,4 +709,75 @@ a.signInBtn:hover {
     max-width: 100%;
     display: block;
     margin: 0.5em auto 1em auto;
+}
+
+.detail_banner {
+    height:360px;
+    background-size: contain;
+    background-position: center;
+}
+
+.ribbon-wrapper {
+    position: relative;
+    z-index:998;
+}
+.ribbon-front {
+    background-color: #055cfd;
+    /*height: 50px;*/
+    width: calc(100% + 20px);
+    position: relative;
+    left:-10px;
+    z-index: 2;
+}
+
+.ribbon-front,
+.ribbon-back-left,
+.ribbon-back-right
+{
+    -moz-box-shadow: 0 4px 9px rgba(0,0,0,0.2);
+    -khtml-box-shadow: 0 4px 9px rgba(0,0,0,0.2);
+    -webkit-box-shadow: 0 4px 9px rgba(0,0,0,0.2);
+    -o-box-shadow: 0 4px 9px rgba(0,0,0,0.2);
+}
+
+  .ribbon-edge-topleft,
+  .ribbon-edge-topright,
+  .ribbon-edge-bottomleft,
+  .ribbon-edge-bottomright {
+    position: absolute;
+    z-index: 1;
+    border-style:solid;
+    height:0px;
+    width:0px;
+}
+
+  .ribbon-edge-topleft {
+    top: -5px;
+    border-width: 5px 10px 0 0;
+    left: -10px;
+    border-color: transparent #0742b1 transparent transparent;
+}
+
+  .ribbon-edge-bottomright {
+    border-width: 0 0 5px 10px;
+    right: -10px;
+    bottom: -5px;
+    border-color: transparent transparent transparent #0742b1;
+}
+
+.custom-border {
+    background-image: linear-gradient(0deg, #fff 47%, #5c5656 49%, #fff 50%);
+}
+
+.custom-border2 {
+    background-image: linear-gradient(0deg, #fff700 70%, #fff 71%);
+}
+
+.custom-border3 {
+    background-image: linear-gradient(0deg, transparent 70%, #fff 71%);
+}
+
+.text-center-justify {
+    text-align: justify;
+    text-align-last: center;
 }
