@@ -24,6 +24,8 @@ class Wish {
         router.post("/wish/:wish_hashid/coupon", ensureLoggedIn, handleCoupon);
         router.post("/wish/:wish_hashid/pledge", ensureLoggedIn, handlePledge);
         router.delete("/wish/:wish_hashid/pledge", ensureLoggedIn, handlePledgeCancel);
+        router.get("/wish/:wish_hashid/edit", ensureLoggedIn, handleEditGet);
+        router.post("/wish/:wish_hashid/edit", ensureLoggedIn, handleEditPost);
         return router;
     }
 
@@ -328,4 +330,119 @@ class Wish {
         }
         res.sendPlainText("done");
     }
+
+    @await static function handleEditGet(req, res:Response, next):Void {
+        var wish_hashid = req.params.wish_hashid;
+        var wish_id = @await getWishIdFromHash(wish_hashid);
+        if (wish_id == null) {
+            res.sendPlainError("There is no such wish.", 404);
+            return;
+        }
+        var wish = @await getWish(wish_id);
+        if (wish == null) {
+            res.sendPlainError("There is no such wish.", 404);
+            return;
+        }
+
+        switch (wish.wish_state) {
+            case Succeed | Cancelled:
+                res.sendPlainError('Cannot edit a ${wish.wish_state} wish.', BadRequest);
+                return;
+            case _:
+                //pass
+        }
+
+        var user = res.getUser();
+        if (user.user_id != wish.wish_owner.user_id) {
+            res.sendPlainError("Only the wish owner can edit the wish.", Forbidden);
+            return;
+        }
+        res.sendPage(giffon.view.EditWish, {
+            wish: wish,
+        });
+    }
+
+    @await static function handleEditPost(req:Request, res:Response, next:Dynamic){
+        var wish_hashid = req.params.wish_hashid;
+        var wish_id = @await getWishIdFromHash(wish_hashid);
+        if (wish_id == null) {
+            res.sendPlainError("There is no such wish.", 404);
+            return;
+        }
+        var wish = @await getWish(wish_id);
+        if (wish == null) {
+            res.sendPlainError("There is no such wish.", 404);
+            return;
+        }
+
+        // TODO add a WHERE cause in the SQL to check with_state
+        switch (wish.wish_state) {
+            case Succeed | Cancelled:
+                res.sendPlainError('Cannot edit a ${wish.wish_state} wish.', BadRequest);
+                return;
+            case _:
+                //pass
+        }
+
+        var user = res.getUser();
+        if (user.user_id != wish.wish_owner.user_id) {
+            res.sendPlainError("Only the wish owner can edit the wish.", Forbidden);
+            return;
+        }
+
+        var wishData:giffon.db.WishFormData = try {
+            dataclass.JsonConverter.fromJson(giffon.db.WishFormData, req.body);
+        } catch (err:Dynamic) {
+            trace(haxe.Json.stringify(err));
+            res.sendPlainError(err, BadRequest);
+            return;
+        }
+
+        // check the non-editable values are not edited
+
+        if (wishData.items.length > wish.items.length) {
+            res.sendPlainError("Cannot add new item to an existing wish.", BadRequest);
+            return;
+        }
+
+        for (item in wishData.items) {
+            var oldItem = wish.items.find(function(i) return i.item_id == item.item_id);
+            if (oldItem == null) {
+                res.sendPlainError('Item ${item.item_id} is not one of the wish items.', BadRequest);
+                return;
+            }
+            if (wishData.items.exists(function(i) return i != item && i.item_id == item.item_id)) {
+                res.sendPlainError('Duplicated item id ${item.item_id}.', BadRequest);
+                return;
+            }
+            if (item.item_quantity > oldItem.item_quantity) {
+                res.sendPlainError('Cannot increase item quantity.');
+                return;
+            }
+        }
+
+        var results:Array<QueryResults> = (@await dbConnectionPool.query("
+            /*0*/   START TRANSACTION;
+
+            /*1*/   UPDATE wish SET ?
+                    WHERE wish_id = ?;
+
+            /*2*/   COMMIT;
+        ", [
+            {
+                wish_title: wishData.wish_title,
+                wish_description: wishData.wish_description,
+                wish_target_date: wishData.wish_target_date,
+                wish_banner_url: wishData.wish_banner_url,
+                wish_additional_cost_amount : wishData.wish_additional_cost_amount,
+                wish_additional_cost_description : switch (wishData.wish_additional_cost_description) {
+                    case "": null;
+                    case v: v;
+                },
+            },
+            wish.wish_id
+        ]).handleError(next).toPromise()).results;
+
+        res.sendPlainText("/wish/" + wish_hashid);
+    };
 }

@@ -34,7 +34,7 @@ CREATE TABLE `coupon` (
   UNIQUE KEY `coupon_UN` (`coupon_code`),
   KEY `coupon_user_FK` (`coupon_creator_id`),
   CONSTRAINT `coupon_user_FK` FOREIGN KEY (`coupon_creator_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -53,7 +53,7 @@ CREATE TABLE `item` (
   `item_time_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `item_currency` varchar(16) COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`item_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -141,10 +141,11 @@ CREATE TABLE `user` (
   `user_note` text COLLATE utf8mb4_bin,
   `user_avatar` longblob,
   `user_description` varchar(300) COLLATE utf8mb4_bin DEFAULT NULL,
+  `user_avatar_url` mediumtext COLLATE utf8mb4_bin,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_hashid` (`user_hashid`),
   KEY `user_primary_email` (`user_primary_email`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -280,7 +281,7 @@ CREATE TABLE `user_twitter` (
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user_url` (
   `user_id` int(11) NOT NULL,
-  `user_url` varchar(64) COLLATE utf8mb4_bin NOT NULL,
+  `user_url` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
   `time_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `is_latest` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`user_url`),
@@ -324,11 +325,13 @@ CREATE TABLE `wish` (
   `wish_target_date` timestamp NULL DEFAULT NULL,
   `wish_currency` varchar(16) COLLATE utf8mb4_bin NOT NULL,
   `wish_banner_url` varchar(1024) COLLATE utf8mb4_bin DEFAULT NULL,
+  `wish_additional_cost_amount` decimal(16,4) DEFAULT NULL,
+  `wish_additional_cost_description` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
   PRIMARY KEY (`wish_id`),
   UNIQUE KEY `wish_hashid` (`wish_hashid`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `wish_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --

@@ -6,6 +6,8 @@ import js.moment.Moment;
 import giffon.server.ServerMain.*;
 import tink.core.Error;
 import giffon.Utils.*;
+import haxe.*;
+using StringTools;
 using thx.Dates;
 using tink.core.Future.JsPromiseTools;
 using giffon.ResponseTools;
@@ -37,17 +39,24 @@ class Settings {
         }
 
         var user = res.getUser();
+        var changes:DynamicAccess<String> = {
+            user_name: settingsFormData.user_name,
+            user_primary_email: settingsFormData.user_primary_email.length > 0 ? settingsFormData.user_primary_email : null,
+            user_description: settingsFormData.user_description.length > 0 ? settingsFormData.user_description : null,
+        };
+
+        if (settingsFormData.user_avatar != null) {
+            var file = js.npm.image_data_uri.ImageDataUri.decode(settingsFormData.user_avatar);
+            var url = @await uploadUserImage(file.dataBuffer);
+            changes["user_avatar_url"] = url;
+        }
 
         @await dbConnectionPool.query(
             "
                 UPDATE `user` SET ? WHERE `user_id` = ?;
             ",
             [
-                {
-                    user_name: settingsFormData.user_name,
-                    user_primary_email: settingsFormData.user_primary_email.length > 0 ? settingsFormData.user_primary_email : null,
-                    user_description: settingsFormData.user_description.length > 0 ? settingsFormData.user_description : null,
-                },
+                changes,
                 user.user_id,
             ]
         ).handleError(next).toPromise();
@@ -61,7 +70,7 @@ class Settings {
                     user.user_id,
                 ]
             ).handleError(next).toPromise();
-        } else if (user.user_profile_url != '/user/${settingsFormData.user_url}') {
+        } else if (user.user_profile_url != '/${settingsFormData.user_url}') {
             // check the latest update time
             var results:QueryResults = (@await dbConnectionPool.query(
                 "

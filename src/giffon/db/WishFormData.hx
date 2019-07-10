@@ -8,6 +8,7 @@ using js.npm.validator.Validator;
 typedef WishFormValues = {
     acceptTerms:Bool,
     items:Array<{
+        item_id:Int,
         item_url:String,
         item_name:String,
         item_price:Float,
@@ -15,6 +16,8 @@ typedef WishFormValues = {
         item_icon_url:Null<String>,
         item_icon_label:Null<String>,
     }>,
+    wish_additional_cost_description:String,
+    wish_additional_cost_amount:Float,
     wish_currency:String,
     wish_title:String,
     wish_description:String,
@@ -25,6 +28,9 @@ typedef WishFormValues = {
 class WishItemData implements DataClass {
     static public var item_price_max(default, never) = 200000;
     static public var item_quantity_max(default, never) = 100;
+
+    @validate(_ >= -1)
+    public var item_id:Int;
 
     @validate(validateItemUrl(_))
     public var item_url:String;
@@ -73,6 +79,12 @@ class WishFormData implements DataClass {
 
     @validate(_.length > 0 && _.length <= items_max)
     public var items:Array<WishItemData>;
+
+    @validate(_.length <= 128)
+    public var wish_additional_cost_description:String;
+
+    @validate(_ >= 0 && _ <= WishItemData.item_price_max)
+    public var wish_additional_cost_amount:Float;
 
     @validate(_ == true)
     public var acceptTerms:Bool;

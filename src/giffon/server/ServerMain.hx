@@ -240,7 +240,18 @@ class ServerMain {
     @async static public function getWish(wish_id:Int):giffon.db.Wish {
         var wish_results:QueryResults = (@await dbConnectionPool.query(
             "
-                SELECT `wish_id`, `user_id`, `wish_hashid`, `wish_title`, `wish_description`, `wish_target_date`, `wish_state`, `wish_currency`, `wish_banner_url`
+                SELECT
+                    `wish_id`,
+                    `user_id`,
+                    `wish_hashid`,
+                    `wish_title`,
+                    `wish_description`,
+                    `wish_target_date`,
+                    `wish_state`,
+                    `wish_currency`,
+                    `wish_banner_url`,
+                    `wish_additional_cost_description`,
+                    `wish_additional_cost_amount`
                 FROM wish
                 WHERE `wish_id` = ?
             ",
@@ -304,6 +315,12 @@ class ServerMain {
                 case str: Decimal.fromString(str).trim();
             }
         }
+        var wish_additional_cost_amount = switch(wish.wish_additional_cost_amount) {
+            case null:
+                Decimal.zero;
+            case amount:
+                Decimal.fromString(amount);
+        };
         var wish_total_price = item_results.fold(function(item, total:Decimal) return total + Decimal.fromString(item.item_price) * Decimal.fromInt(item.item_quantity), Decimal.zero).trim();
 
         var supporters = [];
@@ -344,6 +361,8 @@ class ServerMain {
                     item_quantity: item.item_quantity,
                 }
             }),
+            wish_additional_cost_amount: wish_additional_cost_amount,
+            wish_additional_cost_description: wish.wish_additional_cost_description,
             supporters: supporters,
             appliedCoupons: @await getCouponsAppliedToWish(wish.wish_id),
         };
@@ -490,7 +509,7 @@ class ServerMain {
     @async static public function getUser(user_id:Int):giffon.db.User {
         var results:QueryResults = (@await dbConnectionPool.query(
             "
-                SELECT user.`user_id`, `user_hashid`, `user_primary_email`, `user_name`, `user_avatar`, `user_description`, `user_url`
+                SELECT user.`user_id`, `user_hashid`, `user_primary_email`, `user_name`, `user_avatar`, `user_avatar_url`, `user_description`, `user_url`
                 FROM user LEFT JOIN (SELECT * FROM user_url WHERE is_latest=1) AS user_url ON user.user_id = user_url.user_id
                 WHERE user.`user_id` = ?
             ",
@@ -508,6 +527,7 @@ class ServerMain {
             user_primary_email:Null<String>,
             user_name:String,
             user_avatar:js.node.Buffer,
+            user_avatar_url:Null<String>,
             user_description:Null<String>,
             user_url:Null<String>,
         } = results[0];
@@ -516,18 +536,20 @@ class ServerMain {
             user_hashid: user.user_hashid,
             user_primary_email: user.user_primary_email,
             user_name: user.user_name,
-            user_avatar: switch (user.user_avatar) {
-                case null:
-                    null;
-                case buf:
+            user_avatar: switch [user.user_avatar, user.user_avatar_url] {
+                case [_, url] if (url != null):
+                    url;
+                case [buf, _] if (buf != null):
                     ImageDataUri.encode(buf, "JPEG");
+                case _:
+                    null;
             },
             user_description: user.user_description,
             user_profile_url: switch (user.user_url) {
                 case null:
                     '/user?id=${user.user_hashid}';
                 case url:
-                    '/user/${url}';
+                    '/${url}';
             },
         };
     }
@@ -608,6 +630,19 @@ class ServerMain {
             coupon_id:Int,
         } = results[0];
         return @await getCoupon(r.coupon_id);
+    }
+
+    @async static public function uploadUserImage(img:js.node.Buffer):String {
+        var fileBytes = haxe.io.Bytes.ofData(img.buffer);
+        var hash = haxe.crypto.Md5.make(fileBytes).toHex();
+        var fileExt = js.npm.image_type.ImageType.imageType(img).ext;
+        var fileName = hash + "." + fileExt;
+        @await (new js.npm.aws_sdk.S3().upload({
+            Bucket: "giffon-user",
+            Key: fileName,
+            Body: img,
+        }).promise().toPromise());
+        return "https://d1ksq9ahsv51u8.cloudfront.net/" + fileName;
     }
 
     @async static public function getCoupon(coupon_id:Int):Null<giffon.db.Coupon> {
@@ -728,8 +763,9 @@ class ServerMain {
                     var res = @await js.npm.fetch.Fetch.fetch(avatarUrl).toPromise();
                     @await res.buffer().toPromise();
                 };
+                var url = @await uploadUserImage(avatar);
                 @await dbConnectionPool.query("UPDATE user SET ? WHERE user_id = ?", [{
-                    user_avatar: avatar,
+                    user_avatar_url: url,
                 }, user_id]).toPromise();
                 user = @await getUser(user_id);
             }
@@ -744,11 +780,12 @@ class ServerMain {
             var res = @await js.npm.fetch.Fetch.fetch(avatarUrl).toPromise();
             @await res.buffer().toPromise();
         };
+        var avatar_url = @await uploadUserImage(avatar);
 
         var results:QueryResults = (@await dbConnectionPool.query("INSERT INTO user SET ?", {
             user_primary_email: email,
             user_name: profile.displayName,
-            user_avatar: avatar,
+            user_avatar_url: avatar_url,
         }).handleError(done).toPromise()).results;
         user_id = results.insertId;
         var user_hashid = new Hashids("user" + DBInfo.salt, 4).encode(user_id);
@@ -834,7 +871,9 @@ class ServerMain {
         app.use(require("body-parser").urlencoded({
             extended: false
         }));
-        app.use(require("body-parser").json());
+        app.use(require("body-parser").json({
+            limit: '16mb',
+        }));
         app.use(require("body-parser").text());
 
         app.use(Express.Static("www", {
@@ -1132,10 +1171,10 @@ class ServerMain {
         });
 
         app.use(giffon.server.Admin.createRouter());
-        app.use(giffon.server.User.createRouter());
         app.use(giffon.server.Wish.createRouter());
         app.use(giffon.server.MakeAWish.createRouter());
         app.use(giffon.server.Settings.createRouter());
+        app.use(giffon.server.User.createRouter());
 
         app.use(function(err, req, res:Response, next) {
             res.sendPlainError(err, 500);

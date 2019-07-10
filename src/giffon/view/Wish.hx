@@ -110,6 +110,25 @@ class Wish extends Page {
         ');
     }
 
+    function editWishControl() {
+        switch (wish.wish_state) {
+            case Cancelled | Succeed:
+                return null;
+            case _:
+                //pass
+        }
+
+        trace(path());
+
+        return jsx('
+            <div className="mb-3 p-3 bg_white shaded-shadow font_xs_xs font_md_s">
+                <h4  className="font_xs_l font_md_xxl">Edit Wish</h4>
+                <p>You may edit the wish info, but not the items.</p>
+                <a className="edit-wish-btn btn btn-primary" href=${Path.join(["/", path(), "edit"])}>Edit Wish</a>
+            </div>
+        ');
+    }
+
     function cancelWishControl() {
         switch (wish.wish_state) {
             case Cancelled | Succeed:
@@ -199,6 +218,7 @@ class Wish extends Page {
                 <h3 className="text-center pb-3 font_xs_l font_md_xxl">Settings</h3>
                 <div className="d-sm-flex">
                     ${couponControl()}
+                    ${editWishControl()}
                     ${cancelWishControl()}
                 </div>
             </div>

@@ -25,17 +25,19 @@
   "dependencies": {
     "amazon-helpers": "^0.2.0",
     "amazon-product-api": "^0.4.4",
+    "aws-sdk": "^2.486.0",
     "aws-serverless-express": "^3.3.6",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.4",
     "dotenv": "^8.0.0",
-    "express": "^4.17.0",
+    "express": "^4.17.1",
     "express-mysql-session": "^2.1.0",
-    "express-session": "^1.16.1",
+    "express-session": "^1.16.2",
     "formik": "^1.5.7",
     "gravatar": "^1.8.0",
     "httpolyglot": "^0.1.2",
     "image-data-uri": "^2.0.0",
+    "image-type": "^4.1.0",
     "moment": "^2.24.0",
     "morgan": "^1.9.1",
     "mysql2": "^1.6.5",
@@ -49,8 +51,8 @@
     "passport-twitter": "^1.0.4",
     "passport-youtube-v3": "^2.1.0",
     "react": "^16.8.6",
-    "react-clipboard.js": "^2.0.7",
-    "react-datepicker": "^2.5.0",
+    "react-clipboard.js": "^2.0.13",
+    "react-datepicker": "^2.7.0",
     "react-dom": "^16.8.6",
     "react-giphy-component": "^1.0.5",
     "react-stripe-elements": "^3.0.0",
@@ -61,7 +63,7 @@
   "devDependencies": {
     "browserify": "^16.2.3",
     "envify": "^4.1.0",
-    "uglify-js": "^3.5.15",
+    "uglify-js": "^3.6.0",
     "uglifyify": "^5.0.1"
   }
 }

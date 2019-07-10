@@ -36,5 +36,7 @@ typedef Wish = {
         item_currency: giffon.db.Currency,
         item_quantity: Int,
     }>,
+    wish_additional_cost_description: Null<String>,
+    wish_additional_cost_amount: thx.Decimal,
     appliedCoupons: Array<giffon.db.Coupon>,
 }

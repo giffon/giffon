@@ -125,31 +125,35 @@ img.emoji, .inline-icon {
     background-position: center center;
 }
 
-.page-make-a-wish .wish-banner {
+.wish-form .wish-banner {
     height: 12em;
     background-size: contain;
     background-repeat: no-repeat no-repeat;
     background-position: left center;
 }
 
-.page-make-a-wish #giphyModal .modal-content {
+.wish-form #giphyModal .modal-content {
     background: none;
     border: none;
 }
 
-.page-make-a-wish .giphy-picker {
+.wish-form .giphy-picker {
     margin: 0 auto 0 auto;
     border: none;
 }
 
-.page-make-a-wish .giphy-attribution {
+.wish-form .giphy-attribution {
     object-fit: contain;
     max-height: 1em;
     margin: 5px;
 }
 
-.page-make-a-wish .modal-backdrop.show {
+.wish-form .modal-backdrop.show {
     opacity: 0.8;
+}
+
+.page-wish .tooltip-inner {
+    white-space: pre-wrap;
 }
 
 .btn-success {
@@ -482,12 +486,12 @@ a.signInBtn img.logo {
     height: 1.25em;
 }
 
-a.signInBtn {
+a.btn.signInBtn {
     color: #777;
     font-family: 'Roboto';
 }
 
-a.signInBtn:hover {
+a.btn.signInBtn:hover {
     text-decoration: none;
     color: #000;
 }
@@ -574,7 +578,8 @@ a.signInBtn:hover {
 }
 
 .wish-owner-avatar {
-    background-size: 100%;
+    background-size: cover;
+    background-position: 50% 50%;
     background-repeat: no-repeat;
     width:90px;
     height: 90px;
@@ -584,11 +589,12 @@ a.signInBtn:hover {
 }
 
 .supporter-avatar {
-    background-size: 100%;
+    background-size: cover;
     background-repeat: no-repeat;
     width: 90px;
     height: 90px;
     border:3px solid #FFF;
+    background-position: 50% 50%;
 }
 
 .highlight {
@@ -597,8 +603,9 @@ a.signInBtn:hover {
 }
 
 .page-user .user-avatar {
-    background-size: 100%;
+    background-size: cover;
     background-repeat: no-repeat;
+    background-position: 50% 50%;
     width: 120px;
     height: 120px;
     margin: 10px;
@@ -619,12 +626,12 @@ a.signInBtn:hover {
     font-weight: 100;
 }
 
-.page-make-a-wish .wish-item {
+.wish-form .wish-item {
     border-bottom: 1px solid #CCC;
     margin-bottom: 1em;
 }
 
-.page-make-a-wish .wish-item:last-of-type {
+.wish-form .wish-item:last-of-type {
     border-bottom: none;
     margin-bottom: 0;
 }
@@ -780,4 +787,8 @@ a.signInBtn:hover {
 .text-center-justify {
     text-align: justify;
     text-align-last: center;
+}
+
+.page-settings input[type='file'] {
+    height: fit-content;
 }
