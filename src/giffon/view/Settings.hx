@@ -35,11 +35,15 @@ class Settings extends Page {
             user_primary_email: user.user_primary_email == null ? "" : user.user_primary_email,
             user_description: user.user_description == null ? "" : user.user_description,
             user_url: {
-                var rx = ~/^\/(.+)$/;
+                var rx = ~/^\/user\?id=.+$/; // match only non-custom urls
                 if (rx.match(user.user_profile_url)) {
-                    rx.matched(1);
-                } else {
                     "";
+                } else {
+                    if (user.user_profile_url.startsWith("/")) {
+                        user.user_profile_url.substr(1);
+                    } else {
+                        user.user_profile_url;
+                    }
                 }
             },
             user_avatar: null, //TODO
