@@ -13,12 +13,20 @@ import giffon.Utils.*;
 import thx.Decimal;
 using Lambda;
 using StringTools;
+using test.SeleniumTest.SeleniumTools;
 
 typedef BrowserLog = {
     level:String,
     message:String,
     timestamp:Int,
     source:String,
+}
+
+class SeleniumTools {
+    static public function find_visible_elements_by_css_selector(driver:Remote, selector:String):Array<WebElement> {
+        var elements:Array<WebElement> = driver.find_elements_by_css_selector(selector);
+        return elements.filter(function(e) return e.is_displayed());
+    }
 }
 
 class SeleniumTest extends utest.Test {
@@ -259,7 +267,7 @@ class SeleniumTest extends utest.Test {
         
 
         // check wish page content
-        function checkWish() {
+        function checkWish(signedInUser:Null<String>) {
             driver.get(wishUrl);
             assertNoLog();
 
@@ -274,16 +282,42 @@ class SeleniumTest extends utest.Test {
             var body:WebElement = driver.find_element_by_tag_name("body");
             var dataWishTotalNeeded:String = body.get_attribute("data-wish-total-needed");
             Assert.isTrue(Decimal.fromString(dataWishTotalNeeded) > user1Wish.items[0].itemPrice);
+
+            if (signedInUser == FacebookTestUsers.user1.name) {
+                var cancelBtn = waitExists(function(){
+                    return driver.find_visible_elements_by_css_selector("button.cancel-wish-btn")[0];
+                });
+                if (cancelBtn == null) return;
+
+                var editBtn = waitExists(function(){
+                    return driver.find_visible_elements_by_css_selector("a[href$='/edit']")[0];
+                });
+                if (editBtn == null) return;
+
+                var couponForm = waitExists(function(){
+                    return driver.find_visible_elements_by_css_selector("form.apply-coupon-form")[0];
+                });
+                if (couponForm == null) return;
+            } else {
+                var cancelBtns:Array<WebElement> = driver.find_visible_elements_by_css_selector("button.cancel-wish-btn");
+                Assert.equals(0, cancelBtns.length);
+
+                var editBtns:Array<WebElement> = driver.find_visible_elements_by_css_selector("a[href$='/edit']");
+                Assert.equals(0, editBtns.length);
+
+                var couponForms:Array<WebElement> = driver.find_visible_elements_by_css_selector("form.apply-coupon-form");
+                Assert.equals(0, couponForms.length);
+            }
         }
-        checkWish();
+        checkWish(FacebookTestUsers.user1.name);
 
         signOut();
 
-        checkWish();
+        checkWish(null);
 
         signIn(FacebookTestUsers.user2);
 
-        checkWish();
+        checkWish(FacebookTestUsers.user2.name);
 
         // pledge
 
