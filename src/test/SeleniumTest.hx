@@ -5,7 +5,10 @@ import utest.Runner;
 import utest.ui.Report;
 import haxe.io.*;
 import selenium.webdriver.*;
+import selenium.webdriver.common.alert.Alert;
 import selenium.webdriver.support.ui.Select;
+import selenium.webdriver.support.ui.WebDriverWait;
+import selenium.webdriver.support.expected_conditions.*;
 import selenium.webdriver.remote.switch_to.SwitchTo;
 import selenium.webdriver.remote.webelement.*;
 import python.*;
@@ -310,6 +313,47 @@ class SeleniumTest extends utest.Test {
             }
         }
         checkWish(FacebookTestUsers.user1.name);
+
+        // coupon
+
+        var couponBtn:WebElement = driver.find_visible_elements_by_css_selector("button.apply-coupon-btn")[0];
+        var couponInput:WebElement = driver.find_visible_elements_by_css_selector("input[name='coupon_code']")[0];
+
+        // an expired coupon
+        clearInput(couponInput);
+        couponInput.send_keys(["PAST"]);
+        couponBtn.click();
+        new WebDriverWait(driver, 3).until(new Alert_is_present());
+        var alert:Alert = (driver.switch_to:SwitchTo).alert;
+        alert.accept();
+        clearLog();
+
+        // a coupon that has its quota used up
+        clearInput(couponInput);
+        couponInput.send_keys(["GOODIE"]);
+        couponBtn.click();
+        new WebDriverWait(driver, 3).until(new Alert_is_present());
+        var alert:Alert = (driver.switch_to:SwitchTo).alert;
+        alert.accept();
+        clearLog();
+
+        // a coupon that can only be applied to Twitter users
+        clearInput(couponInput);
+        couponInput.send_keys(["BIRD"]);
+        couponBtn.click();
+        new WebDriverWait(driver, 3).until(new Alert_is_present());
+        var alert:Alert = (driver.switch_to:SwitchTo).alert;
+        alert.accept();
+        clearLog();
+
+        // valid coupon
+        clearInput(couponInput);
+        couponInput.send_keys(["2CENTS"]);
+        couponBtn.click();
+        var couponCodeBadge:WebElement = waitExists(function() {
+            return driver.find_visible_elements_by_css_selector(".badge.coupon_code")[0];
+        });
+        Assert.equals("2CENTS", couponCodeBadge.text);
 
         signOut();
 
