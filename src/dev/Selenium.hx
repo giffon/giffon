@@ -29,7 +29,7 @@ class Selenium {
             "--net", networkName,
             "-p", "4444:4444",
             "--rm",
-            "selenium/hub:3.141.59-dubnium"
+            "selenium/hub:3.141.59-radium"
         ]);
         Sys.command("docker", [
             "run", "-d",
@@ -41,26 +41,13 @@ class Selenium {
             "-e", "VNC_NO_PASSWORD=1",
             "-v", "/dev/shm:/dev/shm",
             "--rm",
-            "selenium/node-chrome-debug:3.141.59-neon"
-        ]);
-        Sys.command("docker", [
-            "run", "-d",
-            "--name", containerName + "-firefox",
-            "--net", networkName,
-            "-P",
-            "-p", "5901:5900",
-            "-e", "HUB_HOST=" + containerName + "-hub",
-            "-e", "VNC_NO_PASSWORD=1",
-            "-v", "/dev/shm:/dev/shm",
-            "--rm",
-            "selenium/node-firefox-debug:3.141.59-neon"
+            "selenium/node-chrome-debug:3.141.59-radium"
         ]);
     }
 
     static public function stop():Void {
         Sys.command("docker", ["stop", containerName + "-hub"]);
         Sys.command("docker", ["stop", containerName + "-chrome"]);
-        Sys.command("docker", ["stop", containerName + "-firefox"]);
         Sys.command("docker", ["network", "rm", networkName]);
     }
 }

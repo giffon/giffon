@@ -55,7 +55,7 @@ class Wish extends Page {
         return jsx('
             <div className="wish-num-supporters col px-1">
                 <div className="font_xs_l font_md_xl">${percentText}</div>
-                archived
+                achieved
             </div>
         ');
     }
