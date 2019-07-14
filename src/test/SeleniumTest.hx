@@ -263,7 +263,9 @@ class SeleniumTest extends utest.Test {
         assertNoLog();
 
         // go to wish page
-        var wishLink:WebElement = driver.find_element_by_link_text(user1Wish.wishTitle);
+        var wishLink = driver
+            .find_visible_elements_by_css_selector("a[href^='/wish/']")
+            .find(function(e) return (e.text:String).indexOf(user1Wish.wishTitle) >= 0);
         var wishUrl:String = wishLink.get_attribute("href");
         Assert.match(~/\/wish\/[A-Za-z0-9]+$/, wishUrl);
         Assert.isTrue(wishUrl.startsWith(baseUrl));
