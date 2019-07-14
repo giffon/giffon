@@ -36,7 +36,8 @@ build:
   script:
     - apk add nodejs npm mysql-client openjdk8-jre python3 python3-dev openssl gcc libc-dev linux-headers
     # initialize mysql
-    - mysql -h mysql -u root --password="$MYSQL_ROOT_PASSWORD" "$MYSQL_DATABASE" -e "source dev/initdb/giffon.sql"
+    - mysql -h mysql -u root --password="$MYSQL_ROOT_PASSWORD" "$MYSQL_DATABASE" -e "source dev/initdb/01_giffon.sql"
+    - mysql -h mysql -u root --password="$MYSQL_ROOT_PASSWORD" "$MYSQL_DATABASE" -e "source dev/initdb/02_giffon_sample.sql"
     # figure out host container ip
     - cat /etc/hosts
     - export WEB_HOST="$(cat /etc/hosts | grep -Eo '^([0-9\.]*)\s+runner-[0-9a-f]+-project-[0-9a-f]+-concurrent-[0-9]+' | grep -Eo '^([0-9\.]*)')"
