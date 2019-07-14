@@ -93,13 +93,16 @@ class User extends Page {
 
     function renderWish(wish:giffon.db.Wish) {
         return jsx('
-            <div key=${wish.wish_id} className="col-12 col-md-4 mb-2">
-                <div className="bg_white shadow p-3 font_xs_xs font_md_s">
-                    <div className="">
-                        <div className="font_xs_s font_md_m"><a href=${Path.join(["/wish", wish.wish_hashid])}>${wish.wish_title}</a></div>
-                        <div className="font_xs_xs font_md_s wish-description">${wish.wish_description}</div>
+            <div key=${wish.wish_id} className="col-12 col-md-4 mb-3">
+                <a className="text-dark" href=${Path.join(["/wish", wish.wish_hashid])}>
+                <div className="wish-box shadow">
+                    <div className="wish-banner"></div>
+                    <div className="bg_white p-3">
+                        <div className="wish-title text-truncate font_xs_m font_md_l">${wish.wish_title}</div>
+                        <div className="font_xs_s wish-description">${wish.wish_description}</div>
                     </div>
                 </div>
+                </a>
             </div>
         ');
     }
@@ -160,7 +163,7 @@ class User extends Page {
 
         return jsx('
             <Fragment>
-                <h3 className="pt-5 font_xs_l font_md_xxl">Wishes in Progress</h3>
+                <h3 className="pt-5 pb-1 pb-md-3 font_xs_l font_md_xl">Wishes in Progress</h3>
                 ${list}
             </Fragment>
         ');
@@ -178,7 +181,7 @@ class User extends Page {
 
         return jsx('
             <Fragment>
-                <h3 className="pt-5 font_xs_l font_md_xxl">Completed Wishes</h3>
+                <h3 className="pt-5 pb-1 pb-md-3 font_xs_l font_md_xl">Completed Wishes</h3>
                 ${list}
             </Fragment>
         ');
@@ -200,7 +203,7 @@ class User extends Page {
 
         return jsx('
             <Fragment>
-                <h3 className="pt-5 font_xs_l font_md_xxl">Cancelled Wishes</h3>
+                <h3 className="pt-5 pb-1 pb-md-3 font_xs_l font_md_xl">Cancelled Wishes</h3>
                 <p className="font_xs_xs font_md_s">Only wish owners can see their list of cancelled wishes.</p>
                 ${list}
             </Fragment>
@@ -224,8 +227,8 @@ class User extends Page {
         <div className="container">
             <div className="user-info row justify-content-center">
                 <div className="col-md-4">
-                    <div className="user-avatar rounded-circle mx-auto" style=${userAvatarStyle(pageUser)} />
-                    <h1 className="user-name text-center">${pageUser.user_name}</h1>
+                    <div className="user-avatar rounded-circle mx-auto shadow" style=${userAvatarStyle(pageUser)} />
+                    <h1 className="user-name text-center font_xs_l font_md_xl">${pageUser.user_name}</h1>
                 </div>
             </div>
             <div className="row user-social-accounts">

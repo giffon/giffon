@@ -29,7 +29,7 @@ class WishHowToHelpSection extends ReactComponent {
             "Pledge Below";
         };
         return jsx('
-            <a className="btn btn-success w-100 rounded-0" href=${href}><i className="fas fa-child"></i> ${label}</a>
+            <a className="btn btn-success w-100 rounded-0" href=${href}>${label}</a>
         ');
     }
 

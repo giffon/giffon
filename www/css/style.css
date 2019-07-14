@@ -609,6 +609,7 @@ a.btn.signInBtn:hover {
     width: 120px;
     height: 120px;
     margin: 10px;
+    border:3px solid #FFF;
 }
 
 .page-user .user-info .user-name {
@@ -642,6 +643,13 @@ a.btn.signInBtn:hover {
     z-index: 10;
 }
 
+.wish-box .wish-banner {
+    height: 180px;
+    background: url("https://media.giphy.com/media/RKMWXB2EUqeFB4CpKm/giphy.gif");
+    background-position: center center;
+    background-size: contain;
+}
+
 .wish-box .wish-owner-name a {
     text-decoration: underline;
     color: rgba(0,0,0,1);
@@ -656,8 +664,11 @@ a.btn.signInBtn:hover {
 }
 
 .wish-box .wish-description {
-    height: 120px;
     overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    height: 4rem;
 }
 
 .wish-description {
@@ -671,11 +682,6 @@ a.btn.signInBtn:hover {
 
 .reason-title {
     font-size: 1.5em;
-}
-
-.page-wish h4 {
-    font-size: 1.2em;
-    padding-top: 0.2em;
 }
 
 .hero-title .title {

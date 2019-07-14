@@ -105,7 +105,7 @@ class Wish extends Page {
                     <img className="width_xs_15 mb-2" src=${R("/images/motivation.svg")}/>
                     <div className="font_xs_l font_md_xl">Support the Wish</div>
                 </div>
-                <div id="pledge-form-root" className="p-3 bg_white font_xs_xs font_md_m"></div>
+                <div id="pledge-form-root" className="p-3 bg_white font_xs_xs font_md_s"></div>
             </div>
         ');
     }
@@ -121,10 +121,10 @@ class Wish extends Page {
         trace(path());
 
         return jsx('
-            <div className="mb-3 p-3 bg_white shaded-shadow font_xs_xs font_md_s">
-                <h4  className="font_xs_l font_md_xxl">Edit Wish</h4>
-                <p>You may edit the wish info, but not the items.</p>
-                <a className="edit-wish-btn btn btn-primary" href=${Path.join(["/", path(), "edit"])}>Edit Wish</a>
+            <div className="py-3 px-2 p-md-3 mb-3 mb-md-0 bg_white col ml-sm-3">
+                <h4 className="font_xs_m font_md_l">Edit Wish</h4>
+                <p className="font_xs_xs font_md_s">You may edit the wish info, but not the items.</p>
+                <a className="edit-wish-btn btn btn-primary rounded-0" href=${Path.join(["/", path(), "edit"])}>Edit Wish</a>
             </div>
         ');
     }
@@ -141,7 +141,7 @@ class Wish extends Page {
             <div className="py-3 px-2 p-md-3 mb-3 mb-md-0 bg_white col ml-sm-3">
                 <h4 className="font_xs_m font_md_l">Cancel the Wish ;(</h4>
                 <p className="font_xs_xs font_md_s">Once cancelled, all existing pledges will be refunded to the supporters. The action cannot be undone.</p>
-                <button className="cancel-wish-btn btn btn-danger rounded-0 w-100">Cancel Wish</button>
+                <button className="cancel-wish-btn btn btn-light rounded-0">Cancel Wish</button>
             </div>
         ');
     }
@@ -157,7 +157,7 @@ class Wish extends Page {
         if (wish.appliedCoupons.length <= 0) {
             return jsx('
                 <div className="py-3 px-2 p-md-3 mb-3 mb-md-0 bg_white col">
-                    <h4 className="font_xs_m font_md_l">Use a Coupon?</h4>
+                    <h4 className="font_xs_m font_md_l">Use a Coupon</h4>
                     <p className="font_xs_xs font_md_s">Try any coupon codes you can imagine.</p>
                     <form className="input-group font_xs_s font_md_m apply-coupon-form">
                         <input type="text" className="col text-uppercase" name="coupon_code" placeholder="COUPON_CODE" />
@@ -203,12 +203,13 @@ class Wish extends Page {
         }
         switch (wish.wish_state) {
             case Succeed | Cancelled:
-                return jsx('
-                    <div className="p-3 px-md-0 pb-md-5 mb-md-5">
-                        <h3 className="text-center pb-3 font_xs_l font_md_xxl">Settings</h3>
-                        <p>Wish ${wish.wish_state}. No operation is allowed.</p>
-                    </div>
-                ');
+                // return jsx('
+                //     <div className="p-3 px-md-0 pb-md-5 mb-md-5">
+                //         <h3 className="text-center pb-3 font_xs_l font_md_xl">Settings</h3>
+                //         <p>Wish ${wish.wish_state}. No operation is allowed.</p>
+                //     </div>
+                // ');
+                return null;
             case _:
                 //pass
         }
@@ -216,7 +217,7 @@ class Wish extends Page {
         return jsx('
             <div className=" p-3 px-md-0 pb-md-5 mb-md-5">
                 <h3 className="text-center pb-3 font_xs_l font_md_xxl">Settings</h3>
-                <div className="d-sm-flex">
+                <div className="d-sm-flex mb-3">
                     ${couponControl()}
                     ${editWishControl()}
                     ${cancelWishControl()}
@@ -339,10 +340,8 @@ class Wish extends Page {
                 ');
             case Cancelled:
                 return jsx('
-                    <div className="mt-3 d-flex font_xs_xs font_md_s">
-                        <div className="alert alert-secondary">
-                            Cancelled, all pledges were refunded to the supporters.
-                        </div>
+                    <div className="p-3 font_xs_s font_md_m bg-secondary text-white text-center">
+                        <span>Wish cancelled, all pledges were refunded to the supporters.</span>
                     </div>
                 ');
         }
@@ -374,6 +373,8 @@ class Wish extends Page {
                 return jsx('<span className="badge badge-success ml-2">succeeded</span>');
             case Created:
                 return jsx('<span className="badge badge-secondary ml-2">unpublished</span>');
+            case Cancelled:
+                return jsx('<span className="badge badge-secondary ml-2">Cancelled</span>');
             case _:
                 return null;
         }
@@ -404,6 +405,15 @@ class Wish extends Page {
             };
         }
         else {
+            switch (wish.wish_state) {
+                case Cancelled:
+                    return {
+                        background: 'none'
+                    };
+                case _:
+                    //pass
+            }
+
             return {
                 background: '#fff700'
             }
@@ -418,16 +428,16 @@ class Wish extends Page {
             </div>
 
             <div className="pt-5 pb-3 pb-md-5 text-center">
-                <a className="font_xs_l font_md_xl" href=${wish.wish_owner.user_profile_url}>${wish.wish_owner.user_name}</a>
+                <a className="font_xs_l font_md_xl text-dark" href=${wish.wish_owner.user_profile_url}>${wish.wish_owner.user_name}</a>
             </div>
 
             <div className="row justify-content-center">      
                 <div className="col-12 col-md-9">
                 
                     <div className="bg_white p-3 pt-md-5 px-md-5 pb-md-4 text-center">
-                        <span className="font_xs_l font_md_xl">${wish.wish_title}</span>
                         ${wishBadge(wish)}
-                        <br/><button className="btn btn-link"><i className="far fa-copy"></i> Share</button>
+                        <div className="font_xs_l font_md_xl">${wish.wish_title}</div>
+                        <button className="btn btn-link"><i className="far fa-copy"></i> Share</button>
                     </div>
 
                     ${wishState()}

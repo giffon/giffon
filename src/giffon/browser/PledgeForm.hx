@@ -138,7 +138,7 @@ class PledgeForm extends ReactComponent {
         return jsx('
             <div>
                 ${submissionErrorElement}
-                <div className="text-center">
+                <div className="text-center font_xs_s font_md_m">
                     ${pledgeInfo()}
                 </div>
                 ${form}
@@ -275,7 +275,7 @@ class _PledgeForm extends ReactComponent {
             <Form>
                 ${submissionErrorElement}
                 <div className="form-row">
-                    <div className="form-group col-md-4">
+                    <div className="form-group col-md-5">
                         <label htmlFor="pledge_amount">
                             Support amount ( <div className=${currencyFlagClass}></div> ${wish_currency.getName()} )
                         </label>
@@ -288,7 +288,7 @@ class _PledgeForm extends ReactComponent {
                             required=${true}
                         />
                     </div>
-                    <div className="form-group col-md-8">
+                    <div className="form-group col-md-7">
                         <label htmlFor="card-number">
                             Credit card
                         </label>

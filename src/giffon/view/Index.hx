@@ -29,21 +29,24 @@ class Index extends Page {
     function wishBox(wish:giffon.db.Wish) {
         return jsx('
             <div key=${wish.wish_id} className="col mx-0 pb-5">
-                <div className="wish-box position-relative">
+                <div className="wish-box shadow">
+                    <div className="wish-banner"></div>
+                    <div className="position-relative">
                     <div className="image position-absolute wish-owner">
                         <div
                             className="wish-owner-avatar rounded-circle"
                             style=${userAvatarStyle(wish.wish_owner)}
                         ></div>
                     </div>
-                    <div className="shaded-shadow mt-5 pt-5">
-                        <div className="px-3 pb-3 text-center">
-                            <span className="wish-owner-name font_xs_m font_md_l"><a href=${wish.wish_owner.user_profile_url}>${wish.wish_owner.user_name}</a></span>
+                    </div>
+                    <div className="">
+                        <div className="p-3 text-center">
+                            <div className="pt-5 pb-2 wish-owner-name font_xs_m font_md_l"><a href=${wish.wish_owner.user_profile_url}>${wish.wish_owner.user_name}</a></div>
                             <div className="d-flex align-items-center text-left">
-                                <span className="wish-title text-truncate font_xs_m font_md_l pt-1">${wish.wish_title}</span>
+                                <span className="wish-title text-truncate font_xs_m font_md_l">${wish.wish_title}</span>
                                 ${Wish.wishBadge(wish)}
                             </div>
-                            <div className="wish-description text-left font_xs_xs font_md_s">${wish.wish_description}</div>
+                            <div className="wish-description text-left font_xs_s">${wish.wish_description}</div>
                         </div>
                         <a className="btn btn-success rounded-0 w-100" href=${"/wish/" + wish.wish_hashid}>
                             Support!

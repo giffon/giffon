@@ -252,7 +252,7 @@ class Page extends ReactComponent {
                 </nav>
                 ${bodyContent()}
             </div>
-            <footer className="p-5 color_white text-center container-fluid font_xs_xs font_md_s">
+            <footer className="p-5 color_white text-center container-fluid font_xs_xs font_md_s mt-5">
                 <div>
                     <div className="p-2 color_white_o50">Giffon - where birds of a feather flock together</div>
                     <div className="copyright p-2">Copyright © Giffon. All Rights Reserved.</div>
