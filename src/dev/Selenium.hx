@@ -48,7 +48,6 @@ class Selenium {
     static public function stop():Void {
         Sys.command("docker", ["stop", containerName + "-hub"]);
         Sys.command("docker", ["stop", containerName + "-chrome"]);
-        Sys.command("docker", ["stop", containerName + "-firefox"]);
         Sys.command("docker", ["network", "rm", networkName]);
     }
 }
