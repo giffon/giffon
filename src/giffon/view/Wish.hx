@@ -361,9 +361,9 @@ class Wish extends Page {
                             ${supporterListSection(false)}
                         </div>
                     </Fragment>
-                ');    
+                ');
             case _:
-                return null;        
+                return null;
         }
     }
 
@@ -437,7 +437,7 @@ class Wish extends Page {
                     <div className="bg_white p-3 pt-md-5 px-md-5 pb-md-4 text-center">
                         ${wishBadge(wish)}
                         <div className="font_xs_l font_md_xl">${wish.wish_title}</div>
-                        <button className="btn btn-link"><i className="far fa-copy"></i> Share</button>
+                        <div className="copy-link-button-root" />
                     </div>
 
                     ${wishState()}
@@ -461,14 +461,11 @@ class Wish extends Page {
                                 Total: <span className="wish-total" data-toggle="tooltip" title=${wish.wish_total_needed.breakdown}>${currencyFlag(wish.wish_currency)} ${wish.wish_currency.getName()} ${wish.wish_total_needed.amount.toString()} <i className="fas fa-info-circle"></i></span>
                         </div>
                     </div>
-                    
+
                     ${wishSupporterList()}
                     ${wishSettings()}
                     ${howToHelpSection()}
                     ${pledgeForm()}
-                    
-
-                    
 
                 </div>
             </div>
