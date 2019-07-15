@@ -673,7 +673,6 @@ a.btn.signInBtn:hover {
 
 .wish-description {
     white-space: pre-wrap;
-    display: flex;
 }
 
 .page-index .slick-slide:focus {

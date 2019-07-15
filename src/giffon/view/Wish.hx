@@ -442,7 +442,7 @@ class Wish extends Page {
 
                     ${wishState()}
                     
-                    <div className="bg_white p-3 pt-md-4 px-md-5 font_xs_s font_md_m text-center-justify">${wish.wish_description}</div>
+                    <div className="bg_white p-3 pt-md-4 px-md-5 font_xs_s font_md_m text-center-justify wish-description">${wish.wish_description}</div>
 
                     <div className="d-flex">
                         <div className="custom-border col">&nbsp;</div>
