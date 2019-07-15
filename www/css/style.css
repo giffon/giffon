@@ -645,9 +645,9 @@ a.btn.signInBtn:hover {
 
 .wish-box .wish-banner {
     height: 180px;
-    background: url("https://media.giphy.com/media/RKMWXB2EUqeFB4CpKm/giphy.gif");
+    background-image: url("https://media.giphy.com/media/RKMWXB2EUqeFB4CpKm/giphy.gif");
     background-position: center center;
-    background-size: contain;
+    background-size: auto 100%;
 }
 
 .wish-box .wish-owner-name a {

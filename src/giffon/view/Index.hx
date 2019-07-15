@@ -26,11 +26,21 @@ class Index extends Page {
         }
     }
 
+    public static function wishBannerStyle(wish:giffon.db.Wish) {
+        if (wish.wish_banner_url == null) {
+            return {};
+        }
+
+        return {
+            backgroundImage: 'url("${wish.wish_banner_url}")',
+        }
+    }
+
     function wishBox(wish:giffon.db.Wish) {
         return jsx('
             <div key=${wish.wish_id} className="col mx-0 pb-5">
                 <div className="wish-box shadow">
-                    <div className="wish-banner"></div>
+                    <div className="wish-banner" style=${wishBannerStyle(wish)}></div>
                     <div className="position-relative">
                     <div className="image position-absolute wish-owner">
                         <div

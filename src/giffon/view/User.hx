@@ -96,7 +96,7 @@ class User extends Page {
             <div key=${wish.wish_id} className="col-12 col-md-4 mb-3">
                 <a className="text-dark" href=${Path.join(["/wish", wish.wish_hashid])}>
                 <div className="wish-box shadow">
-                    <div className="wish-banner"></div>
+                    <div className="wish-banner" style=${Index.wishBannerStyle(wish)}></div>
                     <div className="bg_white p-3">
                         <div className="wish-title text-truncate font_xs_m font_md_l">${wish.wish_title}</div>
                         <div className="font_xs_s wish-description">${wish.wish_description}</div>
