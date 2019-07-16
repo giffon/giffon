@@ -118,8 +118,6 @@ class Wish extends Page {
                 //pass
         }
 
-        trace(path());
-
         return jsx('
             <div className="py-3 px-2 p-md-3 mb-3 mb-md-0 bg_white col ml-sm-3">
                 <h4 className="font_xs_m font_md_l">Edit Wish</h4>
