@@ -16,21 +16,8 @@ import giffon.Utils.*;
 import thx.Decimal;
 using Lambda;
 using StringTools;
-using test.SeleniumTest.SeleniumTools;
-
-typedef BrowserLog = {
-    level:String,
-    message:String,
-    timestamp:Int,
-    source:String,
-}
-
-class SeleniumTools {
-    static public function find_visible_elements_by_css_selector(driver:Remote, selector:String):Array<WebElement> {
-        var elements:Array<WebElement> = driver.find_elements_by_css_selector(selector);
-        return elements.filter(function(e) return e.is_displayed());
-    }
-}
+using test.SeleniumTools;
+import test.SeleniumTools.*;
 
 class SeleniumTest extends utest.Test {
     static function __init__() {
@@ -79,32 +66,6 @@ class SeleniumTest extends utest.Test {
         driver.quit();
     }
 
-    function waitUntil(fn:Void->Bool, timeoutSeconds:Float = 5.0, ?pos:haxe.PosInfos) {
-        var fn = function() return try fn() catch(e:Dynamic) false;
-        var t = Sys.time();
-        while (!fn()) {
-            Sys.sleep(0.1);
-            if (Sys.time() - t > timeoutSeconds) {
-                Assert.isTrue(fn(), "timeout", pos);
-                return;
-            }
-        }
-    }
-
-    function waitExists(fn:Void->WebElement, timeoutSeconds:Float = 5.0, ?pos:haxe.PosInfos):WebElement {
-        var fn = function() return try fn() catch(e:Dynamic) null;
-        var t = Sys.time();
-        var e = null;
-        while ((e = fn()) == null) {
-            Sys.sleep(0.1);
-            if (Sys.time() - t > timeoutSeconds) {
-                Assert.notNull(e = fn(), "timeout", pos);
-                break;
-            }
-        }
-        return e;
-    }
-
     function signIn(user:{
         email:String,
         password:String,
@@ -130,7 +91,7 @@ class SeleniumTest extends utest.Test {
             var url:String = driver.current_url;
             return url.startsWith(baseUrl);
         });
-        assertNoLog();
+        driver.assertNoLog();
 
         var body:WebElement = driver.find_element_by_tag_name("body");
         var cls:String = body.get_attribute("class");
@@ -142,7 +103,8 @@ class SeleniumTest extends utest.Test {
 
     function signOut():Void {
         driver.get(Path.join([baseUrl, "signout"]));
-        assertNoLog();
+        driver.assertNoLog();
+        driver.assertBodyNoHorizontalScrollbar();
         var body:WebElement = driver.find_element_by_tag_name("body");
         var cls:String = body.get_attribute("class");
         Assert.stringContains("signed-out", cls);
@@ -153,12 +115,7 @@ class SeleniumTest extends utest.Test {
         driver.find_element_by_css_selector("body #email");
 
         // consume the facebook logs to keep the console empty
-        driver.get_log("browser");
-    }
-
-    static function clearInput(input:WebElement) {
-        var existingValue = Std.string(input.get_property("value"));
-        input.send_keys([[for (i in 0...existingValue.length) String.fromCharCode(57347)]]);
+        driver.clearLog();
     }
 
     function createWish(wish:{
@@ -172,11 +129,12 @@ class SeleniumTest extends utest.Test {
         wishDescription: String,
     }) {
         driver.get(Path.join([baseUrl, "make-a-wish"]));
-        assertNoLog();
+        driver.assertNoLog();
+        driver.assertBodyNoHorizontalScrollbar();
 
         var titleInput:WebElement = driver.find_element_by_css_selector("input[name='wish_title']");
         titleInput.click();
-        clearInput(titleInput);
+        titleInput.clearInput();
         titleInput.send_keys([wish.wishTitle]);
 
         var currencySelect:Select = new Select(driver.find_element_by_css_selector("select[name='wish_currency']"));
@@ -195,12 +153,12 @@ class SeleniumTest extends utest.Test {
 
             var itemPriceInput:WebElement = driver.find_element_by_css_selector('input[name="items[${i}].item_price"]');
             itemPriceInput.click();
-            clearInput(itemPriceInput);
+            itemPriceInput.clearInput();
             itemPriceInput.send_keys([item.itemPrice.toString()]);
 
             var itemQuantityInput:WebElement = driver.find_element_by_css_selector('input[name="items[${i}].item_quantity"]');
             itemQuantityInput.click();
-            clearInput(itemQuantityInput);
+            itemQuantityInput.clearInput();
             itemQuantityInput.send_keys([Std.string(item.itemQuantity)]);
 
             if (i + 1 < wish.items.length) {
@@ -224,27 +182,15 @@ class SeleniumTest extends utest.Test {
             var url:String = driver.current_url;
             return url.indexOf('/make-a-wish') == -1;
         });
-        // assertNoLog(); TODO
-        clearLog();
-    }
-
-    function clearLog():Void {
-        driver.get_log("browser");
-    }
-
-    function assertNoLog(?pos:haxe.PosInfos):Void {
-        var logs:Array<python.Dict<String, Dynamic>> = driver.get_log("browser");
-        var logLines:Array<String> = [
-            for (log in (logs.map(python.Lib.dictAsAnon):Array<BrowserLog>))
-            '${log.level} ${log.source} ${log.message}'
-        ];
-        Assert.equals(0, logs.length, 'unexpected browser log:\n${logLines.join("\n")}', pos);
+        // driver.assertNoLog(); TODO
+        driver.clearLog();
     }
 
     function testSimple():Void {
         driver.get(baseUrl);
+        driver.assertNoLog();
+        driver.assertBodyNoHorizontalScrollbar();
         Assert.stringContains("Giffon", driver.title);
-        assertNoLog();
     }
 
     function testBasics():Void {
@@ -252,7 +198,8 @@ class SeleniumTest extends utest.Test {
         createWish(user1Wish);
 
         driver.get(baseUrl);
-        assertNoLog();
+        driver.assertNoLog();
+        driver.assertBodyNoHorizontalScrollbar();
 
         // go to user page
         var userLink:WebElement = driver.find_element_by_css_selector("a.nav-link.user-name");
@@ -260,7 +207,8 @@ class SeleniumTest extends utest.Test {
         Assert.match(~/\/user\?id=[A-Za-z0-9]+$/, userUrl);
         Assert.isTrue(userUrl.startsWith(baseUrl));
         driver.get(userUrl);
-        assertNoLog();
+        driver.assertNoLog();
+        driver.assertBodyNoHorizontalScrollbar();
 
         // go to wish page
         var wishLink = driver
@@ -274,7 +222,8 @@ class SeleniumTest extends utest.Test {
         // check wish page content
         function checkWish(signedInUser:Null<String>) {
             driver.get(wishUrl);
-            assertNoLog();
+            driver.assertNoLog();
+            driver.assertBodyNoHorizontalScrollbar();
 
             Assert.stringContains(user1Wish.wishTitle, driver.title);
             Assert.stringContains(FacebookTestUsers.user1.name, driver.title);
@@ -322,34 +271,34 @@ class SeleniumTest extends utest.Test {
         var couponInput:WebElement = driver.find_visible_elements_by_css_selector("input[name='coupon_code']")[0];
 
         // an expired coupon
-        clearInput(couponInput);
+        couponInput.clearInput();
         couponInput.send_keys(["PAST"]);
         couponBtn.click();
         new WebDriverWait(driver, 3).until(new Alert_is_present());
         var alert:Alert = (driver.switch_to:SwitchTo).alert;
         alert.accept();
-        clearLog();
+        driver.clearLog();
 
         // a coupon that has its quota used up
-        clearInput(couponInput);
+        couponInput.clearInput();
         couponInput.send_keys(["GOODIE"]);
         couponBtn.click();
         new WebDriverWait(driver, 3).until(new Alert_is_present());
         var alert:Alert = (driver.switch_to:SwitchTo).alert;
         alert.accept();
-        clearLog();
+        driver.clearLog();
 
         // a coupon that can only be applied to Twitter users
-        clearInput(couponInput);
+        couponInput.clearInput();
         couponInput.send_keys(["BIRD"]);
         couponBtn.click();
         new WebDriverWait(driver, 3).until(new Alert_is_present());
         var alert:Alert = (driver.switch_to:SwitchTo).alert;
         alert.accept();
-        clearLog();
+        driver.clearLog();
 
         // valid coupon
-        clearInput(couponInput);
+        couponInput.clearInput();
         couponInput.send_keys(["2CENTS"]);
         couponBtn.click();
         var couponCodeBadge:WebElement = waitExists(function() {
@@ -371,7 +320,7 @@ class SeleniumTest extends utest.Test {
             return driver.find_element_by_css_selector("input[name='pledge_amount']");
         });
         if (amountInput == null) return;
-        clearInput(amountInput);
+        amountInput.clearInput();
         amountInput.send_keys(["5"]);
 
         (driver.switch_to:SwitchTo).frame(driver.find_element_by_css_selector("#card-number iframe"));
@@ -381,7 +330,7 @@ class SeleniumTest extends utest.Test {
         if (cardnumberInput == null) return;
         var cardnumberValue = "";
         do {
-            clearInput(cardnumberInput);
+            cardnumberInput.clearInput();
             cardnumberInput.send_keys(["4242 4242 4242 4242"]);
             cardnumberValue = cardnumberInput.get_property("value");
         } while (cardnumberValue != "4242 4242 4242 4242");
@@ -406,7 +355,7 @@ class SeleniumTest extends utest.Test {
             var userSupport:Null<giffon.db.Wish.WishSupport> = haxe.Unserializer.run(dataUserSupport);
             return userSupport != null && userSupport.pledge_amount == 5;
         });
-        assertNoLog();
+        driver.assertNoLog();
 
         // cancel pledge
 
@@ -422,7 +371,7 @@ class SeleniumTest extends utest.Test {
             var userSupport:Null<giffon.db.Wish.WishSupport> = haxe.Unserializer.run(dataUserSupport);
             return userSupport == null;
         });
-        assertNoLog();
+        driver.assertNoLog();
 
         waitExists(function(){
             return driver.find_element_by_css_selector("input[name='pledge_amount']");
