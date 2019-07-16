@@ -431,42 +431,44 @@ class Wish extends Page {
                 <a className="font_xs_l font_md_xl text-dark" href=${wish.wish_owner.user_profile_url}>${wish.wish_owner.user_name}</a>
             </div>
 
-            <div className="row justify-content-center">      
-                <div className="col-12 col-md-9">
-                
-                    <div className="bg_white p-3 pt-md-5 px-md-5 pb-md-4 text-center">
-                        ${wishBadge(wish)}
-                        <div className="font_xs_l font_md_xl">${wish.wish_title}</div>
-                        <div className="copy-link-button-root" />
-                    </div>
-
-                    ${wishState()}
+            <div className="container-fluid">
+                <div className="row justify-content-center">      
+                    <div className="col-12 col-md-9">
                     
-                    <div className="bg_white p-3 pt-md-4 px-md-5 font_xs_s font_md_m text-center-justify wish-description">${wish.wish_description}</div>
-
-                    <div className="d-flex">
-                        <div className="custom-border col">&nbsp;</div>
-                        <div className="bg_white px-3 font_xs_s font_md_m">Well, I want...</div>
-                        <div className="custom-border col">&nbsp;</div>
-                    </div>
-
-                    <div className="bg_white p-3 px-md-5 font_xs_m font_md_l text-center">
-                        <ul className="list-group list-group-flush">
-                            ${wishItems()}
-                        </ul>
-                    </div>
-
-                    <div className="pb-4" style=${wishTotalBg()}>
-                        <div className="p-2 bg_white shadow text-center font_xs_m font_md_l">
-                                Total: <span className="wish-total" data-toggle="tooltip" title=${wish.wish_total_needed.breakdown}>${currencyFlag(wish.wish_currency)} ${wish.wish_currency.getName()} ${wish.wish_total_needed.amount.toString()} <i className="fas fa-info-circle"></i></span>
+                        <div className="bg_white p-3 pt-md-5 px-md-5 pb-md-4 text-center">
+                            ${wishBadge(wish)}
+                            <div className="font_xs_l font_md_xl">${wish.wish_title}</div>
+                            <div className="copy-link-button-root" />
                         </div>
+
+                        ${wishState()}
+                        
+                        <div className="bg_white p-3 pt-md-4 px-md-5 font_xs_s font_md_m text-center-justify wish-description">${wish.wish_description}</div>
+
+                        <div className="d-flex">
+                            <div className="custom-border col">&nbsp;</div>
+                            <div className="bg_white px-3 font_xs_s font_md_m">Well, I want...</div>
+                            <div className="custom-border col">&nbsp;</div>
+                        </div>
+
+                        <div className="bg_white p-3 px-md-5 font_xs_m font_md_l text-center">
+                            <ul className="list-group list-group-flush">
+                                ${wishItems()}
+                            </ul>
+                        </div>
+
+                        <div className="pb-4" style=${wishTotalBg()}>
+                            <div className="p-2 bg_white shadow text-center font_xs_m font_md_l">
+                                    Total: <span className="wish-total" data-toggle="tooltip" title=${wish.wish_total_needed.breakdown}>${currencyFlag(wish.wish_currency)} ${wish.wish_currency.getName()} ${wish.wish_total_needed.amount.toString()} <i className="fas fa-info-circle"></i></span>
+                            </div>
+                        </div>
+
+                        ${wishSupporterList()}
+                        ${wishSettings()}
+                        ${howToHelpSection()}
+                        ${pledgeForm()}
+
                     </div>
-
-                    ${wishSupporterList()}
-                    ${wishSettings()}
-                    ${howToHelpSection()}
-                    ${pledgeForm()}
-
                 </div>
             </div>
 
