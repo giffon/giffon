@@ -20,9 +20,7 @@ After you have cloned the project:
  2. `npm install` to get the node packages and haxelibs (package.json's postinstall).
  3. `npm run-script build` to build everything.
  4. `haxe run-mysql.hxml start` to start a local MySQL database. Use `haxe run-mysql.hxml stop` to stop it when you're done. Note that the database content will be gone once stopped.
- 5. `npm start` to start the server. It should be accessible via https://localhost:3000. Use <kbd>ctrl</kbd> + <kbd>c</kbd> to stop the server.
-
-On Windows, one can chain the compilation and npm start commands in powershell with `$(haxe .\build-server.hxml | Out-Host;$?) -and $(npm start | Out-Host;$?)`.
+ 5. `npm start` to start the server. It should be accessible via https://localhost:3000. Use <kbd>ctrl</kbd> + <kbd>c</kbd> to stop the server. When the server script is rebuilt, the server will be automatically restarted by nodemon.
  
 ### Local automated testing
 

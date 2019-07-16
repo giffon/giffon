@@ -4,11 +4,11 @@
   "description": "crowd-gifting",
   "main": "index.js",
   "scripts": {
-    "postinstall": "haxe install-haxelibs.hxml",
+    "postinstall": "haxe install-haxelibs.hxml && npm run-script build-vendor",
     "build-vendor": "browserify -o www/js/vendor.js -r react -r react-dom -r formik -r react-datepicker -r validator -r react-stripe-elements -r react-clipboard.js -r react-giphy-component",
     "build-vendor-release": "browserify -r react -r react-dom -r formik -r react-datepicker -r validator -r react-stripe-elements -r react-clipboard.js -r react-giphy-component -g [ envify --NODE_ENV production ] -g uglifyify | uglifyjs --compress --mangle > www/js/vendor.js",
-    "build": "npm run-script build-vendor && haxe build.hxml",
-    "start": "node ServerMain.js",
+    "build": "haxe build.hxml",
+    "start": "nodemon ServerMain.js",
     "test": "haxe build-test.hxml && python3 test/SeleniumTest.py"
   },
   "repository": {
@@ -63,6 +63,7 @@
   "devDependencies": {
     "browserify": "^16.3.0",
     "envify": "^4.1.0",
+    "nodemon": "^1.19.1",
     "uglify-js": "^3.6.0",
     "uglifyify": "^5.0.1"
   }
