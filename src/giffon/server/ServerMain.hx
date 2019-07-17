@@ -877,17 +877,8 @@ class ServerMain {
         }));
         app.use(require("body-parser").text());
 
-
-        app.use(require("express-request-language")({
-            languages: ['en-US', 'zh-HK'],
-            cookie: {
-                name: 'language',
-                options: { maxAge: 24*3600*1000 },
-                url: '/set-lang/{language}'
-            },
-        }));
-        app.use(function(req, res:Response, next){
-            var lang:String = req.language;
+        app.use(function(req:Request, res:Response, next){
+            var lang:String = req.acceptsLanguages('en', 'zh');
             res.setHeader("Content-Language", lang);
             res.locals.language = giffon.lang.LanguageTools.langFromCode(lang);
             next();
