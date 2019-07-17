@@ -124,6 +124,7 @@ class SettingsForm extends ReactComponent {
                             <Field
                                 className="form-control" id="user_url"
                                 name="user_url"
+                                minLength=${SettingsFormData.user_url_min}
                                 maxLength=${SettingsFormData.user_url_max}
                             />
                         </div>

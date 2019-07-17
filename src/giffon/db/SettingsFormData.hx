@@ -17,6 +17,7 @@ class SettingsFormData implements DataClass {
     static public var user_name_max(default, never):Int = 64;
     static public var user_primary_email_max(default, never):Int = 128;
     static public var user_description_max(default, never):Int = 300;
+    static public var user_url_min(default, never):Int = 4;
     static public var user_url_max(default, never):Int = 64;
 
     @validate(_.length > 0 && _.length <= user_name_max)
@@ -29,7 +30,7 @@ class SettingsFormData implements DataClass {
     public var user_description:String;
 
     @validate(
-        _.length >= 0 && _.length <= user_url_max
+        _.length >= user_url_min && _.length <= user_url_max
 
         // define valid characters
         && ~/^[A-Za-z0-9_]*$/.match(_)
