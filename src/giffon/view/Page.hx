@@ -205,10 +205,10 @@ class Page extends ReactComponent {
                         <a className="nav-link user-name" href=${user.user_profile_url}>${user.user_name}</a>
                     </li>
                     <li>
-                        <a className="nav-link" href="/settings">Settings</a>
+                        <a className="nav-link" href="/settings">${language.settings()}</a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href=${signoutHref}>Sign Out</a>
+                        <a className="nav-link" href=${signoutHref}>${language.signOut()}</a>
                     </li>
                 </ul>
             ');
@@ -217,7 +217,7 @@ class Page extends ReactComponent {
             return jsx('
                 <ul className="navbar-nav ml-auto">
                     <li className="nav-item">
-                        <a className="nav-link signInBtn" href=${signinHref}>Sign in / Sign up</a>
+                        <a className="nav-link signInBtn" href=${signinHref}>${language.signInUp()}</a>
                     </li>
                 </ul>
             ');
@@ -239,15 +239,15 @@ class Page extends ReactComponent {
                     <div className="collapse navbar-collapse" id="navbarsExample04">
                         <ul className="navbar-nav mr-auto">
                             <li className="nav-item">
-                                <a className="nav-link" href="/make-a-wish">Make a Wish</a>
+                                <a className="nav-link" href="/make-a-wish">${language.makeAWish()}</a>
                             </li>
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#" id="navbarUseCasesDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Use Cases
+                                    ${language.useCases()}
                                 </a>
                                 <div className="dropdown-menu" aria-labelledby="navbarUseCasesDropdownMenuLink">
-                                    <a className="dropdown-item" href="/use-cases/video-creators">for video creators</a>
-                                    <a className="dropdown-item" href="/use-cases/oss-developers">for open source developers</a>
+                                    <a className="dropdown-item" href="/use-cases/video-creators">${language.forVideoCreators()}</a>
+                                    <a className="dropdown-item" href="/use-cases/oss-developers">${language.forOpenSourceDevelopers()}</a>
                                 </div>
                             </li>
                         </ul>
@@ -264,9 +264,9 @@ class Page extends ReactComponent {
                     <a className="p-2" href="/privacy">${language.privacyPolicy()}</a>
                 </div>
                 <div className="social row justify-content-center mt-2">
-                    <div className="col-auto"><a href="https://www.facebook.com/giffon.io" target="_blank" rel="noopener" title="Giffon on Facebook"><i className="fab fa-facebook"></i></a></div>
-                    <div className="col-auto"><a href="https://twitter.com/giffon_io" target="_blank" rel="noopener" title="Giffon on Twitter"><i className="fab fa-twitter"></i></a></div>
-                    <div className="col-auto"><a href="https://gitlab.com/giffon.io/giffon" target="_blank" rel="noopener" title="Giffon on GitLab"><i className="fab fa-gitlab"></i></a></div>
+                    <div className="col-auto"><a href="https://www.facebook.com/giffon.io" target="_blank" rel="noopener" title=${language.giffonOnFacebook()}><i className="fab fa-facebook"></i></a></div>
+                    <div className="col-auto"><a href="https://twitter.com/giffon_io" target="_blank" rel="noopener" title=${language.giffonOnTwitter()}><i className="fab fa-twitter"></i></a></div>
+                    <div className="col-auto"><a href="https://gitlab.com/giffon.io/giffon" target="_blank" rel="noopener" title=${language.giffonOnGitLab()}><i className="fab fa-gitlab"></i></a></div>
                 </div>
             </footer>
         </body>

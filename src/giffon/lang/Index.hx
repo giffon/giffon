@@ -1,6 +1,16 @@
 package giffon.lang;
 
 class Index {
+    static public function htmlTitle(lang:Language) return switch (lang) {
+        case English: "Giffon: A crowd-gifting platform";
+        case Cantonese: "Giffon 夾份禮物眾籌";
+    }
+
+    static public function htmlDescription(lang:Language) return switch (lang) {
+        case English: "A crowd-gifting platform where you can state what you want and let your friends collectively buy it as a gift for you.";
+        case Cantonese: "任何人都可以上嚟許願, 等朋友夾份買禮物送俾你嘅禮物眾籌平台.";
+    }
+
     static public function title(lang:Language) return switch (lang) {
         case English: "Your Crowd-gifting Platform";
         case Cantonese: "您的禮物眾籌平台";
