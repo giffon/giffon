@@ -1,2 +1,3 @@
+--each
 --next build-browser.hxml
 --next build-server.hxml

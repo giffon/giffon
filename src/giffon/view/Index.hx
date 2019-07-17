@@ -6,6 +6,7 @@ import haxe.io.*;
 import giffon.R.*;
 import giffon.server.ServerMain.*;
 import js.npm.gravatar.Gravatar;
+using giffon.lang.Index;
 using thx.Arrays;
 
 class Index extends Page {
@@ -59,7 +60,7 @@ class Index extends Page {
                             <div className="wish-description text-left font_xs_s">${wish.wish_description}</div>
                         </div>
                         <a className="btn btn-success rounded-0 w-100" href=${"/wish/" + wish.wish_hashid}>
-                            Support!
+                            ${language.support()}
                         </a>
                     </div>
                 </div>
@@ -79,7 +80,7 @@ class Index extends Page {
                     <div className="row mx-0 p-sm-4 p-md-5">
                         <div className="hero-title col-xs-10 col-md-10 col-lg-4 mx-0 mr-md-auto px-3 pb-4 px-sm-0 my-4 pb-lg-5 my-lg-5 color_white">
                             <div className="font_xs_xxl">Giffon</div>
-                            <div className="font_xs_m font_md_l">Your Crowd-gifting Platform</div>
+                            <div className="font_xs_m font_md_l">${language.title()}</div>
                         </div>
                         <div className="col-xs-10 col-sm-12 col-md-6 col-lg-4 col-xl-3 px-3 px-md-0 mb-2">
                             <div className="card_left bg_white_o80">
@@ -87,17 +88,18 @@ class Index extends Page {
                                     <img src=${R("/images/idea-y.svg")} alt="light bulb" width="45"/>
                                 </div>
                                 <div className="p-4 p-md-5">
-                                <div className="font_xs_l font_md_xl">How to Start?</div>
-                                Choose any of the millions items listed in any online store. Make a wish on Giffon and let your friends know.</div>
+                                    <div className="font_xs_l font_md_xl">${language.howToStart()}</div>
+                                    ${language.usageStep1()}
+                                </div>
                             </div>
                         </div>
                         <div className="col-xs-10 col-sm-12 col-md-6 col-lg-4 col-xl-3 px-3 px-md-0 mb-3">
                             <div className="card_right bg_white shaded-shadow">
                                 <div className="p-4 p-md-5">
-                                    When Giffon collected enough money from your supporters, Giffon will buy you the gift!
+                                    ${language.usageStep2()}
                                 </div>
                                 <a className="btn py-md-3 btn-success rounded-0 w-100" href="/make-a-wish">
-                                    Make a Wish Now
+                                    ${language.makeAWishNow()}
                                 </a>
                             </div>
                         </div>
@@ -105,7 +107,7 @@ class Index extends Page {
                 </div>
             </div>
             <div className="pb-5">
-                <div className="text-center pt-5 py-md-5 font_xs_l font_md_xl">Recent wishes</div>
+                <div className="text-center pt-5 py-md-5 font_xs_l font_md_xl">${language.recentWishes()}</div>
                 <div className="res-slick row mx-1 recent-wishes">
                     ${recentWishes()}
                 </div>
@@ -113,13 +115,13 @@ class Index extends Page {
             
             <div className="container-fluid">
                 <div className="text-center pt-5 font_xs_l font_md_xl">
-                    Why make wishes on Giffon?
+                    ${language.whyWish()}
                 </div>
 
                 <div id="set2" className="row my-4 my-md-5 text-center from_right">
                     <div className="col-sm-12 col-md-2 ml-md-auto mr-md-3 bg5 color_white shaded-shadow p-3 flex_container_v_xs d-md-flex">
                     <div className="vbox">
-                        <div className="font_xs_m font_md_l">For Wish Makers</div>
+                        <div className="font_xs_m font_md_l">${language.forWishMakers()}</div>
                     </div>
                     </div>
                 
@@ -130,7 +132,7 @@ class Index extends Page {
                         <div className="py-3">
                         <span className="d-inline-block px-2 py-1 corner_xs bg6">#awesome</span>
                         </div>
-                        <p>get exactly what you want, every single time</p>
+                        <p>${language.getExactGift()}</p>
                         
                     </div>
                     </div>
@@ -141,7 +143,7 @@ class Index extends Page {
                         <div className="py-3">
                         <span className="d-inline-block px-2 py-1 corner_xs bg6">#speakUp</span>
                         </div>
-                        <p>people want to gift you, they just don\'t know what to buy</p>
+                        <p>${language.peopleWantToGift()}</p>
                         
                     </div>
                     </div>
@@ -152,7 +154,7 @@ class Index extends Page {
                         <div className="py-3">
                         <span className="d-inline-block px-2 py-1 bg6 corner_xs">#ecoFriendly</span>
                         </div>
-                        <p>no longer need to deal with gifts that have no value to you</p>
+                        <p>${language.noUselessGift()}</p>
                         
                     </div>
                     </div>
@@ -163,7 +165,7 @@ class Index extends Page {
                         <div className="py-3">
                         <span className="d-inline-block px-2 py-1 bg6 corner_xs">#saveMoney</span>
                         </div>
-                        <p>get what you want for free</p>
+                        <p>${language.getWantYouWantForFree()}</p>
                         
                     </div>
                     </div>
@@ -172,14 +174,14 @@ class Index extends Page {
                 </div>
 
                 <div className="text-center pt-5 font_xs_l font_md_xl">
-                    Why support friends on Giffon?
+                    ${language.whySupportFriendsOnGiffon()}
                 </div>
 
                 <div id="support" className="row my-4 my-md-5 text-center from_left">
 
                     <div className="col-sm-12 col-md-2 mr-md-auto ml-3 ml-sm-0 ml-md-3 bg5 color_white shaded-shadow p-3 d-xs-flex d-md-none">
                         <div className="vbox">
-                            <div className="font_xs_m font_md_l">For Supporters</div>
+                            <div className="font_xs_m font_md_l">${language.forSupporters()}</div>
                         </div>
                     </div>
 
@@ -190,7 +192,7 @@ class Index extends Page {
                         <div className="py-3">
                         <span className="d-inline-block px-2 py-1 bg6 corner_xs">#sincerity</span>
                         </div>
-                        <p>show that you are thankful, appreciating someone</p>
+                        <p>${language.showAppreciation()}</p>
                         
                     </div>
                     </div>
@@ -201,7 +203,7 @@ class Index extends Page {
                         <div className="py-3">
                         <span className="d-inline-block px-2 py-1 bg6 corner_xs" >#certain</span>
                         </div>
-                        <p>your money spent is going to make the receiver happy</p>
+                        <p>${language.moneySpentForMakingReceiverHappy()}</p>
                         
                     </div>
                     </div>
@@ -212,7 +214,7 @@ class Index extends Page {
                         <div className="py-3">
                         <span className="d-inline-block px-2 py-1 bg6 corner_xs">#affordable</span>
                         </div>
-                        <p>a good gift is never too expensive once your friends chip in</p>
+                        <p>${language.aGoodGiftIsNeverTooExpensive()}</p>
                         
                     </div>
                     </div>
@@ -223,14 +225,14 @@ class Index extends Page {
                         <div className="py-3">
                         <span className="d-inline-block px-2 py-1 bg6 corner_xs">#trusty</span>
                         </div>
-                        <p>be sure your loved one will receive the nice gift instead of money that may be spent on cigarettes</p>
+                        <p>${language.giftInsteadOfMoney()}</p>
                         
                     </div>  
                     </div>
 
                     <div className="col-sm-12 col-md-2 mr-md-auto ml-3 ml-sm-0 ml-md-3 bg5 color_white shaded-shadow p-3 d-none d-md-flex flex_container_v_xs">
                         <div className="vbox">
-                            <div  className="font_xs_m font_md_l">For Supporters</div>
+                            <div  className="font_xs_m font_md_l">${language.forSupporters()}</div>
                         </div>
                     </div>
                 </div>

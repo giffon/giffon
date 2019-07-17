@@ -22,11 +22,13 @@ extern class Cookies {
 }
 
 class BrowserMain {
+    static public var instance:BrowserMain;
     static function main():Void {
-        new BrowserMain();
+        instance = new BrowserMain();
     }
 
     var session(get, null):Null<Session>;
+    var language(default, null):giffon.lang.Language;
 
     public function new():Void {
         new JQuery(onReady);
@@ -53,6 +55,8 @@ class BrowserMain {
     }
 
     function onReady():Void {
+        language = giffon.lang.LanguageTools.langFromCode(document.documentElement.getAttribute("lang"));
+
         // https://getbootstrap.com/docs/4.0/components/tooltips/
         var hasTooltip = new JQuery('[data-toggle="tooltip"]');
         (untyped hasTooltip.tooltip)();

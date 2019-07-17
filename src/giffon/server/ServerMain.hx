@@ -17,6 +17,7 @@ import tink.CoreApi;
 import haxe.Constraints;
 import giffon.config.*;
 import giffon.view.*;
+import giffon.lang.Language;
 using js.npm.validator.Validator;
 using tink.core.Future.JsPromiseTools;
 using giffon.RequestTools;
@@ -887,8 +888,8 @@ class ServerMain {
         }));
         app.use(function(req, res:Response, next){
             var lang:String = req.language;
-            res.locals.language = lang;
             res.setHeader("Content-Language", lang);
+            res.locals.language = giffon.lang.LanguageTools.langFromCode(lang);
             next();
         });
 

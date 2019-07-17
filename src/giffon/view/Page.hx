@@ -8,13 +8,14 @@ import haxe.io.*;
 import giffon.db.*;
 import giffon.R.*;
 using giffon.ResponseTools;
+using giffon.lang.Page;
 using StringTools;
 
 class Page extends ReactComponent {
     var user(get, never):Null<User>;
     function get_user() return (this.props.expressResponse:js.npm.express.ExpressResponse).getUser();
 
-    var language(get, never):String;
+    var language(get, never):giffon.lang.Language;
     function get_language() return (this.props.expressResponse:js.npm.express.ExpressResponse).locals.language;
 
     function title():String return "Giffon";
@@ -258,9 +259,9 @@ class Page extends ReactComponent {
             <footer className="p-5 color_white text-center container-fluid font_xs_xs font_md_s mt-5">
                 <div>
                     <div className="p-2 color_white_o50">Giffon - where birds of a feather flock together</div>
-                    <div className="copyright p-2">Copyright © Giffon. All Rights Reserved.</div>
-                    <a className="p-2" href="/terms">Terms and Conditions</a>
-                    <a className="p-2" href="/privacy">Privacy Policy</a>
+                    <div className="copyright p-2">Giffon © 2019</div>
+                    <a className="p-2" href="/terms">${language.termsAndConditions()}</a>
+                    <a className="p-2" href="/privacy">${language.privacyPolicy()}</a>
                 </div>
                 <div className="social row justify-content-center mt-2">
                     <div className="col-auto"><a href="https://www.facebook.com/giffon.io" target="_blank" rel="noopener" title="Giffon on Facebook"><i className="fab fa-facebook"></i></a></div>
@@ -273,7 +274,7 @@ class Page extends ReactComponent {
 
     override function render() {
         return jsx('
-            <html lang=${language}>
+            <html lang=${giffon.lang.LanguageTools.code(language)}>
                 ${head()}
                 ${body()}
             </html>
