@@ -32,6 +32,7 @@
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "express-mysql-session": "^2.1.0",
+    "express-request-language": "^1.1.15",
     "express-session": "^1.16.2",
     "formik": "^1.5.8",
     "gravatar": "^1.8.0",

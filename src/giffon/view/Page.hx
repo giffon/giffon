@@ -14,6 +14,9 @@ class Page extends ReactComponent {
     var user(get, never):Null<User>;
     function get_user() return (this.props.expressResponse:js.npm.express.ExpressResponse).getUser();
 
+    var language(get, never):String;
+    function get_language() return (this.props.expressResponse:js.npm.express.ExpressResponse).locals.language;
+
     function title():String return "Giffon";
 
     function description():Null<String> return null;
@@ -270,7 +273,7 @@ class Page extends ReactComponent {
 
     override function render() {
         return jsx('
-            <html lang="en">
+            <html lang=${language}>
                 ${head()}
                 ${body()}
             </html>

@@ -876,6 +876,22 @@ class ServerMain {
         }));
         app.use(require("body-parser").text());
 
+
+        app.use(require("express-request-language")({
+            languages: ['en-US', 'zh-HK'],
+            cookie: {
+                name: 'language',
+                options: { maxAge: 24*3600*1000 },
+                url: '/set-lang/{language}'
+            },
+        }));
+        app.use(function(req, res:Response, next){
+            var lang:String = req.language;
+            res.locals.language = lang;
+            res.setHeader("Content-Language", lang);
+            next();
+        });
+
         app.use(Express.Static("www", {
             dotfiles: "ignore",
             redirect: true
