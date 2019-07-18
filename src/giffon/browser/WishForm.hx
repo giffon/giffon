@@ -454,7 +454,7 @@ class WishForm extends ReactComponent {
                                 checked=${props.values.acceptTerms}
                             />
                             <label className="form-check-label" htmlFor="acceptTerms">
-                                Agree to <a href="/terms" target="_blank">terms and conditions</a>
+                                Agree to <a href="terms" target="_blank">terms and conditions</a>
                             </label>
                             <ErrorMessage name="acceptTerms" render=${renderErrorMessage} />
                         </div>

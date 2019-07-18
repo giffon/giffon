@@ -59,7 +59,7 @@ class Index extends Page {
                             </div>
                             <div className="wish-description text-left font_xs_s">${wish.wish_description}</div>
                         </div>
-                        <a className="btn btn-success rounded-0 w-100" href=${"/wish/" + wish.wish_hashid}>
+                        <a className="btn btn-success rounded-0 w-100" href=${"wish/" + wish.wish_hashid}>
                             ${language.support()}
                         </a>
                     </div>
@@ -98,7 +98,7 @@ class Index extends Page {
                                 <div className="p-4 p-md-5">
                                     ${language.usageStep2()}
                                 </div>
-                                <a className="btn py-md-3 btn-success rounded-0 w-100" href="/make-a-wish">
+                                <a className="btn py-md-3 btn-success rounded-0 w-100" href="make-a-wish">
                                     ${language.makeAWishNow()}
                                 </a>
                             </div>

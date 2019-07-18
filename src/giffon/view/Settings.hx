@@ -35,7 +35,7 @@ class Settings extends Page {
             user_primary_email: user.user_primary_email == null ? "" : user.user_primary_email,
             user_description: user.user_description == null ? "" : user.user_description,
             user_url: {
-                var rx = ~/^\/user\?id=.+$/; // match only non-custom urls
+                var rx = ~/^user\?id=.+$/; // match only non-custom urls
                 if (rx.match(user.user_profile_url)) {
                     "";
                 } else {
@@ -84,9 +84,9 @@ class Settings extends Page {
         }
 
         var href = if (!isConnected)
-            '/signin/${name}?redirectTo=${"/settings".urlEncode()}';
+            'signin/${name}?redirectTo=${Path.join([base, "settings"]).urlEncode()}';
         else
-            '/disconnect/${name}';
+            'disconnect/${name}';
 
         var disallowDisconnect = numSocialConnections() <= 1;
 

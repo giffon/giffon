@@ -1,5 +1,6 @@
 package giffon.browser;
 
+import haxe.io.*;
 import react.*;
 import react.ReactMacro.jsx;
 import js.npm.formik.*;
@@ -27,7 +28,7 @@ class SettingsForm extends ReactComponent {
         JQuery.ajax({
             type: "POST",
             contentType: "application/json; charset=utf-8",
-            url: "/settings",
+            url: Path.join([BrowserMain.instance.base, "settings"]),
             data: haxe.Json.stringify(values),
         })
             .done(function(data:String, textStatus:String, jqXHR){

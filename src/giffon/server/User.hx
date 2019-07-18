@@ -10,6 +10,7 @@ import giffon.server.ServerMain.*;
 import giffon.config.*;
 import giffon.browser.*;
 import tink.core.Error;
+import haxe.io.*;
 using tink.core.Future.JsPromiseTools;
 using giffon.ResponseTools;
 using giffon.server.PromiseTools;
@@ -34,8 +35,12 @@ class User {
         }
         var pageUser = @await getUser(pageUser_id);
 
-        if (pageUser.user_profile_url != req.path) {
-            res.redirect(pageUser.user_profile_url);
+        if ("/" + pageUser.user_profile_url != req.path) {
+            var base = switch (req.baseUrl) {
+                case null, "": "/";
+                case _: req.baseUrl;
+            }
+            res.redirect(Path.join([base, pageUser.user_profile_url]));
             return;
         }
         var wishes = @await getWishes(pageUser_id);
@@ -55,7 +60,7 @@ class User {
             return;
         }
         var pageUser = @await getUser(pageUser_id);
-        if (!pageUser.user_profile_url.startsWith("/user?")) {
+        if (!pageUser.user_profile_url.startsWith("user?")) {
             res.redirect(pageUser.user_profile_url);
             return;
         }

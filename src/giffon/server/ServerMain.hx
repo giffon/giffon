@@ -49,7 +49,11 @@ class ServerMain {
 
     static public function ensureLoggedIn(req:Request, res:Response, next:Dynamic):Void {
         if (res.getUser() == null) {
-            res.redirect(absPath("/signin?redirectTo=" + req.path.urlEncode()));
+            var base = switch (req.baseUrl) {
+                case null, "": "/";
+                case _: req.baseUrl;
+            }
+            res.redirect(Path.join([base, "signin"]) + "?redirectTo=" + Path.join([base, req.path]).urlEncode());
         } else {
             next();
         }
@@ -58,7 +62,11 @@ class ServerMain {
     @await static public function ensureAdmin(req:Request, res:Response, next:Dynamic):Void {
         var user = res.getUser();
         if (user == null) {
-            res.redirect(absPath("/signin?redirectTo=" + req.path.urlEncode()));
+            var base = switch (req.baseUrl) {
+                case null, "": "/";
+                case _: req.baseUrl;
+            }
+            res.redirect(Path.join([base, "signin"]) + "?redirectTo=" + Path.join([base, req.path]).urlEncode());
             return;
         }
 
@@ -375,7 +383,7 @@ class ServerMain {
         return wish;
     }
 
-    @async static function getRecentWishes(num:Int):Array<giffon.db.Wish> {
+    @async static public function getRecentWishes(num:Int):Array<giffon.db.Wish> {
         var wish_results:QueryResults = (@await dbConnectionPool.query(
             '
                 SELECT wish_id
@@ -548,9 +556,9 @@ class ServerMain {
             user_description: user.user_description,
             user_profile_url: switch (user.user_url) {
                 case null:
-                    '/user?id=${user.user_hashid}';
+                    'user?id=${user.user_hashid}';
                 case url:
-                    '/${url}';
+                    url;
             },
         };
     }
@@ -991,139 +999,12 @@ class ServerMain {
         app.use(Passport.initialize());
         app.use(Passport.session());
 
-        //template variables
+        // put user in res
         app.use(function(req:Request, res:Response, next) {
-            res.locals.bodyClasses = [];
-            res.locals.canonical = Path.join([canonicalBase, req.path]);
-            res.locals.R = R;
             if (req.user != null) {
                 res.setUser(req.user);
             }
             next();
-        });
-
-        //check beta
-        app.use(function(req:Request, res:Response, next) {
-            switch (req.query.beta) {
-                case "1":
-                    res.locals.isBeta = true;
-                    res.cookie("beta", "1");
-                    next();
-                    return;
-                case "0":
-                    res.locals.isBeta = false;
-                    res.cookie("beta", "0");
-                    next();
-                    return;
-                case _:
-                    //pass
-            }
-            if (req.cookies != null) {
-                switch (req.cookies.beta) {
-                    case "1":
-                        res.locals.isBeta = true;
-                        next();
-                        return;
-                    case "0":
-                        res.locals.isBeta = false;
-                        next();
-                        return;
-                    case _:
-                        //pass
-                }
-            }
-            res.locals.isBeta = switch (Stage.stage) {
-                case Production: false;
-                case _: true;
-            }
-            next();
-        });
-
-        app.get("/", @await function(req:Request, res:Response) {
-            res.sendPage(Index, {
-                recentWishes: @await getRecentWishes(10),
-            });
-        });
-        app.get("/terms", function(req, res:Response) {
-            res.sendPage(Terms);
-        });
-        app.get("/privacy", function(req, res:Response) {
-            res.sendPage(Privacy);
-        });
-        app.get("/use-cases/video-creators", function(req, res:Response) {
-            res.sendPage(UseCasesVideoCreators);
-        });
-        app.get("/use-cases/oss-developers", function(req, res:Response) {
-            res.sendPage(UseCasesOssDevs);
-        });
-        app.get("/signin", function(req:Request, res:Response){
-            switch (req.query.redirectTo) {
-                case null:
-                    //pass
-                case redirectTo:
-                    req.session.redirectTo = redirectTo;
-            }
-            res.sendPage(SignIn);
-        });
-        for (auth_method in Type.allEnums(giffon.db.AuthMethod)) {
-            var authOptions = switch (auth_method) {
-                case Facebook:
-                    {
-                        scope: ["email"],
-                    };
-                case Google:
-                    {
-                        scope: ["email profile"],
-                    };
-                case _:
-                    {};
-            }
-            var auth_method_lower = auth_method.getName().toLowerCase();
-            var pName = switch(auth_method) {
-                case Twitch: "twitch.js";
-                case _: auth_method_lower;
-            };
-            app.get('/signin/${auth_method_lower}',
-                function(req:Request, res:Response, next) {
-                    switch (req.query.redirectTo) {
-                        case null:
-                            //pass
-                        case redirectTo:
-                            req.session.redirectTo = redirectTo;
-                    }
-                    next();
-                },
-                Passport.authenticate(pName, authOptions)
-            );
-        }
-
-        app.get("/disconnect/:auth_method", ensureLoggedIn, @await function(req:Request, res:Response, next) {
-            var auth_method = req.params.auth_method;
-            if (!Type.allEnums(giffon.db.AuthMethod).exists(function(a) return a.getName().toLowerCase() == auth_method)) {
-                res.sendPlainError("unknown auth method", NotFound);
-                return;
-            }
-            var user = res.getUser();
-            var socialProfiles:DynamicAccess<js.npm.passport.Profile> = @await getSocialProfiles(user.user_id);
-            var social_profile = socialProfiles['${auth_method}_profile'];
-
-            var numConnected = [for (k in socialProfiles.keys()) if (socialProfiles[k] != null) 1].length;
-            if (numConnected <= 1) {
-                res.sendPlainError('Cannot disconnect the only social connection.', BadRequest);
-                return;
-            }
-
-            if (social_profile == null) {
-                res.sendPlainError('User has no existing ${auth_method} connection.', BadRequest);
-                return;
-            }
-
-            @await dbConnectionPool.query(
-                'DELETE FROM user_${auth_method} WHERE user_id = ? && ${auth_method}_id = ?',
-                [res.getUser().user_id, social_profile.id]
-            ).toPromise();
-
-            res.redirect("/settings");
         });
 
         app.get("/callback/:auth_method", function(req:Request, res:Response, next) {
@@ -1148,41 +1029,23 @@ class ServerMain {
                         return res.sendPlainError(err);
                     }
                     res.setUser(user);
+                    var base = switch (req.baseUrl) {
+                        case null, "": "/";
+                        case _: req.baseUrl;
+                    }
                     var redirectTo = switch (req.getRedirectTo()) {
-                        case null: "/";
+                        case null:
+                            base;
                         case r: r;
                     }
-                    res.redirect(absPath(redirectTo));
+                    res.redirect(redirectTo);
                 });
             })(req, res, next);
         });
-        app.get("/signout", function(req:Request, res) {
-            var redirectTo = switch (req.query.redirectTo) {
-                case null: "/";
-                case r: r;
-            }
-            req.logout();
-            res.redirect(absPath(redirectTo));
-        });
 
-        app.get("/home", ensureLoggedIn, @await function(req:Request, res:Response) {
-            try {
-                var wishes = @await getWishes(res.getUser().user_id);
-                res.render("home", {
-                    wishes: wishes
-                });
-            } catch (err:Dynamic) {
-                trace(err);
-                res.sendPlainError(err);
-                return;
-            }
-        });
+        var pageRouter = PageRouter.createRouter();
 
-        app.use(giffon.server.Admin.createRouter());
-        app.use(giffon.server.Wish.createRouter());
-        app.use(giffon.server.MakeAWish.createRouter());
-        app.use(giffon.server.Settings.createRouter());
-        app.use(giffon.server.User.createRouter());
+        app.use(["/en", "/zh-HK", "/"], pageRouter);
 
         app.use(function(err, req, res:Response, next) {
             res.sendPlainError(err, 500);

@@ -10,6 +10,7 @@ import giffon.server.ServerMain.*;
 import giffon.config.*;
 import giffon.browser.*;
 import tink.core.Error;
+import haxe.io.*;
 using tink.core.Future.JsPromiseTools;
 using giffon.ResponseTools;
 using giffon.server.PromiseTools;
@@ -274,8 +275,11 @@ class Wish {
                 stripe_charge_id: charge.id,
             }]
         ).handleError(next).toPromise();
-
-        res.redirect(absPath('/wish/$wish_hashid'));
+        var base = switch (req.baseUrl) {
+            case null, "": "/";
+            case _: req.baseUrl;
+        }
+        res.redirect(Path.join([base, "wish", wish_hashid]));
     };
 
     @await static function handlePledgeCancel(req:Request, res:Response, next:Dynamic){
@@ -443,6 +447,6 @@ class Wish {
             wish.wish_id
         ]).handleError(next).toPromise()).results;
 
-        res.sendPlainText("/wish/" + wish_hashid);
+        res.sendPlainText(Path.join(["wish", wish_hashid]));
     };
 }

@@ -94,7 +94,7 @@ class User extends Page {
     function renderWish(wish:giffon.db.Wish) {
         return jsx('
             <div key=${wish.wish_id} className="col-12 col-md-4 mb-3">
-                <a className="text-dark" href=${Path.join(["/wish", wish.wish_hashid])}>
+                <a className="text-dark" href=${Path.join(["wish", wish.wish_hashid])}>
                 <div className="wish-box shadow">
                     <div className="wish-banner" style=${Index.wishBannerStyle(wish)}></div>
                     <div className="bg_white p-3">
@@ -148,7 +148,7 @@ class User extends Page {
                 var makeWishHint = if (user != null && user.user_id == pageUser.user_id) {
                     jsx('
                         <Fragment>
-                            <a className="font_xs_xs font_md_s" href="/make-a-wish">Make one now</a>.
+                            <a className="font_xs_xs font_md_s" href="make-a-wish">Make one now</a>.
                         </Fragment>
                     ');
                 } else {

@@ -11,6 +11,8 @@ class RequestTools {
         return req.session == null ? null : switch (req.session.redirectTo) {
             case null:
                 null;
+            case "":
+                req.baseURL;
             case redirectTo if (isValidRedirectTo(redirectTo)):
                 if (clearIfExists)
                     req.session.redirectTo = null;
@@ -24,15 +26,17 @@ class RequestTools {
         if (redirectTo == null)
             return true;
 
-        if (redirectTo.startsWith("/"))
-            return true;
-
         if (redirectTo.isURL({
             protocols: ["https", "http"],
-            host_whitelist: ["giffon.io"],
+            host_whitelist: ["giffon.io", "master.giffon.io"],
         }))
             return true;
 
-        return false;
+        if (redirectTo.isURL({
+            require_protocol: true
+        }))
+            return false;
+
+        return true;
     }
 }

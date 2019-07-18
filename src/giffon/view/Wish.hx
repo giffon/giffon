@@ -122,7 +122,7 @@ class Wish extends Page {
             <div className="py-3 px-2 p-md-3 mb-3 mb-md-0 bg_white col ml-sm-3">
                 <h4 className="font_xs_m font_md_l">Edit Wish</h4>
                 <p className="font_xs_xs font_md_s">You may edit the wish info, but not the items.</p>
-                <a className="edit-wish-btn btn btn-primary rounded-0" href=${Path.join(["/", path(), "edit"])}>Edit Wish</a>
+                <a className="edit-wish-btn btn btn-primary rounded-0" href=${Path.join([path(), "edit"])}>Edit Wish</a>
             </div>
         ');
     }

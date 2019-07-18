@@ -19,7 +19,7 @@ class WishHowToHelpSection extends ReactComponent {
         var bodyClasses = document.body.classList;
         var userSignedIn = bodyClasses.contains("signed-in");
         var href = if (!userSignedIn) {
-            "/signin?redirectTo=" + (location.pathname + "#pledge-form-root").urlEncode();
+            "signin?redirectTo=" + (location.pathname + "#pledge-form-root").urlEncode();
         } else {
             "#pledge-form-root";
         };

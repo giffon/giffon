@@ -27,7 +27,7 @@ class UseCasesVideoCreators extends Page {
             <p>
                 Let your fans help you to cut your cost, and to produce better videos <span className="ec ec-video-camera"></span>.
             </p>
-            <p><a href="/make-a-wish">Make a wish</a> in Giffon and let the community buy you a gift!</p>
+            <p><a href="make-a-wish">Make a wish</a> in Giffon and let the community buy you a gift!</p>
 
             <h2>Wish ideas</h2>
             <p>Here are some goodies that can be useful to video creators.</p>
@@ -161,7 +161,7 @@ class UseCasesVideoCreators extends Page {
 
             <div className="jumbotron" style=${bgStyle(R("/images/max-nelson-1668370-unsplash-blur.jpg"))}>
                 <p className="lead text-center">
-                    <a className="btn btn-primary btn-lg mt-3 my-5" href="/make-a-wish">
+                    <a className="btn btn-primary btn-lg mt-3 my-5" href="make-a-wish">
                         Make a Wish Now
                     </a>
                 </p>

@@ -57,7 +57,7 @@ class PledgeForm extends ReactComponent {
         JQuery.ajax({
             type: "DELETE",
             contentType: "application/json; charset=utf-8",
-            url: Path.join(["/wish", wish_hashid, "pledge"]),
+            url: Path.join([BrowserMain.instance.base, "wish", wish_hashid, "pledge"]),
         })
             .done(function(data:String){
                 submissionError = null;
@@ -199,7 +199,7 @@ class _PledgeForm extends ReactComponent {
         JQuery.ajax({
             type: "POST",
             contentType: "application/json; charset=utf-8",
-            url: Path.join(["/wish", wish_hashid, "pledge"]),
+            url: Path.join([BrowserMain.instance.base, "wish", wish_hashid, "pledge"]),
             data: haxe.Json.stringify(values),
         })
             .done(function(data:String){
@@ -353,7 +353,7 @@ class _PledgeForm extends ReactComponent {
                             required=${true}
                         />
                         <label className="form-check-label" htmlFor="acceptTerms">
-                            Agree to <a href="/terms" target="_blank">terms and conditions</a>
+                            Agree to <a href="terms" target="_blank">terms and conditions</a>
                         </label>
                         <ErrorMessage name="acceptTerms" render=${renderErrorMessage} />
                     </div>

@@ -42,7 +42,7 @@ class PageWish {
             JQuery.ajax({
                 type: "DELETE",
                 contentType: "application/json; charset=utf-8",
-                url: Path.join(["/wish", wish_hashid]),
+                url: Path.join([BrowserMain.instance.base, "wish", wish_hashid]),
             })
                 .done(function(data:String){
                     document.location.reload(true);
@@ -62,7 +62,7 @@ class PageWish {
             JQuery.ajax({
                 type: "POST",
                 contentType: "text/plain; charset=utf-8",
-                url: Path.join(["/wish", wish_hashid, "coupon"]),
+                url: Path.join([BrowserMain.instance.base, "wish", wish_hashid, "coupon"]),
                 data: coupon_code,
             })
                 .done(function(data:String){

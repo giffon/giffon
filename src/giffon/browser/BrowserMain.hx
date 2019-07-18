@@ -27,8 +27,9 @@ class BrowserMain {
         instance = new BrowserMain();
     }
 
-    var session(get, null):Null<Session>;
-    var language(default, null):giffon.lang.Language;
+    public var session(get, null):Null<Session>;
+    public var language(default, null):giffon.lang.Language;
+    public var base(default, null):String;
 
     public function new():Void {
         new JQuery(onReady);
@@ -56,6 +57,7 @@ class BrowserMain {
 
     function onReady():Void {
         language = giffon.lang.LanguageTools.langFromCode(document.documentElement.getAttribute("lang"));
+        base = document.getElementsByTagName("base")[0].getAttribute("href");
 
         // https://getbootstrap.com/docs/4.0/components/tooltips/
         var hasTooltip = new JQuery('[data-toggle="tooltip"]');

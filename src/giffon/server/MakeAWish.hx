@@ -10,6 +10,7 @@ import react.ReactMacro.jsx;
 import tink.CoreApi;
 import tink.core.Error;
 import hashids.Hashids;
+import haxe.io.*;
 import giffon.server.ServerMain.*;
 import giffon.config.*;
 import giffon.browser.*;
@@ -139,6 +140,6 @@ class MakeAWish {
             ([wish_hashid, wish_id]:Array<Dynamic>)
         ).handleError(next).toPromise();
 
-        res.sendPlainText("/wish/" + wish_hashid);
+        res.sendPlainText(Path.join(["wish", wish_hashid]));
     };
 }

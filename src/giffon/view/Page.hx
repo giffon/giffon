@@ -12,6 +12,12 @@ using giffon.lang.Page;
 using StringTools;
 
 class Page extends ReactComponent {
+    var base(get, never):Null<String>;
+    function get_base() return switch ((this.props.expressResponse:js.npm.express.ExpressResponse).locals.base) {
+        case null, "": "/";
+        case b: haxe.io.Path.addTrailingSlash(b);
+    };
+
     var user(get, never):Null<User>;
     function get_user() return (this.props.expressResponse:js.npm.express.ExpressResponse).getUser();
 
@@ -29,6 +35,10 @@ class Page extends ReactComponent {
                 <meta name="description" content=${desc} />
             ');
     };
+
+    function baseTag() return jsx('
+        <base href=${base} />
+    ');
 
     function gtag() {
         // only track production traffic
@@ -171,6 +181,7 @@ class Page extends ReactComponent {
             <meta charSet="UTF-8" />
             <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
             <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+            ${baseTag()}
             <title>${title()}</title>
             ${descriptionTag()}
             ${canonical()}
@@ -195,9 +206,9 @@ class Page extends ReactComponent {
     function navbarSignIn() {
         if (user != null) {
             var signoutHref = if (requiredSignin())
-                "/signout";
+                "signout";
             else
-                "/signout?redirectTo=" + Path.join(["/", path()]).urlEncode();
+                "signout?redirectTo=" + Path.join([base, path()]).urlEncode();
 
             return jsx('
                 <ul className="navbar-nav ml-auto">
@@ -205,7 +216,7 @@ class Page extends ReactComponent {
                         <a className="nav-link user-name" href=${user.user_profile_url}>${user.user_name}</a>
                     </li>
                     <li>
-                        <a className="nav-link" href="/settings">${language.settings()}</a>
+                        <a className="nav-link" href="settings">${language.settings()}</a>
                     </li>
                     <li className="nav-item">
                         <a className="nav-link" href=${signoutHref}>${language.signOut()}</a>
@@ -213,7 +224,7 @@ class Page extends ReactComponent {
                 </ul>
             ');
         } else {
-            var signinHref = "/signin?redirectTo=" + Path.join(["/", path()]).urlEncode();
+            var signinHref = "signin?redirectTo=" + Path.join([base, path()]).urlEncode();
             return jsx('
                 <ul className="navbar-nav ml-auto">
                     <li className="nav-item">
@@ -230,7 +241,7 @@ class Page extends ReactComponent {
         <body className=${bodyClasses().join(" ")} {...bodyAttributes()}>
             <div className="content">
                 <nav className="navbar navbar-light navbar-expand-md font_xs_s font_md_m">
-                    <a className="navbar-brand mr-0" href="/" style=${{backgroundImage: 'url(${R("/images/logo-blue.svg")})'}}>
+                    <a className="navbar-brand mr-0" href="" style=${{backgroundImage: 'url(${R("/images/logo-blue.svg")})'}}>
                         Giffon
                     </a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
@@ -239,15 +250,15 @@ class Page extends ReactComponent {
                     <div className="collapse navbar-collapse" id="navbarsExample04">
                         <ul className="navbar-nav mr-auto">
                             <li className="nav-item">
-                                <a className="nav-link" href="/make-a-wish">${language.makeAWish()}</a>
+                                <a className="nav-link" href="make-a-wish">${language.makeAWish()}</a>
                             </li>
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="#" id="navbarUseCasesDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     ${language.useCases()}
                                 </a>
                                 <div className="dropdown-menu" aria-labelledby="navbarUseCasesDropdownMenuLink">
-                                    <a className="dropdown-item" href="/use-cases/video-creators">${language.forVideoCreators()}</a>
-                                    <a className="dropdown-item" href="/use-cases/oss-developers">${language.forOpenSourceDevelopers()}</a>
+                                    <a className="dropdown-item" href="use-cases/video-creators">${language.forVideoCreators()}</a>
+                                    <a className="dropdown-item" href="use-cases/oss-developers">${language.forOpenSourceDevelopers()}</a>
                                 </div>
                             </li>
                         </ul>
@@ -260,8 +271,8 @@ class Page extends ReactComponent {
                 <div>
                     <div className="p-2 color_white_o50">Giffon - where birds of a feather flock together</div>
                     <div className="copyright p-2">Giffon © 2019</div>
-                    <a className="p-2" href="/terms">${language.termsAndConditions()}</a>
-                    <a className="p-2" href="/privacy">${language.privacyPolicy()}</a>
+                    <a className="p-2" href="terms">${language.termsAndConditions()}</a>
+                    <a className="p-2" href="privacy">${language.privacyPolicy()}</a>
                 </div>
                 <div className="social row justify-content-center mt-2">
                     <div className="col-auto"><a href="https://www.facebook.com/giffon.io" target="_blank" rel="noopener" title=${language.giffonOnFacebook()}><i className="fab fa-facebook"></i></a></div>

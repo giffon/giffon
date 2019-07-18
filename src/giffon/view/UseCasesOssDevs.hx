@@ -30,7 +30,7 @@ class UseCasesOssDevs extends Page {
                 Giffon provides users an easy way to show their appreciation to the open source developers. 
                 The open source community as a whole can keep the good vibes, avoid developer burnout, and build the next-big-thing together <span className="ec ec-dark-sunglasses"></span>.
             </p>
-            <p><a href="/make-a-wish">Make a wish</a> in Giffon and let the community buy you a gift!</p>
+            <p><a href="make-a-wish">Make a wish</a> in Giffon and let the community buy you a gift!</p>
 
             <div className="row justify-content-md-center">
                 <div className="alert alert-info col-md-8" role="alert">
@@ -157,7 +157,7 @@ class UseCasesOssDevs extends Page {
 
             <div className="jumbotron" style=${bgStyle(R("/images/jefferson-santos-450403-unsplash-blur.jpg"))}>
                 <p className="lead text-center">
-                    <a className="btn btn-primary btn-lg mt-3 my-5" href="/make-a-wish">
+                    <a className="btn btn-primary btn-lg mt-3 my-5" href="make-a-wish">
                         Make a Wish Now
                     </a>
                 </p>
