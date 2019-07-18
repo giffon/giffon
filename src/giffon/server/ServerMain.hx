@@ -886,9 +886,16 @@ class ServerMain {
         app.use(require("body-parser").text());
 
         app.use(function(req:Request, res:Response, next){
-            var lang:String = req.acceptsLanguages('en', 'zh');
-            res.setHeader("Content-Language", lang);
-            res.locals.language = giffon.lang.LanguageTools.langFromCode(lang);
+            var lang:Language = switch (req.path.split("/")[1]) {
+                case "en":
+                    English;
+                case "zh-HK":
+                    Cantonese;
+                case null, "", _:
+                    giffon.lang.LanguageTools.langFromCode(req.acceptsLanguages('en', 'zh'));
+            }
+            res.locals.language = lang;
+            res.setHeader("Content-Language", giffon.lang.LanguageTools.code(lang));
             next();
         });
 
