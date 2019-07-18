@@ -30,6 +30,10 @@ class SettingsFormData implements DataClass {
     public var user_description:String;
 
     @validate(
+        _ == ""
+
+        ||
+
         _.length >= user_url_min && _.length <= user_url_max
 
         // define valid characters

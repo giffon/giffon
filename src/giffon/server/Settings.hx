@@ -70,7 +70,7 @@ class Settings {
                     user.user_id,
                 ]
             ).handleError(next).toPromise();
-        } else if (user.user_profile_url != '/${settingsFormData.user_url}') {
+        } else if (user.user_profile_url != settingsFormData.user_url) {
             // check the latest update time
             var results:QueryResults = (@await dbConnectionPool.query(
                 "
