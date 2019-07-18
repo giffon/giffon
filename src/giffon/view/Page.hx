@@ -9,6 +9,7 @@ import giffon.db.*;
 import giffon.R.*;
 using giffon.ResponseTools;
 using giffon.lang.Page;
+using giffon.lang.LanguageTools;
 using StringTools;
 
 class Page extends ReactComponent {
@@ -63,9 +64,39 @@ class Page extends ReactComponent {
     }
 
     function path():String throw "should be overridden";
-    function canonical() return jsx('
-        <link rel="canonical" href="${Path.join([canonicalBase, path()])}" />
-    ');
+
+    function canonicalOfLang(lang:giffon.lang.Language):String {
+        return switch (lang) {
+            case English:
+                Path.join([canonicalBase, path()]);
+            case Cantonese:
+                Path.join([canonicalBase, lang.code() , path()]);
+        }
+    }
+
+    function canonical() {
+        return jsx('
+            <link rel="canonical" href="${canonicalOfLang(language)}" />
+        ');
+    }
+
+    function hreflang() {
+        var links = [
+            for (lang in Type.allEnums(giffon.lang.Language)) {
+                if (lang != language) {
+                    jsx('
+                        <link rel="alternate" hreflang=${lang.code()} href=${canonicalOfLang(lang)} />
+                    ');
+                }
+            }
+        ];
+        links.push(
+            jsx('
+                <link rel="alternate" hreflang="x-default" href=${canonicalOfLang(English)} />
+            ')
+        );
+        return links;
+    }
 
     function requiredSignin() return false;
 
@@ -185,6 +216,7 @@ class Page extends ReactComponent {
             <title>${title()}</title>
             ${descriptionTag()}
             ${canonical()}
+            ${hreflang()}
             ${icons()}
             ${depCss()}
             ${depJs()}
