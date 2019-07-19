@@ -7,9 +7,10 @@ import giffon.server.ServerMain.*;
 import giffon.db.AuthMethod;
 import giffon.R.*;
 using giffon.db.AuthMethod.AuthMethodTools;
+using giffon.lang.SignIn;
 
 class SignIn extends Page {
-    override function title() return 'Sign in - Giffon';
+    override function title() return language.signInUp() + ' - Giffon';
     override function path() return "signin";
     override function render() return super.render();
 
@@ -31,38 +32,38 @@ class SignIn extends Page {
             <div className="h-100 row justify-content-center align-items-center">
                 <div className="card col-auto">
                     <div className="card-body">
-                        <h2 className="card-title mb-4">Sign in / Sign up</h2>
+                        <h2 className="card-title mb-4">${language.signInUp()}</h2>
 
                         <div>
                             <SignInButton
                                 authMethod=${Facebook}
                                 logo=${Facebook.logoImage()}
                                 href="signin/facebook"
-                                label="Sign in with Facebook"
+                                label=${language.signInWith(Facebook)}
                             />
                             <SignInButton
                                 authMethod=${Twitter}
                                 logo=${Twitter.logoImage()}
                                 href="signin/twitter"
-                                label="Sign in with Twitter"
+                                label=${language.signInWith(Twitter)}
                             />
                             <SignInButton
                                 authMethod=${Google}
                                 logo=${Google.logoImage()}
                                 href="signin/google"
-                                label="Sign in with Google"
+                                label=${language.signInWith(Google)}
                             />
                             <SignInButton
                                 authMethod=${GitHub}
                                 logo=${GitHub.logoImage()}
                                 href="signin/github"
-                                label="Sign in with Github"
+                                label=${language.signInWith(GitHub)}
                             />
                             <SignInButton
                                 authMethod=${GitLab}
                                 logo=${GitLab.logoImage()}
                                 href="signin/gitlab"
-                                label="Sign in with GitLab"
+                                label=${language.signInWith(GitLab)}
                             />
                         </div>
                     </div>

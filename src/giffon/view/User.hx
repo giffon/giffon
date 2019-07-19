@@ -4,6 +4,7 @@ import react.*;
 import react.ReactMacro.jsx;
 import haxe.io.*;
 import giffon.server.ServerMain.*;
+using giffon.lang.User;
 
 class User extends Page {
     var pageUser(get, never):giffon.db.User;
@@ -148,14 +149,14 @@ class User extends Page {
                 var makeWishHint = if (user != null && user.user_id == pageUser.user_id) {
                     jsx('
                         <Fragment>
-                            <a className="font_xs_xs font_md_s" href="make-a-wish">Make one now</a>.
+                            <a className="font_xs_xs font_md_s" href="make-a-wish">${language.makeOneNow()}</a>.
                         </Fragment>
                     ');
                 } else {
                     null;
                 };
                 jsx('
-                    <p className="font_xs_xs font_md_s">No wishes in progress. ${makeWishHint}</p>
+                    <p className="font_xs_xs font_md_s">${language.noWishesInProgress()}. ${makeWishHint}</p>
                 ');
             case wishes:
                 wishesList(wishes);
@@ -163,7 +164,7 @@ class User extends Page {
 
         return jsx('
             <Fragment>
-                <h3 className="pt-5 pb-1 pb-md-3 font_xs_l font_md_xl">Wishes in Progress</h3>
+                <h3 className="pt-5 pb-1 pb-md-3 font_xs_l font_md_xl">${language.wishesInProgress()}</h3>
                 ${list}
             </Fragment>
         ');
@@ -173,7 +174,7 @@ class User extends Page {
         var list = switch (wishes.filter(isCompleted)) {
             case []:
                 jsx('
-                    <p className="font_xs_xs font_md_s">No completed wishes.</p>
+                    <p className="font_xs_xs font_md_s">${language.noCompletedWishes()}</p>
                 ');
             case wishes:
                 wishesList(wishes);
@@ -181,7 +182,7 @@ class User extends Page {
 
         return jsx('
             <Fragment>
-                <h3 className="pt-5 pb-1 pb-md-3 font_xs_l font_md_xl">Completed Wishes</h3>
+                <h3 className="pt-5 pb-1 pb-md-3 font_xs_l font_md_xl">${language.completedWishes()}</h3>
                 ${list}
             </Fragment>
         ');
@@ -195,7 +196,7 @@ class User extends Page {
         var list = switch (wishes.filter(isCancelled)) {
             case []:
                 jsx('
-                    <p className="font_xs_xs font_md_s">No cancelled wishes.</p>
+                    <p className="font_xs_xs font_md_s">${language.noCancelledWishes()}</p>
                 ');
             case wishes:
                 wishesList(wishes);
@@ -203,8 +204,8 @@ class User extends Page {
 
         return jsx('
             <Fragment>
-                <h3 className="pt-5 pb-1 pb-md-3 font_xs_l font_md_xl">Cancelled Wishes</h3>
-                <p className="font_xs_xs font_md_s">Only wish owners can see their list of cancelled wishes.</p>
+                <h3 className="pt-5 pb-1 pb-md-3 font_xs_l font_md_xl">${language.cancelledWishes()}</h3>
+                <p className="font_xs_xs font_md_s">${language.cancelledWishesNote()}</p>
                 ${list}
             </Fragment>
         ');

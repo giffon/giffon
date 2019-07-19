@@ -468,6 +468,10 @@ footer .social a:hover {
     min-width: 2em;
 }
 
+.page-signin .card {
+    min-width: 20em;
+}
+
 .page-signin.successful-login .signInBtn {
     display: none;
 }
