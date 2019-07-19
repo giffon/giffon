@@ -181,7 +181,7 @@ class Wish {
 
     static public function shareTheWishWithYourFriends(lang:Language) return switch (lang) {
         case English: "Share the wish with your friends.";
-        case Cantonese: "話俾身邊嘅朋支知.";
+        case Cantonese: "話俾身邊嘅朋友知.";
     }
 
     static public function pledgeTheWishSinceEveryDollarMatters(lang:Language) return switch (lang) {
