@@ -11,9 +11,10 @@ import giffon.Utils.*;
 using DateTools;
 using StringTools;
 using giffon.db.WishProgress.WishProgressTools;
+using giffon.lang.Wish;
 
 class Wish extends Page {
-    override function title() return '${wish.wish_owner.user_name}\'s Wish${wish.wish_title == null? "" : " - " + wish.wish_title} - Giffon';
+    override function title() return '${language.wishOfPerson(wish.wish_owner.user_name)}${wish.wish_title == null? "" : " - " + wish.wish_title} - Giffon';
     override function path() return Path.join(["wish", wish.wish_hashid]);
     override function render() return super.render();
 
@@ -45,7 +46,7 @@ class Wish extends Page {
         return jsx('
             <div className="wish-num-supporters col px-1">
                 <div className="font_xs_l font_md_xl">${wish.supporters.length}</div>
-                ${wish.supporters.length == 1 ? "supporter" : "supporters"}
+                ${language.supporters(wish.supporters.length)}
             </div>
         ');
     }
@@ -55,7 +56,7 @@ class Wish extends Page {
         return jsx('
             <div className="wish-num-supporters col px-1">
                 <div className="font_xs_l font_md_xl">${percentText}</div>
-                achieved
+                ${language.achieved()}
             </div>
         ');
     }
@@ -103,7 +104,7 @@ class Wish extends Page {
             <div className="bg6 p-3 px-md-5 pb-md-5 mb-md-5">
                 <div className="text-center pb-3">
                     <img className="width_xs_15 mb-2" src=${R("/images/motivation.svg")}/>
-                    <div className="font_xs_l font_md_xl">Support the Wish</div>
+                    <div className="font_xs_l font_md_xl">${language.supportTheWish()}</div>
                 </div>
                 <div id="pledge-form-root" className="p-3 bg_white font_xs_xs font_md_s"></div>
             </div>
@@ -239,16 +240,13 @@ class Wish extends Page {
 
     function supporterListSection(amountVisible:Bool) {
         var info = if (amountVisible) {
-            "Supporters with visible support amounts.";
+            language.supportersWithVisibleSupportAmounts();
         } else {
-            "
-            Supporters with hidden support amounts. 
-            Sorted by support amount in descending order.
-            ";
+            language.supportersWithHiddenSupportAmounts();
         }
         var list = supporterList(amountVisible);
         return list.length <= 0 ? null : jsx('
-            <div>
+            <div className="mt-3">
                 <p className="text-muted font_xs_xs font_md_s text-center mb-1">
                     ${info}
                 </p>
@@ -351,9 +349,9 @@ class Wish extends Page {
                 return jsx('
                     <Fragment>
                         <div className="bg6 p-3 px-md-5 pb-md-5 mb-md-5">
-                            <div className="text-center pb-3">
+                            <div className="text-center">
                                  <img className="width_xs_15 mb-2" src=${R("/images/celebration.svg")}/>
-                                <h3 className="font_xs_l font_md_xl">Bibbidi Bobbidi Boom!<br/>Wish fulfilled! Great thanks for the following friends!</h3>
+                                <h3 className="font_xs_l font_md_xl">${language.bibbidiBobbidiBoom()}<br/>${language.wishFulfilled()} ${language.greatThanksForTheFollowingFriends()}</h3>
                             </div>
                             ${supporterListSection(true)}
                             ${supporterListSection(false)}
@@ -365,14 +363,14 @@ class Wish extends Page {
         }
     }
 
-    static public function wishBadge(wish:giffon.db.Wish) {
+    static public function wishBadge(wish:giffon.db.Wish, language:giffon.lang.Language) {
         switch (wish.wish_state) {
             case Succeed:
-                return jsx('<span className="badge badge-success ml-2">succeeded</span>');
+                return jsx('<span className="badge badge-success ml-2">${language.badgeSucceeded()}</span>');
             case Created:
-                return jsx('<span className="badge badge-secondary ml-2">unpublished</span>');
+                return jsx('<span className="badge badge-secondary ml-2">${language.badgeUnpublished()}</span>');
             case Cancelled:
-                return jsx('<span className="badge badge-secondary ml-2">Cancelled</span>');
+                return jsx('<span className="badge badge-secondary ml-2">${language.badgeCancelled()}</span>');
             case _:
                 return null;
         }
@@ -434,7 +432,7 @@ class Wish extends Page {
                     <div className="col-12 col-md-9">
                     
                         <div className="bg_white p-3 pt-md-5 px-md-5 pb-md-4 text-center">
-                            ${wishBadge(wish)}
+                            ${wishBadge(wish, language)}
                             <div className="font_xs_l font_md_xl">${wish.wish_title}</div>
                             <div className="copy-link-button-root" />
                         </div>
@@ -445,7 +443,7 @@ class Wish extends Page {
 
                         <div className="d-flex">
                             <div className="custom-border col">&nbsp;</div>
-                            <div className="bg_white px-3 font_xs_s font_md_m">Well, I want...</div>
+                            <div className="bg_white px-3 font_xs_s font_md_m">${language.iWant()}</div>
                             <div className="custom-border col">&nbsp;</div>
                         </div>
 
@@ -457,7 +455,7 @@ class Wish extends Page {
 
                         <div className="pb-4" style=${wishTotalBg()}>
                             <div className="p-2 bg_white shadow text-center font_xs_m font_md_l">
-                                    Total: <span className="wish-total" data-toggle="tooltip" title=${wish.wish_total_needed.breakdown}>${currencyFlag(wish.wish_currency)} ${wish.wish_currency.getName()} ${wish.wish_total_needed.amount.toString()} <i className="fas fa-info-circle"></i></span>
+                                    ${language.total()}: <span className="wish-total" data-toggle="tooltip" title=${wish.wish_total_needed.breakdown}>${currencyFlag(wish.wish_currency)} ${wish.wish_currency.getName()} ${wish.wish_total_needed.amount.toString()} <i className="fas fa-info-circle"></i></span>
                             </div>
                         </div>
 
@@ -468,56 +466,6 @@ class Wish extends Page {
 
                     </div>
                 </div>
-            </div>
-
-            <div className="d-none container mb-xs-4 mb-md-5">
-                <div className="row my-md-5">
-                    <div className="col-12 col-md-6">
-                        <div className="p-3 p-md-5 color_white detail_card_left">
-                            <div className="d-flex align-items-center">
-                                <span className="font_xs_xl">${wish.wish_title}</span>
-                                
-                            </div>
-                            ${wishState()}
-                        </div>
-                    </div>
-                    <div className="col-12 col-md-6">
-                        <div id="banner" className="" style=${bannerStyle()}></div>
-                    </div>
-                </div>
-                <div className="bg_white">
-                    <div className="row mx-0 border_xs_b">
-                        <div className="col-12 col-md-6">
-                            <div className="p-3  p-md-5" style=${{display: 'flex', alignItems: 'center'}}>
-                                <div className="wish-owner-avatar rounded-circle" style=${userAvatarStyle(wish.wish_owner)} />
-                                <div className="pl-3 font_xs_xs font_md_s" style=${{flex: 1}}>
-                                    Wish Owner
-                                    <h3 className="font_xs_l font_md_xl"><a href=${wish.wish_owner.user_profile_url}>${wish.wish_owner.user_name}</a></h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-12 col-md-6">
-                            <div className="wish-description p-3 p-md-5 font_xs_xs font_md_s">
-                                ${wish.wish_description}
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row justify-content-center font_xs_xs font_md_s">
-                        <div className="col-md-10 my-2">
-                            <ul className="list-group list-group-flush">
-                                ${wishItems()}
-                            </ul>
-                        </div>
-                    </div>
-                    <div className="row justify-content-md-center pb-2">
-                        <div className="col text-center">
-                            Total: <span className="wish-total" data-toggle="tooltip" title=${wish.wish_total_needed.breakdown}>${currencyFlag(wish.wish_currency)} ${wish.wish_currency.getName()} ${wish.wish_total_needed.amount.toString()} <i className="fas fa-info-circle"></i></span>
-                        </div>
-                    </div>
-                    ${howToHelpSection()}
-                </div>
-                ${wishSettings()}
-                ${pledgeForm()}
             </div>
         </Fragment>
     ');

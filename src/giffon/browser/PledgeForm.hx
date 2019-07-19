@@ -14,6 +14,7 @@ import giffon.db.PledgeFormData.*;
 import haxe.io.*;
 using Lambda;
 using tink.core.Future.JsPromiseTools;
+using giffon.lang.Wish;
 
 @await
 class PledgeForm extends ReactComponent {
@@ -42,6 +43,9 @@ class PledgeForm extends ReactComponent {
         setState({submissionError: v});
         return v;
     }
+
+    var language(get, never):giffon.lang.Language;
+    function get_language() return BrowserMain.instance.language;
 
     function new(props):Void {
         super(props);
@@ -83,24 +87,24 @@ class PledgeForm extends ReactComponent {
             null;
         } else switch (user_support.pledge_visibility) {
             case HiddenFromAll:
-                "The pledge amount is hidden.";
+                language.pledgeAmountIsHidden();
             case VisibleToWishOwner:
-                "The pledge amount will be visible to the wish owner once the wish is completed.";
+                language.pledgeAmountVisibleToWishOwner();
             case VisibleToAll:
-                "The pledge amount will be visible to all once the wish is completed.";
+                language.pledgeAmountVisibleToAll();
         }
         if (user_support != null && user_support.pledge_amount > 0) {
             return jsx('
                 <div>
-                    You have currently pledged ${wish_currency.getName()} ${user_support.pledge_amount.toString()}.
-                    <button className="btn btn-link btn-cancel-pledge font_xs_s font_md_m" onClick=${cancelPledge} disabled=${isCancellingPledge}>Cancel pledge</button>
+                    ${language.youHavePledged()} ${wish_currency.getName()} ${user_support.pledge_amount.toString()}.
+                    <button className="btn btn-link btn-cancel-pledge font_xs_s font_md_m" onClick=${cancelPledge} disabled=${isCancellingPledge}>${language.cancelPledge()}</button>
                     <br/>
                     ${visibilityInfo}
                 </div>
             ');
         } else {
             return jsx('
-                <div className="pb-3">You haven\'t pledged your support yet.</div>
+                <div className="pb-3">${language.youHaventPledgedYourSupportYet()}</div>
             ');
         }
     }
@@ -170,6 +174,9 @@ class _PledgeForm extends ReactComponent {
         setState({submissionError: v});
         return v;
     }
+
+    var language(get, never):giffon.lang.Language;
+    function get_language() return BrowserMain.instance.language;
 
     function new():Void {
         super();
@@ -270,6 +277,7 @@ class _PledgeForm extends ReactComponent {
             }
 
         var currencyFlagClass = 'currency-flag currency-flag-${wish_currency.getName().toLowerCase()} align-middle';
+        var termsLink = jsx('<a href="terms" target="_blank">${language.termsAndConditions()}</a>');
 
         return jsx('
             <Form>
@@ -277,7 +285,7 @@ class _PledgeForm extends ReactComponent {
                 <div className="form-row">
                     <div className="form-group col-md-5">
                         <label htmlFor="pledge_amount">
-                            Support amount ( <div className=${currencyFlagClass}></div> ${wish_currency.getName()} )
+                            ${language.supportAmount()} ( <div className=${currencyFlagClass}></div> ${wish_currency.getName()} )
                         </label>
                         <Field
                             className="form-control"
@@ -290,7 +298,7 @@ class _PledgeForm extends ReactComponent {
                     </div>
                     <div className="form-group col-md-7">
                         <label htmlFor="card-number">
-                            Credit card
+                            ${language.creditCard()}
                         </label>
                         <CardElement
                             className="form-control"
@@ -300,9 +308,9 @@ class _PledgeForm extends ReactComponent {
                 </div>
                 <div className="form-group">
                     <div className="mb-1">
-                        <p className="mb-0">Pledge amount visibility</p>
+                        <p className="mb-0">${language.pledgeAmountVisibility()}</p>
                         <small>
-                            After the wish completes, everyone will be able to see your pledge, optionally with the amount.
+                            ${language.pledgeAmountVisibilityNote()}
                         </small>
                     </div>
                     <Field
@@ -317,7 +325,7 @@ class _PledgeForm extends ReactComponent {
                                 defaultChecked=${props.values.pledge_visibility == giffon.db.PledgeVisibility.HiddenFromAll.getName()}
                             />
                             <label className="form-check-label" htmlFor="pledge_visibility_hiddenFromAll">
-                                Pledge amount be hidden from all
+                                ${language.pledgeAmountBeHiddenFromAll()}
                             </label>
                         </div>
                         <div className="form-check">
@@ -328,7 +336,7 @@ class _PledgeForm extends ReactComponent {
                                 defaultChecked=${props.values.pledge_visibility == giffon.db.PledgeVisibility.VisibleToWishOwner.getName()}
                             />
                             <label className="form-check-label" htmlFor="pledge_visibility_visibleToWishOwner">
-                                Pledge amount be visible to wish owner, hidden from others
+                                ${language.pledgeAmountBeVisibleToWishOwner()}
                             </label>
                         </div>
                         <div className="form-check">
@@ -339,7 +347,7 @@ class _PledgeForm extends ReactComponent {
                                 defaultChecked=${props.values.pledge_visibility == giffon.db.PledgeVisibility.VisibleToAll.getName()}
                             />
                             <label className="form-check-label" htmlFor="pledge_visibility_visibleToAll">
-                                Pledge amount be visible to all
+                                ${language.pledgeAmountBeVisibleToAll()}
                             </label>
                         </div>
                     </Field>
@@ -353,13 +361,13 @@ class _PledgeForm extends ReactComponent {
                             required=${true}
                         />
                         <label className="form-check-label" htmlFor="acceptTerms">
-                            Agree to <a href="terms" target="_blank">terms and conditions</a>
+                            ${language.agreeTo(termsLink)}
                         </label>
                         <ErrorMessage name="acceptTerms" render=${renderErrorMessage} />
                     </div>
                 </div>
                 <button type="submit" className="btn btn-primary rounded-0" disabled={props.isSubmitting}>
-                    Submit
+                    ${language.submit()}
                 </button>
             </Form>
         ');

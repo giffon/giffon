@@ -13,7 +13,7 @@ class Index {
 
     static public function title(lang:Language) return switch (lang) {
         case English: "Your Crowd-gifting Platform";
-        case Cantonese: "您的禮物眾籌平台";
+        case Cantonese: "您嘅禮物眾籌平台";
     }
 
     static public function howToStart(lang:Language) return switch (lang) {

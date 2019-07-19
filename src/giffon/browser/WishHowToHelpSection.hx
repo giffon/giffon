@@ -6,8 +6,12 @@ import js.npm.react_clipboard_js.Clipboard;
 import js.Browser.*;
 import giffon.R.*;
 using StringTools;
+using giffon.lang.Wish;
 
 class WishHowToHelpSection extends ReactComponent {
+    var language(get, never):giffon.lang.Language;
+    function get_language() return BrowserMain.instance.language;
+
     function new(props):Void {
         super(props);
         state = {
@@ -24,9 +28,9 @@ class WishHowToHelpSection extends ReactComponent {
             "#pledge-form-root";
         };
         var label = if (!userSignedIn) {
-            "Pledge Now";
+            language.pledgeNow();
         } else {
-            "Pledge Below";
+            language.pledgeBelow();
         };
         return jsx('
             <a className="btn btn-success w-100 rounded-0" href=${href}>${label}</a>
@@ -56,14 +60,14 @@ class WishHowToHelpSection extends ReactComponent {
             <div className="bg6 p-3 px-md-5 pb-md-5 mb-md-5">
                 <div className="text-center pb-3">
                     <img className="width_xs_15 mb-2" src=${R("/images/motivation.svg")}/>
-                    <div className="font_xs_l font_md_xl">How can you support?</div>
+                    <div className="font_xs_l font_md_xl">${language.howCanYouSupport()}</div>
                 </div>
 
                 <div className="d-md-flex">
 
                     <div className="p-3 p-md-4 mb-3 mb-md-0 bg_white col">
                         <div className="pb-3 font_xs_s font_md_l flex-grow-2">
-                            Share the wish with your friends.
+                            ${language.shareTheWishWithYourFriends()}
                         </div>
                         <div className="input-group font_xs_s font_md_m">
                             <input
@@ -77,13 +81,13 @@ class WishHowToHelpSection extends ReactComponent {
                                 button-className=${state.copySucceed ? "btn btn-outline-primary col-auto rounded-0" : "btn btn-success col-auto rounded-0"}
                                 onSuccess=${onCopySuccess}
                             >
-                                ${state.copySucceed ? "copied" : "copy"}
+                                ${state.copySucceed ? language.copied() : language.copy()}
                             </Clipboard>
                         </div>
                     </div>
                     <div className="p-3 p-md-4 ml-md-3 bg_white col">
                         <div className="pb-3 font_xs_s font_md_l">
-                            Pledge the wish, since every ${"$"}1 matters.
+                            ${language.pledgeTheWishSinceEveryDollarMatters()}
                         </div>
                         ${pledgeButton()}
                     </div>
