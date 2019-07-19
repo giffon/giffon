@@ -121,9 +121,9 @@ class Wish extends Page {
 
         return jsx('
             <div className="py-3 px-2 p-md-3 mb-3 mb-md-0 bg_white col ml-sm-3">
-                <h4 className="font_xs_m font_md_l">Edit Wish</h4>
-                <p className="font_xs_xs font_md_s">You may edit the wish info, but not the items.</p>
-                <a className="edit-wish-btn btn btn-primary rounded-0" href=${Path.join([path(), "edit"])}>Edit Wish</a>
+                <h4 className="font_xs_m font_md_l">${language.editWish()}</h4>
+                <p className="font_xs_xs font_md_s">${language.editWishNote()}</p>
+                <a className="edit-wish-btn btn btn-primary rounded-0" href=${Path.join([path(), "edit"])}>${language.editWish()}</a>
             </div>
         ');
     }
@@ -138,9 +138,9 @@ class Wish extends Page {
 
         return jsx('
             <div className="py-3 px-2 p-md-3 mb-3 mb-md-0 bg_white col ml-sm-3">
-                <h4 className="font_xs_m font_md_l">Cancel the Wish ;(</h4>
-                <p className="font_xs_xs font_md_s">Once cancelled, all existing pledges will be refunded to the supporters. The action cannot be undone.</p>
-                <button className="cancel-wish-btn btn btn-light rounded-0">Cancel Wish</button>
+                <h4 className="font_xs_m font_md_l">${language.cancelTheWish()} ;(</h4>
+                <p className="font_xs_xs font_md_s">${language.cancelWishNote()}</p>
+                <button className="cancel-wish-btn btn btn-light rounded-0">${language.cancelWish()}</button>
             </div>
         ');
     }
@@ -156,11 +156,11 @@ class Wish extends Page {
         if (wish.appliedCoupons.length <= 0) {
             return jsx('
                 <div className="py-3 px-2 p-md-3 mb-3 mb-md-0 bg_white col">
-                    <h4 className="font_xs_m font_md_l">Use a Coupon</h4>
-                    <p className="font_xs_xs font_md_s">Try any coupon codes you can imagine.</p>
+                    <h4 className="font_xs_m font_md_l">${language.useACoupon()}</h4>
+                    <p className="font_xs_xs font_md_s">${language.useAnyCouponCodeYouReceived()}</p>
                     <form className="input-group font_xs_s font_md_m apply-coupon-form">
                         <input type="text" className="col text-uppercase" name="coupon_code" placeholder="COUPON_CODE" />
-                        <button type="submit" className="input-group-append apply-coupon-btn btn btn-primary rounded-0">Apply</button>
+                        <button type="submit" className="input-group-append apply-coupon-btn btn btn-primary rounded-0">${language.apply()}</button>
                     </form>
                 </div>
             ');
@@ -215,7 +215,7 @@ class Wish extends Page {
         
         return jsx('
             <div className=" p-3 px-md-0 pb-md-5 mb-md-5">
-                <h3 className="text-center pb-3 font_xs_l font_md_xxl">Settings</h3>
+                <h3 className="text-center pb-3 font_xs_l font_md_xxl">${language.wishSettings()}</h3>
                 <div className="d-sm-flex mb-3">
                     ${couponControl()}
                     ${editWishControl()}

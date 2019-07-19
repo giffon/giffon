@@ -198,4 +198,45 @@ class Wish {
         case English: "Pledge Below";
         case Cantonese: "即刻夾份";
     }
+
+    static public function wishSettings(lang:Language) return switch (lang) {
+        case English: "Settings";
+        case Cantonese: "設定";
+    }
+
+    static public function useACoupon(lang:Language) return switch (lang) {
+        case English: "Use a Coupon";
+        case Cantonese: "使用優惠券";
+    }
+
+    static public function useAnyCouponCodeYouReceived(lang:Language) return switch (lang) {
+        case English: "Use any coupon code you received.";
+        case Cantonese: "輸入你收到嘅優惠券.";
+    }
+
+    static public function apply(lang:Language) return switch (lang) {
+        case English: "Apply";
+        case Cantonese: "使用";
+    }
+
+    static public function editWish(lang:Language) return EditWish.editWish(lang);
+
+    static public function editWishNote(lang:Language) return switch (lang) {
+        case English: "You may edit the wish info, but not the items.";
+        case Cantonese: "除咗願望清單中嘅項目, 其他願望資料都可以修改.";
+    }
+
+    static public function cancelTheWish(lang:Language) return switch (lang) {
+        case English: "Cancel the Wish";
+        case Cantonese: "取消願望";
+    }
+
+    static public function cancelWishNote(lang:Language) return switch (lang) {
+        case English: "Once cancelled, all existing pledges will be refunded to the supporters. The action cannot be undone.";
+        case Cantonese: "取消願望後, Giffon會退回全數承諾金額俾支持者. 取消動作唔可能還原.";
+    }
+    static public function cancelWish(lang:Language) return switch (lang) {
+        case English: "Cancel Wish";
+        case Cantonese: "取消願望";
+    }
 }

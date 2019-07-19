@@ -103,7 +103,7 @@ class Index {
 
     static public function giftInsteadOfMoney(lang:Language) return switch (lang) {
         case English: "be sure your loved one will receive the nice gift instead of money that may be spent on cigarettes";
-        case Cantonese: "確保你嘅對象係會收到指定嘅禮物, 唔會拎左錢去用喺其他地方";
+        case Cantonese: "確保你嘅對象係會收到指定嘅禮物, 唔會拎咗錢去用喺其他地方";
     }
 
 /*
