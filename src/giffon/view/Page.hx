@@ -85,7 +85,7 @@ class Page extends ReactComponent {
             for (lang in Type.allEnums(giffon.lang.Language)) {
                 if (lang != language) {
                     jsx('
-                        <link rel="alternate" hreflang=${lang.code()} href=${canonicalOfLang(lang)} />
+                        <link rel="alternate" hreflang=${lang.code()} href=${Path.join([canonicalBase, lang.code() , path()])} />
                     ');
                 }
             }
