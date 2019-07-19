@@ -3,9 +3,10 @@ package giffon.view;
 import react.*;
 import react.ReactMacro.jsx;
 import haxe.io.*;
+using giffon.lang.EditWish;
 
 class EditWish extends Page {
-    override function title() return 'Edit wish - ${wish.wish_title} - Giffon';
+    override function title() return '${language.editWish()} - ${wish.wish_title} - Giffon';
     override function path() return Path.join(["wish", wish.wish_hashid, "edit"]);
     override function render() return super.render();
 
@@ -26,7 +27,7 @@ class EditWish extends Page {
 
     override function bodyContent() return jsx('
         <div className="container">
-            <h1>Edit wish</h1>
+            <h1>${language.editWish()}</h1>
             <div id="edit-wish-root" className="mb-5"></div>
         </div>
     ');
