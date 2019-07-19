@@ -10,10 +10,14 @@ import giffon.R.*;
 import giffon.db.SettingsFormData;
 import giffon.db.SettingsFormData.*;
 using Lambda;
+using giffon.lang.Settings;
 
 class SettingsForm extends ReactComponent {
     var current_settings(get, never):SettingsFormValues;
     function get_current_settings() return props.current_settings;
+
+    var language(get, never):giffon.lang.Language;
+    function get_language() return BrowserMain.instance.language;
 
     function new():Void {
         super(props);
@@ -107,7 +111,7 @@ class SettingsForm extends ReactComponent {
                     ${submissionError}
                     <div className="form-group">
                         <label htmlFor="user_name">
-                            Name
+                            ${language.name()}
                         </label>
                         <Field
                             className="form-control" id="user_name"
@@ -118,7 +122,7 @@ class SettingsForm extends ReactComponent {
                     </div>
                     <div className="form-group">
                         <label htmlFor="user_url">
-                            Custom profile url
+                            ${language.customProfileUrl()}
                         </label>
                         <div className="d-flex align-items-center">
                             <span className="pr-1">https://giffon.io/</span>
@@ -129,11 +133,11 @@ class SettingsForm extends ReactComponent {
                                 maxLength=${SettingsFormData.user_url_max}
                             />
                         </div>
-                        <small className="text-muted">Case-insensitive. Once set, it can not be changed within 24 hours. Available characters: <pre className="d-inline">A-Z a-z 0-9 _</pre></small>
+                        <small className="text-muted">${language.customProfileUrlNote()} ${language.availableCharacters()}: <pre className="d-inline">A-Z a-z 0-9 _</pre></small>
                     </div>
                     <div className="form-group">
                         <label htmlFor="user_primary_email">
-                            Email
+                            ${language.email()}
                         </label>
                         <Field
                             className="form-control" id="user_primary_email"
@@ -141,11 +145,11 @@ class SettingsForm extends ReactComponent {
                             type="email"
                             maxLength=${SettingsFormData.user_primary_email_max}
                         />
-                        <small className="text-muted">Giffon will use this email address to ask for your shipping address when your wishes complete.</small>
+                        <small className="text-muted">${language.emailNote()}</small>
                     </div>
                     <div className="form-group">
                         <label htmlFor="user_description">
-                            Bio
+                            ${language.bio()}
                         </label>
                         <Field
                             component="textarea"
@@ -153,13 +157,13 @@ class SettingsForm extends ReactComponent {
                             name="user_description"
                             maxLength=${SettingsFormData.user_description_max}
                             rows="3"
-                            placeholder="I am..."
+                            placeholder=${language.iAm()}
                         />
                         <small className="text-muted float-right">${props.values.user_description.length} / ${SettingsFormData.user_description_max}</small>
                     </div>
                     <div className="form-group">
                         <label htmlFor="user_avatar">
-                            Avatar
+                            ${language.avatar()}
                         </label>
                         <Field
                             id="user_avatar"
@@ -168,7 +172,7 @@ class SettingsForm extends ReactComponent {
                         />
                     </div>
                     <button type="submit" className="btn btn-primary" disabled={props.isSubmitting}>
-                        Submit
+                        ${language.submit()}
                     </button>
                 </Form>
             ');

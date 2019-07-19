@@ -7,9 +7,10 @@ import haxe.*;
 import giffon.R.*;
 using StringTools;
 using giffon.db.AuthMethod.AuthMethodTools;
+using giffon.lang.Settings;
 
 class Settings extends Page {
-    override function title() return "Settings - Giffon";
+    override function title() return language.settings() + " - Giffon";
     override function path() return "settings";
     override function render() return super.render();
 
@@ -102,30 +103,30 @@ class Settings extends Page {
             if (disallowDisconnect)
                 "Cannot disconnect the only connected social account. Otherwise, there would be no way for you to sign in.";
             else
-                'Disconnect from ${authMethod.getName()}';
+                language.disconnectFrom(authMethod);
         } else {
-            'Connect to ${authMethod.getName()}';
+            language.connectTo(authMethod);
         }
 
         var text = if (isConnected) {
             switch (authMethod) {
                 case Facebook:
-                    'Disconnect from ${authMethod.getName()} (${socialProfiles.facebook_profile.displayName})';
+                    '${language.disconnectFrom(authMethod)} (${socialProfiles.facebook_profile.displayName})';
                 case Twitter:
-                    'Disconnect from ${authMethod.getName()} (${socialProfiles.twitter_profile.username})';
+                    '${language.disconnectFrom(authMethod)} (${socialProfiles.twitter_profile.username})';
                 case Google:
-                    'Disconnect from ${authMethod.getName()} (${socialProfiles.google_profile.displayName})';
+                    '${language.disconnectFrom(authMethod)} (${socialProfiles.google_profile.displayName})';
                 case GitHub:
-                    'Disconnect from ${authMethod.getName()} (${socialProfiles.github_profile.username})';
+                    '${language.disconnectFrom(authMethod)} (${socialProfiles.github_profile.username})';
                 case GitLab:
-                    'Disconnect from ${authMethod.getName()} (${socialProfiles.gitlab_profile.username})';
+                    '${language.disconnectFrom(authMethod)} (${socialProfiles.gitlab_profile.username})';
                 case YouTube:
-                    'Disconnect from ${authMethod.getName()} (${socialProfiles.youtube_profile.displayName})';
+                    '${language.disconnectFrom(authMethod)} (${socialProfiles.youtube_profile.displayName})';
                 case Twitch:
-                    'Disconnect from ${authMethod.getName()} (${socialProfiles.twitch_profile.login})';
+                    '${language.disconnectFrom(authMethod)} (${socialProfiles.twitch_profile.login})';
             }
         } else {
-            'Connect to ${authMethod.getName()}';
+            language.connectTo(authMethod);
         }
 
         var btn = jsx('
@@ -144,12 +145,12 @@ class Settings extends Page {
 
     override function bodyContent() return jsx('
         <div className="container">
-            <h1>Settings</h1>
+            <h1>${language.settings()}</h1>
             <div id="settings-root" className="mb-5"></div>
             
             <div className="row mb-5">
                 <div className="col col-md-8 col-lg-6">
-                    <h2>Social Accounts</h2>
+                    <h2>${language.socialAccounts()}</h2>
                     ${socialButton(Facebook)}
                     ${socialButton(Twitter)}
                     ${socialButton(Google)}
