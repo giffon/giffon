@@ -12,6 +12,7 @@ import giffon.R.*;
 import giffon.db.WishFormData;
 import giffon.db.WishFormData.*;
 using Lambda;
+using giffon.lang.MakeAWish;
 
 class WishForm extends ReactComponent {
     var wish(get, never):Null<giffon.db.Wish>;
@@ -19,6 +20,9 @@ class WishForm extends ReactComponent {
 
     var submissionUrl(get, never):String;
     function get_submissionUrl() return props.submissionUrl;
+
+    var language(get, never):giffon.lang.Language;
+    function get_language() return BrowserMain.instance.language;
 
     function new():Void {
         super(props);
@@ -81,7 +85,7 @@ class WishForm extends ReactComponent {
                 wish_additional_cost_description: "",
                 wish_additional_cost_amount: 0,
                 wish_currency: "",
-                wish_title: "My wish",
+                wish_title: language.myWish(),
                 wish_description: "",
                 wish_target_date: null,
                 wish_banner_url: null,
@@ -140,7 +144,7 @@ class WishForm extends ReactComponent {
                                     <label
                                         htmlFor=${'items[$idx].item_name'}
                                     >
-                                        Item name
+                                        ${language.itemName()}
                                     </label>
                                     <div>
                                         <Field
@@ -156,7 +160,7 @@ class WishForm extends ReactComponent {
                                     <label
                                         htmlFor=${'items[$idx].item_url'}
                                     >
-                                        Item URL
+                                        ${language.itemURL()}
                                     </label>
                                     <div>
                                         <Field
@@ -174,7 +178,7 @@ class WishForm extends ReactComponent {
                                     <label
                                         htmlFor=${'items[$idx].item_price'}
                                     >
-                                        Unit Price${props.values.wish_currency == "" ? null : " (" + props.values.wish_currency + ")"}
+                                        ${language.unitPrice()}${props.values.wish_currency == "" ? null : " (" + props.values.wish_currency + ")"}
                                     </label>
                                     <div>
                                         <Field
@@ -192,7 +196,7 @@ class WishForm extends ReactComponent {
                                     <label
                                         htmlFor=${'items[$idx].item_quantity'}
                                     >
-                                        Quantity
+                                        ${language.quantity()}
                                     </label>
                                     <div>
                                         <Field
@@ -235,16 +239,33 @@ class WishForm extends ReactComponent {
                 }
 
                 var totalPriceElement = if (props.values.wish_currency == "")
-                    jsx('<p className="my-2">Total price: ${totalPrice}</p>');
+                    jsx('<p className="my-2">${language.totalPrice()}: ${totalPrice}</p>');
                 else
-                    jsx('<p className="my-2">Total price (${props.values.wish_currency}): ${totalPrice}</p>');
+                    jsx('<p className="my-2">${language.totalPrice()} (${props.values.wish_currency}): ${totalPrice}</p>');
+
+                var onlineShops = switch (language) {
+                    case English:
+                        [
+                            { href: "https://www.amazon.com/", name: "Amazon"},
+                            { href: "https://www.bestbuy.com/", name: "Best Buy"},
+                            { href: "https://store.steampowered.com/", name: "Steam"},
+                            { href: "https://www.epicgames.com/store/en-US/", name: "Epic Games Store"},
+                        ];
+                    case Cantonese:
+                        [
+                            { href: "https://www.amazon.com/", name: "Amazon"},
+                            { href: "https://store.steampowered.com/", name: "Steam"},
+                            { href: "https://www.epicgames.com/store/en-US/", name: "Epic Games Store"},
+                        ];
+                };
+
+                var onlineShopTags = onlineShops.map(function(s) return jsx('<Fragment key=${s.href}><a href=${s.href} target="_blank" rel="noopener">${s.name}</a>, </Fragment>'));
 
                 return jsx('
                     <Fragment>
-                        <p>What do you want?</p>
+                        <p>${language.whatDoYouWant()}</p>
                         <p><small className="form-text text-muted">
-                            Paste the online shopping link of the item you wanna receive. 
-                            For example, any items on <a href="https://www.amazon.com/" target="_blank" rel="noopener">Amazon</a>, <a href="https://www.bestbuy.com/" target="_blank" rel="noopener">Best Buy</a>, <a href="https://store.steampowered.com/" target="_blank" rel="noopener">Steam</a>, <a href="https://www.epicgames.com/store/en-US/" target="_blank" rel="noopener">Epic Games Store</a>, or any online stores.
+                            ${language.itemHelp(onlineShopTags)}
                         </small></p>
                         <div>
                             ${rows}
@@ -256,7 +277,7 @@ class WishForm extends ReactComponent {
                             onClick=${function(){ arrayHelpers.push(initialValues.items[0]); }}
                             disabled=${wish != null || props.values.items.length >= WishFormData.items_max}
                         >
-                            Add item
+                            ${language.addItem()}
                         </button>
 
                         <div className="form-row align-items-end mt-2">
@@ -264,14 +285,14 @@ class WishForm extends ReactComponent {
                                 <label
                                     htmlFor="wish_additional_cost_description"
                                 >
-                                    Additional cost
+                                    ${language.additionalCost()}
                                 </label>
                                 <div>
                                     <Field
                                         className="form-control"
                                         name="wish_additional_cost_description"
                                         id="wish_additional_cost_description"
-                                        placeholder="e.g. standard shipping or priority shipping"
+                                        placeholder=${language.additionalCostPlaceHolder()}
                                     />
                                 </div>
                             </div>
@@ -279,7 +300,7 @@ class WishForm extends ReactComponent {
                                 <label
                                     htmlFor="wish_additional_cost_amount"
                                 >
-                                    Amount${props.values.wish_currency == "" ? null : " (" + props.values.wish_currency + ")"}
+                                    ${language.additionalCostAmount()}${props.values.wish_currency == "" ? null : " (" + props.values.wish_currency + ")"}
                                 </label>
                                 <div>
                                     <Field
@@ -346,12 +367,12 @@ class WishForm extends ReactComponent {
                     function removeBanner(){
                         props.form.setFieldValue(props.field.name, null);
                     }
-                    jsx('<button type="button" className="btn btn-link text-secondary" onClick=${removeBanner}>remove</button>');
+                    jsx('<button type="button" className="btn btn-link text-secondary" onClick=${removeBanner}>${language.removeBanner()}</button>');
                 }
                 return jsx('
                     <Fragment>
                         ${banner}
-                        <button type="button" className="btn btn-link" data-toggle="modal" data-target="#giphyModal">${url == null ? "select" : "replace"}</button>
+                        <button type="button" className="btn btn-link" data-toggle="modal" data-target="#giphyModal">${url == null ? language.selectBanner() : language.replaceBanner()}</button>
                         ${removeBtn}
 
                         <div className="modal fade" id="giphyModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -369,12 +390,14 @@ class WishForm extends ReactComponent {
                 ');
             }
 
+            var termsLink = jsx('<a href="terms" target="_blank">${language.termsAndConditions()}</a>');
+
             return jsx('
                 <Form className="wish-form">
                     ${submissionError}
                     <div className="form-group">
                         <label htmlFor="wish_title">
-                            Title
+                            ${language.title()}
                         </label>
                         <Field
                             className="form-control" id="wish_title"
@@ -385,7 +408,7 @@ class WishForm extends ReactComponent {
                     </div>
                     <div className="form-group">
                         <label htmlFor="wish_currency">
-                            Currency
+                            ${language.currency()}
                         </label>
                         <Field
                             className="form-control"
@@ -406,20 +429,20 @@ class WishForm extends ReactComponent {
                     </div>
                     <div className="form-group">
                         <label htmlFor="wish_description">
-                            Why do you want the above?
+                            ${language.whyDoYouWantTheAbove()}
                         </label>
                         <Field
                             component="textarea"
                             className="form-control" id="wish_description"
                             name="wish_description"
                             rows="3"
-                            placeholder="Because..."
+                            placeholder=${language.because()}
                             required=${true}
                         />
                     </div>
                     <div className="form-group">
                         <label htmlFor="wish_target_date" className="d-block">
-                            Target date (optional)
+                            ${language.targetDate()} (${language.optional()})
                         </label>
                         <Field
                             id="wish_target_date"
@@ -427,12 +450,12 @@ class WishForm extends ReactComponent {
                             component=${DatePickerField}
                         />
                         <p className="small">
-                            This is just a hint for your friends to know. You can always complete the wish early/late.
+                            ${language.targetDateNote()}
                         </p>
                     </div>
                     <div className="form-group">
                         <label htmlFor="wish_banner_url" className="d-block">
-                            Banner (optional)
+                            ${language.banner()} (${language.optional()})
                         </label>
                         <Field
                             id="wish_banner_url"
@@ -441,8 +464,8 @@ class WishForm extends ReactComponent {
                         />
                     </div>
                     <div className="my-2">
-                        <p>We will ask for your shipping address by email once there is enough pledges collected.</p>
-                        <p>If you have a coupon, you can apply it after the wish is created.</p>
+                        <p>${language.addressNote()}</p>
+                        <p>${language.couponNote()}</p>
                     </div>
                     <div className="form-group">
                         <div className="form-check">
@@ -454,13 +477,13 @@ class WishForm extends ReactComponent {
                                 checked=${props.values.acceptTerms}
                             />
                             <label className="form-check-label" htmlFor="acceptTerms">
-                                Agree to <a href="terms" target="_blank">terms and conditions</a>
+                                ${language.agreeTo(termsLink)}
                             </label>
                             <ErrorMessage name="acceptTerms" render=${renderErrorMessage} />
                         </div>
                     </div>
                     <button type="submit" className="btn btn-primary" disabled={props.isSubmitting}>
-                        Submit
+                        ${language.submit()}
                     </button>
                 </Form>
             ');
