@@ -83,11 +83,9 @@ class Page extends ReactComponent {
     function hreflang() {
         var links = [
             for (lang in Type.allEnums(giffon.lang.Language)) {
-                if (lang != language) {
-                    jsx('
-                        <link key=${lang.code()} rel="alternate" hrefLang=${lang.code()} href=${Path.join([canonicalBase, lang.code() , path()])} />
-                    ');
-                }
+                jsx('
+                    <link key=${lang.code()} rel="alternate" hrefLang=${lang.code()} href=${Path.join([canonicalBase, lang.code() , path()])} />
+                ');
             }
         ];
         links.push(
