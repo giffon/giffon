@@ -53,8 +53,8 @@ class WishHowToHelpSection extends ReactComponent {
         if (isUserWishOwner)
             return null;
 
-        var canonicalLinkEle:js.html.LinkElement = cast document.querySelector('link[rel="canonical"]');
-        var canonicalPath = canonicalLinkEle.href;
+        var plainLinkEle:js.html.LinkElement = cast document.querySelector('link[hrefLang="x-default"]');
+        var plainLink = plainLinkEle.href;
 
         return jsx('
             <div className="bg6 p-3 px-md-5 pb-md-5 mb-md-5">
@@ -72,12 +72,12 @@ class WishHowToHelpSection extends ReactComponent {
                         <div className="input-group font_xs_s font_md_m">
                             <input
                                 type="text"
-                                defaultValue=${canonicalPath}
+                                defaultValue=${plainLink}
                                 className="col p-1 form-control"
                                 onFocus=${onPathInputFocus} />
                             <Clipboard
                                 className="w-100 p-1"
-                                data-clipboard-text=${canonicalPath}
+                                data-clipboard-text=${plainLink}
                                 button-className=${state.copySucceed ? "btn btn-outline-primary col-auto rounded-0" : "btn btn-success col-auto rounded-0"}
                                 onSuccess=${onCopySuccess}
                             >

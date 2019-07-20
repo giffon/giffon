@@ -10,7 +10,8 @@ using StringTools;
 
 class PageWish {
     static public function onReady():Void {
-        var canonicalPath = document.querySelector("link[rel='canonical']").getAttribute("href");
+        var plainLinkEle:js.html.LinkElement = cast document.querySelector('link[hrefLang="x-default"]');
+        var plainLink = plainLinkEle.href;
         var wish_hashid = document.body.getAttribute("data-wish-hashid");
         var wish_currency = document.body.getAttribute("data-wish-currency");
         switch (document.getElementById("pledge-form-root")) {
@@ -32,7 +33,7 @@ class PageWish {
 
         for (root in document.getElementsByClassName("copy-link-button-root")) {
             ReactDOM.render(jsx('
-                <CopyLinkButton clipboardText=${canonicalPath} />
+                <CopyLinkButton clipboardText=${plainLink} />
             '), root);
         }
 

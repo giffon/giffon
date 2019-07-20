@@ -33,7 +33,9 @@ class CopyLinkButton extends ReactComponent {
                 button-className="btn btn-link"
                 onSuccess=${onCopySuccess}
             >
-                <i className="far fa-copy"></i> ${state.copySucceed ? language.copiedPermalink() : language.copyPermalink()}
+                <a href=${clipboardText} onClick=${function(e) e.preventDefault()}>
+                    <i className="far fa-copy"></i> ${state.copySucceed ? language.copiedPermalink() : language.copyPermalink()}
+                </a>
             </Clipboard>
         ');
     }
