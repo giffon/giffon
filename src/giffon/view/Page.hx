@@ -311,6 +311,10 @@ class Page extends ReactComponent {
                     <div className="col-auto"><a href="https://twitter.com/giffon_io" target="_blank" rel="noopener" title=${language.giffonOnTwitter()}><i className="fab fa-twitter"></i></a></div>
                     <div className="col-auto"><a href="https://gitlab.com/giffon.io/giffon" target="_blank" rel="noopener" title=${language.giffonOnGitLab()}><i className="fab fa-gitlab"></i></a></div>
                 </div>
+                <div className="language row justify-content-center mt-2">
+                    <div className="col-auto"><a href=${Path.join(["/en", path()])}>English</a></div>
+                    <div className="col-auto"><a href=${Path.join(["/zh-HK", path()])}>中文(香港)</a></div>
+                </div>
             </footer>
         </body>
     ');

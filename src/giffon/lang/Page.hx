@@ -48,12 +48,12 @@ class Page {
 
     static public function giffonOnFacebook(lang:Language) return switch (lang) {
         case English: "Giffon on Facebook";
-        case Cantonese: "Giffon 臉書專頁";
+        case Cantonese: "Giffon Facebook專頁";
     }
 
     static public function giffonOnTwitter(lang:Language) return switch (lang) {
         case English: "Giffon on Twitter";
-        case Cantonese: "Giffon 推特號";
+        case Cantonese: "Giffon Twitter帳號";
     }
 
     static public function giffonOnGitLab(lang:Language) return switch (lang) {
