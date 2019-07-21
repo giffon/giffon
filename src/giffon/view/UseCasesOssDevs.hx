@@ -4,9 +4,10 @@ import react.*;
 import react.ReactMacro.jsx;
 import haxe.io.*;
 import giffon.R.*;
+using giffon.lang.UseCasesOssDevs;
 
 class UseCasesOssDevs extends Page {
-    override function title() return 'For Open Source Software Developers - Giffon';
+    override function title() return language.titleTag() + ' - Giffon';
     override function path() return "use-cases/oss-developers";
     override function render() return super.render();
 
@@ -20,36 +21,26 @@ class UseCasesOssDevs extends Page {
 
     override function bodyContent() return jsx('
         <div className="container">
-            <h1>Giffon for Open Source Software Developers</h1>
-            <p>
-                There are many devs work on open source projects in their spare time. 
-                Those projects can be useful to a lot of people, yet it is still hard to make a living just by building open source works. 
-                Eventually, people are tired and projects go unmaintained <span className="ec ec-weary"></span>.
-            </p>
-            <p>
-                Giffon provides users an easy way to show their appreciation to the open source developers. 
-                The open source community as a whole can keep the good vibes, avoid developer burnout, and build the next-big-thing together <span className="ec ec-dark-sunglasses"></span>.
-            </p>
-            <p><a href="make-a-wish">Make a wish</a> in Giffon and let the community buy you a gift!</p>
+            <h1>${language.titleHeader()}</h1>
+            ${language.introText()}
 
             <div className="row justify-content-md-center">
                 <div className="alert alert-info col-md-8" role="alert">
-                    <h4 className="alert-heading"><i className="fas fa-ticket-alt"></i> Coupon</h4>
-                    <p>Use the coupon code <span className="d-inline border bg-light p-1">OSS_ROCKS_JULY</span> on your wish to instantly get a 35 HKD or 5 USD pledge from Giffon.</p>
-                    <p className="text-muted mb-0">Applicable only to users connected with a GitHub or GitLab account. Valid until 2019-07-31. Limited quota: 50 users only!</p>
+                    <h4 className="alert-heading"><i className="fas fa-ticket-alt"></i> ${language.coupon()}</h4>
+                    ${language.couponDetail()}
                 </div>
             </div>
 
-            <h2>Wish ideas</h2>
-            <p>Here are some goodies that can be useful to open source developers.</p>
+            <h2>${language.wishIdeas()}</h2>
+            <p>${language.wishIdeasIntro()}</p>
 
             <div className="row">
                 <div className="col-12 col-sm-6 col-md mb-4">
                     <div className="card">
                         <div className="card-img-top" style=${bgStyle("https://media.giphy.com/media/BHkzSycc5fZrG/giphy.gif")} />
                         <div className="card-body">
-                            <h5 className="card-title">IDE License <span className="ec ec-keyboard"></span></h5>
-                            <p className="card-text">Get a license to use the pro version of a good IDE to enhance development. JetBrains? Sublime? Visual Studio? Your choice.</p>
+                            <h5 className="card-title">${language.ideLicense()} <span className="ec ec-keyboard"></span></h5>
+                            <p className="card-text">${language.ideLicenseDescription()}</p>
                         </div>
                     </div>
                 </div>
@@ -57,8 +48,8 @@ class UseCasesOssDevs extends Page {
                     <div className="card">
                         <div className="card-img-top" style=${bgStyle("https://media.giphy.com/media/d6WWh3Em7kWHu/giphy.gif")} />
                         <div className="card-body">
-                            <h5 className="card-title">Upgrade your computer <span className="ec ec-computer"></span></h5>
-                            <p className="card-text">A faster computer means less waiting time during development. Stay in the zone.</p>
+                            <h5 className="card-title">${language.upgradeYourComputer()} <span className="ec ec-computer"></span></h5>
+                            <p className="card-text">${language.upgradeYourComputerDescription()}</p>
                         </div>
                     </div>
                 </div>
@@ -158,7 +149,7 @@ class UseCasesOssDevs extends Page {
             <div className="jumbotron" style=${bgStyle(R("/images/jefferson-santos-450403-unsplash-blur.jpg"))}>
                 <p className="lead text-center">
                     <a className="btn btn-primary btn-lg mt-3 my-5" href="make-a-wish">
-                        Make a Wish Now
+                        ${language.makeAWishNow()}
                     </a>
                 </p>
             </div>
