@@ -115,4 +115,54 @@ class UseCasesVideoCreators {
         case English: 'Your work is your contributors\' best reward. Do not get sidetracked for preparing ad hoc swags.';
         case Cantonese: '你嘅作品就係支持者最好嘅回報. 唔好花心機落為整而整嘅紀念品.';
     }
+
+    static public function creatorsReceiveMoney(lang:Language) return switch (lang) {
+        case English: 'Creators receive money';
+        case Cantonese: '創作人收錢';
+    }
+
+    static public function creatorsReceiveMoneyDescription(lang:Language) return switch (lang) {
+        case English: 'Contributors do not know how their money contribution is spent.';
+        case Cantonese: '支持者唔知道啲錢會用去邊, 未必有信心俾錢.';
+    }
+
+    static public function patreonFees(lang:Language) return switch (lang) {
+        case English: '5 to 12% + payment processor fees + payout fees';
+        case Cantonese: '5至12% + 支付處理費 + 提款費用';
+    }
+
+    static public function patreonFeesDescription(lang:Language) return switch (lang) {
+        case English: '5 to 12% depended on the plan in use, plus payment processor fees ranged from 2.9-6% + 10-30cents, plus payout fees.';
+        case Cantonese: '視乎選用服務計劃收取5至12%服務費, 另加2.9至6%加10至30仙美金支付處理費, 另加提款費用.';
+    }
+
+    static public function patronRewardsRecommended(lang:Language) return switch (lang) {
+        case English: 'Patron rewards recommended';
+        case Cantonese: '建議提供支持回報';
+    }
+
+    static public function patronRewardsRecommendedDescription(lang:Language) return switch (lang) {
+        case English: 'It is common for creators to prepare many patron-only rewards, which distract creators from their creative work.';
+        case Cantonese: '創作人通常都會提供回報俾支持者. 一般都會需要創作人花額外時間同心機製作.';
+    }
+
+    static public function kickstarterFees(lang:Language) return switch (lang) {
+        case English: '5% + payment processor fees';
+        case Cantonese: '5%服務費 + 支付處理費';
+    }
+
+    static public function kickstarterFeesDescription(lang:Language) return switch (lang) {
+        case English: '5% fee to the funds collected for creators, plus payment processing fees (roughly 3-5%).';
+        case Cantonese: '籌得款項5%為服務費, 另加通常為3至5%嘅支付處理費.';
+    }
+
+    static public function backerRewardsRecommended(lang:Language) return switch (lang) {
+        case English: 'Backer rewards recommended';
+        case Cantonese: '建議提供支持回報';
+    }
+
+    static public function backerRewardsRecommendedDescription(lang:Language) return switch (lang) {
+        case English: 'It is common for creators to prepare many backer rewards, which distract creators from their creative work.';
+        case Cantonese: '創作人通常都會提供回報俾支持者. 一般都會需要創作人花額外時間同心機製作.';
+    }
 }

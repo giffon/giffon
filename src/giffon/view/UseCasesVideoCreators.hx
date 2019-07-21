@@ -100,21 +100,21 @@ class UseCasesVideoCreators extends Page {
                             <div className="card-body">
                                 <ul className="list-group">
                                     <li className="list-group-item">
-                                        <p>Creators receive money</p>
+                                        <p>${language.creatorsReceiveMoney()}</p>
                                         <p className="text-muted mb-0">
-                                            Contributors do not know how their money contribution is spent.
+                                            ${language.creatorsReceiveMoneyDescription()}
                                         </p>
                                     </li>
                                     <li className="list-group-item">
-                                        <p>5 to 12% + payment processor fees + payout fees</p>
+                                        <p>${language.patreonFees()}</p>
                                         <p className="text-muted mb-0">
-                                            5 to 12% depended on the plan in use, plus payment processor fees ranged from 2.9-6% + 10-30cents, plus payout fees.
+                                            ${language.patreonFeesDescription()}
                                         </p>
                                     </li>
                                     <li className="list-group-item">
-                                        <p>Patron rewards recommended</p>
+                                        <p>${language.patronRewardsRecommended()}</p>
                                         <p className="text-muted mb-0">
-                                            It is common for creators to prepare many patron-only rewards, which distract creators from their creative work.
+                                            ${language.patronRewardsRecommendedDescription()}
                                         </p>
                                     </li>
                                 </ul>
@@ -130,21 +130,21 @@ class UseCasesVideoCreators extends Page {
                             <div className="card-body">
                                 <ul className="list-group">
                                     <li className="list-group-item">
-                                        <p>Creators receive money</p>
+                                        <p>${language.creatorsReceiveMoney()}</p>
                                         <p className="text-muted mb-0">
-                                            Contributors do not know how their money contribution is spent.
+                                            ${language.creatorsReceiveMoneyDescription()}
                                         </p>
                                     </li>
                                     <li className="list-group-item">
-                                        <p>5% + payment processor fees</p>
+                                        <p>${language.kickstarterFees()}</p>
                                         <p className="text-muted mb-0">
-                                            5% fee to the funds collected for creators, plus payment processing fees (roughly 3-5%).
+                                            ${language.kickstarterFeesDescription()}
                                         </p>
                                     </li>
                                     <li className="list-group-item">
-                                        <p>Backer rewards recommended</p>
+                                        <p>${language.backerRewardsRecommended()}</p>
                                         <p className="text-muted mb-0">
-                                            It is common for creators to prepare many backer rewards, which distract creators from their creative work.
+                                            ${language.backerRewardsRecommendedDescription()}
                                         </p>
                                     </li>
                                 </ul>
