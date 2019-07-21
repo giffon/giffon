@@ -21,7 +21,7 @@ class UseCasesVideoCreators extends Page {
 
     override function bodyContent() return jsx('
         <div className="container">
-            <h1>${language.titleTag()}</h1>
+            <h1>${language.titleHeader()}</h1>
             ${language.introText()}
 
             <h2>${language.wishIdeas()}</h2>

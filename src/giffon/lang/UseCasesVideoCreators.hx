@@ -6,7 +6,12 @@ import react.ReactMacro.jsx;
 
 class UseCasesVideoCreators {
     static public function titleTag(lang:Language) return switch (lang) {
-        case English: 'For Video Creator';
+        case English: 'For Video Creators';
+        case Cantonese: 'Giffon點樣幫到影片創作人?';
+    }
+
+    static public function titleHeader(lang:Language) return switch (lang) {
+        case English: 'Giffon for Video Creators';
         case Cantonese: 'Giffon點樣幫到影片創作人?';
     }
 
