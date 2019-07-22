@@ -631,6 +631,16 @@ a.btn.signInBtn:hover {
     font-weight: 100;
 }
 
+.form-control.stripe {
+    padding-top: 0.6em;
+}
+
+.form-control.stripe--focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
 .wish-form .wish-item {
     border-bottom: 1px solid #CCC;
     margin-bottom: 1em;

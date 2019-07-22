@@ -279,6 +279,15 @@ class _PledgeForm extends ReactComponent {
         var currencyFlagClass = 'currency-flag currency-flag-${wish_currency.getName().toLowerCase()} align-middle';
         var termsLink = jsx('<a href="terms" target="_blank">${language.termsAndConditions()}</a>');
 
+        var cardClasses = {
+            base: "form-control stripe",
+            // complete: "",
+            // empty: "",
+            focus: "form-control stripe--focus",
+            // invalid: "",
+            // webkitAutofill: "",
+        };
+
         return jsx('
             <Form>
                 ${submissionErrorElement}
@@ -303,6 +312,7 @@ class _PledgeForm extends ReactComponent {
                         <CardElement
                             className="form-control"
                             id="card-number"
+                            classes=${cardClasses}
                         />
                     </div>
                 </div>
