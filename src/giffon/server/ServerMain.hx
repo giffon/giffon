@@ -402,7 +402,7 @@ class ServerMain {
                     LIMIT ?
                 )
             ',
-            [num, Math.ceil(num*0.5)]
+            [Math.ceil(num*0.5), num]
         ).toPromise()).results;
 
         wish_results.splice(0, wish_results.length - num);
