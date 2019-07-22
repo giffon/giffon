@@ -57,15 +57,15 @@ class UseCasesOssDevs extends Page {
                     <div className="card">
                         <div className="card-img-top" style=${bgStyle("https://media.giphy.com/media/11DRQ1VQ5p5iPm/giphy.gif")} />
                         <div className="card-body">
-                            <h5 className="card-title">Dev Swags <span className="ec ec-star2"></span></h5>
-                            <p className="card-text">Show off the love of your favourite projects by putting their logo stickers on your laptop, wearing branded T-shirts, hugging mascot stuffed animals.</p>
+                            <h5 className="card-title">${language.devSwags()} <span className="ec ec-star2"></span></h5>
+                            <p className="card-text">${language.devSwagsDescription()}</p>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div>
-                <h2>How does Giffon compare to other services?</h2>
+                <h2>${language.howDoesGiffonCompareToOtherServices()}</h2>
 
                 <div className="row">
                     <div className="col-12 col-md-6 col-lg-4 mb-4">
@@ -76,17 +76,19 @@ class UseCasesOssDevs extends Page {
                             </div>
                             <div className="card-body">
                                 <ul className="list-group">
-                                    <li className="list-group-item">Good for individuals</li>
                                     <li className="list-group-item">
-                                        <p>Developers receive gifts <i className="fas fa-check text-success"></i></p>
+                                        ${language.goodForIndividuals()}
+                                    </li>
+                                    <li className="list-group-item">
+                                        <p>${language.developersReceiveGifts()} <i className="fas fa-check text-success"></i></p>
                                         <p className="text-muted mb-0">
-                                            It is more likely for people to contribute if they know how their money will be spent.
+                                            ${language.developersReceiveGiftsDescription()}
                                         </p>
                                     </li>
                                     <li className="list-group-item">
-                                        <p>${(giffon.ChargeInfo.serviceChargeRate*100).trim().toString()}% fee <i className="fas fa-check text-success"></i></p>
+                                        <p>${language.serviceFeeAmount()} <i className="fas fa-check text-success"></i></p>
                                         <p className="text-muted mb-0">
-                                            The service charge is ${(giffon.ChargeInfo.serviceChargeRate*100).trim().toString()}% of the wish value, paid by contributions. Giffon is 100% free for developers.
+                                            ${language.serviceFeeAmountDescription()}
                                         </p>
                                     </li>
                                 </ul>
@@ -101,17 +103,19 @@ class UseCasesOssDevs extends Page {
                             </div>
                             <div className="card-body">
                                 <ul className="list-group">
-                                    <li className="list-group-item">Project/team-based</li>
                                     <li className="list-group-item">
-                                        <p>Projects/teams receive money</p>
+                                        ${language.projectTeamBased()}
+                                    </li>
+                                    <li className="list-group-item">
+                                        <p>${language.projectsTeamsReceiveMoney()}</p>
                                         <p className="text-muted mb-0">
-                                            People state how the money is spent, but there is no enforcement or verification.
+                                            ${language.projectsTeamsReceiveMoneyDescription()}
                                         </p>
                                     </li>
                                     <li className="list-group-item">
-                                        <p>5 or 10% + payment processor fees + payout fees</p>
+                                        <p>${language.openCollectiveFees()}</p>
                                         <p className="text-muted mb-0">
-                                            5 or 10% depended on handling method, plus roughly 3-5% payment processor fees, plus payout fees.
+                                            ${language.openCollectiveFeesDescription()}
                                         </p>
                                     </li>
                                 </ul>
@@ -126,17 +130,19 @@ class UseCasesOssDevs extends Page {
                             </div>
                             <div className="card-body">
                                 <ul className="list-group">
-                                    <li className="list-group-item">Good for individuals</li>
                                     <li className="list-group-item">
-                                        <p>Individuals receive money</p>
+                                        ${language.goodForIndividuals()}
+                                    </li>
+                                    <li className="list-group-item">
+                                        <p>${language.individualsReceiveMoney()}</p>
                                         <p className="text-muted mb-0">
-                                            Contributors do not know how their money contribution is spent.
+                                            ${language.individualsReceiveMoneyDescription()}
                                         </p>
                                     </li>
                                     <li className="list-group-item">
-                                        <p>Unknown processing fees apply (in the future)</p>
+                                        <p>${language.gitHubSponsorsFees()}</p>
                                         <p className="text-muted mb-0">
-                                            GitHub Sponsors is free in its first year, but it <a href="https://help.github.com/en/articles/about-github-sponsors#about-the-github-sponsors-matching-fund" target="_blank" rel="noopener">stated</a> it may charge a nominal processing fee in the future.
+                                            ${language.gitHubSponsorsFeesDescription()}
                                         </p>
                                     </li>
                                 </ul>

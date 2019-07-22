@@ -97,29 +97,31 @@ class UseCasesOssDevs {
         case Cantonese: '部機行快啲, 少啲等待嘅時間. 維持最高嘅工作效率.';
     }
 
-    static public function multimediaSoftware(lang:Language) return switch (lang) {
-        case English: 'Multimedia Software';
-        case Cantonese: '多媒體軟件';
+    static public function devSwags(lang:Language) return switch (lang) {
+        case English: 'Dev Swags';
+        case Cantonese: '開發者紀念品';
     }
 
-    static public function multimediaSoftwareDescription(lang:Language) return switch (lang) {
-        case English: 'Get professional graphic/video editing software to produce better works.';
-        case Cantonese: '用專業軟件整圖整片都快靚正.';
+    static public function devSwagsDescription(lang:Language) return switch (lang) {
+        case English: 'Show off the love of your favourite projects by putting their logo stickers on your laptop, wearing branded T-shirts, hugging mascot stuffed animals.';
+        case Cantonese: '喺你嘅手提電腦貼上你喜愛嘅開發項目logo貼紙, 着上IT品牌T-shirt, 抱一下IT吉祥物公仔.';
     }
 
     static public function makeAWishNow(lang:Language) return Index.makeAWishNow(lang);
 
-    static public function howDoesGiffonCompareToOtherServices(lang:Language) return switch (lang) {
-        case English: 'How does Giffon compare to other services?';
-        case Cantonese: 'Giffon對比其他類似服務';
+    static public function howDoesGiffonCompareToOtherServices(lang:Language) return UseCasesVideoCreators.howDoesGiffonCompareToOtherServices(lang);
+
+    static public function goodForIndividuals(lang:Language) return switch (lang) {
+        case English: 'Good for individuals';
+        case Cantonese: '適合開發者個人';
     }
 
-    static public function creatorsReceiveGifts(lang:Language) return switch (lang) {
-        case English: 'Creators receive gifts';
-        case Cantonese: '創作人收實質禮物';
+    static public function developersReceiveGifts(lang:Language) return switch (lang) {
+        case English: 'Developers receive gifts';
+        case Cantonese: '開發者收實質禮物';
     }
 
-    static public function creatorsReceiveGiftsDescription(lang:Language) return switch (lang) {
+    static public function developersReceiveGiftsDescription(lang:Language) return switch (lang) {
         case English: 'It is more likely for people to contribute if they know how their money will be spent.';
         case Cantonese: '知道捐出嚟嘅錢係會用嚟買咩, 大家會更放心捐.';
     }
@@ -130,67 +132,56 @@ class UseCasesOssDevs {
     }
 
     static public function serviceFeeAmountDescription(lang:Language) return switch (lang) {
-        case English: 'The service charge is ${(giffon.ChargeInfo.serviceChargeRate*100).trim().toString()}% of the wish value, paid by contributions. Giffon is 100% free for creators.';
-        case Cantonese: '服務費喺願望總值嘅 ${(giffon.ChargeInfo.serviceChargeRate*100).trim().toString()}%, 由支持者夾份支付. Giffon唔會收取創作人任何費用.';
+        case English: 'The service charge is ${(giffon.ChargeInfo.serviceChargeRate*100).trim().toString()}% of the wish value, paid by contributions. Giffon is 100% free for developers.';
+        case Cantonese: '服務費喺願望總值嘅 ${(giffon.ChargeInfo.serviceChargeRate*100).trim().toString()}%, 由支持者夾份支付. Giffon唔會收取開發者任何費用.';
     }
 
-    static public function noRewardsRequired(lang:Language) return switch (lang) {
-        case English: 'No rewards required';
-        case Cantonese: '不必提供支持回報';
+    static public function projectTeamBased(lang:Language) return switch (lang) {
+        case English: 'Project/team-based';
+        case Cantonese: '適合個別項目/開發團隊';
     }
 
-    static public function noRewardsRequiredDescription(lang:Language) return switch (lang) {
-        case English: 'Your work is your contributors\' best reward. Do not get sidetracked for preparing ad hoc swags.';
-        case Cantonese: '你嘅作品就係支持者最好嘅回報. 唔好花心機落為整而整嘅紀念品.';
+    static public function projectsTeamsReceiveMoney(lang:Language) return switch (lang) {
+        case English: 'Projects/teams receive money';
+        case Cantonese: '項目/團隊收錢';
     }
 
-    static public function creatorsReceiveMoney(lang:Language) return switch (lang) {
-        case English: 'Creators receive money';
-        case Cantonese: '創作人收錢';
+    static public function projectsTeamsReceiveMoneyDescription(lang:Language) return switch (lang) {
+        case English: 'People state how the money is spent, but there is no enforcement or verification.';
+        case Cantonese: '項目/團隊可以表示會點樣用啲錢, 但無任何機制驗證.';
     }
 
-    static public function creatorsReceiveMoneyDescription(lang:Language) return switch (lang) {
+    static public function openCollectiveFees(lang:Language) return switch (lang) {
+        case English: '5 or 10% + payment processor fees + payout fees';
+        case Cantonese: '5或10%服務費 + 支付處理費 + 提款費用';
+    }
+
+    static public function openCollectiveFeesDescription(lang:Language) return switch (lang) {
+        case English: '5 or 10% depended on handling method, plus roughly 3-5% payment processor fees, plus payout fees.';
+        case Cantonese: '視乎選用服務計劃收取5或10%服務費, 另加3至5%支付處理費, 另加提款費用.';
+    }
+
+    static public function individualsReceiveMoney(lang:Language) return switch (lang) {
+        case English: 'Individuals receive money';
+        case Cantonese: '開發者收錢';
+    }
+
+    static public function individualsReceiveMoneyDescription(lang:Language) return switch (lang) {
         case English: 'Contributors do not know how their money contribution is spent.';
-        case Cantonese: '支持者唔知道啲錢會用去邊, 未必有信心俾錢.';
+        case Cantonese: '支持者唔會知道啲錢會用去邊.';
     }
 
-    static public function patreonFees(lang:Language) return switch (lang) {
-        case English: '5 to 12% + payment processor fees + payout fees';
-        case Cantonese: '5至12% + 支付處理費 + 提款費用';
+    static public function gitHubSponsorsFees(lang:Language) return switch (lang) {
+        case English: 'Unknown processing fees apply (in the future)';
+        case Cantonese: '未來收費不明';
     }
 
-    static public function patreonFeesDescription(lang:Language) return switch (lang) {
-        case English: '5 to 12% depended on the plan in use, plus payment processor fees ranged from 2.9-6% + 10-30cents, plus payout fees.';
-        case Cantonese: '視乎選用服務計劃收取5至12%服務費, 另加2.9至6%加10至30仙美金支付處理費, 另加提款費用.';
-    }
-
-    static public function patronRewardsRecommended(lang:Language) return switch (lang) {
-        case English: 'Patron rewards recommended';
-        case Cantonese: '建議提供支持回報';
-    }
-
-    static public function patronRewardsRecommendedDescription(lang:Language) return switch (lang) {
-        case English: 'It is common for creators to prepare many patron-only rewards, which distract creators from their creative work.';
-        case Cantonese: '創作人通常都會提供回報俾支持者. 一般都會需要創作人花額外時間同心機製作.';
-    }
-
-    static public function kickstarterFees(lang:Language) return switch (lang) {
-        case English: '5% + payment processor fees';
-        case Cantonese: '5%服務費 + 支付處理費';
-    }
-
-    static public function kickstarterFeesDescription(lang:Language) return switch (lang) {
-        case English: '5% fee to the funds collected for creators, plus payment processing fees (roughly 3-5%).';
-        case Cantonese: '籌得款項5%為服務費, 另加通常為3至5%嘅支付處理費.';
-    }
-
-    static public function backerRewardsRecommended(lang:Language) return switch (lang) {
-        case English: 'Backer rewards recommended';
-        case Cantonese: '建議提供支持回報';
-    }
-
-    static public function backerRewardsRecommendedDescription(lang:Language) return switch (lang) {
-        case English: 'It is common for creators to prepare many backer rewards, which distract creators from their creative work.';
-        case Cantonese: '創作人通常都會提供回報俾支持者. 一般都會需要創作人花額外時間同心機製作.';
+    static public function gitHubSponsorsFeesDescription(lang:Language) return switch (lang) {
+        case English: jsx('
+            <Fragment>GitHub Sponsors is free in its first year, but it <a href="https://help.github.com/en/articles/about-github-sponsors#about-the-github-sponsors-matching-fund" target="_blank" rel="noopener">stated</a> it may charge a nominal processing fee in the future.</Fragment>
+        ');
+        case Cantonese: jsx('
+            <Fragment>GitHub Sponsors面世後頭一年免費, 但GitHub已<a href="https://help.github.com/en/articles/about-github-sponsors#about-the-github-sponsors-matching-fund" target="_blank" rel="noopener">表明</a>期後會收取費用.</Fragment>
+        ');
     }
 }
