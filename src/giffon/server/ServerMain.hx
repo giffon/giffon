@@ -405,10 +405,8 @@ class ServerMain {
             [Math.ceil(num*0.5), num]
         ).toPromise()).results;
 
-        wish_results.splice(0, wish_results.length - num);
-
         var wishes = @await tink.core.Promise.inParallel([
-            for (wish in wish_results)
+            for (wish in wish_results.slice(0, num))
             getWish(wish.wish_id)
         ]);
         return wishes;
