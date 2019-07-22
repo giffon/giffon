@@ -386,14 +386,26 @@ class ServerMain {
     @async static public function getRecentWishes(num:Int):Array<giffon.db.Wish> {
         var wish_results:QueryResults = (@await dbConnectionPool.query(
             '
-                SELECT wish_id
-                FROM wish
-                WHERE wish_state != "cancelled" && wish_state != "created"
-                ORDER BY wish_time_publish DESC
-                LIMIT ?
+                (
+                    SELECT wish_id
+                    FROM wish
+                    WHERE wish_state = "succeed"
+                    ORDER BY wish_time_publish DESC
+                    LIMIT ?
+                )
+                UNION DISTINCT
+                (
+                    SELECT wish_id
+                    FROM wish
+                    WHERE wish_state != "cancelled" && wish_state != "created"
+                    ORDER BY wish_time_publish DESC
+                    LIMIT ?
+                )
             ',
-            [num]
+            [num, Math.ceil(num*0.5)]
         ).toPromise()).results;
+
+        wish_results.splice(0, wish_results.length - num);
 
         var wishes = @await tink.core.Promise.inParallel([
             for (wish in wish_results)
