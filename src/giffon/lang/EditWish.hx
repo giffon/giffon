@@ -7,6 +7,6 @@ import react.ReactMacro.jsx;
 class EditWish {
     static public function editWish(lang:Language) return switch (lang) {
         case English: "Edit wish";
-        case Cantonese: "修改願望";
+        case Cantonese | Chinese: "修改願望";
     }
 }
