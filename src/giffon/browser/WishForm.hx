@@ -256,6 +256,15 @@ class WishForm extends ReactComponent {
                             { href: "https://www.amazon.com/", name: "Amazon"},
                             { href: "https://store.steampowered.com/", name: "Steam"},
                             { href: "https://www.epicgames.com/store/en-US/", name: "Epic Games Store"},
+                            { href: "https://www.hktvmall.com/", name: "HKTVmall"},
+                            { href: "https://hk.iherb.com/", name: "iHerb"},
+                            { href: "https://hk.pinkoi.com/", name: "Pinkoi"},
+                        ];
+                    case Chinese:
+                        [
+                            { href: "https://www.amazon.com/", name: "Amazon"},
+                            { href: "https://store.steampowered.com/", name: "Steam"},
+                            { href: "https://www.epicgames.com/store/en-US/", name: "Epic Games Store"},
                         ];
                 };
 

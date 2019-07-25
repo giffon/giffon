@@ -312,6 +312,7 @@ class Page extends ReactComponent {
                 <div className="language row justify-content-center mt-2">
                     <div className="col-auto"><a href=${Path.join(["/en", path()])}>English</a></div>
                     <div className="col-auto"><a href=${Path.join(["/zh-HK", path()])}>中文(香港)</a></div>
+                    <div className="col-auto"><a href=${Path.join(["/zh-TW", path()])}>中文(台灣)</a></div>
                 </div>
             </footer>
         </body>

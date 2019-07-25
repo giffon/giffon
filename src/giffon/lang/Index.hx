@@ -3,13 +3,14 @@ package giffon.lang;
 class Index {
     static public function htmlTitle(lang:Language) return switch (lang) {
         case English: "Giffon: A crowd-gifting platform";
-        case Cantonese | Chinese: "Giffon 夾份禮物眾籌";
+        case Cantonese: "Giffon 夾份禮物眾籌";
+        case Chinese: "Giffon 禮物眾籌";
     }
 
     static public function htmlDescription(lang:Language) return switch (lang) {
         case English: "A crowd-gifting platform where you can state what you want and let your friends collectively buy it as a gift for you.";
         case Cantonese: "任何人都可以上嚟許願, 等朋友夾份買禮物送俾你嘅禮物眾籌平台.";
-        case Chinese: "任何人都可以上來許願, 讓朋友夾份買禮物送你的禮物眾籌平台.";
+        case Chinese: "任何人都可以上來許願, 讓朋友湊錢買禮物送你的禮物眾籌平台.";
     }
 
     static public function title(lang:Language) return switch (lang) {
@@ -27,7 +28,7 @@ class Index {
     static public function usageStep1(lang:Language) return switch (lang) {
         case English: "Choose any of the millions items listed in any online store. Make a wish on Giffon and let your friends know.";
         case Cantonese: "於任何網上商店揀啱你想要嘅禮物, 再上嚟Giffon許願講低你想大家夾份送咩俾你.";
-        case Chinese: "於任何網上商店選好你想要的禮物, 再在Giffon許願說出你想大家夾份送甚麼給你.";
+        case Chinese: "於任何網上商店選好你想要的禮物, 再在Giffon許願說出你想大家湊錢送甚麼給你.";
     }
 
     static public function usageStep2(lang:Language) return switch (lang) {
@@ -89,7 +90,7 @@ class Index {
     static public function whySupportFriendsOnGiffon(lang:Language) return switch (lang) {
         case English: "Why support friends on Giffon?";
         case Cantonese: "用Giffon夾份送禮有咩好?";
-        case Chinese: "用Giffon夾份送禮有甚麼好?";
+        case Chinese: "用Giffon湊錢送禮有甚麼好?";
     }
 
     static public function forSupporters(lang:Language) return switch (lang) {
@@ -112,7 +113,7 @@ class Index {
     static public function aGoodGiftIsNeverTooExpensive(lang:Language) return switch (lang) {
         case English: "a good gift is never too expensive once your friends chip in";
         case Cantonese: "夾份就唔使擔心禮物太貴";
-        case Chinese: "夾份就不用擔心禮物太貴";
+        case Chinese: "湊錢就不用擔心禮物太貴";
     }
 
     static public function giftInsteadOfMoney(lang:Language) return switch (lang) {

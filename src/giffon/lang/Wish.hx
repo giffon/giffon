@@ -132,7 +132,7 @@ class Wish {
     static public function greatThanksForTheFollowingFriends(lang:Language) return switch (lang) {
         case English: "Great thanks for the following friends!";
         case Cantonese: "多謝以下有夾份嘅朋友!";
-        case Chinese: "多謝以下有夾份的朋友!";
+        case Chinese: "多謝以下有湊錢的朋友!";
     }
 
     static public function supportersWithVisibleSupportAmounts(lang:Language) return switch (lang) {
@@ -203,13 +203,13 @@ class Wish {
     static public function pledgeNow(lang:Language) return switch (lang) {
         case English: "Pledge Now";
         case Cantonese: "即刻夾份";
-        case Chinese: "立即夾份";
+        case Chinese: "立即湊錢";
     }
 
     static public function pledgeBelow(lang:Language) return switch (lang) {
         case English: "Pledge Below";
         case Cantonese: "即刻夾份";
-        case Chinese: "立即夾份";
+        case Chinese: "立即湊錢";
     }
 
     static public function wishSettings(lang:Language) return switch (lang) {

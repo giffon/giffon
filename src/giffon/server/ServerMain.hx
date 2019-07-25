@@ -899,10 +899,12 @@ class ServerMain {
             var lang:Language = switch (req.path.split("/")[1]) {
                 case "en":
                     English;
+                case "zh-TW":
+                    Chinese;
                 case "zh-HK":
                     Cantonese;
                 case null, "", _:
-                    giffon.lang.LanguageTools.langFromCode(req.acceptsLanguages('en', 'zh'));
+                    giffon.lang.LanguageTools.langFromCode(req.acceptsLanguages('en', 'zh-HK', 'zh'));
             }
             res.locals.language = lang;
             res.setHeader("Content-Language", giffon.lang.LanguageTools.code(lang));
@@ -1062,7 +1064,7 @@ class ServerMain {
 
         var pageRouter = PageRouter.createRouter();
 
-        app.use(["/en", "/zh-HK", "/"], pageRouter);
+        app.use(["/en", "/zh-TW", "/zh-HK", "/"], pageRouter);
 
         app.use(function(err, req, res:Response, next) {
             res.sendPlainError(err, 500);
