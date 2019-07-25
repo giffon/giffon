@@ -65,18 +65,18 @@ class Page extends ReactComponent {
 
     function path():String throw "should be overridden";
 
-    function canonicalOfLang(lang:giffon.lang.Language):String {
+    function canonicalOfLang(lang:Null<giffon.lang.Language>):String {
         return switch (lang) {
-            case English:
+            case null:
                 Path.join([canonicalBase, path()]);
-            case Cantonese:
+            case _:
                 Path.join([canonicalBase, lang.code() , path()]);
         }
     }
 
     function canonical() {
         return jsx('
-            <link rel="canonical" href="${canonicalOfLang(language)}" />
+            <link rel="canonical" href=${canonicalOfLang(base == "/" ? null : language)} />
         ');
     }
 
@@ -84,13 +84,13 @@ class Page extends ReactComponent {
         var links = [
             for (lang in Type.allEnums(giffon.lang.Language)) {
                 jsx('
-                    <link key=${lang.code()} rel="alternate" hrefLang=${lang.code()} href=${Path.join([canonicalBase, lang.code() , path()])} />
+                    <link key=${lang.code()} rel="alternate" hrefLang=${lang.code()} href=${canonicalOfLang(lang)} />
                 ');
             }
         ];
         links.push(
             jsx('
-                <link key="x-default" rel="alternate" hrefLang="x-default" href=${canonicalOfLang(English)} />
+                <link key="x-default" rel="alternate" hrefLang="x-default" href=${canonicalOfLang(null)} />
             ')
         );
         return links;
