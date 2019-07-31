@@ -273,7 +273,7 @@ class ServerMain {
         var wish = wish_results[0];
         var supporter_results:QueryResults = (@await dbConnectionPool.query(
             "
-                SELECT pledge_total.user_id, pledge_total_amount, pledge_date, pledge_visibility
+                SELECT pledge_total.user_id, pledge_total_amount, pledge_date, pledge_visibility, pledge_name_visibility
                 FROM
                 (
                     SELECT user_id, SUM(pledge_amount) AS pledge_total_amount, MAX(pledge_time_created) AS pledge_date
@@ -284,7 +284,7 @@ class ServerMain {
                 ) AS pledge_total
                 LEFT JOIN
                 (
-                    SELECT p1.user_id, p1.pledge_visibility
+                    SELECT p1.user_id, p1.pledge_visibility, p1.pledge_name_visibility
                     FROM pledge p1 LEFT JOIN pledge p2
                     ON (p1.user_id = p2.user_id AND p1.wish_id = p2.wish_id AND p1.pledge_id < p2.pledge_id)
                     WHERE p2.pledge_id IS NULL AND p1.wish_id = ?
@@ -339,6 +339,7 @@ class ServerMain {
                 pledge_amount: Decimal.fromString(supporter.pledge_total_amount).trim(),
                 pledge_date: supporter.pledge_date,
                 pledge_visibility: giffon.db.PledgeVisibility.createByName(supporter.pledge_visibility),
+                pledge_name_visibility: giffon.db.PledgeVisibility.createByName(supporter.pledge_name_visibility),
             });
         }
 

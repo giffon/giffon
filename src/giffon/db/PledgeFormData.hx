@@ -11,6 +11,7 @@ typedef PledgeFormValues = {
     pledge_amount:Float,
     pledge_data:Dynamic,
     pledge_visibility:String,
+    pledge_name_visibility:String,
 }
 
 class PledgeFormData implements DataClass {
@@ -25,6 +26,9 @@ class PledgeFormData implements DataClass {
 
     @validate(validatePledgeVisibility(_))
     public var pledge_visibility:String;
+
+    @validate(validatePledgeVisibility(_))
+    public var pledge_name_visibility:String;
 
     public var pledge_data:Dynamic;
 

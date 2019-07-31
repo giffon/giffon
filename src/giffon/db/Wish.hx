@@ -7,6 +7,7 @@ typedef WishSupport = {
     pledge_date: Date,
     pledge_amount: Decimal,
     pledge_visibility: giffon.db.PledgeVisibility,
+    pledge_name_visibility: giffon.db.PledgeVisibility,
 }
 
 typedef Wish = {

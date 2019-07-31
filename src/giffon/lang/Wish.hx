@@ -89,6 +89,38 @@ class Wish {
         case Cantonese | Chinese: "公開顯示付出金額.";
     }
 
+    static public function pledgeNameIsHidden(lang:Language) return switch (lang) {
+        case English: "The pledge is anonymous.";
+        case Cantonese | Chinese: "匿名付出.";
+    }
+
+    static public function pledgeNameVisibleToWishOwner(lang:Language) return switch (lang) {
+        case English: "Your name will be visible to the wish owner once the wish is completed.";
+        case Cantonese: "你嘅名會喺願望達成嘅時候顯示俾許願者.";
+        case Chinese: "你的名字會在願望達成的時候顯示予許願者.";
+    }
+
+    static public function pledgeNameVisibleToAll(lang:Language) return switch (lang) {
+        case English: "Your name will be visible to all once the wish is completed.";
+        case Cantonese: "你嘅名會喺願望達成嘅時候公開顯示.";
+        case Chinese: "你的名字會在願望達成的時候公開顯示.";
+    }
+
+    static public function pledgeNameBeHiddenFromAll(lang:Language) return switch (lang) {
+        case English: "The pledge be anonymous.";
+        case Cantonese | Chinese: "匿名付出.";
+    }
+
+    static public function pledgeNameBeVisibleToWishOwner(lang:Language) return switch (lang) {
+        case English: "Your name be visible to wish owner, hidden from others.";
+        case Cantonese | Chinese: "只向許願者顯示你的名字.";
+    }
+
+    static public function pledgeNameBeVisibleToAll(lang:Language) return switch (lang) {
+        case English: "Your name be visible to all.";
+        case Cantonese | Chinese: "公開顯示你的名字.";
+    }
+
     static public function youHaventPledgedYourSupportYet(lang:Language) return switch (lang) {
         case English: "You haven't pledged your support yet.";
         case Cantonese | Chinese: "你未有承諾任何付出.";
@@ -110,9 +142,20 @@ class Wish {
     }
 
     static public function pledgeAmountVisibilityNote(lang:Language) return switch (lang) {
-        case English: "After the wish completes, everyone will be able to see you contributed, optionally with the amount.";
-        case Cantonese: "願望達成後, 所有人都可以見到你有份支持. 你可以選擇性公開你付出嘅金額.";
-        case Chinese: "願望達成後, 所有人都可以見到你有支持. 你可以選擇性公開你付出的金額.";
+        case English: "You can choose whether you want to show your contribution amount after the wish completes.";
+        case Cantonese: "你可以選擇性喺願望達成後公開你付出嘅金額.";
+        case Chinese: "你可以選擇性在願望達成後公開你付出的金額.";
+    }
+
+    static public function pledgeNameVisibility(lang:Language) return switch (lang) {
+        case English: "Contributor name visibility";
+        case Cantonese | Chinese: "支持者名稱顯示設定";
+    }
+
+    static public function pledgeNameVisibilityNote(lang:Language) return switch (lang) {
+        case English: "You can choose whether you want to show your name as contributor after the wish completes.";
+        case Cantonese: "你可以選擇性喺願望達成後公開你嘅支持身分.";
+        case Chinese: "你可以選擇性在願望達成後公開你的支持身分.";
     }
 
     static public function agreeTo(lang:Language, something:ReactElement) return MakeAWish.agreeTo(lang, something);

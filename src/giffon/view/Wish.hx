@@ -225,13 +225,15 @@ class Wish extends Page {
         ');
     }
     function userIsWishOwner() return user != null && user.user_id == wish.wish_owner.user_id;
-    function supportAmountIsVisible(supporter:{
-        user:User,
-        pledge_date: Date,
-        pledge_amount: Decimal,
-        pledge_visibility: giffon.db.PledgeVisibility,
-    }) {
+    function supportAmountIsVisible(supporter:giffon.db.Wish.WishSupport) {
         return switch (supporter.pledge_visibility) {
+            case HiddenFromAll: false;
+            case VisibleToAll: true;
+            case VisibleToWishOwner: userIsWishOwner();
+        }
+    }
+    function supportNameIsVisible(supporter:giffon.db.Wish.WishSupport) {
+        return switch (supporter.pledge_name_visibility) {
             case HiddenFromAll: false;
             case VisibleToAll: true;
             case VisibleToWishOwner: userIsWishOwner();
@@ -261,14 +263,17 @@ class Wish extends Page {
         return [
             for (supporter in wish.supporters)
             if (supportAmountIsVisible(supporter) == amountVisible)
-            jsx('
-                <div className="col-6 col-md-4 text-center" key=${supporter.user.user_id}>
-                    <a href=${supporter.user.user_profile_url} className="py-3">
-                        <div className="supporter-avatar rounded-circle shadow mx-auto mb-2" style=${userAvatarStyle(supporter.user)} />
-                        <div className="">${supporter.user.user_name}${supportAmount(supporter)}</div>
-                    </a>
-                </div>
-            ')
+            {
+                var supportNameIsVisible = supportNameIsVisible(supporter);
+                jsx('
+                    <div className="col-6 col-md-4 text-center" key=${supporter.user.user_id}>
+                        <a href=${supportNameIsVisible ? supporter.user.user_profile_url : null} className="py-3">
+                            <div className="supporter-avatar rounded-circle shadow mx-auto mb-2" style=${supportNameIsVisible ? userAvatarStyle(supporter.user) : null} />
+                            <div className="">${supportNameIsVisible ? supporter.user.user_name : "?"}${supportAmount(supporter)}</div>
+                        </a>
+                    </div>
+                ');
+            }
         ];
     }
 

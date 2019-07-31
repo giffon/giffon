@@ -271,6 +271,7 @@ class Wish {
                 pledge_currency: wish.wish_currency.getName(),
                 pledge_method: giffon.db.PledgeMethod.StripeCard.getName(),
                 pledge_visibility: pledgeFormData.pledge_visibility,
+                pledge_name_visibility: pledgeFormData.pledge_name_visibility,
             }, {
                 stripe_charge_id: charge.id,
             }]

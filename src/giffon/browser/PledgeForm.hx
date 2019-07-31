@@ -239,6 +239,7 @@ class _PledgeForm extends ReactComponent {
                     Math.min(Math.max(PledgeFormData.pledge_amount_min, Math.ceil(wish_total_needed * 0.1)), wish_total_needed.toFloat()),
             pledge_data: null,
             pledge_visibility: giffon.db.PledgeVisibility.HiddenFromAll.getName(),
+            pledge_name_visibility: giffon.db.PledgeVisibility.VisibleToWishOwner.getName(),
         };
 
         return jsx('
@@ -315,6 +316,52 @@ class _PledgeForm extends ReactComponent {
                             classes=${cardClasses}
                         />
                     </div>
+                </div>
+                <div className="form-group">
+                    <div className="mb-1">
+                        <p className="mb-0">${language.pledgeNameVisibility()}</p>
+                        <small>
+                            ${language.pledgeNameVisibilityNote()}
+                        </small>
+                    </div>
+                    <Field
+                        name="pledge_name_visibility"
+                        component="div"
+                    >
+                        <div className="form-check">
+                            <input
+                                id="pledge_name_visibility_hiddenFromAll"
+                                name="pledge_name_visibility"
+                                className="form-check-input" type="radio" value=${giffon.db.PledgeVisibility.HiddenFromAll.getName()}
+                                defaultChecked=${props.values.pledge_name_visibility == giffon.db.PledgeVisibility.HiddenFromAll.getName()}
+                            />
+                            <label className="form-check-label" htmlFor="pledge_name_visibility_hiddenFromAll">
+                                ${language.pledgeNameBeHiddenFromAll()}
+                            </label>
+                        </div>
+                        <div className="form-check">
+                            <input
+                                id="pledge_name_visibility_visibleToWishOwner"
+                                name="pledge_name_visibility"
+                                className="form-check-input" type="radio" value=${giffon.db.PledgeVisibility.VisibleToWishOwner.getName()}
+                                defaultChecked=${props.values.pledge_name_visibility == giffon.db.PledgeVisibility.VisibleToWishOwner.getName()}
+                            />
+                            <label className="form-check-label" htmlFor="pledge_name_visibility_visibleToWishOwner">
+                                ${language.pledgeNameBeVisibleToWishOwner()}
+                            </label>
+                        </div>
+                        <div className="form-check">
+                            <input
+                                id="pledge_name_visibility_visibleToAll"
+                                name="pledge_name_visibility"
+                                className="form-check-input" type="radio" value=${giffon.db.PledgeVisibility.VisibleToAll.getName()}
+                                defaultChecked=${props.values.pledge_name_visibility == giffon.db.PledgeVisibility.VisibleToAll.getName()}
+                            />
+                            <label className="form-check-label" htmlFor="pledge_name_visibility_visibleToAll">
+                                ${language.pledgeNameBeVisibleToAll()}
+                            </label>
+                        </div>
+                    </Field>
                 </div>
                 <div className="form-group">
                     <div className="mb-1">

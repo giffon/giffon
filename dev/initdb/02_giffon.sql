@@ -20,7 +20,10 @@
 
 LOCK TABLES `coupon` WRITE;
 /*!40000 ALTER TABLE `coupon` DISABLE KEYS */;
-INSERT INTO `coupon` VALUES (1,1,'GOODIE',11.1000,1.1000,1,NULL,NULL),(2,1,'PAST',100.0000,10.0000,NULL,'2018-01-01 00:00:00',NULL),(3,1,'BIRD',10.0000,1.0000,NULL,NULL,'[\"twitter\"]'),(4,1,'2CENTS',2.0000,0.2000,NULL,NULL,NULL);
+INSERT INTO `coupon` VALUES (1,1,'GOODIE',11.1000,1.1000,1,NULL,NULL);
+INSERT INTO `coupon` VALUES (2,1,'PAST',100.0000,10.0000,NULL,'2018-01-01 00:00:00',NULL);
+INSERT INTO `coupon` VALUES (3,1,'BIRD',10.0000,1.0000,NULL,NULL,'[\"twitter\"]');
+INSERT INTO `coupon` VALUES (4,1,'2CENTS',2.0000,0.2000,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `coupon` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -30,7 +33,11 @@ UNLOCK TABLES;
 
 LOCK TABLES `item` WRITE;
 /*!40000 ALTER TABLE `item` DISABLE KEYS */;
-INSERT INTO `item` VALUES (1,'https://www.amazon.com/Fossil-Minimalist-Quartz-Stainless-Leather/dp/B06W2JSJ4H/ref=br_asw_pdt-8?pf_rd_m=ATVPDKIKX0DER&pf_rd_s=&pf_rd_r=09VNN328SST3JCQ7M5R2&pf_rd_t=36701&pf_rd_p=64fe8e92-753c-466e-b4cf-16a6e5b6a866&pf_rd_i=desktop',NULL,'Fossil Mens The Minimalist - FS5304',82.9500,'2019-07-12 03:21:48','2019-07-12 03:21:48','USD'),(2,'https://www.amazon.com/Nintendo-Switch-Neon-Red-Blue-Joy/dp/B01MUAGZ49/ref=br_asw_pdt-1?pf_rd_m=ATVPDKIKX0DER&pf_rd_s=&pf_rd_r=VSPGY02NRKSERR8HB7S9&pf_rd_t=36701&pf_rd_p=52f0bcf2-3c32-48d5-a5df-c5f82e2d98df&pf_rd_i=desktop&th=1',NULL,'Nintendo Switch',298.0000,'2019-07-12 03:24:19','2019-07-12 03:24:19','USD'),(3,'https://www.hktvmall.com/hktv/zh/main/Macie-Department-Store/s/H6126001/%E5%AE%B6%E5%93%81%E5%82%A2%E4%BF%AC/%E5%AE%B6%E5%93%81%E5%82%A2%E4%BF%AC/%E9%A4%90%E6%A1%8C%E7%94%A8%E5%93%81/%E7%A2%9F%E5%8F%8A%E6%89%98%E7%9B%A4/%E9%A4%90%E7%A2%9F/16%E4%BB%B6%E5%B0%8F%E8%97%8D%E8%8A%B1%E7%B3%BB%E5%88%97%E9%A4%90%E5%85%B7%E5%A5%97%E8%A3%9D-%E5%B9%B3%E8%A1%8C%E9%80%B2%E5%8F%A3%E8%B2%A8%E5%93%81/p/H6126001_S_CE100001',NULL,'餐具套裝',568.0000,'2019-07-12 03:31:28','2019-07-12 03:31:28','HKD'),(4,'https://www.hktvmall.com/hktv/zh/main/MAX-SPORT/s/H6336001/%E8%BF%AA%E5%A3%AB%E5%B0%BC/%E8%BF%AA%E5%A3%AB%E5%B0%BC/%E8%BF%AA%E5%A3%AB%E5%B0%BC/%E7%8D%85%E5%AD%90%E7%8E%8B/%E7%8D%85%E5%AD%90%E7%8E%8B-%E6%B2%99%E7%81%98%E7%90%83-%E4%B8%80%E5%80%8B-%E5%8E%9A%E6%96%99-20-51cm-%E7%8D%A8%E7%AB%8B%E5%8C%85%E8%A3%9D/p/H6336001_S_58045?openinapp=true&autoTriggerApp=true',NULL,'沙灘球',60.0000,'2019-07-12 03:37:32','2019-07-12 03:37:32','HKD'),(5,'https://www.amazon.com/Haxe-Development-Essentials-Jeremy-McCurdy/dp/1785289780',NULL,'Haxe Game Development Essentials',24.9900,'2019-07-12 04:07:33','2019-07-12 04:07:33','USD');
+INSERT INTO `item` VALUES (1,'https://www.amazon.com/Fossil-Minimalist-Quartz-Stainless-Leather/dp/B06W2JSJ4H/ref=br_asw_pdt-8?pf_rd_m=ATVPDKIKX0DER&pf_rd_s=&pf_rd_r=09VNN328SST3JCQ7M5R2&pf_rd_t=36701&pf_rd_p=64fe8e92-753c-466e-b4cf-16a6e5b6a866&pf_rd_i=desktop',NULL,'Fossil Mens The Minimalist - FS5304',82.9500,'2019-07-12 03:21:48','2019-07-12 03:21:48','USD');
+INSERT INTO `item` VALUES (2,'https://www.amazon.com/Nintendo-Switch-Neon-Red-Blue-Joy/dp/B01MUAGZ49/ref=br_asw_pdt-1?pf_rd_m=ATVPDKIKX0DER&pf_rd_s=&pf_rd_r=VSPGY02NRKSERR8HB7S9&pf_rd_t=36701&pf_rd_p=52f0bcf2-3c32-48d5-a5df-c5f82e2d98df&pf_rd_i=desktop&th=1',NULL,'Nintendo Switch',298.0000,'2019-07-12 03:24:19','2019-07-12 03:24:19','USD');
+INSERT INTO `item` VALUES (3,'https://www.hktvmall.com/hktv/zh/main/Macie-Department-Store/s/H6126001/%E5%AE%B6%E5%93%81%E5%82%A2%E4%BF%AC/%E5%AE%B6%E5%93%81%E5%82%A2%E4%BF%AC/%E9%A4%90%E6%A1%8C%E7%94%A8%E5%93%81/%E7%A2%9F%E5%8F%8A%E6%89%98%E7%9B%A4/%E9%A4%90%E7%A2%9F/16%E4%BB%B6%E5%B0%8F%E8%97%8D%E8%8A%B1%E7%B3%BB%E5%88%97%E9%A4%90%E5%85%B7%E5%A5%97%E8%A3%9D-%E5%B9%B3%E8%A1%8C%E9%80%B2%E5%8F%A3%E8%B2%A8%E5%93%81/p/H6126001_S_CE100001',NULL,'餐具套裝',568.0000,'2019-07-12 03:31:28','2019-07-12 03:31:28','HKD');
+INSERT INTO `item` VALUES (4,'https://www.hktvmall.com/hktv/zh/main/MAX-SPORT/s/H6336001/%E8%BF%AA%E5%A3%AB%E5%B0%BC/%E8%BF%AA%E5%A3%AB%E5%B0%BC/%E8%BF%AA%E5%A3%AB%E5%B0%BC/%E7%8D%85%E5%AD%90%E7%8E%8B/%E7%8D%85%E5%AD%90%E7%8E%8B-%E6%B2%99%E7%81%98%E7%90%83-%E4%B8%80%E5%80%8B-%E5%8E%9A%E6%96%99-20-51cm-%E7%8D%A8%E7%AB%8B%E5%8C%85%E8%A3%9D/p/H6336001_S_58045?openinapp=true&autoTriggerApp=true',NULL,'沙灘球',60.0000,'2019-07-12 03:37:32','2019-07-12 03:37:32','HKD');
+INSERT INTO `item` VALUES (5,'https://www.amazon.com/Haxe-Development-Essentials-Jeremy-McCurdy/dp/1785289780',NULL,'Haxe Game Development Essentials',24.9900,'2019-07-12 04:07:33','2019-07-12 04:07:33','USD');
 /*!40000 ALTER TABLE `item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -40,7 +47,11 @@ UNLOCK TABLES;
 
 LOCK TABLES `pledge` WRITE;
 /*!40000 ALTER TABLE `pledge` DISABLE KEYS */;
-INSERT INTO `pledge` VALUES (1,2,2,66.6000,'2019-07-12 03:41:21','StripeCard',NULL,'USD','HiddenFromAll'),(2,2,3,5.0000,'2019-07-12 03:41:53','StripeCard',NULL,'HKD','VisibleToAll'),(3,3,2,656.2800,'2019-07-12 03:43:27','StripeCard',NULL,'USD','VisibleToWishOwner'),(4,1,2,1.1000,'2019-07-12 03:53:11','Coupon',NULL,'USD','VisibleToAll'),(5,1,3,2.0000,'2019-07-12 03:55:08','Coupon',NULL,'HKD','VisibleToAll');
+INSERT INTO `pledge` VALUES (1,2,2,66.6000,'2019-07-12 03:41:21','StripeCard',NULL,'USD','HiddenFromAll','VisibleToWishOwner');
+INSERT INTO `pledge` VALUES (2,2,3,5.0000,'2019-07-12 03:41:53','StripeCard',NULL,'HKD','VisibleToAll','VisibleToWishOwner');
+INSERT INTO `pledge` VALUES (3,3,2,656.2800,'2019-07-12 03:43:27','StripeCard',NULL,'USD','VisibleToWishOwner','VisibleToWishOwner');
+INSERT INTO `pledge` VALUES (4,1,2,1.1000,'2019-07-12 03:53:11','Coupon',NULL,'USD','VisibleToAll','VisibleToWishOwner');
+INSERT INTO `pledge` VALUES (5,1,3,2.0000,'2019-07-12 03:55:08','Coupon',NULL,'HKD','VisibleToAll','VisibleToWishOwner');
 /*!40000 ALTER TABLE `pledge` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -50,7 +61,8 @@ UNLOCK TABLES;
 
 LOCK TABLES `pledge_coupon` WRITE;
 /*!40000 ALTER TABLE `pledge_coupon` DISABLE KEYS */;
-INSERT INTO `pledge_coupon` VALUES (4,1),(5,4);
+INSERT INTO `pledge_coupon` VALUES (4,1);
+INSERT INTO `pledge_coupon` VALUES (5,4);
 /*!40000 ALTER TABLE `pledge_coupon` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -60,7 +72,9 @@ UNLOCK TABLES;
 
 LOCK TABLES `pledge_stripe` WRITE;
 /*!40000 ALTER TABLE `pledge_stripe` DISABLE KEYS */;
-INSERT INTO `pledge_stripe` VALUES (1,'ch_1EvFdPCIMzObh1OAn51wOrdV'),(2,'ch_1EvFdwCIMzObh1OACAfpPQXy'),(3,'ch_1EvFfSCIMzObh1OAm9XNJU1W');
+INSERT INTO `pledge_stripe` VALUES (1,'ch_1EvFdPCIMzObh1OAn51wOrdV');
+INSERT INTO `pledge_stripe` VALUES (2,'ch_1EvFdwCIMzObh1OACAfpPQXy');
+INSERT INTO `pledge_stripe` VALUES (3,'ch_1EvFfSCIMzObh1OAm9XNJU1W');
 /*!40000 ALTER TABLE `pledge_stripe` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -70,7 +84,10 @@ UNLOCK TABLES;
 
 LOCK TABLES `sessions` WRITE;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
-INSERT INTO `sessions` VALUES ('2Aq2HVcya0iPuDTCEDt1H61neJxsS6B4',1562992955,'{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"redirectTo\":null,\"passport\":{\"user\":1}}'),('2lOt2XJoWYSG63dP1shejk5ogrETS_ed',1562990901,'{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"passport\":{\"user\":3}}'),('u6FTJXwo2i9QQo_vA7xyC4Vc_sE-yRHa',1562989314,'{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"redirectTo\":null,\"passport\":{\"user\":2}}'),('vnIP1jZrrYC1lZK-bg4cb4TIYyivj54z',1562989705,'{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"redirectTo\":null,\"passport\":{\"user\":3}}');
+INSERT INTO `sessions` VALUES ('2Aq2HVcya0iPuDTCEDt1H61neJxsS6B4',1562992955,'{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"redirectTo\":null,\"passport\":{\"user\":1}}');
+INSERT INTO `sessions` VALUES ('2lOt2XJoWYSG63dP1shejk5ogrETS_ed',1562990901,'{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"passport\":{\"user\":3}}');
+INSERT INTO `sessions` VALUES ('u6FTJXwo2i9QQo_vA7xyC4Vc_sE-yRHa',1562989314,'{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"redirectTo\":null,\"passport\":{\"user\":2}}');
+INSERT INTO `sessions` VALUES ('vnIP1jZrrYC1lZK-bg4cb4TIYyivj54z',1562989705,'{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"secure\":false,\"httpOnly\":true,\"path\":\"/\"},\"redirectTo\":null,\"passport\":{\"user\":3}}');
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -80,7 +97,9 @@ UNLOCK TABLES;
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'X8lX','andy@onthewings.net','Andy Li',NULL,0,NULL,NULL,'I want some ?!','https://d1ksq9ahsv51u8.cloudfront.net/32f76f545cb76e987a924b02555aa812.jpg'),(2,'ODxO','open_pvcdapr_user@tfbnw.net','Open Graph Test User',NULL,0,NULL,NULL,NULL,'https://d1ksq9ahsv51u8.cloudfront.net/8baf4382926b802fcb1cd8794ed955f8.jpg'),(3,'XVmN','aeijhlqbaz_1541125091@tfbnw.net','Will Albiidgaddbag Huisen',NULL,0,NULL,NULL,NULL,'https://d1ksq9ahsv51u8.cloudfront.net/3cdcb680ea55f663832e791d33c5d264.jpg');
+INSERT INTO `user` VALUES (1,'X8lX','andy@onthewings.net','Andy Li',NULL,0,NULL,NULL,'I want some ?!','https://d1ksq9ahsv51u8.cloudfront.net/32f76f545cb76e987a924b02555aa812.jpg');
+INSERT INTO `user` VALUES (2,'ODxO','open_pvcdapr_user@tfbnw.net','Open Graph Test User',NULL,0,NULL,NULL,NULL,'https://d1ksq9ahsv51u8.cloudfront.net/8baf4382926b802fcb1cd8794ed955f8.jpg');
+INSERT INTO `user` VALUES (3,'XVmN','aeijhlqbaz_1541125091@tfbnw.net','Will Albiidgaddbag Huisen',NULL,0,NULL,NULL,NULL,'https://d1ksq9ahsv51u8.cloudfront.net/3cdcb680ea55f663832e791d33c5d264.jpg');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -90,7 +109,9 @@ UNLOCK TABLES;
 
 LOCK TABLES `user_facebook` WRITE;
 /*!40000 ALTER TABLE `user_facebook` DISABLE KEYS */;
-INSERT INTO `user_facebook` VALUES (1,'10156064172419833','{\"id\": \"10156064172419833\", \"_raw\": \"{\\\"id\\\":\\\"10156064172419833\\\",\\\"name\\\":\\\"Andy Li\\\",\\\"email\\\":\\\"andy\\\\u0040onthewings.net\\\",\\\"picture\\\":{\\\"data\\\":{\\\"height\\\":200,\\\"is_silhouette\\\":false,\\\"url\\\":\\\"https:\\\\/\\\\/platform-lookaside.fbsbx.com\\\\/platform\\\\/profilepic\\\\/?asid=10156064172419833&height=200&width=200&ext=1565495560&hash=AeQWafYcSO4NEyq7\\\",\\\"width\\\":200}}}\", \"name\": {}, \"_json\": {\"id\": \"10156064172419833\", \"name\": \"Andy Li\", \"email\": \"andy@onthewings.net\", \"picture\": {\"data\": {\"url\": \"https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=10156064172419833&height=200&width=200&ext=1565495560&hash=AeQWafYcSO4NEyq7\", \"width\": 200, \"height\": 200, \"is_silhouette\": false}}}, \"emails\": [{\"value\": \"andy@onthewings.net\"}], \"photos\": [{\"value\": \"https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=10156064172419833&height=200&width=200&ext=1565495560&hash=AeQWafYcSO4NEyq7\"}], \"provider\": \"facebook\", \"displayName\": \"Andy Li\"}'),(2,'103860947242717','{\"id\": \"103860947242717\", \"_raw\": \"{\\\"id\\\":\\\"103860947242717\\\",\\\"name\\\":\\\"Open Graph Test User\\\",\\\"email\\\":\\\"open_pvcdapr_user\\\\u0040tfbnw.net\\\",\\\"picture\\\":{\\\"data\\\":{\\\"height\\\":200,\\\"is_silhouette\\\":true,\\\"url\\\":\\\"https:\\\\/\\\\/platform-lookaside.fbsbx.com\\\\/platform\\\\/profilepic\\\\/?asid=103860947242717&height=200&width=200&ext=1565496439&hash=AeSSZeV0rnH49kJX\\\",\\\"width\\\":200}}}\", \"name\": {}, \"_json\": {\"id\": \"103860947242717\", \"name\": \"Open Graph Test User\", \"email\": \"open_pvcdapr_user@tfbnw.net\", \"picture\": {\"data\": {\"url\": \"https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=103860947242717&height=200&width=200&ext=1565496439&hash=AeSSZeV0rnH49kJX\", \"width\": 200, \"height\": 200, \"is_silhouette\": true}}}, \"emails\": [{\"value\": \"open_pvcdapr_user@tfbnw.net\"}], \"photos\": [{\"value\": \"https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=103860947242717&height=200&width=200&ext=1565496439&hash=AeSSZeV0rnH49kJX\"}], \"provider\": \"facebook\", \"displayName\": \"Open Graph Test User\"}'),(3,'101779010830337','{\"id\": \"101779010830337\", \"_raw\": \"{\\\"id\\\":\\\"101779010830337\\\",\\\"name\\\":\\\"Will Albiidgaddbag Huisen\\\",\\\"email\\\":\\\"aeijhlqbaz_1541125091\\\\u0040tfbnw.net\\\",\\\"picture\\\":{\\\"data\\\":{\\\"height\\\":200,\\\"is_silhouette\\\":true,\\\"url\\\":\\\"https:\\\\/\\\\/platform-lookaside.fbsbx.com\\\\/platform\\\\/profilepic\\\\/?asid=101779010830337&height=200&width=200&ext=1565496487&hash=AeSClTGCTBzWSOnY\\\",\\\"width\\\":200}}}\", \"name\": {}, \"_json\": {\"id\": \"101779010830337\", \"name\": \"Will Albiidgaddbag Huisen\", \"email\": \"aeijhlqbaz_1541125091@tfbnw.net\", \"picture\": {\"data\": {\"url\": \"https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=101779010830337&height=200&width=200&ext=1565496487&hash=AeSClTGCTBzWSOnY\", \"width\": 200, \"height\": 200, \"is_silhouette\": true}}}, \"emails\": [{\"value\": \"aeijhlqbaz_1541125091@tfbnw.net\"}], \"photos\": [{\"value\": \"https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=101779010830337&height=200&width=200&ext=1565496487&hash=AeSClTGCTBzWSOnY\"}], \"provider\": \"facebook\", \"displayName\": \"Will Albiidgaddbag Huisen\"}');
+INSERT INTO `user_facebook` VALUES (1,'10156064172419833','{\"id\": \"10156064172419833\", \"_raw\": \"{\\\"id\\\":\\\"10156064172419833\\\",\\\"name\\\":\\\"Andy Li\\\",\\\"email\\\":\\\"andy\\\\u0040onthewings.net\\\",\\\"picture\\\":{\\\"data\\\":{\\\"height\\\":200,\\\"is_silhouette\\\":false,\\\"url\\\":\\\"https:\\\\/\\\\/platform-lookaside.fbsbx.com\\\\/platform\\\\/profilepic\\\\/?asid=10156064172419833&height=200&width=200&ext=1565495560&hash=AeQWafYcSO4NEyq7\\\",\\\"width\\\":200}}}\", \"name\": {}, \"_json\": {\"id\": \"10156064172419833\", \"name\": \"Andy Li\", \"email\": \"andy@onthewings.net\", \"picture\": {\"data\": {\"url\": \"https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=10156064172419833&height=200&width=200&ext=1565495560&hash=AeQWafYcSO4NEyq7\", \"width\": 200, \"height\": 200, \"is_silhouette\": false}}}, \"emails\": [{\"value\": \"andy@onthewings.net\"}], \"photos\": [{\"value\": \"https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=10156064172419833&height=200&width=200&ext=1565495560&hash=AeQWafYcSO4NEyq7\"}], \"provider\": \"facebook\", \"displayName\": \"Andy Li\"}');
+INSERT INTO `user_facebook` VALUES (2,'103860947242717','{\"id\": \"103860947242717\", \"_raw\": \"{\\\"id\\\":\\\"103860947242717\\\",\\\"name\\\":\\\"Open Graph Test User\\\",\\\"email\\\":\\\"open_pvcdapr_user\\\\u0040tfbnw.net\\\",\\\"picture\\\":{\\\"data\\\":{\\\"height\\\":200,\\\"is_silhouette\\\":true,\\\"url\\\":\\\"https:\\\\/\\\\/platform-lookaside.fbsbx.com\\\\/platform\\\\/profilepic\\\\/?asid=103860947242717&height=200&width=200&ext=1565496439&hash=AeSSZeV0rnH49kJX\\\",\\\"width\\\":200}}}\", \"name\": {}, \"_json\": {\"id\": \"103860947242717\", \"name\": \"Open Graph Test User\", \"email\": \"open_pvcdapr_user@tfbnw.net\", \"picture\": {\"data\": {\"url\": \"https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=103860947242717&height=200&width=200&ext=1565496439&hash=AeSSZeV0rnH49kJX\", \"width\": 200, \"height\": 200, \"is_silhouette\": true}}}, \"emails\": [{\"value\": \"open_pvcdapr_user@tfbnw.net\"}], \"photos\": [{\"value\": \"https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=103860947242717&height=200&width=200&ext=1565496439&hash=AeSSZeV0rnH49kJX\"}], \"provider\": \"facebook\", \"displayName\": \"Open Graph Test User\"}');
+INSERT INTO `user_facebook` VALUES (3,'101779010830337','{\"id\": \"101779010830337\", \"_raw\": \"{\\\"id\\\":\\\"101779010830337\\\",\\\"name\\\":\\\"Will Albiidgaddbag Huisen\\\",\\\"email\\\":\\\"aeijhlqbaz_1541125091\\\\u0040tfbnw.net\\\",\\\"picture\\\":{\\\"data\\\":{\\\"height\\\":200,\\\"is_silhouette\\\":true,\\\"url\\\":\\\"https:\\\\/\\\\/platform-lookaside.fbsbx.com\\\\/platform\\\\/profilepic\\\\/?asid=101779010830337&height=200&width=200&ext=1565496487&hash=AeSClTGCTBzWSOnY\\\",\\\"width\\\":200}}}\", \"name\": {}, \"_json\": {\"id\": \"101779010830337\", \"name\": \"Will Albiidgaddbag Huisen\", \"email\": \"aeijhlqbaz_1541125091@tfbnw.net\", \"picture\": {\"data\": {\"url\": \"https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=101779010830337&height=200&width=200&ext=1565496487&hash=AeSClTGCTBzWSOnY\", \"width\": 200, \"height\": 200, \"is_silhouette\": true}}}, \"emails\": [{\"value\": \"aeijhlqbaz_1541125091@tfbnw.net\"}], \"photos\": [{\"value\": \"https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=101779010830337&height=200&width=200&ext=1565496487&hash=AeSClTGCTBzWSOnY\"}], \"provider\": \"facebook\", \"displayName\": \"Will Albiidgaddbag Huisen\"}');
 /*!40000 ALTER TABLE `user_facebook` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -139,7 +160,8 @@ UNLOCK TABLES;
 
 LOCK TABLES `user_stripe` WRITE;
 /*!40000 ALTER TABLE `user_stripe` DISABLE KEYS */;
-INSERT INTO `user_stripe` VALUES (3,'cus_DuHZ1IJVcUmXS5'),(2,'cus_EykJAUHVSoEL7y');
+INSERT INTO `user_stripe` VALUES (3,'cus_DuHZ1IJVcUmXS5');
+INSERT INTO `user_stripe` VALUES (2,'cus_EykJAUHVSoEL7y');
 /*!40000 ALTER TABLE `user_stripe` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -189,7 +211,10 @@ UNLOCK TABLES;
 
 LOCK TABLES `wish` WRITE;
 /*!40000 ALTER TABLE `wish` DISABLE KEYS */;
-INSERT INTO `wish` VALUES (1,'pnBp',1,'2019-07-12 03:21:48','2019-07-12 03:21:48','I need more time ⌚⌚⌚','published',NULL,'More time ⌚',NULL,'USD','https://media2.giphy.com/media/KPPS9YOCBGU5G/giphy.gif',7.1800,'Shipping & Import Fees Deposit to Hong Kong'),(2,'pyWr',1,'2019-07-12 03:24:19','2019-07-12 03:24:19','I want 2 Switches.\n1 for me and 1 for Stella.','succeed',NULL,'Switch',NULL,'USD','https://media2.giphy.com/media/FMapondVtL2Fi/giphy.gif',11.6600,'Shipping & Import Fees Deposit to Hong Kong'),(3,'G7yw',1,'2019-07-12 03:31:28','2019-07-12 03:31:28','打破了現有的... (哭','published',NULL,'餐具套裝',NULL,'HKD','https://media1.giphy.com/media/pT8UCdKovkOg8/giphy.gif',0.0000,NULL),(4,'wD8w',1,'2019-07-12 03:37:32','2019-07-12 03:37:32','我想去沙灘!!!\n我想去沙灘!!!\n我想去沙灘!!!\n我想去沙灘!!!\n我想去沙灘!!!\n我想去沙灘!!!','cancelled',NULL,'Disney - 獅子王',NULL,'HKD','https://media2.giphy.com/media/26DMZmtN3XAaxW8Xm/giphy.gif',20.0000,'shipping');
+INSERT INTO `wish` VALUES (1,'pnBp',1,'2019-07-12 03:21:48','2019-07-12 03:21:48','I need more time ⌚⌚⌚','published',NULL,'More time ⌚',NULL,'USD','https://media2.giphy.com/media/KPPS9YOCBGU5G/giphy.gif',7.1800,'Shipping & Import Fees Deposit to Hong Kong');
+INSERT INTO `wish` VALUES (2,'pyWr',1,'2019-07-12 03:24:19','2019-07-12 03:24:19','I want 2 Switches.\n1 for me and 1 for Stella.','succeed',NULL,'Switch',NULL,'USD','https://media2.giphy.com/media/FMapondVtL2Fi/giphy.gif',11.6600,'Shipping & Import Fees Deposit to Hong Kong');
+INSERT INTO `wish` VALUES (3,'G7yw',1,'2019-07-12 03:31:28','2019-07-12 03:31:28','打破了現有的... (哭','published',NULL,'餐具套裝',NULL,'HKD','https://media1.giphy.com/media/pT8UCdKovkOg8/giphy.gif',0.0000,NULL);
+INSERT INTO `wish` VALUES (4,'wD8w',1,'2019-07-12 03:37:32','2019-07-12 03:37:32','我想去沙灘!!!\n我想去沙灘!!!\n我想去沙灘!!!\n我想去沙灘!!!\n我想去沙灘!!!\n我想去沙灘!!!','cancelled',NULL,'Disney - 獅子王',NULL,'HKD','https://media2.giphy.com/media/26DMZmtN3XAaxW8Xm/giphy.gif',20.0000,'shipping');
 /*!40000 ALTER TABLE `wish` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -208,7 +233,10 @@ UNLOCK TABLES;
 
 LOCK TABLES `wish_item` WRITE;
 /*!40000 ALTER TABLE `wish_item` DISABLE KEYS */;
-INSERT INTO `wish_item` VALUES (1,1,1),(2,2,2),(3,3,1),(4,4,1);
+INSERT INTO `wish_item` VALUES (1,1,1);
+INSERT INTO `wish_item` VALUES (2,2,2);
+INSERT INTO `wish_item` VALUES (3,3,1);
+INSERT INTO `wish_item` VALUES (4,4,1);
 /*!40000 ALTER TABLE `wish_item` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -220,4 +248,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-07-12 12:43:27
+-- Dump completed on 2019-07-31 14:59:42
