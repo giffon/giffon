@@ -27,6 +27,16 @@ class Index extends Page {
         }
     }
 
+    public static function bgStyle(url:String) {
+        if (url == null) {
+            return {};
+        }
+
+        return {
+            backgroundImage: 'url("${url}")',
+        }
+    }
+
     public static function wishBannerStyle(wish:giffon.db.Wish) {
         if (wish.wish_banner_url == null) {
             return {};
@@ -75,7 +85,7 @@ class Index extends Page {
 
     override function bodyContent() return jsx('
         <Fragment>
-            <div id="banner" className="font_xs_xs font_md_s pt-lg-5">
+            <div id="banner" className="font_xs_xs font_md_s pt-lg-5" style=${bgStyle(R("/images/bg2.svg"))} >
                 <div>
                     <div className="row mx-0 p-sm-4 p-md-5">
                         <div className="hero-title col-xs-10 col-md-10 col-lg-4 mx-0 mr-md-auto px-3 pb-4 px-sm-0 my-4 pb-lg-5 my-lg-5 color_white">
@@ -119,7 +129,7 @@ class Index extends Page {
                 </div>
 
                 <div id="set2" className="row my-4 my-md-5 text-center from_right">
-                    <div className="col-sm-12 col-md-2 ml-md-auto mr-md-3 bg5 color_white shaded-shadow p-3 flex_container_v_xs d-md-flex">
+                    <div className="col-sm-12 col-md-2 ml-md-auto mr-md-3 color_white shaded-shadow p-3 flex_container_v_xs d-md-flex" style=${bgStyle(R("/images/bg2.svg"))}>
                     <div className="vbox">
                         <div className="font_xs_m font_md_l">${language.forWishMakers()}</div>
                     </div>
@@ -179,7 +189,7 @@ class Index extends Page {
 
                 <div id="support" className="row my-4 my-md-5 text-center from_left">
 
-                    <div className="col-sm-12 col-md-2 mr-md-auto ml-3 ml-sm-0 ml-md-3 bg5 color_white shaded-shadow p-3 d-xs-flex d-md-none">
+                    <div className="col-sm-12 col-md-2 mr-md-auto ml-3 ml-sm-0 ml-md-3 color_white shaded-shadow p-3 d-xs-flex d-md-none" style=${bgStyle(R("/images/bg2.svg"))}>
                         <div className="vbox">
                             <div className="font_xs_m font_md_l">${language.forSupporters()}</div>
                         </div>
@@ -230,7 +240,7 @@ class Index extends Page {
                     </div>  
                     </div>
 
-                    <div className="col-sm-12 col-md-2 mr-md-auto ml-3 ml-sm-0 ml-md-3 bg5 color_white shaded-shadow p-3 d-none d-md-flex flex_container_v_xs">
+                    <div className="col-sm-12 col-md-2 mr-md-auto ml-3 ml-sm-0 ml-md-3 color_white shaded-shadow p-3 d-none d-md-flex flex_container_v_xs" style=${bgStyle(R("/images/bg2.svg"))}>
                         <div className="vbox">
                             <div  className="font_xs_m font_md_l">${language.forSupporters()}</div>
                         </div>

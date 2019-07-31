@@ -109,10 +109,6 @@ img.emoji, .inline-icon {
     vertical-align: middle;
 }
 
-#banner {
-    background-image: url(../images/bg2.svg);
-}
-
 .idea-bulb {
     z-index:9; top:-1.5rem;
 }
@@ -552,11 +548,6 @@ a.btn.signInBtn:hover {
 
 .bg4  {
     background: #09203f;
-}
-
-.bg5 {
-    background-image: url(../images/bg2.svg);
-    
 }
 
 .bg6 {
