@@ -110,7 +110,7 @@ img.emoji, .inline-icon {
 }
 
 #banner {
-    background-image: radial-gradient(farthest-corner at 88px 40px, rgba(9, 32, 63, 0.18) 50%, rgba(6, 90, 242, 0.1) 100%), url(../images/bg2.svg);
+    background-image: url(../images/bg2.svg);
 }
 
 .idea-bulb {
@@ -403,7 +403,7 @@ img.emoji, .inline-icon {
 footer {
     flex-shrink: 0; /* Prevent Chrome, Opera, and Safari from letting these items shrink to smaller than their content's default minimum size. */
     padding: 20px;
-    background: #09203f;
+    background: #484848;
 }
 
 footer a {
@@ -555,7 +555,7 @@ a.btn.signInBtn:hover {
 }
 
 .bg5 {
-    background-image: radial-gradient(farthest-corner at 8px 20px, #09203f 50%, #065af2 100%);
+    background-image: url(../images/bg2.svg);
     
 }
 
@@ -748,7 +748,7 @@ a.btn.signInBtn:hover {
     z-index:998;
 }
 .ribbon-front {
-    background-color: #055cfd;
+    background-color: #F57F17;
     /*height: 50px;*/
     width: calc(100% + 20px);
     position: relative;
@@ -781,14 +781,14 @@ a.btn.signInBtn:hover {
     top: -5px;
     border-width: 5px 10px 0 0;
     left: -10px;
-    border-color: transparent #0742b1 transparent transparent;
+    border-color: transparent #ad5100 transparent transparent;
 }
 
   .ribbon-edge-bottomright {
     border-width: 0 0 5px 10px;
     right: -10px;
     bottom: -5px;
-    border-color: transparent transparent transparent #0742b1;
+    border-color: transparent transparent transparent #ad5100;
 }
 
 .custom-border {
