@@ -31,6 +31,8 @@ class User extends Page {
     override function bodyClasses() return super.bodyClasses().concat(["page-user"]);
 
     function socialProfile(authMethod:giffon.db.AuthMethod) {
+        return null; //TODO add option to display it
+
         var name = authMethod.getName().toLowerCase();
         var profile = switch (authMethod) {
             case Facebook:
