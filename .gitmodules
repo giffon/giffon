@@ -22,3 +22,6 @@
 [submodule "lib/utest"]
 	path = lib/utest
 	url = https://github.com/andyli/utest.git
+[submodule "lib/thx.core"]
+	path = lib/thx.core
+	url = https://github.com/fponticelli/thx.core.git

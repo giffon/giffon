@@ -8,7 +8,7 @@ class SignInButton extends ReactComponent {
     function get_logo() return props.logo;
 
     var authMethod(get, null):giffon.db.AuthMethod;
-    function get_authMethod() return props.logo;
+    function get_authMethod() return props.authMethod;
 
     var href(get, null):String;
     function get_href() return props.href;

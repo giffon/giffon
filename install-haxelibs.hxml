@@ -2,10 +2,11 @@
 -cmd haxelib install build-browser.hxml --always
 -cmd haxelib install hashids --always
 -cmd haxelib install tink_await --always
--cmd haxelib install thx.core --always
+-cmd haxelib install tink_syntaxhub --always
 -cmd haxelib dev tink_await lib/tink_await
 -cmd haxelib dev hxnodejs lib/hxnodejs
 -cmd haxelib dev hxnodelibs lib/hxnodelibs
 -cmd haxelib dev extern-js lib/extern-js
 -cmd haxelib dev extern-js-moment lib/extern-js-moment
 -cmd haxelib dev utest lib/utest
+-cmd haxelib dev thx.core lib/thx.core

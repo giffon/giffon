@@ -4,6 +4,7 @@
 -lib thx.core
 -lib tink_await
 -lib dataclass
+-lib jQueryExtern
 -main giffon.browser.BrowserMain
 -js www/js/BrowserMain.js
 
