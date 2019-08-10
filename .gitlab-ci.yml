@@ -4,9 +4,8 @@ stages:
   # - test-firefox
   - deploy
 
-build:
+.build:
   stage: build
-  image: haxe:3.4.7-alpine3.8
   variables:
     GIT_SUBMODULE_STRATEGY: normal
   script:
@@ -25,6 +24,15 @@ build:
       - ServerMain.js.map
       - test/SeleniumTest.py
       - node_modules
+
+build-haxe3:
+  extends: .build
+  image: haxe:3.4.7-alpine3.8
+
+build-haxe4:
+  extends: .build
+  image: haxe:4-alpine3.8
+  allow_failure: true
 
 .test-selenium:
   image: alpine:3.8
@@ -64,6 +72,8 @@ build:
 
 test-chrome:
   extends: .test-selenium
+  dependencies:
+    - build-haxe3
   stage: test-chrome
   services:
     - mysql:5.7
@@ -74,6 +84,8 @@ test-chrome:
 
 deploy-s3:
   stage: deploy
+  dependencies:
+    - build-haxe3
   image: python:alpine
   script:
     - pip install awscli
@@ -87,6 +99,8 @@ deploy-s3:
 
 deploy-serverless:
   stage: deploy
+  dependencies:
+    - build-haxe3
   image: node:8-alpine
   script:
     - npm install -g serverless@1.42.3
