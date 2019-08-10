@@ -70,10 +70,22 @@ build-haxe4:
     paths:
       - test/errorShots
 
-test-chrome:
+test-haxe3-chrome:
   extends: .test-selenium
   dependencies:
     - build-haxe3
+  stage: test-chrome
+  services:
+    - mysql:5.7
+    - selenium/standalone-chrome:3.141.59-radium
+  variables:
+    BROWSER_NAME: chrome
+    HUB_HOST: selenium-standalone-chrome
+
+test-haxe4-chrome:
+  extends: .test-selenium
+  dependencies:
+    - build-haxe4
   stage: test-chrome
   services:
     - mysql:5.7
