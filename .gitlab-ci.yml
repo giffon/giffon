@@ -93,6 +93,7 @@ test-haxe4-chrome:
   variables:
     BROWSER_NAME: chrome
     HUB_HOST: selenium-standalone-chrome
+  allow_failure: true
 
 deploy-s3:
   stage: deploy
