@@ -1,0 +1,25 @@
+version: '3'
+services:
+  web:
+    build: .
+    volumes:
+      - ..:/workspace
+    user: user
+    environment:
+      - HOME=/home/user
+      - DB_HOST=mysql
+      - DB_USER=root
+      - DB_PASSWORD=devroot
+    ports:
+      - "3000:3000"
+    command: sleep infinity
+  mysql:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=devroot
+      - MYSQL_DATABASE=giffon
+    ports:
+      - "3306:3306"
+    volumes:
+      - ../dev/initdb:/docker-entrypoint-initdb.d
+    restart: unless-stopped

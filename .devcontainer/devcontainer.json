@@ -1,0 +1,10 @@
+{
+	"name": "Giffon",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "web",
+	"workspaceFolder": "/workspace",
+	"postCreateCommand": "npm install",
+	"extensions": [
+		"nadako.vshaxe"
+	]
+}
