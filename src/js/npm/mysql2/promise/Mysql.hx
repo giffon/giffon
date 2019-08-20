@@ -2,7 +2,11 @@ package js.npm.mysql2.promise;
 
 import haxe.Constraints;
 import haxe.extern.*;
+#if (haxe_ver >= 4)
+import js.lib.Promise;
+#else
 import js.Promise;
+#end
 
 typedef ConnectionOptions = {
     @:optional var host:String;

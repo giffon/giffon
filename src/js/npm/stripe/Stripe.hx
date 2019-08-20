@@ -1,6 +1,10 @@
 package js.npm.stripe;
 
+#if (haxe_ver >= 4)
+import js.lib.Promise;
+#else
 import js.Promise;
+#end
 import haxe.Constraints;
 
 @:jsRequire("stripe")

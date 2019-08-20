@@ -2,6 +2,12 @@ package js.stripe;
 
 import haxe.Constraints;
 
+#if (haxe_ver >= 4)
+import js.lib.Promise;
+#else
+import js.Promise;
+#end
+
 /**
  * Stripe.js and Elements
  * https://stripe.com/docs/stripe-js

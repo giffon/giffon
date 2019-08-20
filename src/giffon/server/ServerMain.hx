@@ -944,7 +944,7 @@ class ServerMain {
         //https://stackoverflow.com/questions/20739744/passportjs-callback-switch-between-http-and-https
         app.enable("trust proxy");
 
-        app.use(function(req, res:ExpressResponse, next){
+        app.use(function(req, res:Response, next){
             res.setHeader("Access-Control-Allow-Origin", "*");
             res.setHeader("Access-Control-Allow-Credentials", "true");
             next();

@@ -1,8 +1,13 @@
 package js.npm.react_stripe_elements;
 
 import js.stripe.Stripe;
-import js.Promise;
 import haxe.Constraints;
+
+#if (haxe_ver >= 4)
+import js.lib.Promise;
+#else
+import js.Promise;
+#end
 
 /*
 Within the context of Elements, stripe.createToken and stripe.createSource wrap methods of the same name in Stripe.js.

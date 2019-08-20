@@ -1,5 +1,11 @@
 package js.npm.stripe;
 
+#if (haxe_ver >= 4)
+import js.lib.Promise;
+#else
+import js.Promise;
+#end
+
 extern class ListResults<T> extends Promise<{
     data:Array<T>
 }> {

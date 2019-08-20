@@ -14,16 +14,16 @@ using StringTools;
 
 class Page extends ReactComponent {
     var base(get, never):Null<String>;
-    function get_base() return switch ((this.props.expressResponse:js.npm.express.ExpressResponse).locals.base) {
+    function get_base() return switch ((this.props.expressResponse:js.npm.express.Response).locals.base) {
         case null, "": "/";
         case b: haxe.io.Path.addTrailingSlash(b);
     };
 
     var user(get, never):Null<User>;
-    function get_user() return (this.props.expressResponse:js.npm.express.ExpressResponse).getUser();
+    function get_user() return (this.props.expressResponse:js.npm.express.Response).getUser();
 
     var language(get, never):giffon.lang.Language;
-    function get_language() return (this.props.expressResponse:js.npm.express.ExpressResponse).locals.language;
+    function get_language() return (this.props.expressResponse:js.npm.express.Response).locals.language;
 
     function title():String return "Giffon";
 

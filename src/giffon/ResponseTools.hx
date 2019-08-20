@@ -3,6 +3,12 @@ package giffon;
 import js.npm.express.*;
 import react.*;
 
+#if (haxe_ver >= 4)
+typedef JsError = js.lib.Error;
+#else
+typedef JsError = js.Error;
+#end
+
 class ResponseTools {
     static public function getUser(res:Response):Null<giffon.db.User> {
         return res.locals.user;
@@ -22,8 +28,8 @@ class ResponseTools {
         res.status(code);
         res.type("text/plain");
 
-        var jsError = Std.instance(err, js.Error);
-        if (jsError != null) {
+        if (Std.is(err, JsError)) {
+            var jsError:JsError = cast err;
             var stack = jsError.stack;
             js.Node.console.log(stack);
             res.send(err + "\n" + stack);

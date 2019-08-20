@@ -1,6 +1,11 @@
 package js.npm.mysql2.promise;
 
 import haxe.Constraints;
+#if (haxe_ver >= 4)
+import js.lib.Promise;
+#else
+import js.Promise;
+#end
 
 extern class Connection {
     public function connect():Promise<Dynamic>;

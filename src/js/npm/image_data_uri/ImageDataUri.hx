@@ -1,6 +1,10 @@
 package js.npm.image_data_uri;
 
+#if (haxe_ver >= 4)
+import js.lib.Promise;
+#else
 import js.Promise;
+#end
 import js.node.Buffer;
 
 @:jsRequire("image-data-uri")
