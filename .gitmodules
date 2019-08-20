@@ -25,3 +25,6 @@
 [submodule "lib/thx.core"]
 	path = lib/thx.core
 	url = https://github.com/fponticelli/thx.core.git
+[submodule "lib/haxe-react"]
+	path = lib/haxe-react
+	url = https://github.com/andyli/haxe-react.git

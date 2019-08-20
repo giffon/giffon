@@ -10,3 +10,4 @@
 -cmd haxelib dev extern-js-moment lib/extern-js-moment
 -cmd haxelib dev utest lib/utest
 -cmd haxelib dev thx.core lib/thx.core
+-cmd haxelib dev react lib/haxe-react
