@@ -24,13 +24,6 @@ class UseCasesOssDevs extends Page {
             <h1>${language.titleHeader()}</h1>
             ${language.introText()}
 
-            <div className="row justify-content-md-center">
-                <div className="alert alert-info col-md-8" role="alert">
-                    <h4 className="alert-heading"><i className="fas fa-ticket-alt"></i> ${language.coupon()}</h4>
-                    ${language.couponDetail()}
-                </div>
-            </div>
-
             <h2>${language.wishIdeas()}</h2>
             <p>${language.wishIdeasIntro()}</p>
 
