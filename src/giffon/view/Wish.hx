@@ -312,7 +312,7 @@ class Wish extends Page {
                     <Fragment>
                         <div className="ribbon-wrapper">
                             <div className="ribbon-front">
-                                <div className="p-3 px-md-5 d-flex font_xs_xs font_md_s color_white text-center">
+                                <div className="p-3 px-md-5 d-flex font_xs_xs font_md_s text-center">
                                     ${numSupporters()}
                                     ${progress()}
                                     ${daysToGo()}
@@ -329,7 +329,7 @@ class Wish extends Page {
                     <Fragment>
                         <div className="ribbon-wrapper">
                             <div className="ribbon-front">
-                                <div className="p-3 px-md-5 d-flex font_xs_xs font_md_s color_white text-center">
+                                <div className="p-3 px-md-5 d-flex font_xs_xs font_md_s text-center">
                                     ${numSupporters()}
                                     ${progress()}
                                 </div>
@@ -416,7 +416,7 @@ class Wish extends Page {
             }
 
             return {
-                background: '#fff700'
+                background: '#f9df2b'
             }
         }
     }

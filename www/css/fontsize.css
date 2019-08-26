@@ -33,6 +33,9 @@ html, body {
 .font_xs_xxl{
 	font-size: 2rem; /*32px*/
 }
+.font_xs_3xl{
+	font-size: 3rem; /*32px*/
+}
 
 @media (min-width: 768px) {
 	.font_sm_xs{
@@ -52,6 +55,9 @@ html, body {
 	}
 	.font_sm_xxl{
 	    font-size: 2rem; /*32px*/
+	}
+	.font_sm_3xl{
+		font-size: 3rem; /*32px*/
 	}
 }
 
@@ -74,6 +80,9 @@ html, body {
 	.font_md_xxl{
 	    font-size: 2rem; /*32px*/
 	}
+	.font_md_3xl{
+		font-size: 3rem; /*32px*/
+	}
 }
 
 @media (min-width: 1200px) {
@@ -94,5 +103,8 @@ html, body {
 	}
 	.font_lg_xxl{
 	    font-size: 2rem; /*32px*/
+	}
+	.font_lg_3xl{
+	    font-size: 3rem; /*32px*/
 	}
 }

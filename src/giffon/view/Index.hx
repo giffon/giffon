@@ -85,33 +85,32 @@ class Index extends Page {
 
     override function bodyContent() return jsx('
         <Fragment>
-            <div id="banner" className="font_xs_xs font_md_s pt-lg-5" style=${bgStyle(R("/images/bg2.svg"))} >
-                <div>
-                    <div className="row mx-0 p-sm-4 p-md-5">
-                        <div className="hero-title col-xs-10 col-md-10 col-lg-4 mx-0 mr-md-auto px-3 pb-4 px-sm-0 my-4 pb-lg-5 my-lg-5 color_white">
-                            <div className="font_xs_xxl">Giffon</div>
-                            <div className="font_xs_m font_md_l">${language.title()}</div>
-                        </div>
-                        <div className="col-xs-10 col-sm-12 col-md-6 col-lg-4 col-xl-3 px-3 px-md-0 mb-2">
-                            <div className="card_left bg_white_o80">
-                                <div className="position-absolute idea-bulb">
-                                    <img src=${R("/images/idea-y.svg")} alt="light bulb" width="45"/>
+            <div className="bg-yellow-dot">
+                <div id="banner" className="bg-index font_xs_xs font_md_m d-flex align-items-center justify-content-end" style=${bgStyle(R("/images/bg3.svg"))} >
+                    <div className="col-12 col-md-6 px-0 py-5">
+                        <div className="p-4 p-md-5 m-4 mr-md-0 my-md-5 bg_white text-center text-md-left">
+                            <h1 className="font_xs_xl font_md_3xl fade-in fontw-700">${language.title()}</h1>
+
+                            <p className="fade-in">${language.desp()}</p>
+                        
+                            <div className="d-flex my-3 fade-in two">
+                                <div className="custom-border col"></div>
+                                <div className="px-3 font_xs_l font_md_xl font_lg_xxl fontw-700 color_yellow">${language.howToStart()}</div>
+                                <div className="custom-border col"></div>
+                            </div>
+
+                            <div className="d-md-flex align-items-center fade-in two">
+                                <div className="col">
+                                    <span className="font_xs_l font_md_xl font_lg_xxl fontw-700">${language.you()}</span>${language.usageStep1()}
                                 </div>
-                                <div className="p-4 p-md-5">
-                                    <div className="font_xs_l font_md_xl">${language.howToStart()}</div>
-                                    ${language.usageStep1()}
+                                <div className="p-0 p-md-2 text-center font_xs_xl font_md_xxl fontw-700">+</div>
+                                <div className="col">
+                                    <span className="font_xs_l font_md_xl font_lg_xxl fontw-700">${language.giffon()}</span>${language.usageStep2()}
                                 </div>
                             </div>
-                        </div>
-                        <div className="col-xs-10 col-sm-12 col-md-6 col-lg-4 col-xl-3 px-3 px-md-0 mb-3">
-                            <div className="card_right bg_white shaded-shadow">
-                                <div className="p-4 p-md-5">
-                                    ${language.usageStep2()}
-                                </div>
-                                <a className="btn py-md-3 btn-success rounded-0 w-100" href="make-a-wish">
-                                    ${language.makeAWishNow()}
-                                </a>
-                            </div>
+                            <a className="btn btn-success rounded-0 w-100 shadow fade-in three mt-3 mt-md-5" href="make-a-wish">
+                                ${language.makeAWishNow()}
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -129,7 +128,7 @@ class Index extends Page {
                 </div>
 
                 <div id="set2" className="row my-4 my-md-5 text-center from_right">
-                    <div className="col-sm-12 col-md-2 ml-md-auto mr-md-3 color_white shaded-shadow p-3 flex_container_v_xs d-md-flex" style=${bgStyle(R("/images/bg2.svg"))}>
+                    <div className="col-sm-12 col-md-2 ml-md-auto mr-md-3 bg-yellow-dot shaded-shadow p-3 flex_container_v_xs d-md-flex">
                     <div className="vbox">
                         <div className="font_xs_m font_md_l">${language.forWishMakers()}</div>
                     </div>
@@ -189,7 +188,7 @@ class Index extends Page {
 
                 <div id="support" className="row my-4 my-md-5 text-center from_left">
 
-                    <div className="col-sm-12 col-md-2 mr-md-auto ml-3 ml-sm-0 ml-md-3 color_white shaded-shadow p-3 d-xs-flex d-md-none" style=${bgStyle(R("/images/bg2.svg"))}>
+                    <div className="col-sm-12 col-md-2 mr-md-auto ml-3 ml-sm-0 ml-md-3 bg-yellow-dot shaded-shadow p-3 d-xs-flex d-md-none">
                         <div className="vbox">
                             <div className="font_xs_m font_md_l">${language.forSupporters()}</div>
                         </div>
@@ -240,7 +239,7 @@ class Index extends Page {
                     </div>  
                     </div>
 
-                    <div className="col-sm-12 col-md-2 mr-md-auto ml-3 ml-sm-0 ml-md-3 color_white shaded-shadow p-3 d-none d-md-flex flex_container_v_xs" style=${bgStyle(R("/images/bg2.svg"))}>
+                    <div className="col-sm-12 col-md-2 mr-md-auto ml-3 ml-sm-0 ml-md-3 bg-yellow-dot shaded-shadow p-3 d-none d-md-flex flex_container_v_xs">
                         <div className="vbox">
                             <div  className="font_xs_m font_md_l">${language.forSupporters()}</div>
                         </div>

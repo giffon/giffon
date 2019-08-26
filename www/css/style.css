@@ -23,7 +23,7 @@ body > .content {
 }
 
 ::selection {
-    background: #B7F8DB;
+    background: #ef7e0a;
 }
 
 .width_xs_15 {
@@ -79,7 +79,7 @@ body > .content {
 }
 
 .color_yellow {
-    color: #fff700;
+    color: #f9df2b;
 }
 
 .corner_xs {
@@ -158,7 +158,7 @@ img.emoji, .inline-icon {
 }
 
 .btn-success:hover, .btn-success:not(:disabled):not(.disabled).active, .btn-success:not(:disabled):not(.disabled):active, .show>.btn-success.dropdown-toggle {
-    background: #064ed4;
+    background: #0540ac;
 }
 
 .feature {
@@ -551,10 +551,26 @@ a.btn.signInBtn:hover {
 }
 
 .bg6 {
-    background: #fff700;
+    background: #f9df2b;
 
 }
 
+.bg-yellow-dot {
+    background: linear-gradient(90deg, #f9df2b 20px, transparent 1%) center, linear-gradient(#f9df2b 20px, transparent 1%) center, #c3ad11;
+    background-size: 22px 22px;
+}
+
+.bg-index {
+    background-size: cover;
+    background-position: left;
+    background-repeat: no-repeat;
+    
+}
+@media( min-width: 768px ) {
+    .bg-index {
+      background-size: contain;
+    }
+}
 
 /* mobile menu */
 .navbar-toggler {
@@ -739,7 +755,7 @@ a.btn.signInBtn:hover {
     z-index:998;
 }
 .ribbon-front {
-    background-color: #F57F17;
+    background-color: #f9df2b;
     /*height: 50px;*/
     width: calc(100% + 20px);
     position: relative;
@@ -801,4 +817,8 @@ a.btn.signInBtn:hover {
 
 .page-settings input[type='file'] {
     height: fit-content;
+}
+
+.fontw-700 {
+    font-weight: 700;
 }

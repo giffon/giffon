@@ -14,9 +14,15 @@ class Index {
     }
 
     static public function title(lang:Language) return switch (lang) {
-        case English: "Your Crowd-gifting Platform";
-        case Cantonese: "您嘅禮物眾籌平台";
-        case Chinese: "您的禮物眾籌平台";
+        case English: "Your crowd-gifting platform to gain love and trust";
+        case Cantonese: "幫你眾籌愛心和信任既禮物平台";
+        case Chinese: "幫你眾籌愛心和信任的禮物平台";
+    }
+
+    static public function desp(lang:Language) return switch (lang) {
+        case English: "We hope gifting is not just about spending money, but building relationships.";
+        case Cantonese: "我地希望送贈禮物唔單止係一種消費行為，而更加重視建立人與人之間既關係。";
+        case Chinese: "我們希望送贈禮物不單是一種消費行為，而更加重視建立人與人之間的關係。";
     }
 
     static public function howToStart(lang:Language) return switch (lang) {
@@ -25,16 +31,28 @@ class Index {
         case Chinese: "Giffon 怎用?";
     }
 
+    static public function giffon(lang:Language) return switch (lang) {
+        case English: "Giffon";
+        case Cantonese: "Giffon";
+        case Chinese: "Giffon";
+    }
+
+    static public function you(lang:Language) return switch (lang) {
+        case English: "You";
+        case Cantonese: "你";
+        case Chinese: "你";
+    }
+
     static public function usageStep1(lang:Language) return switch (lang) {
-        case English: "Choose any of the millions items listed in any online store. Make a wish on Giffon and let your friends know.";
-        case Cantonese: "於任何網上商店揀啱你想要嘅禮物, 再上嚟Giffon許願講低你想大家夾份送咩俾你.";
-        case Chinese: "於任何網上商店選好你想要的禮物, 再在Giffon許願說出你想大家湊錢送甚麼給你.";
+        case English: "choose items in any online store. Make a wish on Giffon.";
+        case Cantonese: "喺任何網上商店揀啱想要嘅禮物，上嚟Giffon許願講低你想大家夾份送咩。";
+        case Chinese: "你於任何網上商店選好想要的禮物，在Giffon許願說出你想大家湊錢送甚麼。";
     }
 
     static public function usageStep2(lang:Language) return switch (lang) {
-        case English: "When Giffon collected enough money from your supporters, Giffon will buy you the gift!";
-        case Cantonese: "當收集夠大家捐出嘅資金, Giffon就會落單買俾你!";
-        case Chinese: "當收集夠大家捐出的資金, Giffon就會下單買給你!";
+        case English: "collects enough money from your supporters and then buy you the gift!";
+        case Cantonese: "收集夠大家捐出嘅資金, 就會落單買俾你!";
+        case Chinese: "收集好大家捐出的資金，就會下單買給你!";
     }
 
     static public function makeAWishNow(lang:Language) return switch (lang) {
