@@ -101,11 +101,11 @@ class Index extends Page {
 
                             <div className="d-md-flex align-items-center fade-in two">
                                 <div className="col">
-                                    <span className="font_xs_l font_md_xl font_lg_xxl fontw-700">${language.you()}</span>${language.usageStep1()}
+                                    <span className="font_xs_l font_md_xl font_lg_xxl fontw-700">${language.you()}</span> ${language.usageStep1()}
                                 </div>
                                 <div className="p-0 p-md-2 text-center font_xs_xl font_md_xxl fontw-700">+</div>
                                 <div className="col">
-                                    <span className="font_xs_l font_md_xl font_lg_xxl fontw-700">${language.giffon()}</span>${language.usageStep2()}
+                                    <span className="font_xs_l font_md_xl font_lg_xxl fontw-700">${language.giffon()}</span> ${language.usageStep2()}
                                 </div>
                             </div>
                             <a className="btn btn-success rounded-0 w-100 shadow fade-in three mt-3 mt-md-5" href="make-a-wish">

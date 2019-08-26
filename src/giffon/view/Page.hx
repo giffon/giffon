@@ -193,6 +193,8 @@ class Page extends ReactComponent {
     function css() return jsx('
         <Fragment>
             <link rel="stylesheet" type="text/css" href=${R("/css/style.css")} />
+            <link rel="stylesheet" type="text/css" href=${R("/css/fontsize.css")} />
+            <link rel="stylesheet" type="text/css" href=${R("/css/color.css")} />
         </Fragment>
     ');
 
