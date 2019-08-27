@@ -1,10 +1,10 @@
 package giffon.browser;
 
-import js.Lib;
 import js.Browser.*;
 import js.fullstory.FS;
 import js.jquery.JQuery;
 import giffon.browser.*;
+import giffon.Utils.*;
 import haxe.*;
 
 typedef Session = {
@@ -81,7 +81,7 @@ class BrowserMain {
                             user_primary_email:String,
                             user_profile_url:String,
                         } = Json.parse(userInfoStr);
-                        if (Lib.typeof(FS) != "undefined") { // FS could be blocked
+                        if (typeof(FS) != "undefined") { // FS could be blocked
                             FS.identify(Std.string(userInfo.user_id), {
                                 displayName: userInfo.user_name,
                                 email: userInfo.user_primary_email,
@@ -100,7 +100,7 @@ class BrowserMain {
 
                 switch (giffon.config.Stage.stage) {
                     case Production:
-                        if (Lib.typeof(FS) != "undefined") { // FS could be blocked
+                        if (typeof(FS) != "undefined") { // FS could be blocked
                             FS.identify(false);
                         }
                     case _:
