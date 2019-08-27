@@ -1,5 +1,6 @@
 package giffon.browser;
 
+import js.Lib;
 import js.Browser.*;
 import js.fullstory.FS;
 import js.jquery.JQuery;
@@ -80,11 +81,13 @@ class BrowserMain {
                             user_primary_email:String,
                             user_profile_url:String,
                         } = Json.parse(userInfoStr);
-                        FS.identify(Std.string(userInfo.user_id), {
-                            displayName: userInfo.user_name,
-                            email: userInfo.user_primary_email,
-                            url: userInfo.user_profile_url,
-                        });
+                        if (Lib.typeof(FS) != "undefined") { // FS could be blocked
+                            FS.identify(Std.string(userInfo.user_id), {
+                                displayName: userInfo.user_name,
+                                email: userInfo.user_primary_email,
+                                url: userInfo.user_profile_url,
+                            });
+                        }
                     case _:
                 }
         }
@@ -97,7 +100,9 @@ class BrowserMain {
 
                 switch (giffon.config.Stage.stage) {
                     case Production:
-                        FS.identify(false);
+                        if (Lib.typeof(FS) != "undefined") { // FS could be blocked
+                            FS.identify(false);
+                        }
                     case _:
                 }
         }
