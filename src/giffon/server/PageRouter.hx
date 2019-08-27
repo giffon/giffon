@@ -123,6 +123,7 @@ class PageRouter {
                 case r: r;
             }
             req.logout();
+            res.cookie("doneSignOut", "1");
             res.redirect(redirectTo);
         });
 

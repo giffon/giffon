@@ -1,8 +1,10 @@
 package giffon.browser;
 
 import js.Browser.*;
+import js.fullstory.FS;
 import js.jquery.JQuery;
 import giffon.browser.*;
+import haxe.*;
 
 typedef Session = {
     var access_token:String;
@@ -10,6 +12,10 @@ typedef Session = {
     var expires_at:Float;
 }
 
+/**
+    https://github.com/js-cookie/js-cookie
+**/
+@:native("Cookies")
 extern class Cookies {
     static public function set(name:String, value:String, ?options:Dynamic):Void;
 
@@ -58,6 +64,43 @@ class BrowserMain {
     function onReady():Void {
         language = giffon.lang.LanguageTools.langFromCode(document.documentElement.getAttribute("lang"));
         base = document.getElementsByTagName("base")[0].getAttribute("href");
+
+        switch (Cookies.get("doneSignIn")) {
+            case null:
+                //pass
+            case userInfoStr:
+                Cookies.remove("doneSignIn");
+
+                // only track production traffic
+                switch (giffon.config.Stage.stage) {
+                    case Production:
+                        var userInfo:{
+                            user_id:Int,
+                            user_name:String,
+                            user_primary_email:String,
+                            user_profile_url:String,
+                        } = Json.parse(userInfoStr);
+                        FS.identify(Std.string(userInfo.user_id), {
+                            displayName: userInfo.user_name,
+                            email: userInfo.user_primary_email,
+                            url: userInfo.user_profile_url,
+                        });
+                    case _:
+                }
+        }
+
+        switch (Cookies.get("doneSignOut")) {
+            case null:
+                //pass
+            case _:
+                Cookies.remove("doneSignOut");// only track production traffic
+
+                switch (giffon.config.Stage.stage) {
+                    case Production:
+                        FS.identify(false);
+                    case _:
+                }
+        }
 
         // https://getbootstrap.com/docs/4.0/components/tooltips/
         var hasTooltip = new JQuery('[data-toggle="tooltip"]');

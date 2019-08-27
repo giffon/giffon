@@ -1058,6 +1058,12 @@ class ServerMain {
                             base;
                         case r: r;
                     }
+                    res.cookie("doneSignIn", Json.stringify({
+                        user_id: user.user_id,
+                        user_name: user.user_name,
+                        user_primary_email: user.user_primary_email,
+                        user_profile_url: user.user_profile_url,
+                    }));
                     res.redirect(redirectTo);
                 });
             })(req, res, next);
