@@ -32,5 +32,8 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME
 
+RUN mkdir -p /workspace/.haxelib /workspace/node_modules
+RUN chown $USER_UID:$USER_GID /workspace/.haxelib /workspace/node_modules
+
 # Switch back to dialog for any ad-hoc use of apt-get
 ENV DEBIAN_FRONTEND=

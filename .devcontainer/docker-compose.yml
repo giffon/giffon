@@ -4,6 +4,8 @@ services:
     build: .
     volumes:
       - ..:/workspace
+      - /workspace/node_modules/
+      - /workspace/.haxelib/
     user: user
     environment:
       - HOME=/home/user
