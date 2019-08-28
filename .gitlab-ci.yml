@@ -25,19 +25,14 @@ stages:
       - test/Spellcheck.js
       - node_modules
 
-build-haxe3:
-  extends: .build
-  image: haxe:3.4.7-alpine3.8
-
 build-haxe4:
   extends: .build
   image: haxe:4.0.0-alpine3.8
-  allow_failure: true
 
 test-spellcheck:
   image: node:8-alpine
   dependencies:
-    - build-haxe3
+    - build-haxe4
   stage: test
   script:
     - node test/Spellcheck.js
@@ -78,18 +73,6 @@ test-spellcheck:
     paths:
       - test/errorShots
 
-test-haxe3-chrome:
-  extends: .test-selenium
-  dependencies:
-    - build-haxe3
-  stage: test
-  services:
-    - mysql:5.7
-    - selenium/standalone-chrome:3.141.59-radium
-  variables:
-    BROWSER_NAME: chrome
-    HUB_HOST: selenium-standalone-chrome
-
 test-haxe4-chrome:
   extends: .test-selenium
   dependencies:
@@ -101,12 +84,11 @@ test-haxe4-chrome:
   variables:
     BROWSER_NAME: chrome
     HUB_HOST: selenium-standalone-chrome
-  allow_failure: true
 
 deploy-s3:
   stage: deploy
   dependencies:
-    - build-haxe3
+    - build-haxe4
   image: python:alpine
   script:
     - pip install awscli
@@ -121,7 +103,7 @@ deploy-s3:
 deploy-serverless:
   stage: deploy
   dependencies:
-    - build-haxe3
+    - build-haxe4
   image: node:8-alpine
   script:
     - npm install -g serverless@1.42.3
