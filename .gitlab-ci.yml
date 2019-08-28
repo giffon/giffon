@@ -1,7 +1,6 @@
 stages:
   - build
-  - test-chrome
-  # - test-firefox
+  - test
   - deploy
 
 .build:
@@ -23,6 +22,7 @@ stages:
       - ServerMain.js
       - ServerMain.js.map
       - test/SeleniumTest.py
+      - test/Spellcheck.js
       - node_modules
 
 build-haxe3:
@@ -33,6 +33,14 @@ build-haxe4:
   extends: .build
   image: haxe:4.0.0-alpine3.8
   allow_failure: true
+
+test-spellcheck:
+  image: node:8-alpine
+  dependencies:
+    - build-haxe3
+  stage: test
+  script:
+    - node test/Spellcheck.js
 
 .test-selenium:
   image: alpine:3.8
@@ -74,7 +82,7 @@ test-haxe3-chrome:
   extends: .test-selenium
   dependencies:
     - build-haxe3
-  stage: test-chrome
+  stage: test
   services:
     - mysql:5.7
     - selenium/standalone-chrome:3.141.59-radium
@@ -86,7 +94,7 @@ test-haxe4-chrome:
   extends: .test-selenium
   dependencies:
     - build-haxe4
-  stage: test-chrome
+  stage: test
   services:
     - mysql:5.7
     - selenium/standalone-chrome:3.141.59-radium

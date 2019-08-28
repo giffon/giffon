@@ -14,6 +14,7 @@ ServerMain.js
 ServerMain.js.map
 test/specs/*.js
 test/*.py
+test/*.js
 
 test/errorShots/
 

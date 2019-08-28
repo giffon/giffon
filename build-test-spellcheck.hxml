@@ -1,0 +1,11 @@
+-cp src
+-lib utest
+-lib thx.core
+-lib compiletime
+-lib react
+-lib hxnodejs
+--macro addGlobalMetadata("giffon.lang", "@:rtti")
+--macro include("giffon.lang")
+-dce no
+-main test.Spellcheck
+-js test/Spellcheck.js

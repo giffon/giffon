@@ -40,7 +40,7 @@ class Settings {
         case Cantonese | Chinese: '中斷連結 ${authMethodName(lang, auth)}';
     }
 
-    static public function name(lang:Language) return switch (lang) {
+    static public function labelName(lang:Language) return switch (lang) {
         case English: "Name";
         case Cantonese | Chinese: "名字";
     }

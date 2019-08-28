@@ -111,7 +111,7 @@ class SettingsForm extends ReactComponent {
                     ${submissionError}
                     <div className="form-group">
                         <label htmlFor="user_name">
-                            ${language.name()}
+                            ${language.labelName()}
                         </label>
                         <Field
                             className="form-control" id="user_name"
