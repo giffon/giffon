@@ -163,8 +163,8 @@ class Page extends ReactComponent {
                 href="https://fonts.googleapis.com/css?family=Nothing+You+Could+Do%7CWork+Sans"
             />
             <link rel="stylesheet"
-                href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.8.2/css/all.min.css"
-                integrity="sha256-BtbhCIbtfeVWGsqxk1vOHEYXS6qcvQvLMZqjtpWUEx8="
+                href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.10.2/css/all.min.css"
+                integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0="
                 crossOrigin="anonymous"
             />
             <link rel="stylesheet"
@@ -183,8 +183,8 @@ class Page extends ReactComponent {
                 crossOrigin="anonymous"
             />
             <link rel="stylesheet"
-                href="https://cdn.jsdelivr.net/npm/react-datepicker@2.4.0/dist/react-datepicker.min.css"
-                integrity="sha256-gqbLY1z4MASV3jriFFdY5GqRszB+KDUkseSY+RYVAVU="
+                href="https://cdn.jsdelivr.net/npm/react-datepicker@2.9.3/dist/react-datepicker.min.css"
+                integrity="sha256-yySl4qcUS7M+bpiq/+Ns5KR/oL7UiobOWIKzJ2ejSR8="
                 crossOrigin="anonymous"
             />
             <link rel="stylesheet"
@@ -223,9 +223,10 @@ class Page extends ReactComponent {
                 crossOrigin="anonymous"
             ></script>
             <script
-                src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.0/js.cookie.min.js"
-                integrity="sha256-9Nt2r+tJnSd2A2CRUvnjgsD+ES1ExvjbjBNqidm9doI="
-                crossOrigin="anonymous"></script>
+                src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"
+                integrity="sha256-oE03O+I6Pzff4fiMqwEGHbdfcW7a3GRRxlL+U49L5sA="
+                crossOrigin="anonymous"
+            ></script>
             <script
                 src="https://js.stripe.com/v3/"
             ></script>
