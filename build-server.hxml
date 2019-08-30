@@ -11,3 +11,4 @@
 -main giffon.server.ServerMain
 -js ServerMain.js
 -debug
+-D no-deprecation-warnings

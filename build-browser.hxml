@@ -10,3 +10,4 @@
 
 -debug
 -D source-map-content
+-D no-deprecation-warnings

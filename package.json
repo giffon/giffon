@@ -25,11 +25,11 @@
   "dependencies": {
     "amazon-helpers": "^0.2.0",
     "amazon-product-api": "^0.4.4",
-    "aws-sdk": "^2.506.0",
+    "aws-sdk": "^2.520.0",
     "aws-serverless-express": "^3.3.6",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.4",
-    "dotenv": "^8.0.0",
+    "dotenv": "^8.1.0",
     "express": "^4.17.1",
     "express-mysql-session": "^2.1.0",
     "express-session": "^1.16.2",
@@ -40,7 +40,7 @@
     "image-type": "^4.1.0",
     "moment": "^2.24.0",
     "morgan": "^1.9.1",
-    "mysql2": "^1.6.5",
+    "mysql2": "^1.7.0",
     "node-fetch": "^2.6.0",
     "passport": "^0.4.0",
     "passport-facebook": "^3.0.0",
@@ -52,7 +52,7 @@
     "passport-youtube-v3": "^2.1.0",
     "react": "^16.9.0",
     "react-clipboard.js": "^2.0.13",
-    "react-datepicker": "^2.8.0",
+    "react-datepicker": "^2.9.3",
     "react-dom": "^16.9.0",
     "react-giphy-component": "^1.0.5",
     "react-stripe-elements": "^3.0.0",
@@ -61,11 +61,11 @@
     "validator": "^11.1.0"
   },
   "devDependencies": {
-    "browserify": "^16.4.0",
+    "browserify": "^16.5.0",
     "envify": "^4.1.0",
     "nodemon": "^1.19.1",
     "spellchecker": "^3.7.0",
     "uglify-js": "^3.6.0",
-    "uglifyify": "^5.0.1"
+    "uglifyify": "^5.0.2"
   }
 }
