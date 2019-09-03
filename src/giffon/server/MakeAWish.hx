@@ -140,6 +140,13 @@ class MakeAWish {
             ([wish_hashid, wish_id]:Array<Dynamic>)
         ).handleError(next).toPromise();
 
+        mailTransporter.sendMail({
+            replyTo: "admin@giffon.io",
+            to: "admin@giffon.io",
+            subject: 'New wish from ${res.getUser().user_name}: ${wishData.wish_title}',
+            text: Path.join([base, "wish", wish_hashid]),
+        });
+
         res.sendPlainText(Path.join(["wish", wish_hashid]));
     };
 }
