@@ -360,9 +360,9 @@ class Page extends ReactComponent {
                         <div className="col-12 col-sm-4 mb-4 mb-sm-0">
                             <div className="font_xs_s font_md_l">${language.paymentOption()}</div>
                             <div className="row align-items-center mt-2">
-                                <div className="col-auto"><img src=${R("/images/visa.svg")} width="35"/></div>
-                                <div className="col-auto"><img src=${R("/images/mastercard.svg")} width="30"/></div>
-                                <div className="col-auto"><img src=${R("/images/ae.svg")} width="30"/></div>
+                                <div className="col-auto"><img alt="Visa" src=${R("/images/visa.svg")} width="35"/></div>
+                                <div className="col-auto"><img alt="Mastercard" src=${R("/images/mastercard.svg")} width="30"/></div>
+                                <div className="col-auto"><img alt="American Express" src=${R("/images/ae.svg")} width="30"/></div>
                             </div>
                         </div>
                         <div className="col-12 col-sm-4 mb-4 mb-sm-0">
