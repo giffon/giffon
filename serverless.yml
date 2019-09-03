@@ -44,6 +44,7 @@ provider:
     GOOGLE_CLIENT_SECRET: ${ssm:GOOGLE_CLIENT_SECRET}
     TWITCH_CLIENT_ID: ${ssm:TWITCH_CLIENT_ID}
     TWITCH_CLIENT_SECRET: ${ssm:TWITCH_CLIENT_SECRET}
+    MAIL_PASSWORD: ${ssm:MAIL_PASSWORD}
   apiGateway:
     binaryMediaTypes:
       - '*/*'

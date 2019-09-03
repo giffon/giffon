@@ -7,6 +7,7 @@ import js.npm.mysql2.promise.*;
 import js.npm.passport.*;
 import js.npm.passport.strategy.*;
 import js.npm.image_data_uri.ImageDataUri;
+import js.npm.nodemailer.Nodemailer;
 import js.npm.stripe.Stripe;
 import hashids.Hashids;
 import haxe.io.*;
@@ -82,6 +83,7 @@ class ServerMain {
 
     static public var dbConnectionPool:Pool;
     static public var stripe:Stripe;
+    static public var mailTransporter:Transporter;
 
     @async static public function getStripeCustomerIdFromUser(user:{user_id:Int, user_primary_email:Null<String>}):Null<String> {
         var results:QueryResults = (@await dbConnectionPool.query(
@@ -821,6 +823,14 @@ class ServerMain {
         }
 
         var user = @await getUser(user_id);
+
+        mailTransporter.sendMail({
+            replyTo: "admin@giffon.io",
+            to: "admin@giffon.io",
+            subject: 'New user sign up (${user.user_name})',
+            text: Json.stringify(user, "  "),
+        });
+
         done(null, user);
     }
 
@@ -869,6 +879,16 @@ class ServerMain {
 
         stripe = new Stripe(StripeInfo.apiSecKey);
         stripe.setTimeout(10 * 1000); //10 seconds
+
+        mailTransporter = Nodemailer.createTransport({
+            pool: true,
+            host: MailInfo.host,
+            port: MailInfo.port,
+            auth: {
+                user: MailInfo.user,
+                pass: MailInfo.password,
+            },
+        });
 
         var poolConfig:Mysql.PoolOptions = cast Reflect.copy(dbConfig);
         poolConfig.multipleStatements = true;
