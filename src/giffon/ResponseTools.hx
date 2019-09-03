@@ -44,7 +44,14 @@ class ResponseTools {
         if (props == null)
             props = {};
         props.expressResponse = res;
-        var element = React.createElement(page, props);
-        res.send("<!DOCTYPE html>" + ReactDOMServer.renderToStaticMarkup(cast element));
+
+        var html = try {
+            var element = React.createElement(page, props);
+            "<!DOCTYPE html>" + ReactDOMServer.renderToStaticMarkup(cast element);
+        } catch (e:Dynamic) {
+            sendPlainError(res, e);
+            return;
+        }
+        res.send(html);
     }
 }
