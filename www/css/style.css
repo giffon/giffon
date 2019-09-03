@@ -409,14 +409,6 @@ footer a:hover {
     text-decoration: none;
 }
 
-footer .social {
-    font-size: 1.5em;
-}
-
-footer .social a:hover {
-    color: #CCC;
-}
-
 .StripeElement {
     background-color: white;
     width: 100%;

@@ -60,4 +60,19 @@ class Page {
         case English: "Giffon on GitLab";
         case Cantonese | Chinese: "Giffon 源碼 (GitLab)";
     }
+
+    static public function socialNetwork(lang:Language) return switch (lang) {
+        case English: "Social Network";
+        case Cantonese | Chinese: "社交網絡";
+    }
+
+    static public function paymentOption(lang:Language) return switch (lang) {
+        case English: "Payment Option";
+        case Cantonese | Chinese: "付款方式";
+    }
+
+    static public function languageOption(lang:Language) return switch (lang) {
+        case English: "Language";
+        case Cantonese | Chinese: "語言選擇";
+    }
 }

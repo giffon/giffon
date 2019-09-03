@@ -347,22 +347,40 @@ class Page extends ReactComponent {
                 </nav>
                 ${bodyContent()}
             </div>
-            <footer className="p-5 color_white text-center container-fluid font_xs_xs font_md_s mt-5">
-                <div>
-                    <div className="p-2 color_white_o50">Giffon - where birds of a feather flock together</div>
-                    <div className="copyright p-2">Giffon © 2019</div>
-                    <a className="p-2" href="terms">${language.termsAndConditions()}</a>
-                    <a className="p-2" href="privacy">${language.privacyPolicy()}</a>
+            <footer className="p-0 bg_grey_900 color_grey_400 font_xs_xs font_md_s mt-5">
+                <div className="container py-4 py-sm-5">
+                    <div className="row">
+                        <div className="col-12 col-sm-4 mb-4 mb-sm-0">
+                            <div className="font_xs_s font_md_l">${language.socialNetwork()}</div>
+                            <div className="row align-items-center font_xs_xl mt-2">
+                                <div className="col-auto"><a href="https://www.facebook.com/giffon.io" style=${{'color': '#3578E5'}} target="_blank" rel="noopener" title=${language.giffonOnFacebook()}><i className="fab fa-facebook"></i></a></div>
+                                <div className="col-auto"><a href="https://twitter.com/giffon_io" style=${{'color': '#1da1f2'}} target="_blank" rel="noopener" title=${language.giffonOnTwitter()}><i className="fab fa-twitter"></i></a></div>
+                            </div>
+                        </div>
+                        <div className="col-12 col-sm-4 mb-4 mb-sm-0">
+                            <div className="font_xs_s font_md_l">${language.paymentOption()}</div>
+                            <div className="row align-items-center mt-2">
+                                <div className="col-auto"><img src=${R("/images/visa.svg")} width="35"/></div>
+                                <div className="col-auto"><img src=${R("/images/mastercard.svg")} width="30"/></div>
+                                <div className="col-auto"><img src=${R("/images/ae.svg")} width="30"/></div>
+                            </div>
+                        </div>
+                        <div className="col-12 col-sm-4 mb-4 mb-sm-0">
+                            <div className="font_xs_s font_md_l">${language.languageOption()}</div>
+                            <div className="language row align-items-center mt-2">
+                                <div className="col-auto"><a href=${Path.join(["/en", path()])}>English</a></div>
+                                <div className="col-auto"><a href=${Path.join(["/zh-HK", path()])}>中文(香港)</a></div>
+                                <div className="col-auto"><a href=${Path.join(["/zh-TW", path()])}>中文(台灣)</a></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div className="social row justify-content-center mt-2">
-                    <div className="col-auto"><a href="https://www.facebook.com/giffon.io" target="_blank" rel="noopener" title=${language.giffonOnFacebook()}><i className="fab fa-facebook"></i></a></div>
-                    <div className="col-auto"><a href="https://twitter.com/giffon_io" target="_blank" rel="noopener" title=${language.giffonOnTwitter()}><i className="fab fa-twitter"></i></a></div>
-                    <div className="col-auto"><a href="https://gitlab.com/giffon.io/giffon" target="_blank" rel="noopener" title=${language.giffonOnGitLab()}><i className="fab fa-gitlab"></i></a></div>
-                </div>
-                <div className="language row justify-content-center mt-2">
-                    <div className="col-auto"><a href=${Path.join(["/en", path()])}>English</a></div>
-                    <div className="col-auto"><a href=${Path.join(["/zh-HK", path()])}>中文(香港)</a></div>
-                    <div className="col-auto"><a href=${Path.join(["/zh-TW", path()])}>中文(台灣)</a></div>
+                <div className="p-3 bg_black d-md-flex">
+                    <div className="col p-0 m-0">Giffon © 2019</div>
+                    <div>
+                        <a className="pr-2" href="terms">${language.termsAndConditions()}</a>
+                        <a href="privacy">${language.privacyPolicy()}</a>
+                    </div>
                 </div>
             </footer>
         </body>
