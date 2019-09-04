@@ -34,6 +34,7 @@ RUN groupadd --gid $USER_GID $USERNAME \
 
 RUN mkdir -p /workspace/.haxelib /workspace/node_modules
 RUN chown $USER_UID:$USER_GID /workspace/.haxelib /workspace/node_modules
+RUN chmod a+rwx /workspace/.haxelib /workspace/node_modules
 
 # Switch back to dialog for any ad-hoc use of apt-get
 ENV DEBIAN_FRONTEND=
