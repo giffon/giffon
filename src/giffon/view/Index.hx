@@ -112,7 +112,7 @@ class Index extends Page {
                                             <div className="how-to-step">1</div>
                                         </div>
                                         <div className="p-3 pt-5">
-                                            <img className="w-25 d-block mx-auto" src=${R("/images/browsing.svg")} />
+                                            <img className="w-25 d-block mx-auto" src=${R("/images/browsing.svg")} alt="browsing"/>
                                             <h3 className="pt-2 font_xs_m font_md_xl fontw-700">${language.howToStep1Title()}</h3>
                                             <p>${language.howToStep1()}</p>
                                         </div>
@@ -124,7 +124,7 @@ class Index extends Page {
                                             <div className="how-to-step">2</div>
                                         </div>
                                         <div className="p-3 pt-5">
-                                            <img className="w-25 d-block mx-auto" src=${R("/images/draw.svg")} />
+                                            <img className="w-25 d-block mx-auto" src=${R("/images/draw.svg")} alt="draw"/>
                                             <h3 className="pt-2 font_xs_m font_md_xl fontw-700">${language.howToStep2Title()}</h3>
                                             <p>${language.howToStep2()}</p>
                                         </div>
@@ -136,7 +136,7 @@ class Index extends Page {
                                             <div className="how-to-step">3</div>
                                         </div>
                                         <div className="p-3 pt-5">
-                                            <img className="w-25 d-block mx-auto"  src=${R("/images/speak.svg")}  />
+                                            <img className="w-25 d-block mx-auto"  src=${R("/images/speak.svg")} alt="speak" />
                                             <h3 className="pt-2 font_xs_m font_md_xl fontw-700">${language.howToStep3Title()}</h3>
                                             <p>${language.howToStep3()}</p>
                                         </div>
@@ -163,7 +163,7 @@ class Index extends Page {
                     <div className="col-12 col-sm-6 col-md-3">
                     <div className="d-flex d-md-block text-md-center align-items-center mb-3">
                         <div className="notes-to-icon bg6 mx-md-auto">
-                        <img className="w-75" src=${R("/images/piggy.svg")}/>
+                        <img className="w-75" src=${R("/images/piggy.svg")} alt="piggy bank"/>
                         </div>
                         <div className="col pl-2 m-0">
                         <h3 className="font_xs_m font_md_xl fontw-700 pt-2">${language.note1Title()}</h3>
@@ -175,7 +175,7 @@ class Index extends Page {
                     <div className="col-12 col-sm-6 col-md-3">
                     <div className="d-flex d-md-block text-md-center align-items-center mb-3 mt-sm-5">
                         <div className="notes-to-icon bg6 mx-md-auto">
-                        <img className="w-75" src=${R("/images/title.svg")}/>
+                        <img className="w-75" src=${R("/images/title.svg")} alt="badge"/>
                         </div>
                         <div className="col pl-2 m-0">
                         <h3 className="font_xs_m font_md_xl fontw-700 pt-2">${language.note2Title()}</h3>
@@ -186,7 +186,7 @@ class Index extends Page {
                     <div className="col-12 col-sm-6 col-md-3">
                     <div className="d-flex d-md-block text-md-center align-items-center mb-3 ">
                         <div className="notes-to-icon bg6 mx-md-auto">
-                        <img className="w-75" src=${R("/images/smile.svg")}/>
+                        <img className="w-75" src=${R("/images/smile.svg")} alt="smile"/>
                         </div>
                         <div className="col pl-2 m-0">
                         <h3 className="font_xs_m font_md_xl fontw-700 pt-2">${language.note3Title()}</h3>
@@ -197,7 +197,7 @@ class Index extends Page {
                     <div className="col-12 col-sm-6 col-md-3">
                     <div className="d-flex d-md-block text-md-center align-items-center mb-3 mt-sm-5">
                         <div className="notes-to-icon bg6 mx-md-auto">
-                        <img className="w-75" src=${R("/images/charity.svg")}/>
+                        <img className="w-75" src=${R("/images/charity.svg")} alt="charity"/>
                         </div>
                         <div className="col pl-2 m-0">
                         <h3 className="font_xs_m font_md_xl fontw-700 pt-2">${language.note4Title()}</h3>

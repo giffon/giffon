@@ -122,7 +122,7 @@ class Index {
     }
 
     static public function note4(lang:Language) return switch (lang) {
-        case English: "We provide annoymous options, and no card number will be saved.";
+        case English: "We provide anonymous options, and no card number will be saved.";
         case Cantonese: "我地有不記名選項，亦唔會儲存信用卡號碼。";
         case Chinese: "我們有不記名的選項，也不會儲存信用卡號碼。";
     }
