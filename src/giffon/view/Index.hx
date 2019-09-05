@@ -86,166 +86,136 @@ class Index extends Page {
     override function bodyContent() return jsx('
         <Fragment>
             <div className="bg-yellow-dot">
-                <div id="banner" className="bg-index font_xs_xs font_md_m d-flex align-items-center justify-content-end" style=${bgStyle(R("/images/bg3.svg"))} >
-                    <div className="col-12 col-md-6 px-0 py-5">
-                        <div className="p-4 p-md-5 m-4 mr-md-0 my-md-5 bg_white text-center text-md-left">
-                            <h1 className="font_xs_xl font_md_3xl fade-in fontw-700">${language.title()}</h1>
+                <div className="bg-index" style=${bgStyle(R("/images/bg3.svg"))}>
+                    <div id="banner" className="font_xs_xs font_md_m d-flex align-items-center justify-content-end" >
+                        <div className="col-12 col-md-6 px-0 py-5">
+                            <div className="p-4 p-md-5 m-4 mr-md-0 my-md-5 bg_white text-center text-md-left fade-in">
+                                <h1 className="font_xs_xl font_md_3xl fade-in two fontw-700">${language.title()}</h1>
 
-                            <p className="fade-in">${language.desp()}</p>
-                        
-                            <div className="d-flex my-3 fade-in two">
-                                <div className="custom-border col"></div>
-                                <div className="px-3 font_xs_l font_md_xl font_lg_xxl fontw-700 color_yellow">${language.howToStart()}</div>
-                                <div className="custom-border col"></div>
+                                <p className="fade-in two">${language.desp()}</p>
+                            
+                                <a className="btn btn-success rounded-0 w-100 shadow fade-in three mt-3 mt-md-5" href="make-a-wish">
+                                    ${language.makeAWishNow()}
+                                </a>
                             </div>
-
-                            <div className="d-md-flex align-items-center fade-in two">
-                                <div className="col">
-                                    <span className="font_xs_l font_md_xl font_lg_xxl fontw-700">${language.you()}</span> ${language.usageStep1()}
-                                </div>
-                                <div className="p-0 p-md-2 text-center font_xs_xl font_md_xxl fontw-700">+</div>
-                                <div className="col">
-                                    <span className="font_xs_l font_md_xl font_lg_xxl fontw-700">${language.giffon()}</span> ${language.usageStep2()}
-                                </div>
-                            </div>
-                            <a className="btn btn-success rounded-0 w-100 shadow fade-in three mt-3 mt-md-5" href="make-a-wish">
-                                ${language.makeAWishNow()}
-                            </a>
                         </div>
                     </div>
+
+                    <div className="text-center py-3 py-md-5 font_xs_xs font_md_m how-it-works">
+                        <div className="container">
+                            <span className="bg6 d-inline-block mb-5 font_xs_xl font_md_3xl fontw-700">${language.howToStart()}</span>
+                        
+                            <div className="row">
+                                <div className="col-12 col-md-4 rellax" data-rellax-speed="0">
+                                    <div className="bg_white how-to">
+                                        <div className="position-relative">
+                                            <div className="how-to-step">1</div>
+                                        </div>
+                                        <div className="p-3 pt-5">
+                                            <img className="w-25 d-block mx-auto" src=${R("/images/browsing.svg")} />
+                                            <h3 className="pt-2 font_xs_m font_md_xl fontw-700">${language.howToStep1Title()}</h3>
+                                            <p>${language.howToStep1()}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-12 col-md-4 rellax" data-rellax-speed="-0.5">
+                                    <div className="bg_white how-to">
+                                        <div className="position-relative">
+                                            <div className="how-to-step">2</div>
+                                        </div>
+                                        <div className="p-3 pt-5">
+                                            <img className="w-25 d-block mx-auto" src=${R("/images/draw.svg")} />
+                                            <h3 className="pt-2 font_xs_m font_md_xl fontw-700">${language.howToStep2Title()}</h3>
+                                            <p>${language.howToStep2()}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-12 col-md-4 rellax" data-rellax-speed="-1">
+                                    <div className="bg_white how-to">
+                                        <div className="position-relative">
+                                            <div className="how-to-step">3</div>
+                                        </div>
+                                        <div className="p-3 pt-5">
+                                            <img className="w-25 d-block mx-auto"  src=${R("/images/speak.svg")}  />
+                                            <h3 className="pt-2 font_xs_m font_md_xl fontw-700">${language.howToStep3Title()}</h3>
+                                            <p>${language.howToStep3()}</p>
+                                        </div>
+                                    </div>
+                                </div>          
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
+
+            <div className="text-center wish-succeeded halftone">
+                <div className="text-center rellax" data-rellax-speed="0.5">
+                    <img className="w-25" src=${R("/images/happiness.svg")} />
+                </div>
+                <p className="w-75 mx-auto font_xs_xl font_md_3xl fontw-700 rellax" data-rellax-speed="2">${language.wishSucceed()}</p>
+                
+            </div>
+
+            <div className="container">
+                <div className="text-center mb-5 font_xs_xl font_md_3xl fontw-700">${language.whyGiffon()}</div>
+                <div className="row font_xs_xs font_md_m">
+                    <div className="col-12 col-sm-6 col-md-3">
+                    <div className="d-flex d-md-block text-md-center align-items-center mb-3">
+                        <div className="notes-to-icon bg6 mx-md-auto">
+                        <img className="w-75" src=${R("/images/piggy.svg")}/>
+                        </div>
+                        <div className="col pl-2 m-0">
+                        <h3 className="font_xs_m font_md_xl fontw-700 pt-2">${language.note1Title()}</h3>
+                    
+                        <p>${language.note1()}</p>
+                        </div>
+                    </div>
+                    </div>
+                    <div className="col-12 col-sm-6 col-md-3">
+                    <div className="d-flex d-md-block text-md-center align-items-center mb-3 mt-sm-5">
+                        <div className="notes-to-icon bg6 mx-md-auto">
+                        <img className="w-75" src=${R("/images/title.svg")}/>
+                        </div>
+                        <div className="col pl-2 m-0">
+                        <h3 className="font_xs_m font_md_xl fontw-700 pt-2">${language.note2Title()}</h3>
+                        <p>${language.note2()}</p>
+                        </div>
+                    </div>
+                    </div>
+                    <div className="col-12 col-sm-6 col-md-3">
+                    <div className="d-flex d-md-block text-md-center align-items-center mb-3 ">
+                        <div className="notes-to-icon bg6 mx-md-auto">
+                        <img className="w-75" src=${R("/images/smile.svg")}/>
+                        </div>
+                        <div className="col pl-2 m-0">
+                        <h3 className="font_xs_m font_md_xl fontw-700 pt-2">${language.note3Title()}</h3>
+                        <p>${language.note3()}</p>
+                        </div>
+                    </div>
+                    </div>
+                    <div className="col-12 col-sm-6 col-md-3">
+                    <div className="d-flex d-md-block text-md-center align-items-center mb-3 mt-sm-5">
+                        <div className="notes-to-icon bg6 mx-md-auto">
+                        <img className="w-75" src=${R("/images/charity.svg")}/>
+                        </div>
+                        <div className="col pl-2 m-0">
+                        <h3 className="font_xs_m font_md_xl fontw-700 pt-2">${language.note4Title()}</h3>
+                        <p>${language.note4()}</p>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+
             <div className="pb-5">
-                <div className="text-center pt-5 py-md-5 font_xs_l font_md_xl">${language.recentWishes()}</div>
+                <div className="text-center py-5 font_xs_xl font_md_3xl fontw-700">${language.recentWishes()}</div>
                 <div className="res-slick row mx-1 recent-wishes">
                     ${recentWishes()}
                 </div>
             </div>
             
-            <div className="container-fluid">
-                <div className="text-center pt-5 font_xs_l font_md_xl">
-                    ${language.whyWish()}
-                </div>
-
-                <div id="set2" className="row my-4 my-md-5 text-center from_right">
-                    <div className="col-sm-12 col-md-2 ml-md-auto mr-md-3 bg-yellow-dot shaded-shadow p-3 flex_container_v_xs d-md-flex">
-                    <div className="vbox">
-                        <div className="font_xs_m font_md_l">${language.forWishMakers()}</div>
-                    </div>
-                    </div>
-                
-                    <div className="col-xs-auto col-sm-6 col-md-2 p-0 mr-3 mr-sm-auto mr-md-3 bg_white_o80 corner_s shaded-shadow">
-                    <div className="px-3 pt-3 px-md-2 py-md-4 font_xs_xs font_md_s">
-                        <img className="width_xs_30 width_md_60" src=${R("/images/smile.svg")} alt="smile" />
-                        
-                        <div className="py-3">
-                        <span className="d-inline-block px-2 py-1 corner_xs bg6">#awesome</span>
-                        </div>
-                        <p>${language.getExactGift()}</p>
-                        
-                    </div>
-                    </div>
-                
-                    <div className="col-xs-auto col-sm-6 col-md-2 p-0 mr-3 mr-sm-auto mr-md-3 bg_white_o80 corner_s shaded-shadow">
-                    <div className="px-3 pt-3 px-md-2 py-md-4 font_xs_xs font_md_s">
-                        <img className="width_xs_30 width_md_60" src=${R("/images/speaker.svg")} alt="speaker" />
-                        <div className="py-3">
-                        <span className="d-inline-block px-2 py-1 corner_xs bg6">#speakUp</span>
-                        </div>
-                        <p>${language.peopleWantToGift()}</p>
-                        
-                    </div>
-                    </div>
-                
-                    <div className="col-xs-auto col-sm-6 col-md-2 p-0 mr-3 mr-sm-auto mr-md-3 bg_white_o80 corner_s shaded-shadow">
-                    <div className="colr_black px-3 py-4 px-md-2 py-md-4  font_xs_xs font_md_s">
-                        <img className="width_xs_30 width_md_60"  src=${R("/images/plant.svg")} alt="plant" />
-                        <div className="py-3">
-                        <span className="d-inline-block px-2 py-1 bg6 corner_xs">#ecoFriendly</span>
-                        </div>
-                        <p>${language.noUselessGift()}</p>
-                        
-                    </div>
-                    </div>
-                
-                    <div className="col-xs-auto col-sm-6 col-md-2 p-0 mr-3 mr-sm-auto mr-md-3 bg_white_o80 corner_s shaded-shadow">
-                    <div className=" px-3 py-4 px-md-2 py-md-4 font_xs_xs font_md_s">
-                        <img className="width_xs_30 width_md_60" src=${R("/images/piggy.svg")} alt="piggy bank" />
-                        <div className="py-3">
-                        <span className="d-inline-block px-2 py-1 bg6 corner_xs">#saveMoney</span>
-                        </div>
-                        <p>${language.getWantYouWantForFree()}</p>
-                        
-                    </div>
-                    </div>
-                
-                    
-                </div>
-
-                <div className="text-center pt-5 font_xs_l font_md_xl">
-                    ${language.whySupportFriendsOnGiffon()}
-                </div>
-
-                <div id="support" className="row my-4 my-md-5 text-center from_left">
-
-                    <div className="col-sm-12 col-md-2 mr-md-auto ml-3 ml-sm-0 ml-md-3 bg-yellow-dot shaded-shadow p-3 d-xs-flex d-md-none">
-                        <div className="vbox">
-                            <div className="font_xs_m font_md_l">${language.forSupporters()}</div>
-                        </div>
-                    </div>
-
-
-                    <div className="col-xs-auto col-sm-6 col-md-2 p-0 ml-3 ml-sm-auto ml-md-3 bg_white corner_s shaded-shadow">
-                    <div className=" px-3 py-4 px-md-2 py-md-4 font_xs_xs font_md_s">
-                        <img className="width_xs_30 width_md_60" src=${R("/images/charity.svg")} alt="charity" />
-                        <div className="py-3">
-                        <span className="d-inline-block px-2 py-1 bg6 corner_xs">#sincerity</span>
-                        </div>
-                        <p>${language.showAppreciation()}</p>
-                        
-                    </div>
-                    </div>
             
-                    <div className="col-xs-auto col-sm-6 col-md-2 p-0 ml-3 ml-sm-auto ml-md-3 bg_white corner_s shaded-shadow">
-                    <div className=" px-3 py-4 px-md-2 py-md-4 font_xs_xs font_md_s">
-                        <img className="width_xs_30 width_md_60" src=${R("/images/motivation.svg")} alt="certain" />
-                        <div className="py-3">
-                        <span className="d-inline-block px-2 py-1 bg6 corner_xs" >#certain</span>
-                        </div>
-                        <p>${language.moneySpentForMakingReceiverHappy()}</p>
-                        
-                    </div>
-                    </div>
-            
-                    <div className="col-xs-auto col-sm-6 col-md-2 p-0 ml-3 ml-sm-auto ml-md-3 bg_white corner_s shaded-shadow">
-                    <div className=" px-3 py-4 px-md-2 py-md-4  font_xs_xs font_md_s">
-                        <img className="width_xs_30 width_md_60" src=${R("/images/coins.svg")} alt="coins" />
-                        <div className="py-3">
-                        <span className="d-inline-block px-2 py-1 bg6 corner_xs">#affordable</span>
-                        </div>
-                        <p>${language.aGoodGiftIsNeverTooExpensive()}</p>
-                        
-                    </div>
-                    </div>
-            
-                    <div className="col-xs-auto col-sm-6 col-md-2 p-0 ml-3 ml-sm-auto ml-md-3 bg_white corner_s shaded-shadow">
-                    <div className=" px-3 py-4 px-md-2 py-md-4 font_xs_xs font_md_s">
-                        <img className="width_xs_30 width_md_60" src=${R("/images/title.svg")} alt="trusty" />
-                        <div className="py-3">
-                        <span className="d-inline-block px-2 py-1 bg6 corner_xs">#trusty</span>
-                        </div>
-                        <p>${language.giftInsteadOfMoney()}</p>
-                        
-                    </div>  
-                    </div>
-
-                    <div className="col-sm-12 col-md-2 mr-md-auto ml-3 ml-sm-0 ml-md-3 bg-yellow-dot shaded-shadow p-3 d-none d-md-flex flex_container_v_xs">
-                        <div className="vbox">
-                            <div  className="font_xs_m font_md_l">${language.forSupporters()}</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </Fragment>
     ');
 }

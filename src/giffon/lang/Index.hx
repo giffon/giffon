@@ -26,34 +26,110 @@ class Index {
     }
 
     static public function howToStart(lang:Language) return switch (lang) {
-        case English: "How to Start?";
+        case English: "How it Works";
         case Cantonese: "Giffon 點用?";
         case Chinese: "Giffon 怎用?";
     }
 
-    static public function giffon(lang:Language) return switch (lang) {
-        case English: "Giffon";
-        case Cantonese: "Giffon";
-        case Chinese: "Giffon";
+    static public function howToStep1Title(lang:Language) return switch (lang) {
+        case English: "Browse items you need";
+        case Cantonese: "搵你需要既野";
+        case Chinese: "尋找你需要的物件";
     }
 
-    static public function you(lang:Language) return switch (lang) {
-        case English: "You";
-        case Cantonese: "你";
-        case Chinese: "你";
+    static public function howToStep1(lang:Language) return switch (lang) {
+        case English: "Is it for you or your friends? You decide!";
+        case Cantonese: "幫自己定朋友買禮物，你話事!";
+        case Chinese: "幫自己或朋友買禮物，你決定!";
     }
 
-    static public function usageStep1(lang:Language) return switch (lang) {
-        case English: "choose items in any online store. Make a wish on Giffon.";
-        case Cantonese: "喺任何網上商店揀啱想要嘅禮物，上嚟Giffon許願講低你想大家夾份送咩。";
-        case Chinese: "你於任何網上商店選好想要的禮物，在Giffon許願說出你想大家湊錢送甚麼。";
+    static public function howToStep2Title(lang:Language) return switch (lang) {
+        case English: "Create your wish";
+        case Cantonese: "創造你既願望";
+        case Chinese: "創造你的願望";
     }
 
-    static public function usageStep2(lang:Language) return switch (lang) {
-        case English: "collects enough money from your supporters and then buy you the gift!";
-        case Cantonese: "收集夠大家捐出嘅資金, 就會落單買俾你!";
-        case Chinese: "收集好大家捐出的資金，就會下單買給你!";
+    static public function howToStep2(lang:Language) return switch (lang) {
+        case English: "Tell us about your story, why you would need some help? Anything you can help in return?";
+        case Cantonese: "你可以寫低啲小故事，點解你需要幫助呢?會唔會你都可以提供其他幫助/回禮呢?";
+        case Chinese: "你可以寫下一些小故事，為什麼你需要幫助呢?會不會你也可以提供其他幫助/回禮呢?";
     }
+
+    static public function howToStep3Title(lang:Language) return switch (lang) {
+        case English: "Spread your words";
+        case Cantonese: "請廣傳請廣傳";
+        case Chinese: "請廣傳請廣傳";
+    }
+
+    static public function howToStep3(lang:Language) return switch (lang) {
+        case English: "Let your friends know and come to Giffon to chip in, make it quicker for dreams come true.";
+        case Cantonese: "等你班朋友一齊泥 Giffon 夾份，快啲願望成真。";
+        case Chinese: "等你的朋友一起來 Giffon 湊錢，快點願望成真。";
+    }
+
+    static public function wishSucceed(lang:Language) return switch (lang) {
+        case English: "Once a wish is success, gifts will be delivered to wish owner!";
+        case Cantonese: "願望成真個陣，Giffon 會立即安排送出禮物!";
+        case Chinese: "當願望成真，Giffon 會立即安排送出禮物!";
+    }
+
+    static public function whyGiffon(lang:Language) return switch (lang) {
+        case English: "Why Giffon?";
+        case Cantonese: "點解用 Giffon?";
+        case Chinese: "為什麼用 Giffon?";
+    }
+
+    static public function note1Title(lang:Language) return switch (lang) {
+        case English: "Every Dollar Counts";
+        case Cantonese: "每一蚊都係錢";
+        case Chinese: "一塊錢都是錢";
+    }
+
+    static public function note1(lang:Language) return switch (lang) {
+        case English: "Users in Giffon are free to support with NO fixed amount. Feel free :)";
+        case Cantonese: "用家可以隨心意支持願望，多少無拘。";
+        case Chinese: "用家可以隨心意支持願望，多少無拘。";
+    }
+
+    static public function note2Title(lang:Language) return switch (lang) {
+        case English: "Make it Trustworthy";
+        case Cantonese: "值得信任";
+        case Chinese: "值得信任";
+    }
+
+    static public function note2(lang:Language) return switch (lang) {
+        case English: "Wish owners receive exact gifts but not money, you know exactly where the money goes.";
+        case Cantonese: "許願既人直接收到禮物而唔係錢，你可以知道筆錢使左去邊。";
+        case Chinese: "許願的人直接收到禮物而不是金錢，你可以知道款項用在哪。";
+    }
+
+    static public function note3Title(lang:Language) return switch (lang) {
+        case English: "We handle it all";
+        case Cantonese: "幫你搞掂晒";
+        case Chinese: "幫你辦妥一切";
+    }
+
+    static public function note3(lang:Language) return switch (lang) {
+        case English: "We help to handle the purchase and shipment, more carefree for the supporters and owner.";
+        case Cantonese: "我地會幫手購買同運送禮物，大家唔使麻煩。";
+        case Chinese: "我們會幫忙購買及運送禮物，大家不用掛心。";
+    }
+
+    static public function note4Title(lang:Language) return switch (lang) {
+        case English: "Peace of Mind";
+        case Cantonese: "私隱保障";
+        case Chinese: "私隱保障";
+    }
+
+    static public function note4(lang:Language) return switch (lang) {
+        case English: "We provide annoymous options, and no card number will be saved.";
+        case Cantonese: "我地有不記名選項，亦唔會儲存信用卡號碼。";
+        case Chinese: "我們有不記名的選項，也不會儲存信用卡號碼。";
+    }
+
+    
+
+
 
     static public function makeAWishNow(lang:Language) return switch (lang) {
         case English: "Make a Wish Now";

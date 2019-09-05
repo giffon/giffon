@@ -4,8 +4,15 @@ import js.Browser.*;
 import js.jquery.JQuery;
 import giffon.config.*;
 
+@:native("Rellax")
+extern class Rellax {
+    public function new(s:String, ?opt:Dynamic):Void;
+}
+
 class PageIndex {
     static public function onReady():Void {
+        var rellax = new Rellax('.rellax');
+
         (untyped new JQuery(".res-slick").slick)({
             accessibility: false,
             arrows: false,
