@@ -7,13 +7,6 @@
   </linearGradient>
  </defs>
  <g>
-  <title>background</title>
-  <rect fill="none" id="canvas_background" height="649" width="360" y="-1" x="-1"/>
-  <g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid">
-   <rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%"/>
-  </g>
- </g>
- <g>
   <title>Layer 1</title>
   <g stroke="null" id="svg_103">
    <g stroke="null" transform="matrix(0.497779031302518,0,0,0.497779031302518,-5277.324241042657,-3711.035338780335) " id="svg_8">
