@@ -383,7 +383,7 @@ class Wish extends Page {
 
     function currencyFlag(currency:giffon.db.Currency) {
         var cls = 'currency-flag currency-flag-${currency.getName().toLowerCase()} align-middle';
-        return jsx('<div className=${cls}></div>');
+        return jsx('<span className=${cls}></span>');
     }
 
     function bannerStyle() {
@@ -425,7 +425,7 @@ class Wish extends Page {
         <Fragment>
             <div></div>
             <div className="detail_banner position-relative" style=${bannerStyle()}>
-                <div className="wish-owner-avatar position-absolute rounded-circle shadow" style=${userAvatarStyle(wish.wish_owner)} />
+                <a href=${wish.wish_owner.user_profile_url}><div className="wish-owner-avatar position-absolute rounded-circle shadow" style=${userAvatarStyle(wish.wish_owner)} /></a>
             </div>
 
             <div className="pt-5 pb-3 pb-md-5 text-center">

@@ -997,3 +997,8 @@ a.btn.signInBtn:hover {
     -moz-animation-delay:1200ms;
     animation-delay:1200ms;
 }
+
+a.unstyled, a:hover.unstyled {
+    color: inherit;
+    text-decoration: none;
+}
