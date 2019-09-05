@@ -151,7 +151,7 @@ class Index extends Page {
 
             <div className="text-center wish-succeeded halftone">
                 <div className="text-center rellax" data-rellax-speed="0.5">
-                    <img className="w-25" src=${R("/images/happiness.svg")} />
+                    <img className="w-25" src=${R("/images/happiness.svg")} alt="happiness" />
                 </div>
                 <p className="w-75 mx-auto font_xs_xl font_md_3xl fontw-700 rellax" data-rellax-speed="2">${language.wishSucceed()}</p>
                 
