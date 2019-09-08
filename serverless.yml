@@ -45,6 +45,8 @@ provider:
     TWITCH_CLIENT_ID: ${ssm:TWITCH_CLIENT_ID}
     TWITCH_CLIENT_SECRET: ${ssm:TWITCH_CLIENT_SECRET}
     MAIL_PASSWORD: ${ssm:MAIL_PASSWORD}
+    PT_HOST: ${ssm:PT_HOST}
+    PT_PORT: ${ssm:PT_PORT}
   apiGateway:
     binaryMediaTypes:
       - '*/*'

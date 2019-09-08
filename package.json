@@ -8,7 +8,7 @@
     "build-vendor": "browserify -o www/js/vendor.js -r react -r react-dom -r formik -r react-datepicker -r validator -r react-stripe-elements -r react-clipboard.js -r react-giphy-component",
     "build-vendor-release": "browserify -r react -r react-dom -r formik -r react-datepicker -r validator -r react-stripe-elements -r react-clipboard.js -r react-giphy-component -g [ envify --NODE_ENV production ] -g uglifyify | uglifyjs --compress --mangle > www/js/vendor.js",
     "build": "haxe build.hxml",
-    "start": "nodemon ServerMain.js",
+    "start": "nodemon ServerMain.js | pino-pretty",
     "test": "haxe build-test.hxml && python3 test/SeleniumTest.py"
   },
   "repository": {
@@ -32,6 +32,7 @@
     "dotenv": "^8.1.0",
     "express": "^4.17.1",
     "express-mysql-session": "^2.1.0",
+    "express-pino-logger": "^4.0.0",
     "express-session": "^1.16.2",
     "formik": "^1.5.8",
     "gravatar": "^1.8.0",
@@ -51,6 +52,10 @@
     "passport-twitch.js": "0.0.7",
     "passport-twitter": "^1.0.4",
     "passport-youtube-v3": "^2.1.0",
+    "pino": "^5.13.2",
+    "pino-multi-stream": "^4.2.0",
+    "pino-papertrail": "git+https://github.com/andyli/pino-papertrail.git#tls",
+    "pino-pretty": "^3.2.1",
     "react": "^16.9.0",
     "react-clipboard.js": "^2.0.13",
     "react-datepicker": "^2.9.3",

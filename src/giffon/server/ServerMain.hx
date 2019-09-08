@@ -84,6 +84,7 @@ class ServerMain {
     static public var dbConnectionPool:Pool;
     static public var stripe:Stripe;
     static public var mailTransporter:Transporter;
+    static public var logger:Dynamic;
 
     @async static public function getStripeCustomerIdFromUser(user:{user_id:Int, user_primary_email:Null<String>}):Null<String> {
         var results:QueryResults = (@await dbConnectionPool.query(
@@ -865,7 +866,6 @@ class ServerMain {
     }
 
     @await static function main():Void {
-        haxe.Log.trace = haxe.Log.trace;
         var isMain = (untyped __js__("require")).main == module;
 
         var dbConfig:Mysql.ConnectionOptions = {
@@ -905,7 +905,35 @@ class ServerMain {
             app.use(awsServerlessExpressMiddleware.eventContext());
         }
 
-        app.use(require("morgan")("tiny"));
+        // app.use(require("morgan")("tiny"));
+
+        var pinoms = require('pino-multi-stream');
+        logger = pinoms({
+            streams: [
+                {
+                    level: "debug",
+                    stream: process.stdout,
+                },
+                {
+                    level: "trace",
+                    stream: require('pino-papertrail').createWriteStream({
+                        host: PapertrailInfo.host,
+                        port: PapertrailInfo.port,
+                        connection: "tls",
+                        echo: false,
+                        appname: "giffon.io",
+                    }),
+                }
+            ]
+        });
+        haxe.Log.trace = function(v:Dynamic, ?pos:haxe.PosInfos) {
+            logger.debug('${pos.fileName}:${pos.lineNumber}: ${v}');
+        }
+
+        app.use(require("express-pino-logger")({
+            useLevel: "trace",
+            logger: logger,
+        }));
 
         app.use(require("cookie-parser")());
         app.use(require("body-parser").urlencoded({

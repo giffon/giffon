@@ -7,6 +7,10 @@ using StringTools;
 using js.npm.validator.Validator;
 
 class RequestTools {
+    static public function getLogger(req:Request):Dynamic {
+        return req.log;
+    }
+
     static public function getRedirectTo(req:Request, clearIfExists = true):Null<String> {
         return req.session == null ? null : switch (req.session.redirectTo) {
             case null:
