@@ -27,7 +27,7 @@ stages:
 
 build-haxe4:
   extends: .build
-  image: haxe:4.0.0-alpine3.8
+  image: haxe:4.0.0-rc.4-alpine3.8
 
 test-spellcheck:
   image: node:8-alpine

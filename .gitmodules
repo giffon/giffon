@@ -24,7 +24,7 @@
 	url = https://github.com/andyli/utest.git
 [submodule "lib/thx.core"]
 	path = lib/thx.core
-	url = https://github.com/fponticelli/thx.core.git
+	url = https://github.com/andyli/thx.core.git
 [submodule "lib/haxe-react"]
 	path = lib/haxe-react
 	url = https://github.com/andyli/haxe-react.git
