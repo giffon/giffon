@@ -45,13 +45,16 @@ class ResponseTools {
             props = {};
         props.expressResponse = res;
 
-        var html = try {
+        try {
             var element = React.createElement(page, props);
-            "<!DOCTYPE html>" + ReactDOMServer.renderToStaticMarkup(cast element);
+            var stream = ReactDOMServer.renderToStaticNodeStream(element);
+            res.set("Content-Type", 'text/html');
+            res.write("<!DOCTYPE html>");
+            stream.pipe(res);
+            stream.once("error", function(e) sendPlainError(res, e));
+            stream.once("end", function() res.end());
         } catch (e:Dynamic) {
             sendPlainError(res, e);
-            return;
         }
-        res.send(html);
     }
 }
