@@ -5,7 +5,6 @@ import react.ReactMacro.jsx;
 import haxe.io.*;
 import giffon.R.*;
 import giffon.server.ServerMain.*;
-import js.npm.gravatar.Gravatar;
 using giffon.lang.Index;
 using thx.Arrays;
 

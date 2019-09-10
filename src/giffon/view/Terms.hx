@@ -5,7 +5,6 @@ import react.ReactMacro.jsx;
 import haxe.io.*;
 import thx.Decimal;
 import js.moment.Moment;
-import js.npm.gravatar.Gravatar;
 using DateTools;
 using giffon.db.WishProgress.WishProgressTools;
 
