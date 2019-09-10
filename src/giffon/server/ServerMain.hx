@@ -393,6 +393,13 @@ class ServerMain {
                 (
                     SELECT wish_id
                     FROM wish
+                    WHERE wish_state != "cancelled" && wish_state != "created" && wish_featured
+                    ORDER BY wish_time_publish DESC
+                )
+                UNION DISTINCT
+                (
+                    SELECT wish_id
+                    FROM wish
                     WHERE wish_state = "succeed"
                     ORDER BY wish_time_publish DESC
                     LIMIT ?
@@ -405,12 +412,13 @@ class ServerMain {
                     ORDER BY wish_time_publish DESC
                     LIMIT ?
                 )
+                LIMIT ?
             ',
-            [Math.ceil(num*0.5), num]
+            [Math.ceil(num*0.5), num, num]
         ).toPromise()).results;
 
         var wishes = @await tink.core.Promise.inParallel([
-            for (wish in wish_results.slice(0, num))
+            for (wish in wish_results)
             getWish(wish.wish_id)
         ]);
         return wishes;
