@@ -270,15 +270,8 @@ class ServerMain {
             [wish_ids]
         ).toPromise()).results;
 
-        var wishes = new Map();
-        for (wish_id in wish_ids) {
-            var r = wish_results.find(function(r) return r.wish_id == wish_id);
-            if (r != null) {
-                var wish = @await wishFromResult(r);
-                wishes[wish_id] = wish;
-            }
-        }
-        return wishes;
+        var wishes = @await tink.core.Promise.inParallel([for (r in wish_results) wishFromResult(r)]);
+        return [for (w in wishes) w.wish_id => w];
     }
 
     @async static function wishFromResult(wish:Dynamic) {
