@@ -37,7 +37,7 @@ class Wish {
             res.sendPlainError("There is no such wish.", 404);
             return;
         }
-        var wish = @await getWish(wish_id);
+        var wish = (@await getWish([wish_id]))[wish_id];
         if (wish == null) {
             res.sendPlainError("There is no such wish.", 404);
             return;
@@ -57,7 +57,7 @@ class Wish {
             res.sendPlainError("There is no such wish.", NotFound);
             return;
         }
-        var wish = @await getWish(wish_id);
+        var wish = (@await getWish([wish_id]))[wish_id];
         if (wish == null) {
             res.sendPlainError("There is no such wish.", NotFound);
             return;
@@ -123,7 +123,7 @@ class Wish {
             res.sendPlainError("There is no such wish.", NotFound);
             return;
         }
-        var wish = @await getWish(wish_id);
+        var wish = (@await getWish([wish_id]))[wish_id];
         if (wish == null) {
             res.sendPlainError("There is no such wish.", NotFound);
             return;
@@ -226,7 +226,7 @@ class Wish {
             res.sendPlainError("There is no such wish.", NotFound);
             return;
         }
-        var wish = @await getWish(wish_id);
+        var wish = (@await getWish([wish_id]))[wish_id];
         if (wish == null) {
             res.sendPlainError("There is no such wish.", NotFound);
             return;
@@ -290,7 +290,7 @@ class Wish {
             res.sendPlainError("There is no such wish.", NotFound);
             return;
         }
-        var wish = @await getWish(wish_id);
+        var wish = (@await getWish([wish_id]))[wish_id];
         if (wish == null) {
             res.sendPlainError("There is no such wish.", NotFound);
             return;
@@ -343,7 +343,7 @@ class Wish {
             res.sendPlainError("There is no such wish.", 404);
             return;
         }
-        var wish = @await getWish(wish_id);
+        var wish = (@await getWish([wish_id]))[wish_id];
         if (wish == null) {
             res.sendPlainError("There is no such wish.", 404);
             return;
@@ -374,7 +374,7 @@ class Wish {
             res.sendPlainError("There is no such wish.", 404);
             return;
         }
-        var wish = @await getWish(wish_id);
+        var wish = (@await getWish([wish_id]))[wish_id];
         if (wish == null) {
             res.sendPlainError("There is no such wish.", 404);
             return;

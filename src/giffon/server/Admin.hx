@@ -13,6 +13,7 @@ import tink.core.Error;
 using tink.core.Future.JsPromiseTools;
 using giffon.ResponseTools;
 using giffon.server.PromiseTools;
+using Lambda;
 
 @await
 class Admin {
@@ -51,11 +52,7 @@ class Admin {
             []
         ).toPromise()).results;
 
-        var wishes = @await tink.core.Promise.inParallel([
-            for (wish in wish_results)
-            getWish(wish.wish_id)
-        ]);
-        return wishes;
+        return (@await getWish([for (wish in wish_results) wish.wish_id])).array();
     }
 
     @await static function handleGet(req, res:Response, next):Void {

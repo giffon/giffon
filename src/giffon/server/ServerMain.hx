@@ -249,7 +249,7 @@ class ServerMain {
         }
     }
 
-    @async static public function getWish(wish_id:Int):giffon.db.Wish {
+    @async static public function getWish(wish_ids:Array<Int>):Map<Int, giffon.db.Wish> {
         var wish_results:QueryResults = (@await dbConnectionPool.query(
             "
                 SELECT
@@ -265,15 +265,23 @@ class ServerMain {
                     `wish_additional_cost_description`,
                     `wish_additional_cost_amount`
                 FROM wish
-                WHERE `wish_id` = ?
+                WHERE `wish_id` IN (?)
             ",
-            [wish_id]
+            [wish_ids]
         ).toPromise()).results;
-        if (wish_results == null || wish_results.length < 1)
-            return null;
-        if (wish_results.length > 1)
-            throw 'There are ${wish_results.length} wishes with wish_id = ${wish_id}.';
-        var wish = wish_results[0];
+
+        var wishes = new Map();
+        for (wish_id in wish_ids) {
+            var r = wish_results.find(function(r) return r.wish_id == wish_id);
+            if (r != null) {
+                var wish = @await wishFromResult(r);
+                wishes[wish_id] = wish;
+            }
+        }
+        return wishes;
+    }
+
+    @async static function wishFromResult(wish:Dynamic) {
         var supporter_results:QueryResults = (@await dbConnectionPool.query(
             "
                 SELECT pledge_total.user_id, pledge_total_amount, pledge_date, pledge_visibility, pledge_name_visibility
@@ -316,7 +324,7 @@ class ServerMain {
                 FROM `pledge`
                 WHERE `wish_id` = ?
             ",
-            [wish_id]
+            [wish.wish_id]
         ).toPromise()).results;
         if (pledge_results != null && pledge_results.length != 0) {
             if (pledge_results.length != 1) {
@@ -417,11 +425,7 @@ class ServerMain {
             [Math.ceil(num*0.5), num, num]
         ).toPromise()).results;
 
-        var wishes = @await tink.core.Promise.inParallel([
-            for (wish in wish_results)
-            getWish(wish.wish_id)
-        ]);
-        return wishes;
+        return (@await getWish([for (wish in wish_results) wish.wish_id])).array();
     }
 
     static public function userAvatarStyle(user:giffon.db.User) {
@@ -443,11 +447,8 @@ class ServerMain {
             ",
             [user_id]
         ).toPromise()).results;
-        var wishes = @await tink.core.Promise.inParallel([
-            for (wish in wish_results)
-            getWish(wish.wish_id)
-        ]);
-        return wishes;
+
+        return (@await getWish([for (wish in wish_results) wish.wish_id])).array();
     }
 
     @async static public function getRoles(user_id:Int):Array<giffon.db.Role> {
