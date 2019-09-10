@@ -69,6 +69,7 @@
     "browserify": "^16.5.0",
     "envify": "^4.1.0",
     "nodemon": "^1.19.2",
+    "serverless": "^1.42.3",
     "spellchecker": "^3.7.0",
     "uglify-js": "^3.6.0",
     "uglifyify": "^5.0.2"
