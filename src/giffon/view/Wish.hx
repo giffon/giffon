@@ -62,7 +62,7 @@ class Wish extends Page {
     }
 
     function daysToGo() {
-        if (wish.wish_target_date == null) {
+        if (wish.wish_target_date == null || wish.wish_target_date.getTime() < Date.now().getTime()) {
             return null;
         } else {
             var moment = Moment.moment({}).to(wish.wish_target_date, true);
