@@ -907,6 +907,16 @@ class ServerMain {
             app.use(awsServerlessExpressMiddleware.eventContext());
         }
 
+        app.use(require("helmet")({
+            featurePolicy: {
+                features: {
+                    camera: ["'none'"],
+                    accelerometer: ["'none'"],
+                    microphone: ["'none'"],
+                },
+            },
+        }));
+
         // app.use(require("morgan")("tiny"));
 
         var pinoms = require('pino-multi-stream');
