@@ -915,6 +915,9 @@ class ServerMain {
                     microphone: ["'none'"],
                 },
             },
+            referrerPolicy: {
+                policy: "strict-origin-when-cross-origin",
+            },
         }));
 
         // app.use(require("morgan")("tiny"));
