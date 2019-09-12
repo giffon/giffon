@@ -14,7 +14,7 @@
 service: giffon-web # NOTE: update this with your service name
 
 app: giffon
-tenant: andyli
+tenant: giffonio
 
 # You can pin your service to only deploy with a specific Serverless version
 # Check out our docs for more details
