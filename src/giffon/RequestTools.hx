@@ -7,7 +7,7 @@ using StringTools;
 using js.npm.validator.Validator;
 
 class RequestTools {
-    static public function getLogger(req:Request):Dynamic {
+    static public function getLogger(req:Request):js.npm.pino.Pino {
         return req.log;
     }
 

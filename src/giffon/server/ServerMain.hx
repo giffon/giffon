@@ -718,7 +718,10 @@ class ServerMain {
     }
 
     @await static function passportHandler(req:Request, accessToken, refreshToken, profile:js.npm.passport.Profile, done:Function) {
-        // trace(haxe.Json.stringify(profile, null, "  "));
+        var logger = req.getLogger();
+
+        logger.trace('got passport profile: ' + Json.stringify(profile));
+
         var signedInUser:Null<giffon.db.User> = req.user;
 
         var email = if (profile.emails == null || profile.emails.length <= 0) {
@@ -742,6 +745,8 @@ class ServerMain {
             //connect
             user_id = signedInUser.user_id;
 
+            logger.trace('connecting profile to ${user_id}');
+
             var socialIds:DynamicAccess<String> = @await getSocialIds(user_id);
             var p = switch (profile.provider) {
                 case "twitch.js": "twitch";
@@ -763,6 +768,7 @@ class ServerMain {
         if (user_id == null) {
             user_id = @await getUserIdFromEmail(email);
             if (user_id != null) {
+                logger.trace('merging into ${user_id}');
                 try {
                     @await savePassportProfile(user_id, profile);
                 } catch (err:Dynamic) {
@@ -774,6 +780,8 @@ class ServerMain {
 
         if (user_id != null) {
             var user = @await getUser(user_id);
+
+            logger.trace('existing user sign in: ${user_id}');
 
             // update passport_profile
             try {
@@ -802,6 +810,8 @@ class ServerMain {
 
         // insert user
 
+        logger.trace('creating user');
+
         var avatar:Null<js.node.Buffer> = avatarUrl == null ? null : {
             var res = @await js.npm.fetch.Fetch.fetch(avatarUrl).toPromise();
             @await res.buffer().toPromise();
@@ -828,11 +838,18 @@ class ServerMain {
 
         var user = @await getUser(user_id);
 
+        logger.trace('user sign up: ${user_id}');
+
         mailTransporter.sendMail({
             replyTo: "admin@giffon.io",
             to: "admin@giffon.io",
             subject: 'New user sign up (${user.user_name})',
             text: Json.stringify(user, "  "),
+        }, function(err,info,resp) {
+            if (err != null) {
+                logger.error('failed to send welcome email: ' + err);
+                return;
+            }
         });
 
         if (user.user_primary_email != null) {
@@ -843,6 +860,13 @@ class ServerMain {
                 to: user.user_primary_email,
                 subject: 'Welcome to Giffon, ${user.user_name}!',
                 html: html,
+            }, function(err,info,resp) {
+                if (err != null) {
+                    logger.error('failed to send welcome email: ' + err);
+                    return;
+                }
+
+                logger.trace('sent welcome email for ${user_id}');
             });
         }
 
