@@ -251,6 +251,10 @@ class ServerMain {
     }
 
     @async static public function getWish(wish_ids:Array<Int>):Map<Int, giffon.db.Wish> {
+        if (wish_ids.length <= 0) {
+            return new Map();
+        }
+
         var wish_results:QueryResults = (@await dbConnectionPool.query(
             "
                 SELECT
