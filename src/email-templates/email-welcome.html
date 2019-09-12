@@ -216,7 +216,9 @@
 	        <!-- Email Header : BEGIN -->
             <tr>
                 <td style="text-align: center">
-                    <img src="images/email-logo.png" width="" height="60" alt="Giffon" border="0" style="">
+                    <a href="https://giffon.io">
+                        <img src="${R('/images/email/email-logo.png')}" width="" height="60" alt="Giffon" border="0">
+                    </a>
                 </td>
             </tr>
 	        <!-- Email Header : END -->
@@ -224,7 +226,7 @@
             <!-- Hero Image, Flush : BEGIN -->
             <tr>
                 <td style="background-color: #ffffff;">
-                    <img src="images/email-header-banner.png" width="600" height="" alt="Giffon - Your crowd-gifting platform" border="0" style="width: 100%; max-width: 600px; height: auto; min-height: 60px; background: #f9df2b; font-family: sans-serif; text-align: center; font-size: 15px; line-height: 60px; color: #212529; margin: auto; display: block;" class="g-img">
+                    <img src="${R('/images/email/email-header-banner.png')}" width="600" height="" alt="Giffon - Your crowd-gifting platform" border="0" style="width: 100%; max-width: 600px; height: auto; min-height: 60px; background: #f9df2b; font-family: sans-serif; text-align: center; font-size: 15px; line-height: 60px; color: #212529; margin: auto; display: block;" class="g-img">
                 </td>
             </tr>
             <!-- Hero Image, Flush : END -->
@@ -236,8 +238,8 @@
                         <tr>
                             <td style="padding: 20px 20px 0; text-align: left; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #212529;">
                                 <h1 style="margin: 0 0 10px; font-size: 25px; line-height: 30px; color: #212529; font-weight: bold;">Welcome to Giffon</h1>
-                                <p style="margin: 0 0 10px;">Hi Stella,</p>
-                                <p style="margin: 0 0 10px;">Thank you for registering in Giffon, we are a crowd-gifting platform. Whenever you or your friends are in need, feel free to create a wish on giffon. We would be more than happy if you can give a helping hand on other people's wishes.</p>
+                                <p style="margin: 0 0 10px;">Hi ${user.user_name},</p>
+                                <p style="margin: 0 0 10px;">Thank you for signing up. Whenever you or your friends are in need, feel free to create a wish on Giffon. We would be more than happy if you can give a helping hand on other people's wishes, too.</p>
                                 <!-- <ul style="padding: 0; margin: 0; list-style-type: disc;">
 									<li style="margin:0 0 10px 20px;" class="list-item-first">A list item.</li>
 									<li style="margin:0 0 10px 20px;">Another list item here.</li>
@@ -250,18 +252,18 @@
                         <tr>
                             <td>
                                 <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="text-align: center;" >
-                                    <tr>
+                                    <tr style="vertical-align: top;">
                                         <td style="padding-left: 20px;">
-                                            <img src="images/browsing.png" height="60">
-                                            <h2 style="font-family: sans-serif; font-size: 15px; line-height: 22px; color: #212529; font-weight: bold;">#1<br>Browse items you need</h2>
+                                            <img src="${R('/images/email/browsing.png')}" height="60">
+                                            <h2 style="font-family: sans-serif; font-size: 15px; line-height: 22px; color: #212529; font-weight: bold;">#1<br>Browse items you need around the Internet</h2>
                                         </td>
                                         <td>
-                                            <img src="images/draw.png" height="60">
-                                            <h2 style="font-family: sans-serif; font-size: 15px; line-height: 22px; color: #212529; font-weight: bold;">#2<br>Create a wish</h2>
+                                            <img src="${R('/images/email/draw.png')}" height="60">
+                                            <h2 style="font-family: sans-serif; font-size: 15px; line-height: 22px; color: #212529; font-weight: bold;">#2<br>Create a wish in Giffon</h2>
                                         </td>
                                         <td style="padding-right: 20px;">
-                                            <img src="images/speak.png" height="60">
-                                            <h2 style="font-family: sans-serif; font-size: 15px; line-height: 22px; color: #212529; font-weight: bold;">#3<br>Spread your words</h2>
+                                            <img src="${R('/images/email/speak.png')}" height="60">
+                                            <h2 style="font-family: sans-serif; font-size: 15px; line-height: 22px; color: #212529; font-weight: bold;">#3<br>Spread your words around your network</h2>
                                         </td>
                                     </tr>
                                 </table>
@@ -311,8 +313,8 @@
             </tr>
             <tr>
                 <td style="text-align: center;">
-                    <a href="https://www.facebook.com/giffon.io/" target="blank"><img src="images/fb.png" width="30" height="" alt="Facebook" border="0" style="padding: 0 10px"></a>
-                    <a href="https://twitter.com/giffon_io"  target="blank"><img src="images/tw.png" width="25" height="" alt="Twitter" border="0" style="padding: 0 10px"></a>
+                    <a href="https://www.facebook.com/giffon.io/" target="blank"><img src="${R('/images/email/fb.png')}" width="30" height="" alt="Facebook" border="0" style="padding: 0 10px"></a>
+                    <a href="https://twitter.com/giffon_io"  target="blank"><img src="${R('/images/email/tw.png')}" width="25" height="" alt="Twitter" border="0" style="padding: 0 10px"></a>
                 </td>
             </tr>
 	        <tr>

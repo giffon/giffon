@@ -18,6 +18,7 @@ import tink.CoreApi;
 import haxe.Constraints;
 import giffon.config.*;
 import giffon.view.*;
+import giffon.R.*;
 import giffon.lang.Language;
 using js.npm.validator.Validator;
 using tink.core.Future.JsPromiseTools;
@@ -833,6 +834,17 @@ class ServerMain {
             subject: 'New user sign up (${user.user_name})',
             text: Json.stringify(user, "  "),
         });
+
+        if (user.user_primary_email != null) {
+            var html = CompileTime.interpolateFile("email-templates/email-welcome.html");
+            mailTransporter.sendMail({
+                replyTo: "admin@giffon.io",
+                bcc: "admin@giffon.io",
+                to: user.user_primary_email,
+                subject: 'Welcome to Giffon, ${user.user_name}!',
+                html: html,
+            });
+        }
 
         done(null, user);
     }

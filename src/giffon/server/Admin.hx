@@ -10,6 +10,7 @@ import giffon.server.ServerMain.*;
 import giffon.config.*;
 import giffon.browser.*;
 import tink.core.Error;
+import giffon.R.*;
 using tink.core.Future.JsPromiseTools;
 using giffon.ResponseTools;
 using giffon.server.PromiseTools;
@@ -20,6 +21,7 @@ class Admin {
     static public function createRouter():Router {
         var router = new Router();
         router.get("/admin", ensureAdmin, handleGet);
+        router.get("/admin/email-preview/welcome", ensureAdmin, previewWelcome);
         return router;
     }
 
@@ -59,5 +61,11 @@ class Admin {
         res.sendPage(giffon.view.Admin, {
             completedWishes: @await getCompletedWishes(),
         });
+    }
+
+    @await static function previewWelcome(req:Request, res:Response, next):Void {
+        var user = res.getUser();
+        var html = CompileTime.interpolateFile("email-templates/email-welcome.html");
+        res.send(html);
     }
 }
