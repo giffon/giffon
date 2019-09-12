@@ -68,9 +68,10 @@
   },
   "devDependencies": {
     "browserify": "^16.5.0",
+    "dotenv-cli": "^2.0.1",
     "envify": "^4.1.0",
     "nodemon": "^1.19.2",
-    "serverless": "^1.42.3",
+    "serverless": "^1.52.0",
     "spellchecker": "^3.7.0",
     "uglify-js": "^3.6.0",
     "uglifyify": "^5.0.2"
