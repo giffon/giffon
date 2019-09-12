@@ -85,7 +85,7 @@ class ServerMain {
     static public var dbConnectionPool:Pool;
     static public var stripe:Stripe;
     static public var mailTransporter:Transporter;
-    static public var logger:Dynamic;
+    static public var logger:js.npm.pino.Pino;
 
     @async static public function getStripeCustomerIdFromUser(user:{user_id:Int, user_primary_email:Null<String>}):Null<String> {
         var results:QueryResults = (@await dbConnectionPool.query(
