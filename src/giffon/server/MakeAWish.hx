@@ -18,6 +18,7 @@ using js.npm.validator.Validator;
 using tink.core.Future.JsPromiseTools;
 using giffon.ResponseTools;
 using giffon.server.PromiseTools;
+using giffon.MailTransporterTools;
 
 @await
 class MakeAWish {
@@ -140,11 +141,14 @@ class MakeAWish {
             ([wish_hashid, wish_id]:Array<Dynamic>)
         ).handleError(next).toPromise();
 
-        mailTransporter.sendMail({
+        mailTransporter.sendMailWithRetries({
             replyTo: "admin@giffon.io",
             to: "admin@giffon.io",
             subject: 'New wish from ${res.getUser().user_name}: ${wishData.wish_title}',
             text: Path.join([base, "wish", wish_hashid]),
+        }).handle(function(o) switch (o) {
+            case Success(_): logger.trace('sent new wish notification for ${wish_hashid}');
+            case Failure(err): logger.error('failed to send new wish notification: ' + err);
         });
 
         res.sendPlainText(Path.join(["wish", wish_hashid]));

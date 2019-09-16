@@ -24,6 +24,7 @@ using js.npm.validator.Validator;
 using tink.core.Future.JsPromiseTools;
 using giffon.RequestTools;
 using giffon.ResponseTools;
+using giffon.MailTransporterTools;
 using giffon.server.PromiseTools;
 using Lambda;
 using StringTools;
@@ -844,33 +845,27 @@ class ServerMain {
 
         logger.trace('user sign up: ${user_id}');
 
-        mailTransporter.sendMail({
-            replyTo: "admin@giffon.io",
-            to: "admin@giffon.io",
-            subject: 'New user sign up (${user.user_name})',
-            text: Json.stringify(user, "  "),
-        }, function(err,info,resp) {
-            if (err != null) {
-                logger.error('failed to send welcome email: ' + err);
-                return;
-            }
-        });
-
         if (user.user_primary_email != null) {
             var html = CompileTime.interpolateFile("email-templates/email-welcome.html");
-            mailTransporter.sendMail({
+            mailTransporter.sendMailWithRetries({
                 replyTo: "admin@giffon.io",
                 bcc: "admin@giffon.io",
                 to: user.user_primary_email,
                 subject: 'Welcome to Giffon, ${user.user_name}!',
                 html: html,
-            }, function(err,info,resp) {
-                if (err != null) {
-                    logger.error('failed to send welcome email: ' + err);
-                    return;
-                }
-
-                logger.trace('sent welcome email for ${user_id}');
+            }).handle(function(o) switch (o) {
+                case Success(_): logger.trace('sent welcome email for ${user_id}');
+                case Failure(err): logger.error('failed to send welcome email: ' + err);
+            });
+        } else {
+            mailTransporter.sendMailWithRetries({
+                replyTo: "admin@giffon.io",
+                to: "admin@giffon.io",
+                subject: 'New user sign up (${user.user_name})',
+                text: Json.stringify(user, "  "),
+            }).handle(function(o) switch (o) {
+                case Success(_): logger.trace('sent new user notification for ${user_id}');
+                case Failure(err): logger.error('failed to send new user notification: ' + err);
             });
         }
 
