@@ -217,7 +217,7 @@ class WishForm extends ReactComponent {
                                 <div className="text-right">
                                     <button
                                         type="button"
-                                        className="btn btn-sm btn-outline-danger"
+                                        className="btn btn-sm btn-link text-secondary"
                                         title="remove item"
                                         onClick=${function(){ arrayHelpers.remove(idx); }}
                                         disabled=${wish != null || props.values.items.length <= 1}

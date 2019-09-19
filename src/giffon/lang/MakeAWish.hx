@@ -158,7 +158,7 @@ class MakeAWish {
     }
 
     static public function selectBanner(lang:Language) return switch (lang) {
-        case English: "Customise";
+        case English: "Customize";
         case Cantonese | Chinese: "選擇";
     }
 
