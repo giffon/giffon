@@ -794,7 +794,6 @@ a.btn.signInBtn:hover {
 
 .wish-form .wish-item {
     border-bottom: 1px solid #CCC;
-    margin-bottom: 1em;
 }
 
 .wish-form .wish-item:last-of-type {
@@ -981,24 +980,51 @@ a.btn.signInBtn:hover {
     -moz-animation-fill-mode:forwards;
     animation-fill-mode:forwards;
 
-    -webkit-animation-duration:1000ms;
-    -moz-animation-duration:1000ms;
-    animation-duration:1000ms;
+    -webkit-animation-duration:300ms;
+    -moz-animation-duration:300ms;
+    animation-duration:300ms;
 }
 
 .fade-in.two {
-    -webkit-animation-delay:800ms;
-    -moz-animation-delay:800ms;
-    animation-delay:800ms;
+    -webkit-animation-delay:400ms;
+    -moz-animation-delay:400ms;
+    animation-delay:400ms;
 }
 
 .fade-in.three {
-    -webkit-animation-delay:1200ms;
-    -moz-animation-delay:1200ms;
-    animation-delay:1200ms;
+    -webkit-animation-delay:450ms;
+    -moz-animation-delay:450ms;
+    animation-delay:450ms;
 }
 
 a.unstyled, a:hover.unstyled {
     color: inherit;
     text-decoration: none;
+}
+
+.form-demo-banner {
+    height: 180px;
+    background-size: contain;
+    background-position: center;
+    background-image: url('https://media.giphy.com/media/RKMWXB2EUqeFB4CpKm/giphy.gif');
+}
+
+.form-section-1 {
+    background:url('/images/magic-ball-grey.svg') no-repeat;
+    background-size: contain;   
+}
+
+.form-section-2 {
+    background:url('/images/tetris-grey.svg') no-repeat;
+    background-size: contain;   
+}
+
+.form-section-3 {
+    background:url('/images/idea-grey.svg') no-repeat;
+    background-size: contain;   
+}
+
+.form-section-4 {
+    background:url('/images/logo-grey.svg') no-repeat;
+    background-size: contain;   
 }

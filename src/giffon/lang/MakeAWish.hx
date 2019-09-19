@@ -96,10 +96,39 @@ class MakeAWish {
         case Cantonese | Chinese: "總值";
     }
 
+    static public function section1(lang:Language) return switch (lang) {
+        case English: "What is your wish?";
+        case Cantonese: "你願望係咩?";
+        case Chinese: "你的願望是甚麼?";
+    }
+
+    static public function section2(lang:Language) return switch (lang) {
+        case English: "What items do you need?";
+        case Cantonese: "你想要咩?";
+        case Chinese: "你想要甚麼?";
+    }
+
+    static public function section3(lang:Language) return switch (lang) {
+        case English: "Why do you make a wish?";
+        case Cantonese: "你點解想許願?";
+        case Chinese: "你為什麼想許願?";
+    }
+
+    static public function section4(lang:Language) return switch (lang) {
+        case English: "Last but not least...";
+        case Cantonese | Chinese: "最後...";
+    }
+
     static public function whyDoYouWantTheAbove(lang:Language) return switch (lang) {
-        case English: "Why do you want the above?";
-        case Cantonese: "點解想要?";
-        case Chinese: "為甚麼想要?";
+        case English: "Tell us your story";
+        case Cantonese: "你可以寫低啲小故事，點解你需要幫助呢?";
+        case Chinese: "你可以寫下一些小故事，為什麼你需要幫助呢?";
+    }
+
+    static public function tellUsStory(lang:Language) return switch (lang) {
+        case English: "Is it for you or your friends? or anything you can do in return to help others?";
+        case Cantonese: "幫自己定朋友買禮物? 會唔會你都可以提供其他幫助/回禮呢?";
+        case Chinese: "幫自己或朋友買禮物? 會不會你也可以提供其他幫助/回禮呢?";
     }
 
     static public function because(lang:Language) return switch (lang) {
@@ -129,17 +158,17 @@ class MakeAWish {
     }
 
     static public function selectBanner(lang:Language) return switch (lang) {
-        case English: "select";
+        case English: "Customise";
         case Cantonese | Chinese: "選擇";
     }
 
     static public function replaceBanner(lang:Language) return switch (lang) {
-        case English: "replace";
+        case English: "Replace";
         case Cantonese | Chinese: "更換";
     }
 
     static public function removeBanner(lang:Language) return switch (lang) {
-        case English: "remove";
+        case English: "Remove";
         case Cantonese | Chinese: "移除";
     }
 

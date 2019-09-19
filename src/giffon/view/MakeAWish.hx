@@ -20,8 +20,13 @@ class MakeAWish extends Page {
 
     override function bodyContent() return jsx('
         <div className="container">
-            <h1>${language.makeAWish()}</h1>
-            <div id="make-a-wish-root" className="mb-5"></div>
+        
+            <h1 className="font_xs_xl font_md_3xl fontw-700 text-center my-3 my-md-5">${language.makeAWish()}</h1>
+            
+                <div className="col-12 col-md-10 col-lg-9 mx-auto">
+                    <div id="make-a-wish-root" className=""></div>
+                </div>
+            
         </div>
     ');
 }

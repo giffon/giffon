@@ -38,7 +38,7 @@ class Index {
     }
 
     static public function howToStep1(lang:Language) return switch (lang) {
-        case English: "Is it for you or your friends? You decide!";
+        case English: "Is it for you or your friends? or even furry friends? You decide!";
         case Cantonese: "幫自己定朋友買禮物，你話事!";
         case Chinese: "幫自己或朋友買禮物，你決定!";
     }

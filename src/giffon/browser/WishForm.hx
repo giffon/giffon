@@ -134,86 +134,90 @@ class WishForm extends ReactComponent {
                 var rows = [
                     for (idx in 0...props.values.items.length){
                         jsx('
-                            <div key=${idx} className="wish-item form-row align-items-end">
-                                <Field
-                                    name=${'items[$idx].item_id'}
-                                    id=${'items[$idx].item_id'}
-                                    type="hidden"
-                                />
-                                <div className="form-group col-md-3">
-                                    <label
-                                        htmlFor=${'items[$idx].item_name'}
-                                    >
-                                        ${language.itemName()}
-                                    </label>
-                                    <div>
-                                        <Field
-                                            className="form-control"
-                                            name=${'items[$idx].item_name'}
-                                            id=${'items[$idx].item_name'}
-                                            required=${true}
-                                            disabled=${wish != null}
-                                        />
+                            <div key=${idx} className="wish-item p-3 bg_white d-flex flex-column-reverse flex-md-row">
+                                <div className="col p-0">
+                                    <Field
+                                        name=${'items[$idx].item_id'}
+                                        id=${'items[$idx].item_id'}
+                                        type="hidden"
+                                    />
+                                    <div className="form-group">
+                                        <label
+                                            htmlFor=${'items[$idx].item_name'}
+                                        >
+                                            ${language.itemName()}
+                                        </label>
+                                        <div>
+                                            <Field
+                                                className="form-control"
+                                                name=${'items[$idx].item_name'}
+                                                id=${'items[$idx].item_name'}
+                                                required=${true}
+                                                disabled=${wish != null}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="d-md-flex">
+                                        <div className="form-group col-md-6 p-0">
+                                            <label
+                                                htmlFor=${'items[$idx].item_url'}
+                                            >
+                                                ${language.itemURL()}
+                                            </label>
+                                            <div>
+                                                <Field
+                                                    className="form-control"
+                                                    name=${'items[$idx].item_url'}
+                                                    id=${'items[$idx].item_url'}
+                                                    type="url"
+                                                    placeholder="https://..."
+                                                    required=${true}
+                                                    disabled=${wish != null}
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="form-group col-md-4 p-0">
+                                            <label
+                                                htmlFor=${'items[$idx].item_price'}
+                                            >
+                                                ${language.unitPrice()}${props.values.wish_currency == "" ? null : " (" + props.values.wish_currency + ")"}
+                                            </label>
+                                            <div>
+                                                <Field
+                                                    className="form-control"
+                                                    name=${'items[$idx].item_price'}
+                                                    id=${'items[$idx].item_price'}
+                                                    type="number"
+                                                    min="0.01" max=${WishItemData.item_price_max} step="0.01"
+                                                    required=${true}
+                                                    disabled=${wish != null}
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="form-group col-md-2 p-0">
+                                            <label
+                                                htmlFor=${'items[$idx].item_quantity'}
+                                            >
+                                                ${language.quantity()}
+                                            </label>
+                                            <div>
+                                                <Field
+                                                    className="form-control"
+                                                    name=${'items[$idx].item_quantity'}
+                                                    id=${'items[$idx].item_quantity'}
+                                                    type="number"
+                                                    min="1" max=${wish == null ? WishItemData.item_quantity_max : wish.items[idx].item_quantity} step="1"
+                                                    required=${true}
+                                                    disabled=${wish != null}
+                                                />
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="form-group col">
-                                    <label
-                                        htmlFor=${'items[$idx].item_url'}
-                                    >
-                                        ${language.itemURL()}
-                                    </label>
-                                    <div>
-                                        <Field
-                                            className="form-control"
-                                            name=${'items[$idx].item_url'}
-                                            id=${'items[$idx].item_url'}
-                                            type="url"
-                                            placeholder="https://..."
-                                            required=${true}
-                                            disabled=${wish != null}
-                                        />
-                                    </div>
-                                </div>
-                                <div className="form-group col-md-2">
-                                    <label
-                                        htmlFor=${'items[$idx].item_price'}
-                                    >
-                                        ${language.unitPrice()}${props.values.wish_currency == "" ? null : " (" + props.values.wish_currency + ")"}
-                                    </label>
-                                    <div>
-                                        <Field
-                                            className="form-control"
-                                            name=${'items[$idx].item_price'}
-                                            id=${'items[$idx].item_price'}
-                                            type="number"
-                                            min="0.01" max=${WishItemData.item_price_max} step="0.01"
-                                            required=${true}
-                                            disabled=${wish != null}
-                                        />
-                                    </div>
-                                </div>
-                                <div className="form-group col col-md-1">
-                                    <label
-                                        htmlFor=${'items[$idx].item_quantity'}
-                                    >
-                                        ${language.quantity()}
-                                    </label>
-                                    <div>
-                                        <Field
-                                            className="form-control"
-                                            name=${'items[$idx].item_quantity'}
-                                            id=${'items[$idx].item_quantity'}
-                                            type="number"
-                                            min="1" max=${wish == null ? WishItemData.item_quantity_max : wish.items[idx].item_quantity} step="1"
-                                            required=${true}
-                                            disabled=${wish != null}
-                                        />
-                                    </div>
-                                </div>
-                                <div className="form-group col-auto ml-auto">
+                                <div className="text-right">
                                     <button
                                         type="button"
-                                        className="btn btn-outline-danger"
+                                        className="btn btn-sm btn-outline-danger"
                                         title="remove item"
                                         onClick=${function(){ arrayHelpers.remove(idx); }}
                                         disabled=${wish != null || props.values.items.length <= 1}
@@ -269,7 +273,6 @@ class WishForm extends ReactComponent {
 
                 return jsx('
                     <Fragment>
-                        <p>${language.whatDoYouWant()}</p>
                         <p><small className="form-text text-muted">
                             ${language.itemHelp(onlineShopTags)}
                         </small></p>
@@ -286,7 +289,7 @@ class WishForm extends ReactComponent {
                             ${language.addItem()}
                         </button>
 
-                        <div className="form-row align-items-end mt-2">
+                        <div className="form-row align-items-end mt-3">
                             <div className="form-group col-md-8">
                                 <label
                                     htmlFor="wish_additional_cost_description"
@@ -359,13 +362,23 @@ class WishForm extends ReactComponent {
                     props.form.setFieldValue(props.field.name, o.original.url);
                 }
                 var url = Reflect.field(props.form.values, props.field.name);
-                var banner = if (url == null) {
-                    null;
+                // var banner = if (url == null) {
+                //     null;
+                // } else {
+                //     var bannerStyle = {
+                //         backgroundImage: 'url("${url}")',
+                //     };
+                //     jsx('<div className="wish-banner" style=${bannerStyle} />');
+                // }
+                var bannerStyle;
+                if (url == null) {
+                    bannerStyle = {
+                        backgroundImage: 'url("https://media.giphy.com/media/RKMWXB2EUqeFB4CpKm/giphy.gif")',
+                    };
                 } else {
-                    var bannerStyle = {
+                    bannerStyle = {
                         backgroundImage: 'url("${url}")',
                     };
-                    jsx('<div className="wish-banner" style=${bannerStyle} />');
                 }
                 var removeBtn = if (url == null) {
                     null;
@@ -373,13 +386,15 @@ class WishForm extends ReactComponent {
                     function removeBanner(){
                         props.form.setFieldValue(props.field.name, null);
                     }
-                    jsx('<button type="button" className="btn btn-link text-secondary" onClick=${removeBanner}>${language.removeBanner()}</button>');
+                    jsx('<button type="button" className="btn btn-light ml-2"  onClick=${removeBanner}>${language.removeBanner()}</button>');
                 }
                 return jsx('
                     <Fragment>
-                        ${banner}
-                        <button type="button" className="btn btn-link" data-toggle="modal" data-target="#giphyModal">${url == null ? language.selectBanner() : language.replaceBanner()}</button>
-                        ${removeBtn}
+                        <div className="form-demo-banner d-flex align-items-center justify-content-center" style=${bannerStyle}>
+                            <button type="button" className="btn btn-light" data-toggle="modal" data-target="#giphyModal">${url == null ? language.selectBanner() : language.replaceBanner()}</button>
+                            ${removeBtn}
+                        </div>
+                        
 
                         <div className="modal fade" id="giphyModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div className="modal-dialog modal-dialog-centered" role="document">
@@ -401,96 +416,145 @@ class WishForm extends ReactComponent {
             return jsx('
                 <Form className="wish-form">
                     ${submissionError}
-                    <div className="form-group">
-                        <label htmlFor="wish_title">
-                            ${language.title()}
-                        </label>
-                        <Field
-                            className="form-control" id="wish_title"
-                            name="wish_title"
-                            required=${true}
-                        />
-                        <ErrorMessage name="wish_title" render=${renderErrorMessage} />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="wish_currency">
-                            ${language.currency()}
-                        </label>
-                        <Field
-                            className="form-control"
-                            component="select"
-                            name="wish_currency"
-                            required=${true}
-                            disabled=${wish != null}
-                        >
-                            <option></option>
-                            ${currencyOptions}
-                        </Field>
-                    </div>
-                    <div className="form-group">
-                        <FieldArray
-                            name="items"
-                            render=${fieldArrayRender}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="wish_description">
-                            ${language.whyDoYouWantTheAbove()}
-                        </label>
-                        <Field
-                            component="textarea"
-                            className="form-control" id="wish_description"
-                            name="wish_description"
-                            rows="3"
-                            placeholder=${language.because()}
-                            required=${true}
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="wish_target_date" className="d-block">
-                            ${language.targetDate()} (${language.optional()})
-                        </label>
-                        <Field
-                            id="wish_target_date"
-                            name="wish_target_date"
-                            component=${DatePickerField}
-                        />
-                        <p className="small">
-                            ${language.targetDateNote()}
-                        </p>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="wish_banner_url" className="d-block">
-                            ${language.banner()} (${language.optional()})
-                        </label>
-                        <Field
-                            id="wish_banner_url"
-                            name="wish_banner_url"
-                            component=${BannerField}
-                        />
-                    </div>
-                    <div className="my-2">
-                        <p>${language.addressNote()}</p>
-                        <p>${language.couponNote()}</p>
-                    </div>
-                    <div className="form-group">
-                        <div className="form-check">
-                            <Field
-                                id="acceptTerms"
-                                name="acceptTerms"
-                                className="form-check-input" type="checkbox"
-                                required=${true}
-                                checked=${props.values.acceptTerms}
-                            />
-                            <label className="form-check-label" htmlFor="acceptTerms">
-                                ${language.agreeTo(termsLink)}
-                            </label>
-                            <ErrorMessage name="acceptTerms" render=${renderErrorMessage} />
+                    <div className="row mb-3">
+                        <div className="col-12 col-md-3 form-section-1">
+                            <div className="sticky-top">
+                                <h1 className="font_xs_m font_md_xxl fontw-700 py-3 py-lg-5 m-0">${language.section1()}</h1>
+                            </div>
+                        </div>
+                        <div className="col-12 col-md-9">
+                            <div className="p-sm-3 p-lg-5 border-bottom">
+                                <div className="pb-3">
+                                    <label>${language.banner()}</label>
+                                    <Field
+                                        id="wish_banner_url"
+                                        name="wish_banner_url"
+                                        component=${BannerField}
+                                    />
+                                </div>    
+                                <div className="form-group">
+                                    <label htmlFor="wish_title">
+                                        ${language.title()}
+                                    </label>
+                                    <Field
+                                        className="form-control" id="wish_title"
+                                        name="wish_title"
+                                        required=${true}
+                                    />
+                                    <ErrorMessage name="wish_title" render=${renderErrorMessage} />
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <button type="submit" className="btn btn-primary" disabled={props.isSubmitting}>
-                        ${language.submit()}
-                    </button>
+                    <div className="row mb-3">
+                        <div className="col-12 col-md-3 form-section-2">
+                            <div className="sticky-top">
+                                <h1 className="font_xs_m font_md_xxl fontw-700 py-3 py-lg-5 m-0">${language.section2()}</h1>
+                            </div>
+                        </div>
+                        <div className="col-12 col-md-9">
+                            <div className="p-sm-3 p-lg-5 border-bottom">
+                                <div className="form-group">
+                                    <label htmlFor="wish_currency">
+                                        ${language.currency()}
+                                    </label>
+                                    <Field
+                                        className="form-control"
+                                        component="select"
+                                        name="wish_currency"
+                                        required=${true}
+                                        disabled=${wish != null}
+                                    >
+                                        <option></option>
+                                        ${currencyOptions}
+                                    </Field>
+                                </div>
+                                <div className="form-group">
+                                    <FieldArray
+                                        name="items"
+                                        render=${fieldArrayRender}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="row mb-3">
+                        <div className="col-12 col-md-3  form-section-3">
+                            <div className="sticky-top">
+                                <h1 className="font_xs_m font_md_xxl fontw-700 py-3 py-lg-5 m-0">${language.section3()}</h1>
+                            </div>
+                        </div>
+                        <div className="col-12 col-md-9">
+                            <div className="p-sm-3 p-lg-5 border-bottom">
+                                <div className="form-group">
+                                    <label htmlFor="wish_description">
+                                        ${language.whyDoYouWantTheAbove()}
+                                    </label>
+                                    <p><small className="form-text text-muted">
+                                        ${language.tellUsStory()}
+                                    </small></p>
+                                    <Field
+                                        component="textarea"
+                                        className="form-control" id="wish_description"
+                                        name="wish_description"
+                                        rows="3"
+                                        placeholder=${language.because()}
+                                        required=${true}
+                                    />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="wish_target_date" className="d-block">
+                                        ${language.targetDate()} (${language.optional()})
+                                    </label>
+                                    <p className="small">
+                                        ${language.targetDateNote()}
+                                    </p>
+                                    <Field
+                                        id="wish_target_date"
+                                        name="wish_target_date"
+                                        component=${DatePickerField}
+                                    />
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="row">
+                        <div className="col-12 col-md-3 form-section-4">
+                            <div className="sticky-top">
+                                <h1 className="font_xs_m font_md_xxl fontw-700 py-3 py-lg-5 m-0">${language.section4()}</h1>
+                            </div>
+                        </div>
+                        <div className="col-12 col-md-9">
+                            <div className="p-sm-3 p-lg-5">
+                                <div className="">
+                                    <p>${language.addressNote()}</p>
+                                    <p>${language.couponNote()}</p>
+                                </div>
+                                <div className="form-group">
+                                    <div className="form-check">
+                                        <Field
+                                            id="acceptTerms"
+                                            name="acceptTerms"
+                                            className="form-check-input" type="checkbox"
+                                            required=${true}
+                                            checked=${props.values.acceptTerms}
+                                        />
+                                        <label className="form-check-label" htmlFor="acceptTerms">
+                                            ${language.agreeTo(termsLink)}
+                                        </label>
+                                        <ErrorMessage name="acceptTerms" render=${renderErrorMessage} />
+                                    </div>
+                                </div>
+                                <button type="submit" className="btn btn-primary col col-md-6" disabled={props.isSubmitting}>
+                                    ${language.submit()}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
                 </Form>
             ');
         }
