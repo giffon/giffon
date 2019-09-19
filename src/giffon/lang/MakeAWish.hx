@@ -115,7 +115,7 @@ class MakeAWish {
     }
 
     static public function section4(lang:Language) return switch (lang) {
-        case English: "Last but not least...";
+        case English: "Finally...";
         case Cantonese | Chinese: "最後...";
     }
 

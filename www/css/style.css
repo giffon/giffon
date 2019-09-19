@@ -1010,21 +1010,21 @@ a.unstyled, a:hover.unstyled {
 }
 
 .form-section-1 {
-    background:url('/images/magic-ball-grey.svg') no-repeat;
+    background:url('../images/magic-ball-grey.svg') no-repeat;
     background-size: contain;   
 }
 
 .form-section-2 {
-    background:url('/images/tetris-grey.svg') no-repeat;
+    background:url('../images/tetris-grey.svg') no-repeat;
     background-size: contain;   
 }
 
 .form-section-3 {
-    background:url('/images/idea-grey.svg') no-repeat;
+    background:url('../images/idea-grey.svg') no-repeat;
     background-size: contain;   
 }
 
 .form-section-4 {
-    background:url('/images/logo-grey.svg') no-repeat;
+    background:url('../images/logo-grey.svg') no-repeat;
     background-size: contain;   
 }
