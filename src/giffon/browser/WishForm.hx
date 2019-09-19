@@ -507,9 +507,9 @@ class WishForm extends ReactComponent {
                                     <label htmlFor="wish_target_date" className="d-block">
                                         ${language.targetDate()} (${language.optional()})
                                     </label>
-                                    <p className="small">
+                                    <p><small className="form-text text-muted">
                                         ${language.targetDateNote()}
-                                    </p>
+                                    </small></p>
                                     <Field
                                         id="wish_target_date"
                                         name="wish_target_date"

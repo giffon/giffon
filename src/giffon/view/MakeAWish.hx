@@ -24,7 +24,7 @@ class MakeAWish extends Page {
             <h1 className="font_xs_xl font_md_3xl fontw-700 text-center my-3 my-md-5">${language.makeAWish()}</h1>
             
                 <div className="col-12 col-md-10 col-lg-9 mx-auto">
-                    <div id="make-a-wish-root" className=""></div>
+                    <div id="make-a-wish-root" className="font_xs_s font_md_m"></div>
                 </div>
             
         </div>
