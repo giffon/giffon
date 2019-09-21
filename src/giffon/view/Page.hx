@@ -157,6 +157,30 @@ class Page extends ReactComponent {
         </Fragment>
     ');
 
+    function useCurrencyFlags() return false;
+    function currencyFlagsCss() return if (useCurrencyFlags())
+        jsx('
+            <link rel="stylesheet"
+                href="https://cdn.jsdelivr.net/npm/currency-flags@1.8.0/dist/currency-flags.min.css"
+                integrity="sha256-93qPfpLSGzRTJsyLOst+lp0VdYmY9Bqzw4z6By0pYhM="
+                crossOrigin="anonymous"
+            />
+        ');
+    else
+        null;
+
+    function useEmoji() return false;
+    function emojiCss() return if (useEmoji())
+        jsx('
+            <link rel="stylesheet"
+                href="https://cdn.jsdelivr.net/npm/emoji.css@1.0.4/dist/emoji.min.css"
+                integrity="sha256-DTsMpJD6Zg8GpZTJVOCEp2BLvkkQ9wwhAkBbrOGC0cw="
+                crossOrigin="anonymous"
+            />
+        ');
+    else
+        null;
+
     function depCss() return jsx('
         <Fragment>
             <link rel="stylesheet"
@@ -187,16 +211,8 @@ class Page extends ReactComponent {
                 integrity="sha256-yySl4qcUS7M+bpiq/+Ns5KR/oL7UiobOWIKzJ2ejSR8="
                 crossOrigin="anonymous"
             />
-            <link rel="stylesheet"
-                href="https://cdn.jsdelivr.net/npm/currency-flags@1.8.0/dist/currency-flags.min.css"
-                integrity="sha256-93qPfpLSGzRTJsyLOst+lp0VdYmY9Bqzw4z6By0pYhM="
-                crossOrigin="anonymous"
-            />
-            <link rel="stylesheet"
-                href="https://cdn.jsdelivr.net/npm/emoji.css@1.0.4/dist/emoji.min.css"
-                integrity="sha256-DTsMpJD6Zg8GpZTJVOCEp2BLvkkQ9wwhAkBbrOGC0cw="
-                crossOrigin="anonymous"
-            />
+            ${currencyFlagsCss()}
+            ${emojiCss()}
         </Fragment>
     ');
 

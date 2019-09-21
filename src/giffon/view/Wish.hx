@@ -36,6 +36,8 @@ class Wish extends Page {
         return attrs;
     }
 
+    override function useCurrencyFlags() return true;
+
     var wish(get, never):giffon.db.Wish;
     function get_wish():giffon.db.Wish return props.wish;
 

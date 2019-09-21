@@ -13,6 +13,8 @@ class UseCasesVideoCreators extends Page {
 
     override function bodyClasses() return super.bodyClasses().concat(["page-use-cases", "page-use-cases-video-creators"]);
 
+    override function useEmoji() return true;
+
     function bgStyle(bg:String) {
         return {
             backgroundImage: 'url("${bg}")',
