@@ -41,7 +41,7 @@
 
         /* What it does: Replaces default bold style. */
         th {
-        	font-weight: normal;
+            font-weight: normal;
         }
 
         /* What it does: Fixes webkit padding issue. */
@@ -85,11 +85,11 @@
         .a6S {
            display: none !important;
            opacity: 0.01 !important;
-		}
-		/* If the above doesn't work, add a .g-img class to any image in question. */
-		img.g-img + div {
-		   display: none !important;
-		}
+        }
+        /* If the above doesn't work, add a .g-img class to any image in question. */
+        img.g-img + div {
+           display: none !important;
+        }
 
         /* What it does: Removes right gutter in Gmail iOS app: https://github.com/TedGoas/Cerberus/issues/89  */
         /* Create one of these media queries for each additional viewport size you'd like to fix */
@@ -135,11 +135,11 @@
         .button-a {
             transition: all 100ms ease-in;
         }
-	    .button-td-primary:hover,
-	    .button-a-primary:hover {
-	        background: #212529 !important;
-	        border-color: #212529 !important;
-	    }
+        .button-td-primary:hover,
+        .button-a-primary:hover {
+            background: #212529 !important;
+            border-color: #212529 !important;
+        }
 
         /* Media Queries */
         @media screen and (max-width: 600px) {
@@ -185,13 +185,13 @@
 
 </head>
 <!--
-	The email background color (#222222) is defined in three places:
-	1. body tag: for most email clients
-	2. center tag: for Gmail and Inbox mobile apps and web versions of Gmail, GSuite, Inbox, Yahoo, AOL, Libero, Comcast, freenet, Mail.ru, Orange.fr
-	3. mso conditional: For Windows 10 Mail
+    The email background color (#222222) is defined in three places:
+    1. body tag: for most email clients
+    2. center tag: for Gmail and Inbox mobile apps and web versions of Gmail, GSuite, Inbox, Yahoo, AOL, Libero, Comcast, freenet, Mail.ru, Orange.fr
+    3. mso conditional: For Windows 10 Mail
 -->
 <body width="100%" style="margin: 0; padding: 0 !important; mso-line-height-rule: exactly; background-color: #f5f5f5;">
-	<center style="width: 100%; background-color: #f5f5f5;">
+    <center style="width: 100%; background-color: #f5f5f5;">
     <!--[if mso | IE]>
     <table role="presentation" border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: #222222;">
     <tr>
@@ -213,20 +213,20 @@
 
         <!-- Email Body : BEGIN -->
         <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" style="margin: auto;" class="email-container">
-	        <!-- Email Header : BEGIN -->
+            <!-- Email Header : BEGIN -->
             <tr>
                 <td style="text-align: center">
                     <a href="https://giffon.io">
-                        <img src="${R('/images/email/email-logo.png')}" width="" height="60" alt="Giffon" border="0">
+                        <img src="${R('/images/email/email-logo.png')}" height="60" alt="Giffon" border="0">
                     </a>
                 </td>
             </tr>
-	        <!-- Email Header : END -->
+            <!-- Email Header : END -->
 
             <!-- Hero Image, Flush : BEGIN -->
             <tr>
                 <td style="background-color: #ffffff;">
-                    <img src="${R('/images/email/email-header-banner.png')}" width="600" height="" alt="Giffon - Your crowd-gifting platform" border="0" style="width: 100%; max-width: 600px; height: auto; min-height: 60px; background: #f9df2b; font-family: sans-serif; text-align: center; font-size: 15px; line-height: 60px; color: #212529; margin: auto; display: block;" class="g-img">
+                    <img src="${R('/images/email/email-header-banner.png')}" width="600" alt="Giffon - Your crowd-gifting platform" border="0" style="width: 100%; max-width: 600px; height: auto; min-height: 60px; background: #f9df2b; font-family: sans-serif; text-align: center; font-size: 15px; line-height: 60px; color: #212529; margin: auto; display: block;" class="g-img">
                 </td>
             </tr>
             <!-- Hero Image, Flush : END -->
@@ -240,13 +240,8 @@
                                 <h1 style="margin: 0 0 10px; font-size: 25px; line-height: 30px; color: #212529; font-weight: bold;">Welcome to Giffon</h1>
                                 <p style="margin: 0 0 10px;">Hi ${user.user_name.htmlEscape()},</p>
                                 <p style="margin: 0 0 10px;">Thank you for signing up. Whenever you or your friends are in need, feel free to create a wish on Giffon. We would be more than happy if you can give a helping hand on other people's wishes, too.</p>
-                                <!-- <ul style="padding: 0; margin: 0; list-style-type: disc;">
-									<li style="margin:0 0 10px 20px;" class="list-item-first">A list item.</li>
-									<li style="margin:0 0 10px 20px;">Another list item here.</li>
-									<li style="margin: 0 0 0 20px;" class="list-item-last">Everyone gets a list item, list items for everyone!</li> -->
-                                    <br><br>
-                                    <h2 style="font-family: sans-serif; font-size: 18px; line-height: 38px; color: #212529; font-weight: bold; text-align: center;">How Giffon Works</h2>
-								</ul>
+                                <br><br>
+                                <h2 style="font-family: sans-serif; font-size: 18px; line-height: 38px; color: #212529; font-weight: bold; text-align: center;">How Giffon Works</h2>
                             </td>
                         </tr>
                         <tr>
@@ -280,7 +275,7 @@
                                 <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" style="margin: auto;">
                                     <tr>
                                         <td class="button-td button-td-primary" style="border-radius: 4px; background: #222222;">
-											<a class="button-a button-a-primary" href="https://giffon.io/" style="background: #222222; border: 1px solid #000000; font-family: sans-serif; font-size: 15px; line-height: 15px; text-decoration: none; padding: 13px 17px; color: #ffffff; display: block; border-radius: 4px;">Explore Now</a>
+                                            <a class="button-a button-a-primary" href="https://giffon.io/" style="background: #222222; border: 1px solid #000000; font-family: sans-serif; font-size: 15px; line-height: 15px; text-decoration: none; padding: 13px 17px; color: #ffffff; display: block; border-radius: 4px;">Explore Now</a>
                                         </td>
                                     </tr>
                                 </table>
@@ -299,61 +294,61 @@
             </tr>
             <!-- 1 Column Text + Button : END -->
 
-            
 
-	        
 
-	    </table>
-	    <!-- Email Body : END -->
 
-	    <!-- Email Footer : BEGIN -->
+
+        </table>
+        <!-- Email Body : END -->
+
+        <!-- Email Footer : BEGIN -->
         <table align="center" role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" style="margin: auto;" class="email-container">
             <tr style="text-align: center;">
                 <td><h2 style="margin: 20px 0; font-family: sans-serif; font-size: 18px; line-height: 22px; color: #919292; font-weight: bold;">Stay Connected</h2></td>
             </tr>
             <tr>
                 <td style="text-align: center;">
-                    <a href="https://www.facebook.com/giffon.io/" target="blank"><img src="${R('/images/email/fb.png')}" width="30" height="" alt="Facebook" border="0" style="padding: 0 10px"></a>
-                    <a href="https://twitter.com/giffon_io"  target="blank"><img src="${R('/images/email/tw.png')}" width="25" height="" alt="Twitter" border="0" style="padding: 0 10px"></a>
+                    <a href="https://www.facebook.com/giffon.io/" target="blank"><img src="${R('/images/email/fb.png')}" width="30" alt="Facebook" border="0" style="padding: 0 10px"></a>
+                    <a href="https://twitter.com/giffon_io"  target="blank"><img src="${R('/images/email/tw.png')}" width="25" alt="Twitter" border="0" style="padding: 0 10px"></a>
                 </td>
             </tr>
-	        <tr>
-	            <td style="padding: 20px; font-family: sans-serif; font-size: 12px; line-height: 15px; text-align: center; color: #919292;">
-	                <br>
-	               &copy; 2019 Giffon</span>
-	                <br><br>
-	            </td>
-	        </tr>
-	    </table>
-	    <!-- Email Footer : END -->
+            <tr>
+                <td style="padding: 20px; font-family: sans-serif; font-size: 12px; line-height: 15px; text-align: center; color: #919292;">
+                    <br>
+                    &copy; 2019 Giffon
+                    <br><br>
+                </td>
+            </tr>
+        </table>
+        <!-- Email Footer : END -->
 
-	    <!-- Full Bleed Background Section : BEGIN -->
-	    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #f9df2b;">
-	        <tr>
-	            <td>
-	                <div align="center" style="max-width: 600px; margin: auto;" class="email-container">
-	                    <!--[if mso]>
-	                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" align="center">
-	                    <tr>
-	                    <td>
-	                    <![endif]-->
-	                    <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
-	                        <tr>
-	                            <td style="padding: 20px; text-align: center; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #222222;">
-	                                <p style="margin: 0;">“We make a living by what we get. We make a life by what we give.” <br>Winston S. Churchill</p>
-	                            </td>
-	                        </tr>
-	                    </table>
-	                    <!--[if mso]>
-	                    </td>
-	                    </tr>
-	                    </table>
-	                    <![endif]-->
-	                </div>
-	            </td>
-	        </tr>
-	    </table>
-	    <!-- Full Bleed Background Section : END -->
+        <!-- Full Bleed Background Section : BEGIN -->
+        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%" style="background-color: #f9df2b;">
+            <tr>
+                <td>
+                    <div align="center" style="max-width: 600px; margin: auto;" class="email-container">
+                        <!--[if mso]>
+                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="600" align="center">
+                        <tr>
+                        <td>
+                        <![endif]-->
+                        <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="100%">
+                            <tr>
+                                <td style="padding: 20px; text-align: center; font-family: sans-serif; font-size: 15px; line-height: 20px; color: #222222;">
+                                    <p style="margin: 0;">“We make a living by what we get. We make a life by what we give.” <br>Winston S. Churchill</p>
+                                </td>
+                            </tr>
+                        </table>
+                        <!--[if mso]>
+                        </td>
+                        </tr>
+                        </table>
+                        <![endif]-->
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <!-- Full Bleed Background Section : END -->
 
     <!--[if mso | IE]>
     </td>
