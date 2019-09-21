@@ -3,6 +3,11 @@ package giffon;
 import haxe.io.*;
 import haxe.macro.*;
 import giffon.config.Stage;
+#if nodejs
+import sys.io.File;
+import js.node.Buffer;
+import js.npm.image_data_uri.ImageDataUri;
+#end
 using StringTools;
 using Lambda;
 
@@ -30,6 +35,14 @@ class R {
 
         return macro @:privateAccess giffon.R._R($v{path}, $v{h});
     };
+
+    #if nodejs
+    static public function D(path:String) {
+        var ext = Path.extension(path);
+        var absPath = Path.join([resourcesDir, path]);
+        return ImageDataUri.encode(Buffer.hxFromBytes(File.getBytes(absPath)), ext.toUpperCase());
+    }
+    #end
 
     static function _R(path:String, hash:String):String {
         return (switch (Stage.stage) {
