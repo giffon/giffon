@@ -36,30 +36,35 @@ class SignIn extends Page {
 
                         <div>
                             <SignInButton
+                                className="mb-2"
                                 authMethod=${Facebook}
                                 logo=${Facebook.logoImage()}
                                 href="signin/facebook"
                                 label=${language.signInWith(Facebook)}
                             />
                             <SignInButton
+                                className="mb-2"
                                 authMethod=${Twitter}
                                 logo=${Twitter.logoImage()}
                                 href="signin/twitter"
                                 label=${language.signInWith(Twitter)}
                             />
                             <SignInButton
+                                className="mb-2"
                                 authMethod=${Google}
                                 logo=${Google.logoImage()}
                                 href="signin/google"
                                 label=${language.signInWith(Google)}
                             />
                             <SignInButton
+                                className="mb-2"
                                 authMethod=${GitHub}
                                 logo=${GitHub.logoImage()}
                                 href="signin/github"
                                 label=${language.signInWith(GitHub)}
                             />
                             <SignInButton
+                                className="mb-2"
                                 authMethod=${GitLab}
                                 logo=${GitLab.logoImage()}
                                 href="signin/gitlab"

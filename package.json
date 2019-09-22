@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "postinstall": "haxe install-haxelibs.hxml && npm run-script build-vendor",
-    "build-vendor": "browserify -o www/js/vendor.js -r react -r react-dom -r formik -r react-datepicker -r validator -r react-stripe-elements -r react-clipboard.js -r react-giphy-component",
-    "build-vendor-release": "browserify -r react -r react-dom -r formik -r react-datepicker -r validator -r react-stripe-elements -r react-clipboard.js -r react-giphy-component -g [ envify --NODE_ENV production ] -g uglifyify | uglifyjs --compress --mangle > www/js/vendor.js",
+    "build-vendor": "browserify -o www/js/vendor.js -r react -r react-dom -r formik -r react-datepicker -r validator -r react-stripe-elements -r react-clipboard.js -r react-giphy-component -r react-switch",
+    "build-vendor-release": "browserify -r react -r react-dom -r formik -r react-datepicker -r validator -r react-stripe-elements -r react-clipboard.js -r react-giphy-component -r react-switch -g [ envify --NODE_ENV production ] -g uglifyify | uglifyjs --compress --mangle > www/js/vendor.js",
     "build": "haxe build.hxml",
-    "start": "nodemon ServerMain.js | pino-pretty",
+    "start": "nodemon -L ServerMain.js | pino-pretty",
     "test": "haxe build-test.hxml && python3 test/SeleniumTest.py"
   },
   "repository": {
@@ -71,6 +71,7 @@
     "dotenv-cli": "^2.0.1",
     "envify": "^4.1.0",
     "nodemon": "^1.19.2",
+    "react-switch": "^5.0.1",
     "serverless": "^1.51.0",
     "spellchecker": "^3.7.0",
     "uglify-js": "^3.6.0",

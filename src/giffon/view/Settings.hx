@@ -130,14 +130,21 @@ class Settings extends Page {
         }
 
         var btn = jsx('
-            <SignInButton
-                authMethod=${authMethod}
-                logo=${authMethod.logoImage()}
-                href=${href}
-                label=${text}
-                disabled=${isConnected && disallowDisconnect}
-                title=${title}
-            />
+            <div className="row align-items-center mb-2">
+                <div className="col col-md-8 col-lg-6">
+                    <SignInButton
+                        authMethod=${authMethod}
+                        logo=${authMethod.logoImage()}
+                        href=${href}
+                        label=${text}
+                        disabled=${isConnected && disallowDisconnect}
+                        title=${title}
+                    />
+                </div>
+                <div className="col-auto">
+                    <div className="socialToggleVisible" data-authmethod=${authMethod.getName()} data-checked=${Std.string(true)} data-disabled=${Std.string(!isConnected)} />
+                </div>
+            </div>
         ');
 
         return btn;
@@ -148,18 +155,14 @@ class Settings extends Page {
             <h1>${language.settings()}</h1>
             <div id="settings-root" className="mb-5"></div>
             
-            <div className="row mb-5">
-                <div className="col col-md-8 col-lg-6">
-                    <h2>${language.socialAccounts()}</h2>
-                    ${socialButton(Facebook)}
-                    ${socialButton(Twitter)}
-                    ${socialButton(Google)}
-                    ${socialButton(GitHub)}
-                    ${socialButton(GitLab)}
-                    ${socialButton(YouTube)}
-                    ${socialButton(Twitch)}
-                </div>
-            </div>
+            <h2>${language.socialAccounts()}</h2>
+            ${socialButton(Facebook)}
+            ${socialButton(Twitter)}
+            ${socialButton(Google)}
+            ${socialButton(GitHub)}
+            ${socialButton(GitLab)}
+            ${socialButton(YouTube)}
+            ${socialButton(Twitch)}
         </div>
     ');
 }

@@ -13,6 +13,9 @@ class SignInButton extends ReactComponent {
     var href(get, null):String;
     function get_href() return props.href;
 
+    var className(get, null):String;
+    function get_className() return props.className;
+
     var label(get, null):String;
     function get_label() return props.label;
 
@@ -28,7 +31,7 @@ class SignInButton extends ReactComponent {
 
     override function render() {
         return jsx('
-            <div className="mb-2">
+            <div className=${className}>
                 <a className=${linkClasses().join(" ")} href=${href} title=${title}>
                     <img className="logo mx-1" src=${logo} alt=${authMethod.getName() + " logo"} />
                     <span className="flex-grow-1 text-center">${label}</span>
