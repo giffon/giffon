@@ -6,21 +6,23 @@ https://giffon.io
 
 ## Development info
 
-Giffon uses Haxe-compiled JS on both client and server sides. To run a local version, you need:
+Giffon uses Haxe-compiled JS on both client and server sides.
 
- * [Haxe 3.4.7](https://haxe.org/download/version/3.4.7/).
- * [Node 8 or 10](https://nodejs.org/en/download/) for running the server program. Node 8.10 is recommended since it's what being used in our [AWS Lambda config](serverless.yml)).
- * [Docker](https://docs.docker.com/install/#supported-platforms) for running a local MySQL database. Community Edition is enough. In case your machine does not meet the requirements of Docker for Mac and Docker for Windows, you can use [Docker Toolbox](https://docs.docker.com/toolbox/overview/) instead.
+### Develop with VS Code Remote Containers
 
-### Run Giffon locally
+Install these
+
+ * [Docker](https://docs.docker.com/install/#supported-platforms)
+   Community Edition is enough. In case your machine does not meet the requirements of Docker for Mac and Docker for Windows, you can use [Docker Toolbox](https://docs.docker.com/toolbox/overview/) instead.
+ * [Visual Studio Code](https://code.visualstudio.com/)
+ * [Visual Studio Code Remote Development Extension Pack](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack)
 
 After you have cloned the project:
 
  1. `git submodule update --init` to make sure the git submodules are up-to-date.
- 2. `npm install` to get the node packages and haxelibs (package.json's postinstall).
+ 2. Open the project folder in VS Code. Select reopen in dev constainer when it prompts to do so, or use the green button at the bottom-left corner. It will build a container that contain Haxe, node, and run `npm install` automatically. It will also launch a MySQL container.
  3. `npm run-script build` to build everything.
- 4. `haxe run-mysql.hxml start` to start a local MySQL database. Use `haxe run-mysql.hxml stop` to stop it when you're done. Note that the database content will be gone once stopped.
- 5. `npm start` to start the server. It should be accessible via https://localhost:3000. Use <kbd>ctrl</kbd> + <kbd>c</kbd> to stop the server. When the server script is rebuilt, the server will be automatically restarted by nodemon.
+ 4. `npm start` to start the server. It should be accessible via https://localhost:3000. Use <kbd>ctrl</kbd> + <kbd>c</kbd> to stop the server. When the server script is rebuilt, the server will be automatically restarted by nodemon.
  
 ### Local automated testing
 
