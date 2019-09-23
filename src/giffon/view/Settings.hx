@@ -112,9 +112,10 @@ class Settings extends Page {
         }
 
         var btn = jsx('
-            <div className="row align-items-center mb-2">
-                <div className="col col-md-8 col-lg-6">
+            <div className="row align-items-center mb-4">
+                <div className="col-12 col-md-8 col-lg-6">
                     <SignInButton
+                        className="bg-white"
                         authMethod=${authMethod}
                         logo=${authMethod.logoImage()}
                         href=${href}
@@ -123,7 +124,7 @@ class Settings extends Page {
                         title=${title}
                     />
                 </div>
-                <div className="col-auto">
+                <div className="col-auto my-1">
                     <div className="socialToggleVisible"
                         data-authmethod=${authMethod.getName()}
                         data-checked=${Std.string(socialProfiles[authMethod].visible)}
