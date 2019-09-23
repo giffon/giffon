@@ -1,5 +1,7 @@
 package giffon.view;
 
+import js.npm.passport.Profile;
+import giffon.db.AuthMethod;
 import react.*;
 import react.ReactMacro.jsx;
 import haxe.io.*;
@@ -13,15 +15,10 @@ class User extends Page {
     var wishes(get, never):Array<giffon.db.Wish>;
     function get_wishes() return props.wishes;
 
-    var socialProfiles(get, never):{
-        facebook_profile:Null<js.npm.passport.Profile>,
-        twitter_profile:Null<js.npm.passport.Profile>,
-        google_profile:Null<js.npm.passport.Profile>,
-        github_profile:Null<js.npm.passport.Profile>,
-        gitlab_profile:Null<js.npm.passport.Profile>,
-        youtube_profile:Null<js.npm.passport.Profile>,
-        twitch_profile:Null<js.npm.passport.Profile>,
-    };
+    var socialProfiles(get, never):Map<AuthMethod, {
+        visible:Bool,
+        profile:Profile,
+    }>;
     function get_socialProfiles() return props.socialProfiles;
 
     override function title() return '${pageUser.user_name} - Giffon';
@@ -31,25 +28,12 @@ class User extends Page {
     override function bodyClasses() return super.bodyClasses().concat(["page-user"]);
 
     function socialProfile(authMethod:giffon.db.AuthMethod) {
-        return null; //TODO add option to display it
+        if (!socialProfiles[authMethod].visible) {
+            return null;
+        }
 
         var name = authMethod.getName().toLowerCase();
-        var profile = switch (authMethod) {
-            case Facebook:
-                socialProfiles.facebook_profile;
-            case Twitter:
-                socialProfiles.twitter_profile;
-            case Google:
-                socialProfiles.google_profile;
-            case GitHub:
-                socialProfiles.github_profile;
-            case GitLab:
-                socialProfiles.gitlab_profile;
-            case YouTube:
-                socialProfiles.youtube_profile;
-            case Twitch:
-                socialProfiles.twitch_profile;
-        }
+        var profile = socialProfiles[authMethod].profile;
         var isConnected = profile != null;
 
         if (!isConnected)
@@ -72,19 +56,19 @@ class User extends Page {
 
         var text = switch (authMethod) {
             case Facebook:
-                '${socialProfiles.facebook_profile.displayName}';
+                '${profile.displayName}';
             case Twitter:
-                '@${socialProfiles.twitter_profile.username}';
+                '@${profile.username}';
             case Google:
-                '${socialProfiles.google_profile.displayName}';
+                '${profile.displayName}';
             case GitHub:
-                '@${socialProfiles.github_profile.username}';
+                '@${profile.username}';
             case GitLab:
-                '@${socialProfiles.gitlab_profile.username}';
+                '@${profile.username}';
             case YouTube:
-                '${socialProfiles.youtube_profile.displayName}';
+                '${profile.displayName}';
             case Twitch:
-                '${socialProfiles.twitch_profile.login}';
+                '${profile.login}';
             case _:
                 throw "unknow social network name: " + name;
         }

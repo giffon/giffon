@@ -1,5 +1,6 @@
 package giffon.server;
 
+import giffon.db.AuthMethod;
 import js.Node.*;
 import js.npm.express.*;
 import js.npm.mysql2.*;
@@ -467,24 +468,26 @@ class ServerMain {
         }
     }
 
-    @async static public function getSocialProfiles(user_id:Int):{
-        facebook_profile:Null<js.npm.passport.Profile>,
-        twitter_profile:Null<js.npm.passport.Profile>,
-        google_profile:Null<js.npm.passport.Profile>,
-        github_profile:Null<js.npm.passport.Profile>,
-        gitlab_profile:Null<js.npm.passport.Profile>,
-        youtube_profile:Null<js.npm.passport.Profile>,
-        twitch_profile:Null<js.npm.passport.Profile>,
-    } {
+    @async static public function getSocialProfiles(user_id:Int):Map<AuthMethod, {
+        visible: Bool,
+        profile: Profile,
+    }> {
         var results:QueryResults = (@await dbConnectionPool.query(
             "
                 SELECT  user_facebook.passport_profile AS facebook_profile,
+                        user_facebook.visible AS facebook_visible,
                         user_twitter.passport_profile AS twitter_profile,
+                        user_twitter.visible AS twitter_visible,
                         user_google.passport_profile AS google_profile,
+                        user_google.visible AS google_visible,
                         user_github.passport_profile AS github_profile,
+                        user_github.visible AS github_visible,
                         user_gitlab.passport_profile AS gitlab_profile,
+                        user_gitlab.visible AS gitlab_visible,
                         user_youtube.passport_profile AS youtube_profile,
-                        user_twitch.passport_profile AS twitch_profile
+                        user_youtube.visible AS youtube_visible,
+                        user_twitch.passport_profile AS twitch_profile,
+                        user_twitch.visible AS twitch_visible
                 FROM user
                 LEFT OUTER JOIN user_facebook ON user.user_id = user_facebook.user_id
                 LEFT OUTER JOIN user_twitter ON user.user_id = user_twitter.user_id
@@ -502,7 +505,14 @@ class ServerMain {
         if (results.length > 1)
             throw 'There are ${results == null ? 0 : results.length} users with user_id = ${user_id}.';
 
-        return results[0];
+        var r:DynamicAccess<Dynamic> = results[0];
+        return [
+            for (auth in Type.allEnums(AuthMethod))
+            auth => {
+                visible: (r[auth.getName().toLowerCase() + "_visible"]:Bool),
+                profile: (r[auth.getName().toLowerCase() + "_profile"]:Profile),
+            }
+        ];
     }
 
     @async static public function getSocialIds(user_id:Int):{

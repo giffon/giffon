@@ -1,10 +1,12 @@
 package giffon.view;
 
+import js.npm.passport.Profile;
 import react.*;
 import react.ReactMacro.jsx;
 import haxe.io.*;
 import haxe.*;
 import giffon.R.*;
+import giffon.db.AuthMethod;
 using StringTools;
 using giffon.db.AuthMethod.AuthMethodTools;
 using giffon.lang.Settings;
@@ -52,37 +54,17 @@ class Settings extends Page {
         return attrs;
     }
 
-    var socialProfiles(get, never):{
-        facebook_profile:Null<js.npm.passport.Profile>,
-        twitter_profile:Null<js.npm.passport.Profile>,
-        google_profile:Null<js.npm.passport.Profile>,
-        github_profile:Null<js.npm.passport.Profile>,
-        gitlab_profile:Null<js.npm.passport.Profile>,
-        youtube_profile:Null<js.npm.passport.Profile>,
-        twitch_profile:Null<js.npm.passport.Profile>,
-    };
+    var socialProfiles(get, never):Map<giffon.db.AuthMethod, {
+        visible:Bool,
+        profile:Profile,
+    }>;
     function get_socialProfiles() return props.socialProfiles;
 
-    function numSocialConnections() return [for (k in Reflect.fields(socialProfiles)) if (Reflect.field(socialProfiles, k) != null) 1].length;
+    function numSocialConnections() return [for (k => v in socialProfiles) if (v.profile != null) 1].length;
 
     function socialButton(authMethod:giffon.db.AuthMethod) {
         var name = authMethod.getName().toLowerCase();
-        var isConnected = switch (authMethod) {
-            case Facebook:
-                socialProfiles.facebook_profile != null;
-            case Twitter:
-                socialProfiles.twitter_profile != null;
-            case Google:
-                socialProfiles.google_profile != null;
-            case GitHub:
-                socialProfiles.github_profile != null;
-            case GitLab:
-                socialProfiles.gitlab_profile != null;
-            case YouTube:
-                socialProfiles.youtube_profile != null;
-            case Twitch:
-                socialProfiles.twitch_profile != null;
-        }
+        var isConnected = socialProfiles[authMethod].profile != null;
 
         var href = if (!isConnected)
             'signin/${name}?redirectTo=${Path.join([base, "settings"]).urlEncode()}';
@@ -111,19 +93,19 @@ class Settings extends Page {
         var text = if (isConnected) {
             switch (authMethod) {
                 case Facebook:
-                    '${language.disconnectFrom(authMethod)} (${socialProfiles.facebook_profile.displayName})';
+                    '${language.disconnectFrom(authMethod)} (${socialProfiles[Facebook].profile.displayName})';
                 case Twitter:
-                    '${language.disconnectFrom(authMethod)} (${socialProfiles.twitter_profile.username})';
+                    '${language.disconnectFrom(authMethod)} (${socialProfiles[Twitter].profile.username})';
                 case Google:
-                    '${language.disconnectFrom(authMethod)} (${socialProfiles.google_profile.displayName})';
+                    '${language.disconnectFrom(authMethod)} (${socialProfiles[Google].profile.displayName})';
                 case GitHub:
-                    '${language.disconnectFrom(authMethod)} (${socialProfiles.github_profile.username})';
+                    '${language.disconnectFrom(authMethod)} (${socialProfiles[GitHub].profile.username})';
                 case GitLab:
-                    '${language.disconnectFrom(authMethod)} (${socialProfiles.gitlab_profile.username})';
+                    '${language.disconnectFrom(authMethod)} (${socialProfiles[GitLab].profile.username})';
                 case YouTube:
-                    '${language.disconnectFrom(authMethod)} (${socialProfiles.youtube_profile.displayName})';
+                    '${language.disconnectFrom(authMethod)} (${socialProfiles[YouTube].profile.displayName})';
                 case Twitch:
-                    '${language.disconnectFrom(authMethod)} (${socialProfiles.twitch_profile.login})';
+                    '${language.disconnectFrom(authMethod)} (${socialProfiles[Twitch].profile.login})';
             }
         } else {
             language.connectTo(authMethod);
@@ -142,7 +124,11 @@ class Settings extends Page {
                     />
                 </div>
                 <div className="col-auto">
-                    <div className="socialToggleVisible" data-authmethod=${authMethod.getName()} data-checked=${Std.string(true)} data-disabled=${Std.string(!isConnected)} />
+                    <div className="socialToggleVisible"
+                        data-authmethod=${authMethod.getName()}
+                        data-checked=${Std.string(socialProfiles[authMethod].visible)}
+                        data-disabled=${Std.string(!isConnected)}
+                    />
                 </div>
             </div>
         ');

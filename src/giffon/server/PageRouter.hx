@@ -1,5 +1,6 @@
 package giffon.server;
 
+import giffon.db.AuthMethod;
 import haxe.*;
 import js.npm.express.*;
 import js.npm.passport.*;
@@ -81,13 +82,14 @@ class PageRouter {
 
         router.get("/disconnect/:auth_method", ensureLoggedIn, @await function(req:Request, res:Response, next) {
             var auth_method = req.params.auth_method;
-            if (!Type.allEnums(giffon.db.AuthMethod).exists(function(a) return a.getName().toLowerCase() == auth_method)) {
+            var authMethod = AuthMethodTools.fromString(auth_method);
+            if (authMethod == null) {
                 res.sendPlainError("unknown auth method", NotFound);
                 return;
             }
             var user = res.getUser();
-            var socialProfiles:DynamicAccess<js.npm.passport.Profile> = @await getSocialProfiles(user.user_id);
-            var social_profile = socialProfiles['${auth_method}_profile'];
+            var socialProfiles = @await getSocialProfiles(user.user_id);
+            var social_profile = socialProfiles[authMethod];
 
             var numConnected = [for (k in socialProfiles.keys()) if (socialProfiles[k] != null) 1].length;
             if (numConnected <= 1) {
@@ -102,7 +104,7 @@ class PageRouter {
 
             @await dbConnectionPool.query(
                 'DELETE FROM user_${auth_method} WHERE user_id = ? && ${auth_method}_id = ?',
-                [res.getUser().user_id, social_profile.id]
+                [res.getUser().user_id, social_profile.profile.id]
             ).toPromise();
 
             var base = switch (req.baseUrl) {

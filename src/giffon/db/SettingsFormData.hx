@@ -47,3 +47,14 @@ class SettingsFormData implements DataClass {
     @validate(_ == null || _.length <= 16777215 && _.startsWith("data:image/"))
     public var user_avatar:Null<String>;
 }
+
+typedef SocialSetVisibleValue = {
+    social:String,
+    visible:Bool,
+}
+
+class SocialSetVisibleData implements DataClass {
+    @validate(Type.allEnums(AuthMethod).exists(function(m) return m.getName() == _))
+    public var social:String;
+    public var visible:Bool;
+}

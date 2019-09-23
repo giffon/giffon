@@ -1,7 +1,9 @@
 package giffon.db;
 
 import giffon.R.*;
+using Lambda;
 
+@:using(giffon.db.AuthMethod.AuthMethodTools)
 enum AuthMethod {
     Facebook;
     GitHub;
@@ -24,4 +26,8 @@ class AuthMethodTools {
             case Twitch: R("/images/twitch-seeklogo.com.svg");
         }
     }
+
+    static public function fromString(str:String):Null<AuthMethod>
+        return Type.allEnums(AuthMethod)
+            .find(a -> a.getName().toLowerCase() == str.toLowerCase());
 }
