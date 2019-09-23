@@ -1,5 +1,7 @@
 package giffon.browser;
 
+import haxe.Timer;
+import js.html.DivElement;
 import haxe.io.*;
 import haxe.Json;
 import js.jquery.*;
@@ -41,6 +43,8 @@ class SocialToggleVisible extends ReactComponent {
         return v;
     }
 
+    final switchContainerRef:ReactRef<DivElement> = React.createRef();
+
     function new(props) {
         super(props);
         state = {
@@ -65,6 +69,20 @@ class SocialToggleVisible extends ReactComponent {
         })
             .done(function(data:String, textStatus:String, jqXHR){
                 disabled = false;
+
+                var j:Dynamic = new JQuery(switchContainerRef.current);
+                j
+                    .tooltip({
+                        trigger: "manual",
+                        title: "saved",
+                        placement: "right",
+                        offset: "0,5",
+                    })
+                    .tooltip("show");
+
+                Timer.delay(function() {
+                    j.tooltip("hide");
+                }, 1500);
             })
             .fail(function(err){
                 alert(err);
@@ -74,7 +92,7 @@ class SocialToggleVisible extends ReactComponent {
     }
 
     override function render() return jsx('
-        <div className="d-flex align-items-center h-100">
+        <div className="d-flex align-items-center h-100" ref=${switchContainerRef}>
             <span className="mr-1">show on profile</span>
             <Switch onChange=${handleChange} checked=${checked} disabled=${disabled} />
         </div>
