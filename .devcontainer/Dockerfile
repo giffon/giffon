@@ -18,8 +18,8 @@ RUN apt-get update \
     #
     # Verify git and needed tools are installed
     && apt-get install -y git iproute2 procps sudo bash-completion build-essential \
-    && curl -sL https://deb.nodesource.com/setup_8.x | bash - \
-    && apt-get install -y nodejs=8.* \
+    && curl -sL https://deb.nodesource.com/setup_10.x | bash - \
+    && apt-get install -y nodejs=10.* \
     #
     # Clean up
     && apt-get autoremove -y \

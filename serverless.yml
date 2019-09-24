@@ -22,7 +22,7 @@ tenant: giffonio
 
 provider:
   name: aws
-  runtime: nodejs8.10
+  runtime: nodejs10.x
   timeout: 30
   environment:
     SERVERLESS_STAGE: ${opt:stage, 'dev'}
