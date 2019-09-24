@@ -27,10 +27,10 @@ stages:
 
 build-haxe4:
   extends: .build
-  image: haxe:4.0.0-rc.5-alpine3.8
+  image: haxe:4.0.0-rc.5-alpine3.10
 
 test-spellcheck:
-  image: node:8-alpine
+  image: node:10-alpine
   dependencies:
     - build-haxe4
   stage: test
@@ -38,7 +38,7 @@ test-spellcheck:
     - node test/Spellcheck.js
 
 .test-selenium:
-  image: alpine:3.8
+  image: alpine:3.10
   variables:
     MYSQL_ROOT_PASSWORD: devroot
     MYSQL_DATABASE: giffon
@@ -104,7 +104,7 @@ deploy-serverless:
   stage: deploy
   dependencies:
     - build-haxe4
-  image: node:8-alpine
+  image: node:10-alpine
   script:
     - npx serverless deploy --stage "${CI_COMMIT_REF_NAME}"
   only:
