@@ -112,7 +112,7 @@ class SeleniumTest extends utest.Test {
         driver.get("https://facebook.com/");
         driver.delete_all_cookies();
         driver.refresh();
-        driver.find_element_by_css_selector("body #email");
+        waitExists(() -> driver.find_element_by_css_selector("body #email"));
 
         // consume the facebook logs to keep the console empty
         driver.clearLog();
