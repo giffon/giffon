@@ -26,6 +26,7 @@ class Spellcheck {
         "devs",
         "HKD",
         "USD",
+        "PayPal",
     ];
 
     static function main():Void {
