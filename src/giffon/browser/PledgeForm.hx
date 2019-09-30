@@ -8,7 +8,6 @@ import js.npm.formik.*;
 import js.npm.react_stripe_elements.*;
 import js.npm.material_ui.MaterialUi;
 import js.npm.formik_material_ui.FormikMaterialUi;
-import js.npm.paypal_checkout.PayPalCheckout;
 import thx.Decimal;
 import js.jquery.*;
 import js.Browser.*;
