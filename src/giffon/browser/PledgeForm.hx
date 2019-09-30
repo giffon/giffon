@@ -351,7 +351,7 @@ class _PledgeForm extends ReactComponent {
                             currency_code: wish_currency.getName(),
                             value: Std.string(props.values.pledge_amount),
                         },
-                        description: 'Supporting wish.',
+                        description: 'Supporting a wish on Giffon.',
                     }],
                     application_context: {
                         shipping_preference: "NO_SHIPPING",
@@ -449,10 +449,7 @@ class _PledgeForm extends ReactComponent {
             return jsx('
                 <div className="form-row">
                     <div className="form-group col-md-7">
-                        <label htmlFor="paypal-button-container">
-                            ${language.payPal()}
-                        </label>
-                        <div onClick=${() -> formRef.current.reportValidity()}>
+                        <div class="paypal-button-container" onClick=${() -> formRef.current.reportValidity()}>
                             <BlockUi tag="div"
                                 blocking=${props.isSubmitting || !formRef.current.checkValidity()}
                                 loader="div"
@@ -473,153 +470,157 @@ class _PledgeForm extends ReactComponent {
         }
 
         return jsx('
-            <form ref=${formRef} onSubmit=${props.handleSubmit} onReset=${props.handleReset}>
-                ${submissionErrorElement}
-                <div className="form-row">
-                    <div className="form-group col-md-5">
-                        <label htmlFor="pledge_amount">
-                            ${language.supportAmount()} ( <div className=${currencyFlagClass}></div> ${wish_currency.getName()} )
-                        </label>
+            <BlockUi tag="div"
+                blocking=${props.isSubmitting}
+            >
+                <form ref=${formRef} onSubmit=${props.handleSubmit} onReset=${props.handleReset}>
+                    ${submissionErrorElement}
+                    <div className="form-row">
+                        <div className="form-group col-md-5">
+                            <label htmlFor="pledge_amount">
+                                ${language.supportAmount()} ( <div className=${currencyFlagClass}></div> ${wish_currency.getName()} )
+                            </label>
+                            <Field
+                                className="form-control"
+                                name="pledge_amount"
+                                id="pledge_amount"
+                                type="number"
+                                min=${PledgeFormData.pledge_amount_min} max=${Math.min(PledgeFormData.pledge_amount_max, wish_total_needed.toFloat())} step="0.01"
+                                required=${true}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="form-group">
+                        <div className="mb-1">
+                            <p className="mb-0">${language.pledgeNameVisibility()}</p>
+                            <small>
+                                ${language.pledgeNameVisibilityNote()}
+                            </small>
+                        </div>
                         <Field
-                            className="form-control"
-                            name="pledge_amount"
-                            id="pledge_amount"
-                            type="number"
-                            min=${PledgeFormData.pledge_amount_min} max=${Math.min(PledgeFormData.pledge_amount_max, wish_total_needed.toFloat())} step="0.01"
-                            required=${true}
-                        />
+                            name="pledge_name_visibility"
+                            component="div"
+                        >
+                            <div className="form-check">
+                                <input
+                                    id="pledge_name_visibility_hiddenFromAll"
+                                    name="pledge_name_visibility"
+                                    className="form-check-input" type="radio" value=${giffon.db.PledgeVisibility.HiddenFromAll.getName()}
+                                    defaultChecked=${props.values.pledge_name_visibility == giffon.db.PledgeVisibility.HiddenFromAll.getName()}
+                                />
+                                <label className="form-check-label" htmlFor="pledge_name_visibility_hiddenFromAll">
+                                    ${language.pledgeNameBeHiddenFromAll()}
+                                </label>
+                            </div>
+                            <div className="form-check">
+                                <input
+                                    id="pledge_name_visibility_visibleToWishOwner"
+                                    name="pledge_name_visibility"
+                                    className="form-check-input" type="radio" value=${giffon.db.PledgeVisibility.VisibleToWishOwner.getName()}
+                                    defaultChecked=${props.values.pledge_name_visibility == giffon.db.PledgeVisibility.VisibleToWishOwner.getName()}
+                                />
+                                <label className="form-check-label" htmlFor="pledge_name_visibility_visibleToWishOwner">
+                                    ${language.pledgeNameBeVisibleToWishOwner()}
+                                </label>
+                            </div>
+                            <div className="form-check">
+                                <input
+                                    id="pledge_name_visibility_visibleToAll"
+                                    name="pledge_name_visibility"
+                                    className="form-check-input" type="radio" value=${giffon.db.PledgeVisibility.VisibleToAll.getName()}
+                                    defaultChecked=${props.values.pledge_name_visibility == giffon.db.PledgeVisibility.VisibleToAll.getName()}
+                                />
+                                <label className="form-check-label" htmlFor="pledge_name_visibility_visibleToAll">
+                                    ${language.pledgeNameBeVisibleToAll()}
+                                </label>
+                            </div>
+                        </Field>
                     </div>
-                </div>
-
-                <div className="form-group">
-                    <div className="mb-1">
-                        <p className="mb-0">${language.pledgeNameVisibility()}</p>
-                        <small>
-                            ${language.pledgeNameVisibilityNote()}
-                        </small>
-                    </div>
-                    <Field
-                        name="pledge_name_visibility"
-                        component="div"
-                    >
-                        <div className="form-check">
-                            <input
-                                id="pledge_name_visibility_hiddenFromAll"
-                                name="pledge_name_visibility"
-                                className="form-check-input" type="radio" value=${giffon.db.PledgeVisibility.HiddenFromAll.getName()}
-                                defaultChecked=${props.values.pledge_name_visibility == giffon.db.PledgeVisibility.HiddenFromAll.getName()}
-                            />
-                            <label className="form-check-label" htmlFor="pledge_name_visibility_hiddenFromAll">
-                                ${language.pledgeNameBeHiddenFromAll()}
-                            </label>
+                    <div className="form-group">
+                        <div className="mb-1">
+                            <p className="mb-0">${language.pledgeAmountVisibility()}</p>
+                            <small>
+                                ${language.pledgeAmountVisibilityNote()}
+                            </small>
                         </div>
-                        <div className="form-check">
-                            <input
-                                id="pledge_name_visibility_visibleToWishOwner"
-                                name="pledge_name_visibility"
-                                className="form-check-input" type="radio" value=${giffon.db.PledgeVisibility.VisibleToWishOwner.getName()}
-                                defaultChecked=${props.values.pledge_name_visibility == giffon.db.PledgeVisibility.VisibleToWishOwner.getName()}
-                            />
-                            <label className="form-check-label" htmlFor="pledge_name_visibility_visibleToWishOwner">
-                                ${language.pledgeNameBeVisibleToWishOwner()}
-                            </label>
-                        </div>
-                        <div className="form-check">
-                            <input
-                                id="pledge_name_visibility_visibleToAll"
-                                name="pledge_name_visibility"
-                                className="form-check-input" type="radio" value=${giffon.db.PledgeVisibility.VisibleToAll.getName()}
-                                defaultChecked=${props.values.pledge_name_visibility == giffon.db.PledgeVisibility.VisibleToAll.getName()}
-                            />
-                            <label className="form-check-label" htmlFor="pledge_name_visibility_visibleToAll">
-                                ${language.pledgeNameBeVisibleToAll()}
-                            </label>
-                        </div>
-                    </Field>
-                </div>
-                <div className="form-group">
-                    <div className="mb-1">
-                        <p className="mb-0">${language.pledgeAmountVisibility()}</p>
-                        <small>
-                            ${language.pledgeAmountVisibilityNote()}
-                        </small>
-                    </div>
-                    <Field
-                        name="pledge_visibility"
-                        component="div"
-                    >
-                        <div className="form-check">
-                            <input
-                                id="pledge_visibility_hiddenFromAll"
-                                name="pledge_visibility"
-                                className="form-check-input" type="radio" value=${giffon.db.PledgeVisibility.HiddenFromAll.getName()}
-                                defaultChecked=${props.values.pledge_visibility == giffon.db.PledgeVisibility.HiddenFromAll.getName()}
-                            />
-                            <label className="form-check-label" htmlFor="pledge_visibility_hiddenFromAll">
-                                ${language.pledgeAmountBeHiddenFromAll()}
-                            </label>
-                        </div>
-                        <div className="form-check">
-                            <input
-                                id="pledge_visibility_visibleToWishOwner"
-                                name="pledge_visibility"
-                                className="form-check-input" type="radio" value=${giffon.db.PledgeVisibility.VisibleToWishOwner.getName()}
-                                defaultChecked=${props.values.pledge_visibility == giffon.db.PledgeVisibility.VisibleToWishOwner.getName()}
-                            />
-                            <label className="form-check-label" htmlFor="pledge_visibility_visibleToWishOwner">
-                                ${language.pledgeAmountBeVisibleToWishOwner()}
-                            </label>
-                        </div>
-                        <div className="form-check">
-                            <input
-                                id="pledge_visibility_visibleToAll"
-                                name="pledge_visibility"
-                                className="form-check-input" type="radio" value=${giffon.db.PledgeVisibility.VisibleToAll.getName()}
-                                defaultChecked=${props.values.pledge_visibility == giffon.db.PledgeVisibility.VisibleToAll.getName()}
-                            />
-                            <label className="form-check-label" htmlFor="pledge_visibility_visibleToAll">
-                                ${language.pledgeAmountBeVisibleToAll()}
-                            </label>
-                        </div>
-                    </Field>
-                </div>
-                <div className="form-group">
-                    <div className="form-check">
                         <Field
-                            id="acceptTerms"
-                            name="acceptTerms"
-                            className="form-check-input" type="checkbox"
-                            required=${true}
-                        />
-                        <label className="form-check-label" htmlFor="acceptTerms">
-                            ${language.agreeTo(termsLink)}
-                        </label>
-                        <ErrorMessage name="acceptTerms" render=${renderErrorMessage} />
+                            name="pledge_visibility"
+                            component="div"
+                        >
+                            <div className="form-check">
+                                <input
+                                    id="pledge_visibility_hiddenFromAll"
+                                    name="pledge_visibility"
+                                    className="form-check-input" type="radio" value=${giffon.db.PledgeVisibility.HiddenFromAll.getName()}
+                                    defaultChecked=${props.values.pledge_visibility == giffon.db.PledgeVisibility.HiddenFromAll.getName()}
+                                />
+                                <label className="form-check-label" htmlFor="pledge_visibility_hiddenFromAll">
+                                    ${language.pledgeAmountBeHiddenFromAll()}
+                                </label>
+                            </div>
+                            <div className="form-check">
+                                <input
+                                    id="pledge_visibility_visibleToWishOwner"
+                                    name="pledge_visibility"
+                                    className="form-check-input" type="radio" value=${giffon.db.PledgeVisibility.VisibleToWishOwner.getName()}
+                                    defaultChecked=${props.values.pledge_visibility == giffon.db.PledgeVisibility.VisibleToWishOwner.getName()}
+                                />
+                                <label className="form-check-label" htmlFor="pledge_visibility_visibleToWishOwner">
+                                    ${language.pledgeAmountBeVisibleToWishOwner()}
+                                </label>
+                            </div>
+                            <div className="form-check">
+                                <input
+                                    id="pledge_visibility_visibleToAll"
+                                    name="pledge_visibility"
+                                    className="form-check-input" type="radio" value=${giffon.db.PledgeVisibility.VisibleToAll.getName()}
+                                    defaultChecked=${props.values.pledge_visibility == giffon.db.PledgeVisibility.VisibleToAll.getName()}
+                                />
+                                <label className="form-check-label" htmlFor="pledge_visibility_visibleToAll">
+                                    ${language.pledgeAmountBeVisibleToAll()}
+                                </label>
+                            </div>
+                        </Field>
                     </div>
-                </div>
+                    <div className="form-group">
+                        <div className="form-check">
+                            <Field
+                                id="acceptTerms"
+                                name="acceptTerms"
+                                className="form-check-input" type="checkbox"
+                                required=${true}
+                            />
+                            <label className="form-check-label" htmlFor="acceptTerms">
+                                ${language.agreeTo(termsLink)}
+                            </label>
+                            <ErrorMessage name="acceptTerms" render=${renderErrorMessage} />
+                        </div>
+                    </div>
 
-                <div className="form-group">
-                    <p className="mb-0">${language.pledgeMethod()}</p>
+                    <div className="form-group">
+                        <p className="mb-0">${language.pledgeMethod()}</p>
 
-                    <Field name="pledge_method" component=${RadioGroup}>
-                        <FormControlLabel
-                            label=${language.creditCard()}
-                            labelPlacement="end"
-                            value=${StripeCard.getName()}
-                            control=${radio()}
-                        />
-                        <FormControlLabel
-                            label=${language.payPal()}
-                            labelPlacement="end"
-                            value=${PayPal.getName()}
-                            control=${radio()}
-                        />
-                    </Field>
-                </div>
+                        <Field name="pledge_method" component=${RadioGroup}>
+                            <FormControlLabel
+                                label=${language.creditCard()}
+                                labelPlacement="end"
+                                value=${StripeCard.getName()}
+                                control=${radio()}
+                            />
+                            <FormControlLabel
+                                label=${language.payPal()}
+                                labelPlacement="end"
+                                value=${PayPal.getName()}
+                                control=${radio()}
+                            />
+                        </Field>
+                    </div>
 
-                ${if (props.values.pledge_method == StripeCard.getName()) stripeFields() else null}
-                ${if (props.values.pledge_method == PayPal.getName()) payPalFields() else null}
-            </form>
+                    ${if (props.values.pledge_method == StripeCard.getName()) stripeFields() else null}
+                    ${if (props.values.pledge_method == PayPal.getName()) payPalFields() else null}
+                </form>
+            </BlockUi>
         ');
     }
 }

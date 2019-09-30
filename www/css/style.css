@@ -1029,6 +1029,6 @@ a.unstyled, a:hover.unstyled {
     background-size: contain;   
 }
 
-.page-wish .block-ui-container {
+.page-wish .paypal-button-container .block-ui-container {
     cursor: not-allowed;
 }
