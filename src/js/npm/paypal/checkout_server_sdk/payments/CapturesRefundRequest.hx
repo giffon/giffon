@@ -39,5 +39,6 @@ typedef CapturesRefundResponse = {
 extern class CapturesRefundRequest implements Request<CapturesRefundResponse> {
     public function new(captureId:String):Void;
 
+    public function prefer(v:String):Void;
     public function requestBody(opts:Dynamic):Void;
 }

@@ -1,5 +1,6 @@
 package giffon;
 
+import giffon.lang.Language;
 import js.npm.express.*;
 import react.*;
 
@@ -16,6 +17,10 @@ class ResponseTools {
 
     static public function setUser(res:Response, user:giffon.db.User):Void {
         res.locals.user = user;
+    }
+
+    static public function getLanguage(res:Response):Language {
+        return res.locals.language;
     }
 
     static public function sendPlainText(res:Response, text:String, code:Int = 200):Void {

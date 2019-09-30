@@ -351,7 +351,7 @@ class _PledgeForm extends ReactComponent {
                             currency_code: wish_currency.getName(),
                             value: Std.string(props.values.pledge_amount),
                         },
-                        description: 'Supporting a wish on Giffon.',
+                        description: language.supportingAWishOnGiffon(),
                     }],
                     application_context: {
                         shipping_preference: "NO_SHIPPING",

@@ -16,6 +16,7 @@ import haxe.Json;
 using tink.core.Future.JsPromiseTools;
 using giffon.ResponseTools;
 using giffon.server.PromiseTools;
+using giffon.lang.Wish;
 using Lambda;
 
 @await
@@ -134,7 +135,7 @@ class Wish {
                 for (result in results) {
                     var orderId = result.paypal_order_id;
                     var user_id = result.user_id;
-                    var refund = @await refundPaypalOrder(orderId);
+                    var refund = @await refundPaypalOrder(orderId, res.getLanguage().wishCancelled());
                     if (refund == null) continue;
                     @await dbConnectionPool.query(
                         "
@@ -393,7 +394,7 @@ class Wish {
         res.redirect(Path.join([base, "wish", wish_hashid]));
     };
 
-    @async static function refundPaypalOrder(orderId:String) {
+    @async static function refundPaypalOrder(orderId:String, note:String) {
         var ordersGetRequest = new js.npm.paypal.checkout_server_sdk.orders.OrdersGetRequest(orderId);
         var paypalOrder = (@await paypalClient.execute(ordersGetRequest).toPromise()).result;
         trace(Json.stringify(paypalOrder, null, "  "));
@@ -416,11 +417,13 @@ class Wish {
 
         var captureId = paypalOrder.purchase_units[0].payments.captures[0].id;
         var capturesRefundRequest = new js.npm.paypal.checkout_server_sdk.payments.CapturesRefundRequest(captureId);
+        capturesRefundRequest.prefer("return=representation");
         capturesRefundRequest.requestBody({
             amount: {
                 currency_code: paypalOrder.purchase_units[0].amount.currency_code,
                 value: refundAmount.toString(),
-            }
+            },
+            note_to_payer: note,
         });
         var paypalRefund = (@await paypalClient.execute(capturesRefundRequest).toPromise()).result;
         trace(Json.stringify(paypalRefund, null, "  "));
@@ -513,7 +516,7 @@ class Wish {
             var orderIds:Array<String> = results.map(function(r) return r.paypal_order_id);
             try {
                 for (orderId in orderIds) {
-                    var refund = @await refundPaypalOrder(orderId);
+                    var refund = @await refundPaypalOrder(orderId, res.getLanguage().pledgeCancelled());
 
                     if (refund == null) continue;
 

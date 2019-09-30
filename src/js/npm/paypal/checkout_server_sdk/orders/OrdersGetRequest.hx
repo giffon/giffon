@@ -125,4 +125,6 @@ typedef OrdersGetResponse = {
 @:jsRequire("@paypal/checkout-server-sdk", "orders.OrdersGetRequest")
 extern class OrdersGetRequest implements Request<OrdersGetResponse> {
     public function new(orderID:String):Void;
+    public function prefer(v:String):Void;
+    public function requestBody(opts:Dynamic):Void;
 }

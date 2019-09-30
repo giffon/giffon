@@ -305,4 +305,19 @@ class Wish {
         case English: "Pledge method";
         case Cantonese | Chinese: "支付方法";
     }
+
+    static public function pledgeCancelled(lang:Language) return switch (lang) {
+        case English: "Pledge cancelled.";
+        case Cantonese | Chinese: "支持承諾已取消.";
+    }
+
+    static public function wishCancelled(lang:Language) return switch (lang) {
+        case English: "Wish cancelled.";
+        case Cantonese | Chinese: "願望已取消.";
+    }
+
+    static public function supportingAWishOnGiffon(lang:Language) return switch (lang) {
+        case English: "Supporting a wish on Giffon.";
+        case Cantonese | Chinese: "承諾支持願望.";
+    }
 }
