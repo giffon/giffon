@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "postinstall": "haxe install-haxelibs.hxml && npm run-script build-vendor",
-    "build-vendor": "./build-vendor.sh",
+    "build-vendor": "sh build-vendor.sh",
     "build": "haxe build.hxml",
     "start": "nodemon -L ServerMain.js | pino-pretty",
     "test": "haxe build-test.hxml && python3 test/SeleniumTest.py"
