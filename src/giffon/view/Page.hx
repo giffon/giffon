@@ -387,6 +387,7 @@ class Page extends ReactComponent {
                                 <div className="col-auto"><img alt="Visa" title="Visa" src=${R("/images/visa.svg")} width="35"/></div>
                                 <div className="col-auto"><img alt="Mastercard" title="Mastercard" src=${R("/images/mastercard.svg")} width="30"/></div>
                                 <div className="col-auto"><img alt="American Express" title="American Express" src=${R("/images/ae.svg")} width="30"/></div>
+                                <div className="col-auto"><img alt="PayPal" title="PayPal" src=${R("/images/pp-acceptance-small.png")} width="30"/></div>
                             </div>
                         </div>
                         <div className="col-12 col-sm-4 mb-4 mb-sm-0">
