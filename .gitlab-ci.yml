@@ -9,6 +9,7 @@ stages:
     GIT_SUBMODULE_STRATEGY: normal
   script:
     - apk add nodejs npm python make g++ git
+    - npm install -g rimraf # https://github.com/Luehang/react-paypal-button-v2/issues/27
     - npm install --unsafe-perm
     - npm run-script build-vendor
     - haxelib list
