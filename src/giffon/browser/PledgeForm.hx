@@ -469,6 +469,10 @@ class _PledgeForm extends ReactComponent {
             ');
         }
 
+        var menuItemStyle = {
+            whiteSpace: 'normal',
+        };
+
         return jsx('
             <BlockUi tag="div"
                 blocking=${props.isSubmitting}
@@ -492,110 +496,53 @@ class _PledgeForm extends ReactComponent {
                     </div>
 
                     <div className="form-group">
-                        <div className="mb-1">
-                            <p className="mb-0">${language.pledgeNameVisibility()}</p>
-                            <small>
-                                ${language.pledgeNameVisibilityNote()}
-                            </small>
-                        </div>
                         <Field
                             name="pledge_name_visibility"
-                            component="div"
+                            component=${Select}
+                            inputProps=${{
+                                name: 'pledge_name_visibility',
+                            }}
                         >
-                            <div className="form-check">
-                                <input
-                                    id="pledge_name_visibility_hiddenFromAll"
-                                    name="pledge_name_visibility"
-                                    className="form-check-input" type="radio" value=${giffon.db.PledgeVisibility.HiddenFromAll.getName()}
-                                    defaultChecked=${props.values.pledge_name_visibility == giffon.db.PledgeVisibility.HiddenFromAll.getName()}
-                                />
-                                <label className="form-check-label" htmlFor="pledge_name_visibility_hiddenFromAll">
-                                    ${language.pledgeNameBeHiddenFromAll()}
-                                </label>
-                            </div>
-                            <div className="form-check">
-                                <input
-                                    id="pledge_name_visibility_visibleToWishOwner"
-                                    name="pledge_name_visibility"
-                                    className="form-check-input" type="radio" value=${giffon.db.PledgeVisibility.VisibleToWishOwner.getName()}
-                                    defaultChecked=${props.values.pledge_name_visibility == giffon.db.PledgeVisibility.VisibleToWishOwner.getName()}
-                                />
-                                <label className="form-check-label" htmlFor="pledge_name_visibility_visibleToWishOwner">
-                                    ${language.pledgeNameBeVisibleToWishOwner()}
-                                </label>
-                            </div>
-                            <div className="form-check">
-                                <input
-                                    id="pledge_name_visibility_visibleToAll"
-                                    name="pledge_name_visibility"
-                                    className="form-check-input" type="radio" value=${giffon.db.PledgeVisibility.VisibleToAll.getName()}
-                                    defaultChecked=${props.values.pledge_name_visibility == giffon.db.PledgeVisibility.VisibleToAll.getName()}
-                                />
-                                <label className="form-check-label" htmlFor="pledge_name_visibility_visibleToAll">
-                                    ${language.pledgeNameBeVisibleToAll()}
-                                </label>
-                            </div>
+                            <MenuItem style=${menuItemStyle} value=${giffon.db.PledgeVisibility.HiddenFromAll.getName()}>
+                                ${language.pledgeNameBeHiddenFromAll()}
+                            </MenuItem>
+                            <MenuItem style=${menuItemStyle} value=${giffon.db.PledgeVisibility.VisibleToWishOwner.getName()}>
+                                ${language.pledgeNameBeVisibleToWishOwner()}
+                            </MenuItem>
+                            <MenuItem style=${menuItemStyle} value=${giffon.db.PledgeVisibility.VisibleToAll.getName()}>
+                                ${language.pledgeNameBeVisibleToAll()}
+                            </MenuItem>
                         </Field>
                     </div>
                     <div className="form-group">
-                        <div className="mb-1">
-                            <p className="mb-0">${language.pledgeAmountVisibility()}</p>
-                            <small>
-                                ${language.pledgeAmountVisibilityNote()}
-                            </small>
-                        </div>
                         <Field
                             name="pledge_visibility"
-                            component="div"
+                            component=${Select}
+                            inputProps=${{
+                                name: 'pledge_visibility',
+                                width: 1,
+                                style: menuItemStyle,
+                            }}
                         >
-                            <div className="form-check">
-                                <input
-                                    id="pledge_visibility_hiddenFromAll"
-                                    name="pledge_visibility"
-                                    className="form-check-input" type="radio" value=${giffon.db.PledgeVisibility.HiddenFromAll.getName()}
-                                    defaultChecked=${props.values.pledge_visibility == giffon.db.PledgeVisibility.HiddenFromAll.getName()}
-                                />
-                                <label className="form-check-label" htmlFor="pledge_visibility_hiddenFromAll">
-                                    ${language.pledgeAmountBeHiddenFromAll()}
-                                </label>
-                            </div>
-                            <div className="form-check">
-                                <input
-                                    id="pledge_visibility_visibleToWishOwner"
-                                    name="pledge_visibility"
-                                    className="form-check-input" type="radio" value=${giffon.db.PledgeVisibility.VisibleToWishOwner.getName()}
-                                    defaultChecked=${props.values.pledge_visibility == giffon.db.PledgeVisibility.VisibleToWishOwner.getName()}
-                                />
-                                <label className="form-check-label" htmlFor="pledge_visibility_visibleToWishOwner">
-                                    ${language.pledgeAmountBeVisibleToWishOwner()}
-                                </label>
-                            </div>
-                            <div className="form-check">
-                                <input
-                                    id="pledge_visibility_visibleToAll"
-                                    name="pledge_visibility"
-                                    className="form-check-input" type="radio" value=${giffon.db.PledgeVisibility.VisibleToAll.getName()}
-                                    defaultChecked=${props.values.pledge_visibility == giffon.db.PledgeVisibility.VisibleToAll.getName()}
-                                />
-                                <label className="form-check-label" htmlFor="pledge_visibility_visibleToAll">
-                                    ${language.pledgeAmountBeVisibleToAll()}
-                                </label>
-                            </div>
+                            <MenuItem style=${menuItemStyle} value=${giffon.db.PledgeVisibility.HiddenFromAll.getName()}>
+                                ${language.pledgeAmountBeHiddenFromAll()}
+                            </MenuItem>
+                            <MenuItem style=${menuItemStyle} value=${giffon.db.PledgeVisibility.VisibleToWishOwner.getName()}>
+                                ${language.pledgeAmountBeVisibleToWishOwner()}
+                            </MenuItem>
+                            <MenuItem style=${menuItemStyle} value=${giffon.db.PledgeVisibility.VisibleToAll.getName()}>
+                                ${language.pledgeAmountBeVisibleToAll()}
+                            </MenuItem>
                         </Field>
                     </div>
                     <div className="form-group">
-                        <div className="form-check">
-                            <Field
-                                id="acceptTerms"
-                                name="acceptTerms"
-                                className="form-check-input" type="checkbox"
-                                required=${true}
-                            />
-                            <label className="form-check-label" htmlFor="acceptTerms">
-                                ${language.agreeTo(termsLink)}
-                            </label>
-                            <ErrorMessage name="acceptTerms" render=${renderErrorMessage} />
-                        </div>
+                        <Field
+                            id="acceptTerms"
+                            name="acceptTerms"
+                            Label=${{ label: language.agreeTo(termsLink) }}
+                            component=${CheckboxWithLabel}
+                            required=${true}
+                        />
                     </div>
 
                     <div className="form-group">

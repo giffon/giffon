@@ -16,3 +16,9 @@ extern class FormControl extends ReactComponent {}
 
 @:jsRequire("@material-ui/core/FormLabel", "default")
 extern class FormLabel extends ReactComponent {}
+
+@:jsRequire("@material-ui/core/MenuItem", "default")
+extern class MenuItem extends ReactComponent {}
+
+@:jsRequire("@material-ui/core/Typography", "default")
+extern class Typography extends ReactComponent {}

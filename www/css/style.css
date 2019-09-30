@@ -1032,3 +1032,7 @@ a.unstyled, a:hover.unstyled {
 .page-wish .paypal-button-container .block-ui-container {
     cursor: not-allowed;
 }
+
+.page-wish .MuiSelect-selectMenu {
+    white-space: normal;
+}

@@ -13,6 +13,7 @@ browserify \
     -r @material-ui/core/FormControlLabel \
     -r @material-ui/core/FormControl \
     -r @material-ui/core/FormLabel \
+    -r @material-ui/core/MenuItem \
     -r react-paypal-button-v2 \
     -r formik-material-ui \
     -r react-block-ui \
