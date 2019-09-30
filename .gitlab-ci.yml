@@ -10,7 +10,7 @@ stages:
   script:
     - apk add nodejs npm python make g++ git
     - npm install --unsafe-perm
-    - npm run-script build-vendor-release
+    - npm run-script build-vendor
     - haxelib list
     - haxe build.hxml
     - haxe build-test.hxml

@@ -1,5 +1,6 @@
 package giffon.server;
 
+import giffon.db.PledgeMethod;
 import js.npm.express.*;
 import js.npm.mysql2.*;
 import react.*;
@@ -11,6 +12,7 @@ import giffon.config.*;
 import giffon.browser.*;
 import tink.core.Error;
 import haxe.io.*;
+import haxe.Json;
 using tink.core.Future.JsPromiseTools;
 using giffon.ResponseTools;
 using giffon.server.PromiseTools;
@@ -79,39 +81,77 @@ class Wish {
 
         //TODO: use transaction
 
-        @await dbConnectionPool.query(
-            "UPDATE wish SET `wish_state` = \"cancelled\" WHERE `wish_id` = ?",
-            ([wish_id]:Array<Dynamic>)
-        ).handleError(next).toPromise();
+        try {
+            @await dbConnectionPool.query(
+                "UPDATE wish SET `wish_state` = \"cancelled\" WHERE `wish_id` = ?",
+                ([wish_id]:Array<Dynamic>)
+            ).toPromise();
 
-        var results:QueryResults = (@await dbConnectionPool.query(
-            "
-                SELECT `stripe_charge_id`, `user_id`
-                FROM `pledge_stripe`
-                INNER JOIN `pledge` ON `pledge`.`pledge_id` = `pledge_stripe`.`pledge_id`
-                WHERE `wish_id` = ?
-            ",
-            [wish.wish_id]
-        ).handleError(next).toPromise()).results;
-
-        for (result in results) {
-            var chargeId = result.stripe_charge_id;
-            var user_id = result.user_id;
-            var charge = @await stripe.charges.retrieve(chargeId).handleError(next).toPromise();
-            if (charge.amount_refunded != charge.amount) {
-                @await stripe.charges.refund(chargeId).toPromise();
-                @await dbConnectionPool.query(
+            // refund all stripe charges
+            {
+                var results:QueryResults = (@await dbConnectionPool.query(
                     "
-                        INSERT INTO `pledge` SET ?;
-                    ",{
-                        user_id: user_id,
-                        wish_id: wish_id,
-                        pledge_amount: (Decimal.fromFloat(charge.amount_refunded - charge.amount) * 0.01).toFloat(), //cents -> dollars
-                        pledge_currency: wish.wish_currency.getName(),
-                        pledge_method: giffon.db.PledgeMethod.StripeCard.getName(),
+                        SELECT `stripe_charge_id`, `user_id`
+                        FROM `pledge_stripe`
+                        INNER JOIN `pledge` ON `pledge`.`pledge_id` = `pledge_stripe`.`pledge_id`
+                        WHERE `wish_id` = ?
+                    ",
+                    [wish.wish_id]
+                ).toPromise()).results;
+
+                for (result in results) {
+                    var chargeId = result.stripe_charge_id;
+                    var user_id = result.user_id;
+                    var charge = @await stripe.charges.retrieve(chargeId).toPromise();
+                    if (charge.amount_refunded != charge.amount) {
+                        @await stripe.charges.refund(chargeId).toPromise();
+                        @await dbConnectionPool.query(
+                            "
+                                INSERT INTO `pledge` SET ?;
+                            ",{
+                                user_id: user_id,
+                                wish_id: wish_id,
+                                pledge_amount: (Decimal.fromFloat(charge.amount_refunded - charge.amount) * 0.01).toFloat(), //cents -> dollars
+                                pledge_currency: wish.wish_currency.getName(),
+                                pledge_method: giffon.db.PledgeMethod.StripeCard.getName(),
+                            }
+                        ).toPromise();
                     }
-                ).handleError(next).toPromise();
+                }
             }
+
+            // refund all paypal charges
+            {
+                var results:QueryResults = (@await dbConnectionPool.query(
+                    "
+                        SELECT `paypal_order_id`, `user_id`
+                        FROM `pledge_paypal`
+                        INNER JOIN `pledge` ON `pledge`.`pledge_id` = `pledge_paypal`.`pledge_id`
+                        WHERE `wish_id` = ?
+                    ",
+                    [wish.wish_id]
+                ).toPromise()).results;
+                for (result in results) {
+                    var orderId = result.paypal_order_id;
+                    var user_id = result.user_id;
+                    var refund = @await refundPaypalOrder(orderId);
+                    if (refund == null) continue;
+                    @await dbConnectionPool.query(
+                        "
+                            INSERT INTO `pledge` SET ?;
+                        ",{
+                            user_id: user_id,
+                            wish_id: wish_id,
+                            pledge_amount: -(Decimal.fromString(refund.amount.value).toFloat()),
+                            pledge_currency: wish.wish_currency.getName(),
+                            pledge_method: giffon.db.PledgeMethod.PayPal.getName(),
+                        }
+                    ).toPromise();
+                }
+            }
+        } catch (err:Dynamic) {
+            res.sendPlainError(err);
+            return;
         }
         res.sendPlainText("done");
     }
@@ -241,47 +281,152 @@ class Wish {
         }
 
         var user = res.getUser();
-        var stripe_customer_id = @await getStripeCustomerIdFromUser(user);
 
-        var charge = try {
-            @await stripe.charges.create({
-                amount: (Decimal.fromFloat(pledgeFormData.pledge_amount) * 100).toInt(), // unit is cents
-                currency: wish.wish_currency.getName().toLowerCase(),
-                // customer: stripe_customer_id,
-                source: pledgeFormData.pledge_data.id,
-                description: 'Supporting ${wish.wish_owner.user_name}\'s wish (${wish.wish_title}).',
-            }).toPromise();
-        } catch (err:Dynamic) {
-            res.sendPlainError(err, InternalError);
-            return;
+        switch (PledgeMethod.createByName(pledgeFormData.pledge_method)) {
+            case StripeCard:
+                // var stripe_customer_id = @await getStripeCustomerIdFromUser(user);
+
+                var charge = try {
+                    @await stripe.charges.create({
+                        amount: (Decimal.fromFloat(pledgeFormData.pledge_amount) * 100).toInt(), // unit is cents
+                        currency: wish.wish_currency.getName().toLowerCase(),
+                        // customer: stripe_customer_id,
+                        source: pledgeFormData.pledge_data.id,
+                        description: 'Supporting ${wish.wish_owner.user_name}\'s wish (${wish.wish_title}).',
+                    }).toPromise();
+                } catch (err:Dynamic) {
+                    res.sendPlainError(err, InternalError);
+                    return;
+                }
+
+                try {
+                    @await dbConnectionPool.query(
+                        "
+                            START TRANSACTION;
+                            INSERT INTO `pledge` SET ?;
+                            SELECT @pledge_id := LAST_INSERT_ID() AS pledge_id;
+                            INSERT INTO `pledge_stripe` SET pledge_id = @pledge_id, ?;
+                            COMMIT;
+                        ",
+                        [{
+                            user_id: user.user_id,
+                            wish_id: wish_id,
+                            pledge_amount: pledgeFormData.pledge_amount,
+                            pledge_currency: wish.wish_currency.getName(),
+                            pledge_method: giffon.db.PledgeMethod.StripeCard.getName(),
+                            pledge_visibility: pledgeFormData.pledge_visibility,
+                            pledge_name_visibility: pledgeFormData.pledge_name_visibility,
+                        }, {
+                            stripe_charge_id: charge.id,
+                        }]
+                    ).toPromise();
+                } catch (err:Dynamic) {
+                    res.sendPlainError(err);
+                    return;
+                }
+            case PayPal:
+                var paypal_order_id:String = pledgeFormData.pledge_data;
+
+                var paypalRequest = new js.npm.paypal.checkout_server_sdk.orders.OrdersGetRequest(paypal_order_id);
+                var paypalOrder = try {
+                    (@await paypalClient.execute(paypalRequest).toPromise()).result;
+                } catch (err:Dynamic) {
+                    res.sendPlainError(err);
+                    return;
+                }
+
+                trace(paypalOrder);
+
+                if (paypalOrder.intent != "CAPTURE") {
+                    res.sendPlainError('PayPal order intent is not CAPTURE. intent: ${paypalOrder.intent}', BadRequest);
+                    return;
+                }
+
+                if (paypalOrder.status != "COMPLETED") {
+                    res.sendPlainError('PayPal order is not COMPLETED. status: ${paypalOrder.status}', BadRequest);
+                    return;
+                }
+
+                var purchaseUnit = paypalOrder.purchase_units[0];
+                if (
+                    purchaseUnit.amount.currency_code != wish.wish_currency.getName() ||
+                    Decimal.fromString(purchaseUnit.amount.value) != Decimal.fromFloat(pledgeFormData.pledge_amount)
+                ) {
+                    res.sendPlainError('PayPal order amount (${purchaseUnit.amount.currency_code} ${purchaseUnit.amount.value}) does not equal pledge amount (${wish.wish_currency.getName()} ${pledgeFormData.pledge_amount}).', BadRequest);
+                    return;
+                }
+
+                try {
+                    @await dbConnectionPool.query(
+                        "
+                            START TRANSACTION;
+                            INSERT INTO `pledge` SET ?;
+                            SELECT @pledge_id := LAST_INSERT_ID() AS pledge_id;
+                            INSERT INTO `pledge_paypal` SET pledge_id = @pledge_id, ?;
+                            COMMIT;
+                        ",
+                        [{
+                            user_id: user.user_id,
+                            wish_id: wish_id,
+                            pledge_amount: pledgeFormData.pledge_amount,
+                            pledge_currency: wish.wish_currency.getName(),
+                            pledge_method: giffon.db.PledgeMethod.PayPal.getName(),
+                            pledge_visibility: pledgeFormData.pledge_visibility,
+                            pledge_name_visibility: pledgeFormData.pledge_name_visibility,
+                        }, {
+                            paypal_order_id: paypal_order_id,
+                        }]
+                    ).toPromise();
+                } catch (err:Dynamic) {
+                    res.sendPlainError(err);
+                    return;
+                }
+            case Coupon:
+                res.sendPlainError("Coupon isn't a valid pledge method for this endpoint.");
+                return;
         }
 
-        @await dbConnectionPool.query(
-            "
-                START TRANSACTION;
-                INSERT INTO `pledge` SET ?;
-                SELECT @pledge_id := LAST_INSERT_ID() AS pledge_id;
-                INSERT INTO `pledge_stripe` SET pledge_id = @pledge_id, ?;
-                COMMIT;
-            ",
-            [{
-                user_id: user.user_id,
-                wish_id: wish_id,
-                pledge_amount: pledgeFormData.pledge_amount,
-                pledge_currency: wish.wish_currency.getName(),
-                pledge_method: giffon.db.PledgeMethod.StripeCard.getName(),
-                pledge_visibility: pledgeFormData.pledge_visibility,
-                pledge_name_visibility: pledgeFormData.pledge_name_visibility,
-            }, {
-                stripe_charge_id: charge.id,
-            }]
-        ).handleError(next).toPromise();
         var base = switch (req.baseUrl) {
             case null, "": "/";
             case _: req.baseUrl;
         }
         res.redirect(Path.join([base, "wish", wish_hashid]));
     };
+
+    @async static function refundPaypalOrder(orderId:String) {
+        var ordersGetRequest = new js.npm.paypal.checkout_server_sdk.orders.OrdersGetRequest(orderId);
+        var paypalOrder = (@await paypalClient.execute(ordersGetRequest).toPromise()).result;
+        trace(Json.stringify(paypalOrder, null, "  "));
+
+        // check whether the order has been refunded
+        var refunded = switch (paypalOrder.purchase_units[0].payments.refunds) {
+            case null | []: null;
+            case [refund]: refund;
+            case v: throw 'unknown refunds object: ${v}';
+        }
+        var refundAmount = if (refunded == null) {
+            Decimal.fromString(paypalOrder.purchase_units[0].amount.value);
+        } else {
+            Decimal.fromString(paypalOrder.purchase_units[0].amount.value) - Decimal.fromString(refunded.amount.value);
+        }
+
+        if (refundAmount == Decimal.zero) {
+            return null;
+        }
+
+        var captureId = paypalOrder.purchase_units[0].payments.captures[0].id;
+        var capturesRefundRequest = new js.npm.paypal.checkout_server_sdk.payments.CapturesRefundRequest(captureId);
+        capturesRefundRequest.requestBody({
+            amount: {
+                currency_code: paypalOrder.purchase_units[0].amount.currency_code,
+                value: refundAmount.toString(),
+            }
+        });
+        var paypalRefund = (@await paypalClient.execute(capturesRefundRequest).toPromise()).result;
+        trace(Json.stringify(paypalRefund, null, "  "));
+
+        return paypalRefund;
+    }
 
     @await static function handlePledgeCancel(req:Request, res:Response, next:Dynamic){
         var wish_hashid = req.params.wish_hashid;
@@ -305,34 +450,91 @@ class Wish {
         }
 
         var user = res.getUser();
-        var results:QueryResults = (@await dbConnectionPool.query(
-            "
-                SELECT `stripe_charge_id`
-                FROM `pledge_stripe`
-                INNER JOIN `pledge` ON `pledge`.`pledge_id` = `pledge_stripe`.`pledge_id`
-                WHERE `user_id` = ? AND `wish_id` = ?
-            ",
-            [user.user_id, wish.wish_id]
-        ).handleError(next).toPromise()).results;
 
-        var chargeIds:Array<String> = results.map(function(r) return r.stripe_charge_id);
-        for (chargeId in chargeIds) {
-            var charge = @await stripe.charges.retrieve(chargeId).handleError(next).toPromise();
-            if (charge.amount_refunded != charge.amount) {
-                @await stripe.charges.refund(chargeId).toPromise();
-                @await dbConnectionPool.query(
+        //refund all stripe charges
+        {
+            var results:QueryResults = try {
+                (@await dbConnectionPool.query(
                     "
-                        INSERT INTO `pledge` SET ?;
-                    ",{
-                        user_id: user.user_id,
-                        wish_id: wish_id,
-                        pledge_amount: (Decimal.fromFloat(charge.amount_refunded - charge.amount) * 0.01).toFloat(), //cents -> dollars
-                        pledge_currency: wish.wish_currency.getName(),
-                        pledge_method: giffon.db.PledgeMethod.StripeCard.getName(),
+                        SELECT `stripe_charge_id`
+                        FROM `pledge_stripe`
+                        INNER JOIN `pledge` ON `pledge`.`pledge_id` = `pledge_stripe`.`pledge_id`
+                        WHERE `user_id` = ? AND `wish_id` = ?
+                    ",
+                    [user.user_id, wish.wish_id]
+                ).toPromise()).results;
+            } catch (err:Dynamic) {
+                res.sendPlainError(err);
+                return;
+            }
+
+            var chargeIds:Array<String> = results.map(function(r) return r.stripe_charge_id);
+            try {
+                for (chargeId in chargeIds) {
+                    var charge = @await stripe.charges.retrieve(chargeId).toPromise();
+                    if (charge.amount_refunded != charge.amount) {
+                        @await stripe.charges.refund(chargeId).toPromise();
+                        @await dbConnectionPool.query(
+                            "
+                                INSERT INTO `pledge` SET ?;
+                            ",{
+                                user_id: user.user_id,
+                                wish_id: wish_id,
+                                pledge_amount: (Decimal.fromFloat(charge.amount_refunded - charge.amount) * 0.01).toFloat(), //cents -> dollars
+                                pledge_currency: wish.wish_currency.getName(),
+                                pledge_method: giffon.db.PledgeMethod.StripeCard.getName(),
+                            }
+                        ).toPromise();
                     }
-                ).handleError(next).toPromise();
+                }
+            } catch (err:Dynamic) {
+                res.sendPlainError(err);
+                return;
             }
         }
+
+        //refund all paypal orders
+        {
+            var results:QueryResults = try {
+                (@await dbConnectionPool.query(
+                    "
+                        SELECT `paypal_order_id`
+                        FROM `pledge_paypal`
+                        INNER JOIN `pledge` ON `pledge`.`pledge_id` = `pledge_paypal`.`pledge_id`
+                        WHERE `user_id` = ? AND `wish_id` = ?
+                    ",
+                    [user.user_id, wish.wish_id]
+                ).toPromise()).results;
+            } catch (err:Dynamic) {
+                res.sendPlainError(err);
+                return;
+            }
+
+            var orderIds:Array<String> = results.map(function(r) return r.paypal_order_id);
+            try {
+                for (orderId in orderIds) {
+                    var refund = @await refundPaypalOrder(orderId);
+
+                    if (refund == null) continue;
+
+                    @await dbConnectionPool.query(
+                        "
+                            INSERT INTO `pledge` SET ?;
+                        ",{
+                            user_id: user.user_id,
+                            wish_id: wish_id,
+                            pledge_amount: -(Decimal.fromString(refund.amount.value).toFloat()),
+                            pledge_currency: wish.wish_currency.getName(),
+                            pledge_method: giffon.db.PledgeMethod.PayPal.getName(),
+                        }
+                    ).toPromise();
+                }
+            } catch (err:Dynamic) {
+                res.sendPlainError(err);
+                return;
+            }
+        }
+
         res.sendPlainText("done");
     }
 

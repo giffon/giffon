@@ -6,6 +6,7 @@ import haxe.io.*;
 import thx.Decimal;
 import js.moment.Moment;
 import giffon.server.ServerMain.*;
+import giffon.config.PayPalInfo.*;
 import giffon.R.*;
 import giffon.Utils.*;
 using DateTools;
@@ -37,6 +38,15 @@ class Wish extends Page {
     }
 
     override function useCurrencyFlags() return true;
+
+    override function js() return jsx('
+        <Fragment>
+            <script
+                src=${'https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&currency=${wish.wish_currency}'}
+            ></script>
+            ${super.js()}
+        </Fragment>
+    ');
 
     var wish(get, never):giffon.db.Wish;
     function get_wish():giffon.db.Wish return props.wish;

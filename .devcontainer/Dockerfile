@@ -26,6 +26,9 @@ RUN apt-get update \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
 
+# https://github.com/Luehang/react-paypal-button-v2/issues/27
+RUN npm install -g rimraf
+
 # Create a non-root user to use
 RUN groupadd --gid $USER_GID $USERNAME \
     && useradd -s /bin/bash --uid $USER_UID --gid $USER_GID -m $USERNAME \

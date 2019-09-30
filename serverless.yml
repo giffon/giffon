@@ -47,6 +47,8 @@ provider:
     MAIL_PASSWORD: ${ssm:MAIL_PASSWORD}
     PT_HOST: ${ssm:PT_HOST}
     PT_PORT: ${ssm:PT_PORT}
+    PAYPAL_CLIENT_ID: ${ssm:PAYPAL_CLIENT_ID}
+    PAYPAL_CLIENT_SECRET: ${ssm:PAYPAL_CLIENT_SECRET}
   apiGateway:
     binaryMediaTypes:
       - '*/*'

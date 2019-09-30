@@ -1,9 +1,14 @@
 package giffon.browser;
 
+import js.html.FormElement;
+import haxe.Json;
 import react.*;
 import react.ReactMacro.jsx;
 import js.npm.formik.*;
 import js.npm.react_stripe_elements.*;
+import js.npm.material_ui.MaterialUi;
+import js.npm.formik_material_ui.FormikMaterialUi;
+import js.npm.paypal_checkout.PayPalCheckout;
 import thx.Decimal;
 import js.jquery.*;
 import js.Browser.*;
@@ -15,6 +20,12 @@ import haxe.io.*;
 using Lambda;
 using tink.core.Future.JsPromiseTools;
 using giffon.lang.Wish;
+
+@:jsRequire("react-paypal-button-v2", "PayPalButton")
+extern class PayPalButton extends ReactComponent {}
+
+@:jsRequire("react-block-ui")
+extern class BlockUi extends ReactComponent {}
 
 @await
 class PledgeForm extends ReactComponent {
@@ -178,54 +189,66 @@ class _PledgeForm extends ReactComponent {
     var language(get, never):giffon.lang.Language;
     function get_language() return BrowserMain.instance.language;
 
+    final formRef:ReactRef<FormElement> = React.createRef();
+
     function new():Void {
         super();
         state = {
             submissionError: null,
+            pledgeMethod: StripeCard,
         };
     }
 
     @await function onSubmit(values:PledgeFormValues, props:{
         setSubmitting:Bool->Void,
     }) {
-        var values = Reflect.copy(values);
-        values.pledge_data = switch (@await stripe.createToken().toPromise())
-        {
-            case { token: t } if (t != null):
-                t;
-            case err:
-                submissionError = jsx('
-                    <Fragment>
-                        ${haxe.Json.stringify(err, null, "  ")}
-                    </Fragment>
-                ');
-                props.setSubmitting(false);
-                return;
-        }
+        switch (PledgeMethod.createByName(values.pledge_method)) {
+            case StripeCard:
+                var values = Reflect.copy(values);
+                values.pledge_data = switch (@await stripe.createToken().toPromise())
+                {
+                    case { token: t } if (t != null):
+                        t;
+                    case err:
+                        submissionError = jsx('
+                            <Fragment>
+                                ${haxe.Json.stringify(err, null, "  ")}
+                            </Fragment>
+                        ');
+                        props.setSubmitting(false);
+                        return;
+                }
 
-        JQuery.ajax({
-            type: "POST",
-            contentType: "application/json; charset=utf-8",
-            url: Path.join([BrowserMain.instance.base, "wish", wish_hashid, "pledge"]),
-            data: haxe.Json.stringify(values),
-        })
-            .done(function(data:String){
-                submissionError = null;
-                document.location.reload(true);
-            })
-            .fail(function(err){
-                trace(err);
-                submissionError = jsx('
-                    <Fragment>
-                        ${err.statusText} (${err.status})
-                        <br/>
-                        <pre>
-                        ${err.responseText}
-                        </pre>
-                    </Fragment>
-                ');
+                JQuery.ajax({
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    url: Path.join([BrowserMain.instance.base, "wish", wish_hashid, "pledge"]),
+                    data: haxe.Json.stringify(values),
+                })
+                    .done(function(data:String){
+                        submissionError = null;
+                        document.location.reload(true);
+                    })
+                    .fail(function(err){
+                        trace(err);
+                        submissionError = jsx('
+                            <Fragment>
+                                ${err.statusText} (${err.status})
+                                <br/>
+                                <pre>
+                                ${err.responseText}
+                                </pre>
+                            </Fragment>
+                        ');
+                        props.setSubmitting(false);
+                    });
+            case PayPal | Coupon:
                 props.setSubmitting(false);
-            });
+        }
+    }
+
+    function validateForm() {
+        return formRef.current.checkValidity();
     }
 
     override function render() {
@@ -245,6 +268,7 @@ class _PledgeForm extends ReactComponent {
         return jsx('
             <Formik
                 initialValues=${initialValues}
+                validate=${validateForm}
                 onSubmit=${onSubmit}
                 render=${formikRender}
             />
@@ -259,12 +283,17 @@ class _PledgeForm extends ReactComponent {
 
     function formikRender(props:{
         isSubmitting:Bool,
+        isValid:Bool,
         values:PledgeFormValues,
         errors:Dynamic,
         touched:Dynamic,
         handleBlur:Dynamic,
         handleChange:Dynamic,
         handleSubmit:Dynamic,
+        handleReset:Dynamic,
+        validateField:(field:String)->Void,
+        validateForm:(?values:Dynamic)->js.lib.Promise<Dynamic>,
+        setSubmitting:(isSubmitting:Bool)->Void,
     }) {
         var submissionErrorElement =
             if (submissionError != null) {
@@ -289,8 +318,163 @@ class _PledgeForm extends ReactComponent {
             // webkitAutofill: "",
         };
 
+        function radio() return jsx('
+            <Radio />
+        ');
+
+        function stripeFields() return jsx('
+            <Fragment>
+                <div className="form-row">
+                    <div className="form-group col-md-7">
+                        <label htmlFor="card-number">
+                            ${language.creditCard()}
+                        </label>
+                        <CardElement
+                            className="form-control"
+                            id="card-number"
+                            classes=${cardClasses}
+                        />
+                    </div>
+                </div>
+
+                <button type="submit" className="btn btn-primary rounded-0" disabled={props.isSubmitting}>
+                    ${language.submit()}
+                </button>
+            </Fragment>
+        ');
+
+        function payPalFields() {
+            function createOrder(data, actions) {
+                props.setSubmitting(true);
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            currency_code: wish_currency.getName(),
+                            value: Std.string(props.values.pledge_amount),
+                        },
+                        description: 'Supporting wish.',
+                    }],
+                    application_context: {
+                        shipping_preference: "NO_SHIPPING",
+                    }
+                });
+            }
+            function onSuccess(details:{
+                create_time:String,
+                update_time:String,
+                id:String,
+                intent:String,
+                status:String,
+                payer: {
+                    email_address: String,
+                    payer_id: String,
+                    address: {
+                        country_code:String
+                    },
+                    name: {
+                        given_name: String,
+                        surname: String
+                    }
+                },
+                purchase_units: Array<{
+                    reference_id:String,
+                    amount: {
+                        value:String,
+                        currency_code:String
+                    },
+                    payee: {
+                        email_address:String,
+                        merchant_id:String
+                    },
+                    shipping:Dynamic,
+                    payments: {
+                        captures:Array<{
+                            status:String,
+                            id:String,
+                            final_capture: Bool,
+                            create_time:String,
+                            update_time:String,
+                            amount: {
+                                value:String,
+                                currency_code:String,
+                            },
+                            seller_protection: {
+                                status:String,
+                                dispute_categories:Array<String>,
+                            },
+                            links:Array<{
+                                href:String,
+                                rel:String,
+                                method:String,
+                                title:String
+                            }>
+                        }>,
+                    }
+                }>,
+                links:Array<{
+                    href:String,
+                    rel:String,
+                    method:String,
+                    title:String
+                }>,
+            }, data) {
+                trace(Json.stringify(details, null, "  "));
+
+                var values = Reflect.copy(props.values);
+                values.pledge_data = details.id;
+                JQuery.ajax({
+                    type: "POST",
+                    contentType: "application/json; charset=utf-8",
+                    url: Path.join([BrowserMain.instance.base, "wish", wish_hashid, "pledge"]),
+                    data: haxe.Json.stringify(values),
+                })
+                    .done(function(data:String){
+                        submissionError = null;
+                        document.location.reload(true);
+                    })
+                    .fail(function(err){
+                        trace(err);
+                        submissionError = jsx('
+                            <Fragment>
+                                ${err.statusText} (${err.status})
+                                <br/>
+                                <pre>
+                                ${err.responseText}
+                                </pre>
+                            </Fragment>
+                        ');
+                        // props.setSubmitting(false);
+                    });
+            }
+
+            return jsx('
+                <div className="form-row">
+                    <div className="form-group col-md-7">
+                        <label htmlFor="paypal-button-container">
+                            ${language.payPal()}
+                        </label>
+                        <div onClick=${() -> formRef.current.reportValidity()}>
+                            <BlockUi tag="div"
+                                blocking=${props.isSubmitting || !formRef.current.checkValidity()}
+                                loader="div"
+                            >
+                                <PayPalButton
+                                    amount=${props.values.pledge_amount}
+                                    currency=${wish_currency.getName()}
+                                    createOrder=${createOrder}
+                                    onSuccess=${onSuccess}
+                                    onError=${() -> props.setSubmitting(false)}
+                                    onCancel=${() -> props.setSubmitting(false)}
+                                />
+                            </BlockUi>
+                        </div>
+                    </div>
+                </div>
+            ');
+        }
+
         return jsx('
-            <Form>
+            <form ref=${formRef} onSubmit=${props.handleSubmit} onReset=${props.handleReset}>
                 ${submissionErrorElement}
                 <div className="form-row">
                     <div className="form-group col-md-5">
@@ -306,17 +490,8 @@ class _PledgeForm extends ReactComponent {
                             required=${true}
                         />
                     </div>
-                    <div className="form-group col-md-7">
-                        <label htmlFor="card-number">
-                            ${language.creditCard()}
-                        </label>
-                        <CardElement
-                            className="form-control"
-                            id="card-number"
-                            classes=${cardClasses}
-                        />
-                    </div>
                 </div>
+
                 <div className="form-group">
                     <div className="mb-1">
                         <p className="mb-0">${language.pledgeNameVisibility()}</p>
@@ -423,10 +598,29 @@ class _PledgeForm extends ReactComponent {
                         <ErrorMessage name="acceptTerms" render=${renderErrorMessage} />
                     </div>
                 </div>
-                <button type="submit" className="btn btn-primary rounded-0" disabled={props.isSubmitting}>
-                    ${language.submit()}
-                </button>
-            </Form>
+
+                <div className="form-group">
+                    <p className="mb-0">${language.pledgeMethod()}</p>
+
+                    <Field name="pledge_method" component=${RadioGroup}>
+                        <FormControlLabel
+                            label=${language.creditCard()}
+                            labelPlacement="end"
+                            value=${StripeCard.getName()}
+                            control=${radio()}
+                        />
+                        <FormControlLabel
+                            label=${language.payPal()}
+                            labelPlacement="end"
+                            value=${PayPal.getName()}
+                            control=${radio()}
+                        />
+                    </Field>
+                </div>
+
+                ${if (props.values.pledge_method == StripeCard.getName()) stripeFields() else null}
+                ${if (props.values.pledge_method == PayPal.getName()) payPalFields() else null}
+            </form>
         ');
     }
 }

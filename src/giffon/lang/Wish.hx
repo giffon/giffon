@@ -136,6 +136,8 @@ class Wish {
         case Cantonese | Chinese: "信用卡";
     }
 
+    static public function payPal(lang:Language) return "PayPal";
+
     static public function pledgeAmountVisibility(lang:Language) return switch (lang) {
         case English: "Contribution amount visibility";
         case Cantonese | Chinese: "付出金額顯示設定";
@@ -297,5 +299,10 @@ class Wish {
     static public function cancelWish(lang:Language) return switch (lang) {
         case English: "Cancel Wish";
         case Cantonese | Chinese: "取消願望";
+    }
+
+    static public function pledgeMethod(lang:Language) return switch (lang) {
+        case English: "Pledge method";
+        case Cantonese | Chinese: "支付方法";
     }
 }

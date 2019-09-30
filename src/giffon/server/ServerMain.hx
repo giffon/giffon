@@ -7,6 +7,7 @@ import js.npm.mysql2.*;
 import js.npm.mysql2.promise.*;
 import js.npm.passport.*;
 import js.npm.passport.strategy.*;
+import js.npm.paypal.checkout_server_sdk.core.*;
 import js.npm.image_data_uri.ImageDataUri;
 import js.npm.nodemailer.Nodemailer;
 import js.npm.stripe.Stripe;
@@ -18,7 +19,6 @@ import tink.core.Error;
 import tink.CoreApi;
 import haxe.Constraints;
 import giffon.config.*;
-import giffon.view.*;
 import giffon.R.*;
 import giffon.lang.Language;
 using js.npm.validator.Validator;
@@ -86,6 +86,7 @@ class ServerMain {
 
     static public var dbConnectionPool:Pool;
     static public var stripe:Stripe;
+    static public var paypalClient:PayPalHttpClient;
     static public var mailTransporter:Transporter;
     static public var logger:js.npm.pino.Pino;
 
@@ -926,6 +927,14 @@ class ServerMain {
 
         stripe = new Stripe(StripeInfo.apiSecKey);
         stripe.setTimeout(10 * 1000); //10 seconds
+
+        var paypalEnv:Dynamic = switch (Stage.stage) {
+            case Production | Master:
+                new LiveEnvironment(PayPalInfo.PAYPAL_CLIENT_ID, PayPalInfo.PAYPAL_CLIENT_SECRET);
+            case _:
+                new SandboxEnvironment(PayPalInfo.PAYPAL_CLIENT_ID, PayPalInfo.PAYPAL_CLIENT_SECRET);
+        };
+        paypalClient = new PayPalHttpClient(paypalEnv);
 
         mailTransporter = Nodemailer.createTransport({
             pool: true,

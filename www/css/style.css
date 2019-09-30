@@ -1028,3 +1028,7 @@ a.unstyled, a:hover.unstyled {
     background:url('../images/logo-grey.svg') no-repeat;
     background-size: contain;   
 }
+
+.page-wish .block-ui-container {
+    cursor: not-allowed;
+}

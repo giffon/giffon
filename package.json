@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "postinstall": "haxe install-haxelibs.hxml && npm run-script build-vendor",
-    "build-vendor": "browserify -o www/js/vendor.js -r react -r react-dom -r formik -r react-datepicker -r validator -r react-stripe-elements -r react-clipboard.js -r react-giphy-component -r react-switch",
-    "build-vendor-release": "browserify -r react -r react-dom -r formik -r react-datepicker -r validator -r react-stripe-elements -r react-clipboard.js -r react-giphy-component -r react-switch -g [ envify --NODE_ENV production ] -g uglifyify | uglifyjs --compress --mangle > www/js/vendor.js",
+    "build-vendor": "./build-vendor.sh",
     "build": "haxe build.hxml",
     "start": "nodemon -L ServerMain.js | pino-pretty",
     "test": "haxe build-test.hxml && python3 test/SeleniumTest.py"
@@ -23,6 +22,7 @@
   },
   "homepage": "https://gitlab.com/giffon.io/giffon#README",
   "dependencies": {
+    "@paypal/checkout-server-sdk": "^1.0.1",
     "amazon-helpers": "^0.2.0",
     "amazon-product-api": "^0.4.4",
     "aws-sdk": "^2.524.0",
@@ -67,10 +67,14 @@
     "validator": "^11.1.0"
   },
   "devDependencies": {
+    "@material-ui/core": "^4.4.3",
     "browserify": "^16.5.0",
     "dotenv-cli": "^2.0.1",
     "envify": "^4.1.0",
+    "formik-material-ui": "0.0.22",
     "nodemon": "^1.19.2",
+    "react-block-ui": "^1.3.1",
+    "react-paypal-button-v2": "^2.4.1",
     "react-switch": "^5.0.1",
     "serverless": "^1.51.0",
     "spellchecker": "^3.7.0",

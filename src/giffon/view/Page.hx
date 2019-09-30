@@ -211,6 +211,11 @@ class Page extends ReactComponent {
                 integrity="sha256-yySl4qcUS7M+bpiq/+Ns5KR/oL7UiobOWIKzJ2ejSR8="
                 crossOrigin="anonymous"
             />
+            <link rel="stylesheet"
+                href="https://cdn.jsdelivr.net/npm/react-block-ui@1.3.1/dist/style.css"
+                integrity="sha256-zQ8cKXBKcAKSsepjbYn3y/mHnWWwMBsK3KvoQCOauEY="
+                crossOrigin="anonymous"
+            />
             ${currencyFlagsCss()}
             ${emojiCss()}
         </Fragment>
