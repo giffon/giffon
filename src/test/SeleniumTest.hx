@@ -78,13 +78,13 @@ class SeleniumTest extends utest.Test {
             return url.startsWith("https://www.facebook.com/login.php");
         });
 
-        var emailInput:WebElement = driver.find_element_by_css_selector("body #email");
+        var emailInput:WebElement = driver.find_element_by_css_selector("input[name=email]");
         emailInput.click();
         emailInput.send_keys([user.email]);
-        var passInput:WebElement = driver.find_element_by_css_selector("body #pass");
+        var passInput:WebElement = driver.find_element_by_css_selector("input[name=pass]");
         passInput.click();
         passInput.send_keys([user.password]);
-        var loginBtn:WebElement = driver.find_element_by_css_selector("body #loginbutton");
+        var loginBtn:WebElement = driver.find_element_by_css_selector("button[name=login]");
         loginBtn.click();
 
         waitUntil(function(){
