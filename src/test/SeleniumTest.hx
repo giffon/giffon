@@ -110,7 +110,11 @@ class SeleniumTest extends utest.Test {
         Assert.stringContains("signed-out", cls);
 
         // delete facebook cookies such that we can login as another user
+        driver.get("https://facebook.com/");
         driver.delete_all_cookies();
+        driver.refresh();
+        waitExists(() -> driver.find_element_by_css_selector("input[name=email]"));
+        driver.clearLog(); // consume the facebook logs to keep the console empty
     }
 
     function createWish(wish:{
