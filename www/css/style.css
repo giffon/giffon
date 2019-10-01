@@ -1036,3 +1036,8 @@ a.unstyled, a:hover.unstyled {
 .page-wish .MuiSelect-selectMenu {
     white-space: normal;
 }
+
+.react-datepicker-popper {
+    /* There is .sticky-top with z-index: 1020. */
+    z-index: 1021;
+}
