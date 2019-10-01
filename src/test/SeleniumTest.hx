@@ -109,13 +109,8 @@ class SeleniumTest extends utest.Test {
         var cls:String = body.get_attribute("class");
         Assert.stringContains("signed-out", cls);
 
-        driver.get("https://facebook.com/");
+        // delete facebook cookies such that we can login as another user
         driver.delete_all_cookies();
-        driver.refresh();
-        waitExists(() -> driver.find_element_by_css_selector("body #email"));
-
-        // consume the facebook logs to keep the console empty
-        driver.clearLog();
     }
 
     function createWish(wish:{
