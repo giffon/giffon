@@ -379,6 +379,7 @@ class Page extends ReactComponent {
                             <div className="row align-items-center font_xs_xl mt-2">
                                 <div className="col-auto"><a href="https://www.facebook.com/giffon.io" style=${{'color': '#3578E5'}} target="_blank" rel="noopener" title=${language.giffonOnFacebook()}><i className="fab fa-facebook"></i></a></div>
                                 <div className="col-auto"><a href="https://twitter.com/giffon_io" style=${{'color': '#1da1f2'}} target="_blank" rel="noopener" title=${language.giffonOnTwitter()}><i className="fab fa-twitter"></i></a></div>
+                                <div className="col-auto"><a href="https://www.instagram.com/giffonio/" style=${{'color': '#C13584'}} target="_blank" rel="noopener" title=${language.giffonOnInstagram()}><i className="fab fa-instagram"></i></a></div>
                             </div>
                         </div>
                         <div className="col-12 col-sm-4 mb-4 mb-sm-0">

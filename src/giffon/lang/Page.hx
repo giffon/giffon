@@ -48,12 +48,17 @@ class Page {
 
     static public function giffonOnFacebook(lang:Language) return switch (lang) {
         case English: "Giffon on Facebook";
-        case Cantonese | Chinese: "Giffon Facebook專頁";
+        case Cantonese | Chinese: "Giffon Facebook 專頁";
     }
 
     static public function giffonOnTwitter(lang:Language) return switch (lang) {
         case English: "Giffon on Twitter";
-        case Cantonese | Chinese: "Giffon Twitter帳號";
+        case Cantonese | Chinese: "Giffon Twitter 帳號";
+    }
+
+    static public function giffonOnInstagram(lang:Language) return switch (lang) {
+        case English: "Giffon on Instagram";
+        case Cantonese | Chinese: "Giffon Instagram 帳號";
     }
 
     static public function giffonOnGitLab(lang:Language) return switch (lang) {
