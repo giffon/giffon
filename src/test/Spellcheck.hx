@@ -27,6 +27,7 @@ class Spellcheck {
         "HKD",
         "USD",
         "PayPal",
+        "Instagram",
     ];
 
     static function main():Void {
