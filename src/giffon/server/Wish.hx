@@ -105,7 +105,7 @@ class Wish {
                     var user_id = result.user_id;
                     var charge = @await stripe.charges.retrieve(chargeId).toPromise();
                     if (charge.amount_refunded != charge.amount) {
-                        @await stripe.charges.refund(chargeId).toPromise();
+                        @await stripe.refunds.create({ charge: chargeId }).toPromise();
                         @await dbConnectionPool.query(
                             "
                                 INSERT INTO `pledge` SET ?;
@@ -476,7 +476,7 @@ class Wish {
                 for (chargeId in chargeIds) {
                     var charge = @await stripe.charges.retrieve(chargeId).toPromise();
                     if (charge.amount_refunded != charge.amount) {
-                        @await stripe.charges.refund(chargeId).toPromise();
+                        @await stripe.refunds.create({ charge: chargeId }).toPromise();
                         @await dbConnectionPool.query(
                             "
                                 INSERT INTO `pledge` SET ?;

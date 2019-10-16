@@ -45,7 +45,6 @@ extern class Stripe {
     public var charges(default, null):{
         > Resources<Charge>,
         public function capture(chargeId:String, arguments:Dynamic):Promise<Charge>;
-        public function refund(chargeId:String, ?arguments:Dynamic, ?options:Options):Promise<Refund>;
     }
 
     public var balance(default, null):{
@@ -58,6 +57,10 @@ extern class Stripe {
 
     public var webhooks(default, null):{
         public function constructEvent(rawBody:Dynamic, stripeSignatureHeader:Dynamic, secret:Dynamic, ?options:Options):Event;
+    }
+
+    public var refunds(default, null):{
+        > Resources<Refund>,
     }
 
     public function setTimeout(ms:Float):Void;

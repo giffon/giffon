@@ -17,7 +17,7 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends apt-utils dialog 2>&1 \
     #
     # Verify git and needed tools are installed
-    && apt-get install -y git iproute2 procps sudo bash-completion build-essential \
+    && apt-get install -y git iproute2 procps sudo bash-completion build-essential python3-pip \
     && curl -sL https://deb.nodesource.com/setup_10.x | bash - \
     && apt-get install -y nodejs=10.* \
     #
@@ -25,6 +25,9 @@ RUN apt-get update \
     && apt-get autoremove -y \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
+
+# Install test dependencies
+RUN pip3 install html5validator
 
 # https://github.com/Luehang/react-paypal-button-v2/issues/27
 RUN npm install -g rimraf

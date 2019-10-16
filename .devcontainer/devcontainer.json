@@ -1,9 +1,9 @@
 {
 	"name": "Giffon",
 	"dockerComposeFile": "docker-compose.yml",
-	"service": "web",
+	"service": "local.giffon.io",
 	"workspaceFolder": "/workspace",
-	"postCreateCommand": "npm install",
+	"postCreateCommand": "pip3 install -r src/test/requirements.txt && npm install",
 	"extensions": [
 		"nadako.vshaxe"
 	]

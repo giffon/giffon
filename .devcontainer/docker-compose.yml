@@ -1,6 +1,6 @@
 version: '3'
 services:
-  web:
+  local.giffon.io:
     build: .
     volumes:
       - ..:/workspace
@@ -12,6 +12,9 @@ services:
       - DB_HOST=mysql
       - DB_USER=root
       - DB_PASSWORD=devroot
+      - HUB_HOST=selenium
+      - BROWSER_NAME=chrome
+      - WEB_HOST=local.giffon.io
     ports:
       - "3000:3000"
     command: sleep infinity
@@ -24,4 +27,13 @@ services:
       - "3306:3306"
     volumes:
       - ../dev/initdb:/docker-entrypoint-initdb.d
+    restart: unless-stopped
+  selenium:
+    image: selenium/standalone-chrome-debug:3.141.59-radium
+    environment:
+      - VNC_NO_PASSWORD=1
+    ports:
+      - "5900:5900"
+    volumes:
+      - /dev/shm:/dev/shm
     restart: unless-stopped
