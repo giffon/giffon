@@ -74,8 +74,6 @@ test-spellcheck:
     when: always
     paths:
       - test/errorShots
-  except:
-    - merge_requests
 
 test-haxe4-chrome:
   extends: .test-selenium
@@ -88,6 +86,8 @@ test-haxe4-chrome:
   variables:
     BROWSER_NAME: chrome
     HUB_HOST: selenium-standalone-chrome
+  except:
+    - merge_requests
 
 deploy-s3:
   stage: deploy
