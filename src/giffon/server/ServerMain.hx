@@ -1029,6 +1029,12 @@ class ServerMain {
             next();
         });
 
+        app.get("/humans.txt", function(req, res:Response) {
+            res.sendPlainText(CompileTime.readFile("www/humans.txt"));
+        });
+
+        // Only for local development.
+        // The www folder is pushed to S3 and excluded in serverless deployment.
         app.use(Express.Static("www", {
             dotfiles: "ignore",
             redirect: true

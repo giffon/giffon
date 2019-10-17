@@ -1,0 +1,20 @@
+/* TEAM */
+
+    Developer: Andy Li
+    Contact: andy@giffon.io
+    Giffon: https://giffon.io/andyli
+    Twitter: https://twitter.com/andy_li
+    From: Hong Kong
+
+    Designer: Stella Fung
+    From: Bikini Bottom, Hong Kong
+
+/* THANKS */
+
+    Billy Au Yeung
+
+/* SITE */
+
+    Source: https://gitlab.com/giffon.io/giffon
+    Language: Haxe
+    IDE: Visual Studio Code
