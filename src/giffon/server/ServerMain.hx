@@ -977,23 +977,26 @@ class ServerMain {
         // app.use(require("morgan")("tiny"));
 
         var pinoms = require('pino-multi-stream');
+        var pinoStreams = [
+            {
+                level: "debug",
+                stream: process.stdout,
+            },
+        ];
+        if (PapertrailInfo.port != 0) {
+            pinoStreams.push({
+                level: "trace",
+                stream: require('pino-papertrail').createWriteStream({
+                    host: PapertrailInfo.host,
+                    port: PapertrailInfo.port,
+                    connection: "tls",
+                    echo: false,
+                    appname: "giffon.io",
+                }),
+            });
+        }
         logger = pinoms({
-            streams: [
-                {
-                    level: "debug",
-                    stream: process.stdout,
-                },
-                {
-                    level: "trace",
-                    stream: require('pino-papertrail').createWriteStream({
-                        host: PapertrailInfo.host,
-                        port: PapertrailInfo.port,
-                        connection: "tls",
-                        echo: false,
-                        appname: "giffon.io",
-                    }),
-                }
-            ]
+            streams: pinoStreams,
         });
         haxe.Log.trace = function(v:Dynamic, ?pos:haxe.PosInfos) {
             logger.debug('${pos.fileName}:${pos.lineNumber}: ${v}');
