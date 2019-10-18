@@ -1,5 +1,6 @@
 package giffon.view;
 
+import giffon.config.Stage;
 import react.*;
 import react.ReactMacro.jsx;
 import haxe.io.*;
@@ -39,14 +40,20 @@ class Wish extends Page {
 
     override function useCurrencyFlags() return true;
 
-    override function js() return jsx('
-        <Fragment>
-            <script
-                src=${'https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&currency=${wish.wish_currency}'}
-            ></script>
-            ${super.js()}
-        </Fragment>
-    ');
+    override function js() return switch (Stage.stage) {
+        // https://github.com/paypal/paypal-checkout-components/issues/1232
+        case Master | Production:
+            jsx('
+                <Fragment>
+                    <script
+                        src=${'https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&currency=${wish.wish_currency}'}
+                    ></script>
+                    ${super.js()}
+                </Fragment>
+            ');
+        case _:
+            super.js();
+    }
 
     var wish(get, never):giffon.db.Wish;
     function get_wish():giffon.db.Wish return props.wish;
