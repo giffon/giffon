@@ -71,7 +71,7 @@
     "@material-ui/core": "4.5.1",
     "bootstrap": "4.3.1",
     "browserify": "16.5.0",
-    "currency-flags": "2.0.1",
+    "currency-flags": "2.0.2",
     "dotenv-cli": "3.0.0",
     "emoji.css": "1.0.4",
     "envify": "4.1.0",
