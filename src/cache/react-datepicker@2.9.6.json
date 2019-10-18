@@ -1,0 +1,161 @@
+{
+	"default": "/dist/react-datepicker.min.js",
+	"files": [
+		{
+			"type": "directory",
+			"name": "dist",
+			"files": [
+				{
+					"type": "file",
+					"name": "react-datepicker.css",
+					"hash": "LgAFbUGTP+sQY8VqwdPZk+gasLu1NAwrwvafij8e4I0=",
+					"time": "1985-10-26T08:15:00.000Z",
+					"size": 22423
+				},
+				{
+					"type": "file",
+					"name": "react-datepicker.js",
+					"hash": "Af2jYrbE7GWggwqfP/xlasKTaDn4v/N1CalY1MYQEkc=",
+					"time": "1985-10-26T08:15:00.000Z",
+					"size": 65107
+				},
+				{
+					"type": "file",
+					"name": "react-datepicker.min.css",
+					"hash": "yySl4qcUS7M+bpiq/+Ns5KR/oL7UiobOWIKzJ2ejSR8=",
+					"time": "1985-10-26T08:15:00.000Z",
+					"size": 20409
+				},
+				{
+					"type": "file",
+					"name": "react-datepicker.min.js",
+					"hash": "Af2jYrbE7GWggwqfP/xlasKTaDn4v/N1CalY1MYQEkc=",
+					"time": "1985-10-26T08:15:00.000Z",
+					"size": 65107
+				},
+				{
+					"type": "file",
+					"name": "react-datepicker-cssmodules.css",
+					"hash": "7wlpaK9l0OxdttMZMrbF5RfD4CJKWs/x35l4aAm4UHE=",
+					"time": "1985-10-26T08:15:00.000Z",
+					"size": 24467
+				},
+				{
+					"type": "file",
+					"name": "react-datepicker-cssmodules.min.css",
+					"hash": "CfF9Ks5pdoOFulIblDt8t9Oa7TzW2OUr4YwoFznP+OM=",
+					"time": "1985-10-26T08:15:00.000Z",
+					"size": 22454
+				}
+			]
+		},
+		{
+			"type": "directory",
+			"name": "es",
+			"files": [
+				{
+					"type": "file",
+					"name": "index.js",
+					"hash": "Ln4loBIvn0AwCdXJSAUCsytDhBPG+5BdHgOuIgCN55k=",
+					"time": "1985-10-26T08:15:00.000Z",
+					"size": 60363
+				}
+			]
+		},
+		{
+			"type": "directory",
+			"name": "lib",
+			"files": [
+				{
+					"type": "file",
+					"name": "index.js",
+					"hash": "yWfN27kYv5XyUCpnyhvAZTRH0VUriPLufh+7ycpY+iQ=",
+					"time": "1985-10-26T08:15:00.000Z",
+					"size": 73642
+				}
+			]
+		},
+		{
+			"type": "directory",
+			"name": "src",
+			"files": [
+				{
+					"type": "directory",
+					"name": "stylesheets",
+					"files": [
+						{
+							"type": "file",
+							"name": "datepicker.scss",
+							"hash": "7w8xFOkyNUZWB//qFLGScVhLGOBCt/dPXweBUaR9Tq0=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 14204
+						},
+						{
+							"type": "file",
+							"name": "datepicker-cssmodules.scss",
+							"hash": "F2scjgaCWsDJlaQQxS+YQDezguLU/hrSBhSbX7vXUAQ=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 41
+						},
+						{
+							"type": "file",
+							"name": "mixins.scss",
+							"hash": "YXGbEZlmPC+YBQsEwtsiWIJ0WrIUr8wIn5rGmwABz10=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 1013
+						},
+						{
+							"type": "file",
+							"name": "variables.scss",
+							"hash": "WyXEBmOKCuB2pjJOBBfH1y4IDpbu4XelZVsxHpm1YBQ=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 790
+						}
+					]
+				}
+			]
+		},
+		{
+			"type": "file",
+			"name": "CODE_OF_CONDUCT.md",
+			"hash": "a2oOvkaYU+UoND2SQOCMAY1EMaGBPpR9GEhjNnQsc1w=",
+			"time": "1985-10-26T08:15:00.000Z",
+			"size": 3227
+		},
+		{
+			"type": "file",
+			"name": "CONTRIBUTING.md",
+			"hash": "p1bE1u8pr9fw6aZofU03U68pRLiUIWTGPaWEL54MuFE=",
+			"time": "1985-10-26T08:15:00.000Z",
+			"size": 1510
+		},
+		{
+			"type": "file",
+			"name": "LICENSE",
+			"hash": "5z0p6+eFQV0XW2cgVojVtdh6NTo7/yQCk97aTYoKWQg=",
+			"time": "1985-10-26T08:15:00.000Z",
+			"size": 1108
+		},
+		{
+			"type": "file",
+			"name": "package.json",
+			"hash": "mJkTwdxPhWnXngZqaxpPO8zFcoGOu601RlFpwlHPYtk=",
+			"time": "1985-10-26T08:15:00.000Z",
+			"size": 4714
+		},
+		{
+			"type": "file",
+			"name": "README.md",
+			"hash": "W7Oe4xCqTzORXzKEYJI6lGYUjko4cXc9VkaouwxTjbI=",
+			"time": "1985-10-26T08:15:00.000Z",
+			"size": 7218
+		},
+		{
+			"type": "file",
+			"name": "SECURITY.md",
+			"hash": "ne2OSiB1muGAM0DGAPGjSIXlPpEmVESiQLtMWLryMZY=",
+			"time": "1985-10-26T08:15:00.000Z",
+			"size": 1902
+		}
+	]
+}

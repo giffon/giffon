@@ -1,0 +1,53 @@
+{
+	"default": "/src/js.cookie.min.js",
+	"files": [
+		{
+			"type": "directory",
+			"name": "src",
+			"files": [
+				{
+					"type": "file",
+					"name": "js.cookie.js",
+					"hash": "P8jY+MCe6X2cjNSmF4rQvZIanL5VwUUT4MBnOMncjRU=",
+					"time": "1985-10-26T08:15:00.000Z",
+					"size": 3883
+				}
+			]
+		},
+		{
+			"type": "file",
+			"name": "CONTRIBUTING.md",
+			"hash": "3Ol5A9AOjtZKHgaG9m7tx7zsQMQU1Osy3YWJUQLCcbg=",
+			"time": "1985-10-26T08:15:00.000Z",
+			"size": 3750
+		},
+		{
+			"type": "file",
+			"name": "LICENSE",
+			"hash": "7/BA9BhERabR9/dtkYEB1jFAJDb/EiVrkk+2jk3yipQ=",
+			"time": "1985-10-26T08:15:00.000Z",
+			"size": 1118
+		},
+		{
+			"type": "file",
+			"name": "package.json",
+			"hash": "XkHVuTPRdpI59SmK5gAiB3wDqDFHrlFkKLCueWXE8/g=",
+			"time": "1985-10-26T08:15:00.000Z",
+			"size": 1015
+		},
+		{
+			"type": "file",
+			"name": "README.md",
+			"hash": "QgupgEhZ+z5Uk7r3n6GbI7r3WZmWAZOZrp+OduDJRgA=",
+			"time": "1985-10-26T08:15:00.000Z",
+			"size": 12541
+		},
+		{
+			"type": "file",
+			"name": "SERVER_SIDE.md",
+			"hash": "zS0BFBQ39AZE2f9YXGTLaZsLe4s8F0AmJTYk/D7VekQ=",
+			"time": "1985-10-26T08:15:00.000Z",
+			"size": 5307
+		}
+	]
+}

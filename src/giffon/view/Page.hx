@@ -7,6 +7,7 @@ import haxe.*;
 import haxe.io.*;
 import giffon.db.*;
 import giffon.R.*;
+import giffon.JsDelivr.*;
 using giffon.ResponseTools;
 using giffon.lang.Page;
 using giffon.lang.LanguageTools;
@@ -159,25 +160,13 @@ class Page extends ReactComponent {
 
     function useCurrencyFlags() return false;
     function currencyFlagsCss() return if (useCurrencyFlags())
-        jsx('
-            <link rel="stylesheet"
-                href="https://cdn.jsdelivr.net/npm/currency-flags@1.8.0/dist/currency-flags.min.css"
-                integrity="sha256-93qPfpLSGzRTJsyLOst+lp0VdYmY9Bqzw4z6By0pYhM="
-                crossOrigin="anonymous"
-            />
-        ');
+        jsDelivr("currency-flags", "dist/currency-flags.min.css");
     else
         null;
 
     function useEmoji() return false;
     function emojiCss() return if (useEmoji())
-        jsx('
-            <link rel="stylesheet"
-                href="https://cdn.jsdelivr.net/npm/emoji.css@1.0.4/dist/emoji.min.css"
-                integrity="sha256-DTsMpJD6Zg8GpZTJVOCEp2BLvkkQ9wwhAkBbrOGC0cw="
-                crossOrigin="anonymous"
-            />
-        ');
+        jsDelivr("emoji.css", "dist/emoji.min.css");
     else
         null;
 
@@ -186,36 +175,12 @@ class Page extends ReactComponent {
             <link rel="stylesheet"
                 href="https://fonts.googleapis.com/css?family=Nothing+You+Could+Do%7CWork+Sans"
             />
-            <link rel="stylesheet"
-                href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.10.2/css/all.min.css"
-                integrity="sha256-zmfNZmXoNWBMemUOo1XUGFfc0ihGGLYdgtJS3KCr/l0="
-                crossOrigin="anonymous"
-            />
-            <link rel="stylesheet"
-                href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-                integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-                crossOrigin="anonymous"
-            />
-            <link rel="stylesheet"
-                href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"
-                integrity="sha256-3h45mwconzsKjTUULjY+EoEkoRhXcOIU4l5YAw2tSOU="
-                crossOrigin="anonymous"
-            />
-            <link rel="stylesheet"
-                href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"
-                integrity="sha256-etrwgFLGpqD4oNAFW08ZH9Bzif5ByXK2lXNHKy7LQGo="
-                crossOrigin="anonymous"
-            />
-            <link rel="stylesheet"
-                href="https://cdn.jsdelivr.net/npm/react-datepicker@2.9.6/dist/react-datepicker.min.css"
-                integrity="sha256-yySl4qcUS7M+bpiq/+Ns5KR/oL7UiobOWIKzJ2ejSR8="
-                crossOrigin="anonymous"
-            />
-            <link rel="stylesheet"
-                href="https://cdn.jsdelivr.net/npm/react-block-ui@1.3.1/dist/style.css"
-                integrity="sha256-zQ8cKXBKcAKSsepjbYn3y/mHnWWwMBsK3KvoQCOauEY="
-                crossOrigin="anonymous"
-            />
+            ${jsDelivr("@fortawesome/fontawesome-free", "css/all.min.css")}
+            ${jsDelivr("bootstrap", "dist/css/bootstrap.min.css")}
+            ${jsDelivr("slick-carousel", "slick/slick.css")}
+            ${jsDelivr("slick-carousel", "slick/slick-theme.css")}
+            ${jsDelivr("react-datepicker", "dist/react-datepicker.min.css")}
+            ${jsDelivr("react-block-ui", "dist/style.css")}
             ${currencyFlagsCss()}
             ${emojiCss()}
         </Fragment>
@@ -223,31 +188,11 @@ class Page extends ReactComponent {
 
     function depJs() return jsx('
         <Fragment>
-            <script
-                src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"
-                integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-                crossOrigin="anonymous"
-            ></script>
-            <script
-                src="https://cdn.jsdelivr.net/npm/popper.js@1.15.0/dist/umd/popper.min.js"
-                integrity="sha256-fTuUgtT7O2rqoImwjrhDgbXTKUwyxxujIMRIK7TbuNU="
-                crossOrigin="anonymous"
-            ></script>
-            <script
-                src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-                integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-                crossOrigin="anonymous"
-            ></script>
-            <script
-                src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.js"
-                integrity="sha256-m6pXPkN4hzt6yBzLHZVM6bsrGpM5R60wEiY93GBNhQU="
-                crossOrigin="anonymous"
-            ></script>
-            <script
-                src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/2.2.1/js.cookie.min.js"
-                integrity="sha256-oE03O+I6Pzff4fiMqwEGHbdfcW7a3GRRxlL+U49L5sA="
-                crossOrigin="anonymous"
-            ></script>
+            ${jsDelivr("jquery", "dist/jquery.min.js")}
+            ${jsDelivr("popper.js", "dist/umd/popper.min.js")}
+            ${jsDelivr("bootstrap", "dist/js/bootstrap.min.js")}
+            ${jsDelivr("slick-carousel", "slick/slick.js")}
+            ${jsDelivr("js-cookie", "src/js.cookie.js")}
             <script
                 src="https://js.stripe.com/v3/"
             ></script>

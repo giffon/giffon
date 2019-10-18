@@ -1,0 +1,691 @@
+{
+	"default": "/dist/umd/popper.min.js",
+	"files": [
+		{
+			"type": "directory",
+			"name": "dist",
+			"files": [
+				{
+					"type": "directory",
+					"name": "esm",
+					"files": [
+						{
+							"type": "file",
+							"name": "popper.js",
+							"hash": "ZYy0FRFuwA5eN0TAzLIFR9+0NeEKtIMnc8U5Vpf2VH4=",
+							"time": "2019-10-16T10:34:33.000Z",
+							"size": 88514
+						},
+						{
+							"type": "file",
+							"name": "popper.js.map",
+							"hash": "K0pDSERWnKgu7sjh/SmrrvI7jbSkjqnIgq6TqxMFr+w=",
+							"time": "2019-10-16T10:34:33.000Z",
+							"size": 140865
+						},
+						{
+							"type": "file",
+							"name": "popper.min.js",
+							"hash": "g491Yv8nsEVSfQ6aonhVVFXoX5vF2uJQIU0hVNRg4JQ=",
+							"time": "2019-10-16T10:34:33.000Z",
+							"size": 21228
+						},
+						{
+							"type": "file",
+							"name": "popper.min.js.map",
+							"hash": "mXkauJNPfdVlHpUOArVx+9szap1uTU8Oy/OrQujcluU=",
+							"time": "2019-10-16T10:34:33.000Z",
+							"size": 125443
+						},
+						{
+							"type": "file",
+							"name": "popper-utils.js",
+							"hash": "Gi5/Qf9kcE3nK+8hex2xIK8y1n5gDCJMGmVT186QqlI=",
+							"time": "2019-10-16T10:34:33.000Z",
+							"size": 35590
+						},
+						{
+							"type": "file",
+							"name": "popper-utils.js.map",
+							"hash": "aS80efEVuo8QkumevyyiXIJZzBDeGAwnMWgB4kB1bvM=",
+							"time": "2019-10-16T10:34:33.000Z",
+							"size": 61842
+						},
+						{
+							"type": "file",
+							"name": "popper-utils.min.js",
+							"hash": "A7MelZ32nztDfjA8mWWfKioZtgYbalaMYX9+TXB1PwU=",
+							"time": "2019-10-16T10:34:33.000Z",
+							"size": 10672
+						},
+						{
+							"type": "file",
+							"name": "popper-utils.min.js.map",
+							"hash": "F1d7p+pOrz7zbl4Lq3GIfVG9QP+WsJUqgYt8C2cNI1Q=",
+							"time": "2019-10-16T10:34:33.000Z",
+							"size": 54061
+						}
+					]
+				},
+				{
+					"type": "directory",
+					"name": "umd",
+					"files": [
+						{
+							"type": "file",
+							"name": "popper.js",
+							"hash": "DqUEt+3/iNJv2Kj9c+M7apLvAYr84YxGKmGa6qBa9Kc=",
+							"time": "2019-10-16T10:34:33.000Z",
+							"size": 88768
+						},
+						{
+							"type": "file",
+							"name": "popper.js.flow",
+							"hash": "YuKuyamwBHvrcjXor4G5v9keMDRLP78dEH9ipRwmP2o=",
+							"time": "2019-10-16T10:34:33.000Z",
+							"size": 3114
+						},
+						{
+							"type": "file",
+							"name": "popper.js.map",
+							"hash": "jWmdXXwBpyONhnx+P+KcZf3NqEqrJsp0BIEpqK2QpTE=",
+							"time": "2019-10-16T10:34:33.000Z",
+							"size": 140875
+						},
+						{
+							"type": "file",
+							"name": "popper.min.js",
+							"hash": "x3YZWtRjM8bJqf48dFAv/qmgL68SI4jqNWeSLMZaMGA=",
+							"time": "2019-10-16T10:34:33.000Z",
+							"size": 21257
+						},
+						{
+							"type": "file",
+							"name": "popper.min.js.map",
+							"hash": "ojGVP0jdDTO3/LurH977KYPDhmcOuOrnYkynV5p9IFU=",
+							"time": "2019-10-16T10:34:33.000Z",
+							"size": 123890
+						},
+						{
+							"type": "file",
+							"name": "popper-utils.js",
+							"hash": "eyHcqdWD6fbMWCT4T1HTlFgMLqnMCwKcL5tzkpqka3E=",
+							"time": "2019-10-16T10:34:33.000Z",
+							"size": 36692
+						},
+						{
+							"type": "file",
+							"name": "popper-utils.js.map",
+							"hash": "6fjiWIwQyl/QjId40bS7ryAUjJVvv9wcDKHUoAq2qfY=",
+							"time": "2019-10-16T10:34:33.000Z",
+							"size": 61884
+						},
+						{
+							"type": "file",
+							"name": "popper-utils.min.js",
+							"hash": "dIUk9DKD/v0o1fxg+PjgACxiS8VyUc+bD7zya8qYsi8=",
+							"time": "2019-10-16T10:34:33.000Z",
+							"size": 10831
+						},
+						{
+							"type": "file",
+							"name": "popper-utils.min.js.map",
+							"hash": "2W7S8++vxMzhTwIgO+BleZULwkCMr+OkUihx9xDFuK8=",
+							"time": "2019-10-16T10:34:33.000Z",
+							"size": 53858
+						}
+					]
+				},
+				{
+					"type": "file",
+					"name": "popper.js",
+					"hash": "Ay8FUC6Dm+HcDdSaEOoggcHDUSyBg/tX2j3pwdzBjC4=",
+					"time": "2019-10-16T10:34:33.000Z",
+					"size": 84893
+				},
+				{
+					"type": "file",
+					"name": "popper.js.map",
+					"hash": "jIV4ru2DTVNoe9AYeJodUbxh6hXIWKdt6qYyGmTVL4U=",
+					"time": "2019-10-16T10:34:33.000Z",
+					"size": 140192
+				},
+				{
+					"type": "file",
+					"name": "popper.min.js",
+					"hash": "trs1NroMTXyZS9LeGSSGjIWW3EKTGqAbWaYR5iSVMyQ=",
+					"time": "2019-10-16T10:34:33.000Z",
+					"size": 19927
+				},
+				{
+					"type": "file",
+					"name": "popper.min.js.map",
+					"hash": "OpXLl0djkCUKyBnRY+Wp0i2FDFuZWRr8BXjiMQJ84Vw=",
+					"time": "2019-10-16T10:34:33.000Z",
+					"size": 125243
+				},
+				{
+					"type": "file",
+					"name": "popper-utils.js",
+					"hash": "q138thI0x7BYIrh7WZ5DuL4baXv9Q+oZaZEt6si9Gio=",
+					"time": "2019-10-16T10:34:33.000Z",
+					"size": 33918
+				},
+				{
+					"type": "file",
+					"name": "popper-utils.js.map",
+					"hash": "hSlF6kLTs5PwqoMbifjnCBWj2/HFFOz0FiVrPlTUip4=",
+					"time": "2019-10-16T10:34:33.000Z",
+					"size": 61577
+				},
+				{
+					"type": "file",
+					"name": "popper-utils.min.js",
+					"hash": "zxhSbwvyxWFVIqfhDmuZBKmTvk/BUguRA1yinEtVUDw=",
+					"time": "2019-10-16T10:34:33.000Z",
+					"size": 10219
+				},
+				{
+					"type": "file",
+					"name": "popper-utils.min.js.map",
+					"hash": "gEggKPR+MfqenMn9QxlHOLDniaoPCAd7JNF4SFQYZdQ=",
+					"time": "2019-10-16T10:34:33.000Z",
+					"size": 53855
+				}
+			]
+		},
+		{
+			"type": "directory",
+			"name": "src",
+			"files": [
+				{
+					"type": "directory",
+					"name": "methods",
+					"files": [
+						{
+							"type": "file",
+							"name": "defaults.js",
+							"hash": "BG1+20NAvy4FT8+2D/yVG90zMfjXZKeTwW39RuMVEL0=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 1942
+						},
+						{
+							"type": "file",
+							"name": "destroy.js",
+							"hash": "Iu+Ieg9rb7H70w1yUN7CVjerAKvbz6RRy5PnhDcdGxk=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 989
+						},
+						{
+							"type": "file",
+							"name": "disableEventListeners.js",
+							"hash": "p9qB7Vg+cW+ntor15/EfUClV3fkmoYS4riw8lNFmHVE=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 511
+						},
+						{
+							"type": "file",
+							"name": "enableEventListeners.js",
+							"hash": "iPiKdT6JAePh0QRUZhVZVVhX/CwUvpXkGTlnj9T4vTk=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 444
+						},
+						{
+							"type": "file",
+							"name": "placements.js",
+							"hash": "Nu4nH/NvU8GjLDwBXGQdaH7dPgiFr1ypMbRoWc4X2rY=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 1109
+						},
+						{
+							"type": "file",
+							"name": "update.js",
+							"hash": "qPtrC0g/J4IYnnfOukrhkzdY6xRhqn/wFG0EVKJk2Go=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 2046
+						}
+					]
+				},
+				{
+					"type": "directory",
+					"name": "modifiers",
+					"files": [
+						{
+							"type": "file",
+							"name": "applyStyle.js",
+							"hash": "SMaEVa6MStEmXWO9iuOFojfxoibOtCKXcrcLn/jh+IA=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 2752
+						},
+						{
+							"type": "file",
+							"name": "arrow.js",
+							"hash": "358lJGEYAGeg+pNjtE5TMw9UXHb7rpTfAFtMkWye40c=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 3270
+						},
+						{
+							"type": "file",
+							"name": "computeStyle.js",
+							"hash": "oejD1G+M43wMYmwx9whHMJesBU44dvb8BzxyyCb+xDo=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 4016
+						},
+						{
+							"type": "file",
+							"name": "flip.js",
+							"hash": "nHdVD+cZBP1kiXbAySiMljBeGb4N/Opjqbh7t7Ew340=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 5094
+						},
+						{
+							"type": "file",
+							"name": "hide.js",
+							"hash": "KZlt6DhD3tlnlqqHjWt1wGkN7XyrNvOMSN83wBhmavM=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 1207
+						},
+						{
+							"type": "file",
+							"name": "index.js",
+							"hash": "G1Lk7EcMwp+0VlD/ODcJVWpz58pmtdp3tf0am82CdsA=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 14372
+						},
+						{
+							"type": "file",
+							"name": "inner.js",
+							"hash": "TwHX4usmqHNS0gAdSRzqZaX1ubGaxA3FjJ50SQMbBHA=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 922
+						},
+						{
+							"type": "file",
+							"name": "keepTogether.js",
+							"hash": "07oxkGPrVNctrjTj5w7J2yT+cqCsvpWUJj5QEZ4hq4g=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 895
+						},
+						{
+							"type": "file",
+							"name": "offset.js",
+							"hash": "oeMQAZeHvzUAOH+pKlbNGbHEu/+CLPaySo5mkoPE744=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 5943
+						},
+						{
+							"type": "file",
+							"name": "preventOverflow.js",
+							"hash": "6X1nzqvIehGflcWPRdqs+rn9tAmw+lTZn1oyaPohQek=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 2849
+						},
+						{
+							"type": "file",
+							"name": "shift.js",
+							"hash": "DQjATm9RGsLGeC8Fwe9M0lTVe8wpOV55Vu2Bl9fLk7o=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 999
+						}
+					]
+				},
+				{
+					"type": "directory",
+					"name": "utils",
+					"files": [
+						{
+							"type": "file",
+							"name": "clockwise.js",
+							"hash": "caWQschtcJMjaQw48g7jzYpyU3Ln9PjjFG0HxGsM9Bc=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 773
+						},
+						{
+							"type": "file",
+							"name": "computeAutoPlacement.js",
+							"hash": "xtJJ/NXATbmdY+E3P52POUign1TVTvoWauNoKBa+r8g=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 1714
+						},
+						{
+							"type": "file",
+							"name": "debounce.js",
+							"hash": "BtbcsQHZVJREv2smQS+D0SxGGi1uCoNiIVYHWXUWHKs=",
+							"time": "2019-10-16T10:32:09.000Z",
+							"size": 1121
+						},
+						{
+							"type": "file",
+							"name": "find.js",
+							"hash": "d4HSkKigddXex7KCOzvlQdaR4ZLakbOLQi8yXAafMdM=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 397
+						},
+						{
+							"type": "file",
+							"name": "findCommonOffsetParent.js",
+							"hash": "gKSbiG+5N591FdJ1rv+PktI36cKviajFk/VtnKUfr7A=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 1681
+						},
+						{
+							"type": "file",
+							"name": "findIndex.js",
+							"hash": "RP2Vy8Yu0xV1qPB9mS2qNoPizmw45MTNfg08kG9hkE8=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 534
+						},
+						{
+							"type": "file",
+							"name": "getBordersSize.js",
+							"hash": "cy0f79Kujj2vNBuSngPn1alM2cGEQDZzIkUuNsPUlug=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 572
+						},
+						{
+							"type": "file",
+							"name": "getBoundaries.js",
+							"hash": "qEpx9ymB76SLUtuG5TtHfrQ5Sz/DvOOMvhmXTq4IiIU=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 3000
+						},
+						{
+							"type": "file",
+							"name": "getBoundingClientRect.js",
+							"hash": "af3WEc9PhhyrhOXYb3bNTe7DUSRIjcU7raaZGMjIrcc=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 2028
+						},
+						{
+							"type": "file",
+							"name": "getClientRect.js",
+							"hash": "qaB8p8KHV8UKcFx28bmQXv9LfjmxxxaOjCZ8RrbqSTg=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 363
+						},
+						{
+							"type": "file",
+							"name": "getFixedPositionOffsetParent.js",
+							"hash": "7cLsQOiJtWUSVjfBjp/zj6z1SiN0VvMNGgPVAYoGYuA=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 756
+						},
+						{
+							"type": "file",
+							"name": "getOffsetParent.js",
+							"hash": "t5Vtjo/QyPFXUdm4nT2b7GZfj1iB/Cn0OyDFKeJKybk=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 1271
+						},
+						{
+							"type": "file",
+							"name": "getOffsetRect.js",
+							"hash": "pEydS7XX14LMQ4w0+rQwKG4z/qY8SCZcp4wNzHLDJfQ=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 801
+						},
+						{
+							"type": "file",
+							"name": "getOffsetRectRelativeToArbitraryNode.js",
+							"hash": "67a0ZvNOKogJSDNRrkZJ0GNFn692zeVMIzhE6wkJRBU=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 2331
+						},
+						{
+							"type": "file",
+							"name": "getOppositePlacement.js",
+							"hash": "Xs4HMDLfmEnpaarIjFYD7aYlWw+zmbfqXgp+C1SBHLQ=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 382
+						},
+						{
+							"type": "file",
+							"name": "getOppositeVariation.js",
+							"hash": "BRBJ9VR3rT3PJis7jKYryD35MjJ0DfKaEoPf0cx1EHA=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 382
+						},
+						{
+							"type": "file",
+							"name": "getOuterSizes.js",
+							"hash": "oemzwXkaG1h54P3kHMkgqbbRayeyAco2qHHWPyfvd20=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 652
+						},
+						{
+							"type": "file",
+							"name": "getParentNode.js",
+							"hash": "YT0VssOOxRY4sdlgBNtjvZR7v+ckeKehuAIGOuUpsu0=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 315
+						},
+						{
+							"type": "file",
+							"name": "getPopperOffsets.js",
+							"hash": "qUOCdxROqHHJwFC1QxpreKkYODmcX+nJqPFCrSMXK3A=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 1696
+						},
+						{
+							"type": "file",
+							"name": "getReferenceNode.js",
+							"hash": "Eq/9TgPfghtgQAdOZTLKM4Svri1iSwT/ePg9u8o9D/Q=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 401
+						},
+						{
+							"type": "file",
+							"name": "getReferenceOffsets.js",
+							"hash": "50hayC8g43HLuEUcC/REofHClAG4LkuW5vag2/e9zYk=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 1017
+						},
+						{
+							"type": "file",
+							"name": "getRoot.js",
+							"hash": "GqUL6v6hvxb0Qy7bAgiJPOT6M4n2Nz2hY2gjAV6UDCE=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 309
+						},
+						{
+							"type": "file",
+							"name": "getRoundedOffsets.js",
+							"hash": "TOJIjARbG1yIIWv/OJUOpTVyTkhbSF8YUCEEDnphZn8=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 1754
+						},
+						{
+							"type": "file",
+							"name": "getScroll.js",
+							"hash": "xnGQa5AKA9Delz7fMuYACIwlysU7GV9knk778ozdFCo=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 668
+						},
+						{
+							"type": "file",
+							"name": "getScrollParent.js",
+							"hash": "VWZySZ0TRmqUbzcV+Wuf4T/dVmFpm/4LXYgO4YabtXg=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 910
+						},
+						{
+							"type": "file",
+							"name": "getStyleComputedProperty.js",
+							"hash": "PrvVj+dd7xZxWic55IZ1Gy9E4Lc0czcP/jJLO7VWOkY=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 455
+						},
+						{
+							"type": "file",
+							"name": "getSupportedPropertyName.js",
+							"hash": "HYVd/g436TWnDp8zF5X83N7OoyajSmc1+bNv7aCSl90=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 676
+						},
+						{
+							"type": "file",
+							"name": "getViewportOffsetRectRelativeToArtbitraryNode.js",
+							"hash": "PHmCgbg4S1vLM0CdOs4qu0dQYLYCeNTOYrHUQFv7fac=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 898
+						},
+						{
+							"type": "file",
+							"name": "getWindow.js",
+							"hash": "E2W1PS3l5zUJA0P0vcNTCobU3+rtWSh1OiRCw8dlYv0=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 261
+						},
+						{
+							"type": "file",
+							"name": "getWindowSizes.js",
+							"hash": "obNq7LU3Z0tS2i2RSwcED/ci6XeKG7Jl/NFCteORL9k=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 785
+						},
+						{
+							"type": "file",
+							"name": "includeScroll.js",
+							"hash": "4kozxqE/eZoqerILAcQwE9E/C75anpfP+Nxf40YQH7U=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 825
+						},
+						{
+							"type": "file",
+							"name": "index.js",
+							"hash": "9OEgTpusG/gjcLOn+qHrQYGglm9ZZd9IeslCEBEgWh8=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 2910
+						},
+						{
+							"type": "file",
+							"name": "isBrowser.js",
+							"hash": "2FFKsZ2o0UIDQ0qDRvPb18Uhqch/CUFmZTh2oiGaA+k=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 117
+						},
+						{
+							"type": "file",
+							"name": "isFixed.js",
+							"hash": "6vjK425J1f3soB9DdxRI4t4ASIuuPEXOqByFMYQgS2o=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 700
+						},
+						{
+							"type": "file",
+							"name": "isFunction.js",
+							"hash": "VC1FTbSGYOcTQt5xLfiYT0z2DOll5NvN8QTdaaaDQFY=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 377
+						},
+						{
+							"type": "file",
+							"name": "isIE.js",
+							"hash": "+p6vnuDTmaLaqMHSRY7U1HjDZ+q/rqHm8EzQlHTS2ZY=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 511
+						},
+						{
+							"type": "file",
+							"name": "isModifierEnabled.js",
+							"hash": "iZDrRxRG2E+gFZwd04GVkwKDpzuwOxVOhqUqf7Fz8ug=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 285
+						},
+						{
+							"type": "file",
+							"name": "isModifierRequired.js",
+							"hash": "TUW9/FSOXkFhSCQjuwf+YjMIJ8p6y7zGhKDayTh8SSQ=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 1095
+						},
+						{
+							"type": "file",
+							"name": "isNumeric.js",
+							"hash": "zG1rWR9+YzWdXVXyxb+kBF/SHhsUInVOcP/nXCXw+NA=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 233
+						},
+						{
+							"type": "file",
+							"name": "isOffsetContainer.js",
+							"hash": "GXLmAxxb9ZYTknOqWYdx3Ea0+u1PilCttyd/KgkzfNM=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 286
+						},
+						{
+							"type": "file",
+							"name": "removeEventListeners.js",
+							"hash": "kto1I8A9xb1NEVawZIWP/ZlEpeKLcW/lCSTdzyZq0zI=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 653
+						},
+						{
+							"type": "file",
+							"name": "runModifiers.js",
+							"hash": "VnO/cWPoO6MchgG3ZOsLFNvyi9iU3hErGFzVkP10Of8=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 1323
+						},
+						{
+							"type": "file",
+							"name": "setAttributes.js",
+							"hash": "kDjFASki56LUeC/W/HqM8mSP8wc7ebLM87WoilYzlmw=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 559
+						},
+						{
+							"type": "file",
+							"name": "setStyles.js",
+							"hash": "J2DMv1OkwkHLlD4S5kQ1vzO/6Borh0S7zWj6uwk3VVA=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 695
+						},
+						{
+							"type": "file",
+							"name": "setupEventListeners.js",
+							"hash": "LrSNMp8Mbl/9n+hg4/3wheeKoknw8z/DOa+cMdwNS6E=",
+							"time": "2019-10-16T10:32:04.000Z",
+							"size": 1218
+						}
+					]
+				},
+				{
+					"type": "file",
+					"name": "index.js",
+					"hash": "oklsCRIg48Qu9tH7Md9HZoTBk7an1GvHWTg3/owA8Wc=",
+					"time": "2019-10-16T10:32:04.000Z",
+					"size": 5393
+				}
+			]
+		},
+		{
+			"type": "file",
+			"name": "index.d.ts",
+			"hash": "GHPbjyJhuk8ki94+W7THmx/cmQMVBU6WBPzo9B3dFYc=",
+			"time": "2019-10-16T10:32:04.000Z",
+			"size": 4744
+		},
+		{
+			"type": "file",
+			"name": "index.js.flow",
+			"hash": "YuKuyamwBHvrcjXor4G5v9keMDRLP78dEH9ipRwmP2o=",
+			"time": "2019-10-16T10:32:09.000Z",
+			"size": 3114
+		},
+		{
+			"type": "file",
+			"name": "package.json",
+			"hash": "Tjt55rl9F2TQ+528rtCTw53TmZbfpB9pdklBMlzU3HQ=",
+			"time": "2019-10-16T10:33:17.000Z",
+			"size": 1561
+		},
+		{
+			"type": "file",
+			"name": "README.md",
+			"hash": "+sv6S/F9RWW8vn9UAZurILQta3OdzCA4afrfdVXM6w4=",
+			"time": "2019-10-16T10:32:04.000Z",
+			"size": 11127
+		}
+	]
+}

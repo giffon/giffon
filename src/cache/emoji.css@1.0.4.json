@@ -1,0 +1,59 @@
+{
+	"default": "/lib/index.min.js",
+	"files": [
+		{
+			"type": "directory",
+			"name": "lib",
+			"files": [
+				{
+					"type": "file",
+					"name": "index.js",
+					"hash": "JilEwp5Na7biRRwNKwjmVlbtThCPDRU5Fb3XRpxHYZE=",
+					"time": "1985-10-26T08:15:00.000Z",
+					"size": 670
+				}
+			]
+		},
+		{
+			"type": "directory",
+			"name": "dist",
+			"files": [
+				{
+					"type": "file",
+					"name": "emocss.min.css",
+					"hash": "pIesFQkOs93o17LA2xyFt24BCHPKU4Gklbo9srEyGsc=",
+					"time": "1985-10-26T08:15:00.000Z",
+					"size": 45281
+				},
+				{
+					"type": "file",
+					"name": "emoji.min.css",
+					"hash": "DTsMpJD6Zg8GpZTJVOCEp2BLvkkQ9wwhAkBbrOGC0cw=",
+					"time": "1985-10-26T08:15:00.000Z",
+					"size": 45275
+				}
+			]
+		},
+		{
+			"type": "file",
+			"name": "LICENSE",
+			"hash": "yU/Eb9Z4z9tDAx9ujfdniuEKE1cnyaUCGteqlJ0ssrw=",
+			"time": "1985-10-26T08:15:00.000Z",
+			"size": 1134
+		},
+		{
+			"type": "file",
+			"name": "package.json",
+			"hash": "brN51HYWPQWnPmzkqfJTAJW/hpFUZ9rULrxgkZAQVGg=",
+			"time": "1985-10-26T08:15:00.000Z",
+			"size": 1167
+		},
+		{
+			"type": "file",
+			"name": "README.md",
+			"hash": "YVUjen3iScjE4ko51lIW1g5NKQpwUGOzIqLBjxzoFvk=",
+			"time": "1985-10-26T08:15:00.000Z",
+			"size": 3125
+		}
+	]
+}

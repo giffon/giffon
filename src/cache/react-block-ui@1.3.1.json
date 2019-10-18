@@ -1,0 +1,171 @@
+{
+	"default": "/dist/reactblockui.cjs.min.js",
+	"files": [
+		{
+			"type": "directory",
+			"name": "dist",
+			"files": [
+				{
+					"type": "file",
+					"name": "reactblockui.cjs.js",
+					"hash": "78qoXf27Ujmlz4EB6HX5PKHCdPFcarqV+1pnAOnfGuM=",
+					"time": "1985-10-26T08:15:00.000Z",
+					"size": 10777
+				},
+				{
+					"type": "file",
+					"name": "reactblockui.cjs.js.map",
+					"hash": "Ow/Nkq3gvZsIWolE5+3WEMORCXVerxKsyCJjhSMDFnQ=",
+					"time": "1985-10-26T08:15:00.000Z",
+					"size": 12807
+				},
+				{
+					"type": "file",
+					"name": "reactblockui.d.ts",
+					"hash": "AASJ7In8xMMoUIkqZ+++0ZpUAk42JG4AFnEN3miBKxc=",
+					"time": "1985-10-26T08:15:00.000Z",
+					"size": 1214
+				},
+				{
+					"type": "file",
+					"name": "reactblockui.es.js",
+					"hash": "bLk9xIzjSyC0ow4+ftT7h7XfVR4WSwnYXY8GZE1rjOs=",
+					"time": "1985-10-26T08:15:00.000Z",
+					"size": 10487
+				},
+				{
+					"type": "file",
+					"name": "reactblockui.es.js.map",
+					"hash": "dS8qg9COTKsfTWlQz/FFx4Jk/OFmo+EA7Havj1Uvu30=",
+					"time": "1985-10-26T08:15:00.000Z",
+					"size": 12784
+				},
+				{
+					"type": "file",
+					"name": "reactblockui.min.js",
+					"hash": "2AWg7TUKt8IaIyiAqTiOaTBZBuANjaYAdqyB7QoetJA=",
+					"time": "1985-10-26T08:15:00.000Z",
+					"size": 5615
+				},
+				{
+					"type": "file",
+					"name": "reactblockui.min.js.map",
+					"hash": "dUR034MRpkgitOh8N7JXfNjsbTcYagoCAInAynzxn44=",
+					"time": "1985-10-26T08:15:00.000Z",
+					"size": 11561
+				},
+				{
+					"type": "file",
+					"name": "style.css",
+					"hash": "zQ8cKXBKcAKSsepjbYn3y/mHnWWwMBsK3KvoQCOauEY=",
+					"time": "1985-10-26T08:15:00.000Z",
+					"size": 3428
+				}
+			]
+		},
+		{
+			"type": "directory",
+			"name": "lib",
+			"files": [
+				{
+					"type": "file",
+					"name": "BlockUi.js",
+					"hash": "LTQlgwIXwCxChT/4OEwAJdYusQqqdRqPuZ2E+w53zuM=",
+					"time": "1985-10-26T08:15:00.000Z",
+					"size": 9818
+				},
+				{
+					"type": "file",
+					"name": "index.js",
+					"hash": "1OgShCDTsLYS3dFUjpTUWmXqopW2ThHKxKFhYtLam4A=",
+					"time": "1985-10-26T08:15:00.000Z",
+					"size": 303
+				},
+				{
+					"type": "file",
+					"name": "Loader.js",
+					"hash": "kjNxeGmNKv1nhmN3JR8b2Bt1uVNVuH4umJrmFbmf5i4=",
+					"time": "1985-10-26T08:15:00.000Z",
+					"size": 748
+				},
+				{
+					"type": "file",
+					"name": "redux.js",
+					"hash": "uwqKSfheYmkd3aID9SUgEjiTaTl7Fcf3uNd+9kqI4+4=",
+					"time": "1985-10-26T08:15:00.000Z",
+					"size": 328
+				},
+				{
+					"type": "file",
+					"name": "ReduxBlockUi.js",
+					"hash": "4R8AAmDSF/7PURBVd9xZ43KFkqOv8XEc5TQubhand30=",
+					"time": "1985-10-26T08:15:00.000Z",
+					"size": 5116
+				},
+				{
+					"type": "file",
+					"name": "reduxMiddleware.js",
+					"hash": "z5DJS5yU6a7uxed+h5JVZve2dFW3xfbK1Qgf6hdCcIk=",
+					"time": "1985-10-26T08:15:00.000Z",
+					"size": 668
+				},
+				{
+					"type": "file",
+					"name": "safeActiveElement.js",
+					"hash": "I/lKBzZJdVnEkbmQIhjgip2YN4lMTukXhTW55/haPTM=",
+					"time": "1985-10-26T08:15:00.000Z",
+					"size": 653
+				},
+				{
+					"type": "file",
+					"name": "style.css",
+					"hash": "zQ8cKXBKcAKSsepjbYn3y/mHnWWwMBsK3KvoQCOauEY=",
+					"time": "1985-10-26T08:15:00.000Z",
+					"size": 3428
+				}
+			]
+		},
+		{
+			"type": "file",
+			"name": "CHANGELOG.md",
+			"hash": "xR2Xo597x8hRHiT+NMTnbxwh23G471DK0BALRNCNxcw=",
+			"time": "1985-10-26T08:15:00.000Z",
+			"size": 4686
+		},
+		{
+			"type": "file",
+			"name": "LICENSE",
+			"hash": "CGY2ItkGJO9R7EQHOEDqXpmCoRbPAEfbZuLR8f3s8Zo=",
+			"time": "1985-10-26T08:15:00.000Z",
+			"size": 1089
+		},
+		{
+			"type": "file",
+			"name": "package.json",
+			"hash": "jTqyvJ96WfFI1o+dhCNThH6kZ8o+hrzd7Y7oFGJ/BbY=",
+			"time": "1985-10-26T08:15:00.000Z",
+			"size": 4544
+		},
+		{
+			"type": "file",
+			"name": "README.md",
+			"hash": "LVYyTdNWPWo+PlYtzhFc6e2I4D3tlFNK7HvvRQwu/xM=",
+			"time": "1985-10-26T08:15:00.000Z",
+			"size": 1900
+		},
+		{
+			"type": "file",
+			"name": "redux.js",
+			"hash": "bD3MpPj2tUZXtiXGR/YCAjETMCr5IKW3b40oygnyNoQ=",
+			"time": "1985-10-26T08:15:00.000Z",
+			"size": 332
+		},
+		{
+			"type": "file",
+			"name": "style.css",
+			"hash": "zQ8cKXBKcAKSsepjbYn3y/mHnWWwMBsK3KvoQCOauEY=",
+			"time": "1985-10-26T08:15:00.000Z",
+			"size": 3428
+		}
+	]
+}

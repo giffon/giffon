@@ -1,0 +1,192 @@
+{
+	"default": "/slick/slick.min.js",
+	"files": [
+		{
+			"type": "directory",
+			"name": "slick",
+			"files": [
+				{
+					"type": "directory",
+					"name": "fonts",
+					"files": [
+						{
+							"type": "file",
+							"name": "slick.eot",
+							"hash": "BtgM8BJQEy/RBocBEIRT/u5ohUt1DSLDRP/A3jleHcs=",
+							"time": "2017-10-03T17:39:47.000Z",
+							"size": 2048
+						},
+						{
+							"type": "file",
+							"name": "slick.svg",
+							"hash": "EkWfIhoLeHvx6uvy5MSPyivZ+Ek/cSVsMEPnoMfpMvY=",
+							"time": "2017-10-03T17:39:47.000Z",
+							"size": 2152
+						},
+						{
+							"type": "file",
+							"name": "slick.ttf",
+							"hash": "N7yZz9u8BGGTomOWeHN00A57ENOnWKNgRcB72IhjYNI=",
+							"time": "2017-10-03T17:39:47.000Z",
+							"size": 1892
+						},
+						{
+							"type": "file",
+							"name": "slick.woff",
+							"hash": "JnJrrEBgq7EibmzuvBM26Ekw/np68bOJWhCdBn9bXcw=",
+							"time": "2017-10-03T17:39:47.000Z",
+							"size": 1380
+						}
+					]
+				},
+				{
+					"type": "file",
+					"name": "ajax-loader.gif",
+					"hash": "57RMhrBQ/KdmqW3awtCTKvASbabyMFKANC2QkWjczms=",
+					"time": "2017-10-03T17:39:47.000Z",
+					"size": 4178
+				},
+				{
+					"type": "file",
+					"name": "config.rb",
+					"hash": "B1TTVlFu3R5n4BBQKQgfRTnSnNftsLIgRguv6H0WoeI=",
+					"time": "2017-10-03T17:39:47.000Z",
+					"size": 161
+				},
+				{
+					"type": "file",
+					"name": "slick.css",
+					"hash": "3h45mwconzsKjTUULjY+EoEkoRhXcOIU4l5YAw2tSOU=",
+					"time": "2017-10-03T17:39:47.000Z",
+					"size": 1776
+				},
+				{
+					"type": "file",
+					"name": "slick.js",
+					"hash": "m6pXPkN4hzt6yBzLHZVM6bsrGpM5R60wEiY93GBNhQU=",
+					"time": "2017-10-03T17:49:55.000Z",
+					"size": 88955
+				},
+				{
+					"type": "file",
+					"name": "slick.less",
+					"hash": "4brxPPMzPPxUze/ntcp6G0uPkcr2iBN1+q7JAE//bYY=",
+					"time": "2017-10-03T17:39:47.000Z",
+					"size": 1756
+				},
+				{
+					"type": "file",
+					"name": "slick.min.js",
+					"hash": "DHF4zGyjT7GOMPBwpeehwoey18z8uiz98G4PRu2lV0A=",
+					"time": "2017-10-03T17:39:47.000Z",
+					"size": 42863
+				},
+				{
+					"type": "file",
+					"name": "slick.scss",
+					"hash": "4brxPPMzPPxUze/ntcp6G0uPkcr2iBN1+q7JAE//bYY=",
+					"time": "2017-10-03T17:39:47.000Z",
+					"size": 1756
+				},
+				{
+					"type": "file",
+					"name": "slick-theme.css",
+					"hash": "etrwgFLGpqD4oNAFW08ZH9Bzif5ByXK2lXNHKy7LQGo=",
+					"time": "2017-10-03T17:39:47.000Z",
+					"size": 3145
+				},
+				{
+					"type": "file",
+					"name": "slick-theme.less",
+					"hash": "9UtT878QKrsXm6fqT716GHzQfp6sscbYcJIk5XgsBLA=",
+					"time": "2017-10-03T17:39:47.000Z",
+					"size": 4181
+				},
+				{
+					"type": "file",
+					"name": "slick-theme.scss",
+					"hash": "AEXtPVye9BR/1DcMoP4ixNEUKecBr51awm0pPQ2ujoY=",
+					"time": "2017-10-03T17:39:47.000Z",
+					"size": 4758
+				}
+			]
+		},
+		{
+			"type": "file",
+			"name": ".npmignore",
+			"hash": "2vACwPnEaGgcuXuvAjX6JerqA9NMM5Vae7aXCBqdjAQ=",
+			"time": "2017-10-03T17:39:47.000Z",
+			"size": 24
+		},
+		{
+			"type": "file",
+			"name": "bower.json",
+			"hash": "1MuNwvcQEgkACKsc+yOxBzG5tgNMl2Ls7BIXol9ynC0=",
+			"time": "2017-10-03T17:39:47.000Z",
+			"size": 672
+		},
+		{
+			"type": "file",
+			"name": "component.json",
+			"hash": "EeL14Rrq9ww97XzIYo43sm5P82vFJroUMnKNPvjWzGM=",
+			"time": "2017-10-03T17:50:14.000Z",
+			"size": 465
+		},
+		{
+			"type": "file",
+			"name": "CONTRIBUTING.markdown",
+			"hash": "5hVNkZKaOOzQbEl8Y7BFa68s/aag4ykOuN6TtJ2QURE=",
+			"time": "2017-10-03T17:39:47.000Z",
+			"size": 2374
+		},
+		{
+			"type": "file",
+			"name": "index.html",
+			"hash": "rY/SMeCYqUN/zvQxEE3veshvk3g561tFFwFDzdt7zSk=",
+			"time": "2017-10-03T17:39:47.000Z",
+			"size": 9449
+		},
+		{
+			"type": "file",
+			"name": "ISSUE_TEMPLATE.md",
+			"hash": "aFolWPLTuW16t2AXWzUEqq6u1iZ1UP8Nw2s8uiWR3Js=",
+			"time": "2017-10-03T17:39:47.000Z",
+			"size": 883
+		},
+		{
+			"type": "file",
+			"name": "LICENSE",
+			"hash": "rIueJYAUKwNxkAi8XHGzEcsA9e3kQwwo+b1dFagoGKA=",
+			"time": "2017-10-03T17:39:47.000Z",
+			"size": 1071
+		},
+		{
+			"type": "file",
+			"name": "Makefile",
+			"hash": "VFSAWk+fIUrMC+6bd/AfKMJ999sDz5Dk72M8SVfnVxg=",
+			"time": "2017-10-03T17:39:47.000Z",
+			"size": 133
+		},
+		{
+			"type": "file",
+			"name": "package.json",
+			"hash": "wa4vgfGsO0hjFkKEAlvv+nFL9wc5p2Vfr8oq7gIGng4=",
+			"time": "2017-10-03T17:49:29.000Z",
+			"size": 1055
+		},
+		{
+			"type": "file",
+			"name": "README.markdown",
+			"hash": "PNiV6YnG73iDEbbXeSBGuMZ3wcw6jX+60/bucSAnp/8=",
+			"time": "2017-10-03T17:50:56.000Z",
+			"size": 11969
+		},
+		{
+			"type": "file",
+			"name": "slick.jquery.json",
+			"hash": "U5xQOaUt0DEjdCMf5DJMpnGI4ZvyTovvqzuz/sieZlI=",
+			"time": "2017-10-03T17:50:59.000Z",
+			"size": 964
+		}
+	]
+}
