@@ -207,7 +207,7 @@ class Page extends ReactComponent {
                 crossOrigin="anonymous"
             />
             <link rel="stylesheet"
-                href="https://cdn.jsdelivr.net/npm/react-datepicker@2.9.3/dist/react-datepicker.min.css"
+                href="https://cdn.jsdelivr.net/npm/react-datepicker@2.9.6/dist/react-datepicker.min.css"
                 integrity="sha256-yySl4qcUS7M+bpiq/+Ns5KR/oL7UiobOWIKzJ2ejSR8="
                 crossOrigin="anonymous"
             />
