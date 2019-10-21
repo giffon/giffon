@@ -35,7 +35,7 @@
     "express-pino-logger": "4.0.0",
     "express-session": "1.17.0",
     "formik": "1.5.8",
-    "helmet": "3.21.1",
+    "helmet": "3.21.2",
     "httpolyglot": "0.1.2",
     "image-data-uri": "2.0.1",
     "image-type": "4.1.0",
