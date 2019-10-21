@@ -1,0 +1,423 @@
+{
+	"default": null,
+	"files": [
+		{
+			"type": "directory",
+			"name": "dist",
+			"files": [
+				{
+					"type": "directory",
+					"name": "square-flags",
+					"files": [
+						{
+							"type": "file",
+							"name": "aed.svg",
+							"hash": "LaE6BNX0URgsDFNr0MKvaFRxz80tSsD9SDlq3glj4FI=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 341
+						},
+						{
+							"type": "file",
+							"name": "ars.svg",
+							"hash": "GDp3ivJYJnAjcnmU6oBZFJBhKotJmAkij08gD4zGyTI=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 25188
+						},
+						{
+							"type": "file",
+							"name": "aud.svg",
+							"hash": "YC3OcLWJw+BJii4tvhxZeQR/jWvN9sZ2q6GJjRDjaJ8=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 2458
+						},
+						{
+							"type": "file",
+							"name": "bdt.svg",
+							"hash": "/BKbWt4Eqa8ux2DFJm/Bo8sa3R5I8ioiM+3ZmkBNFBE=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 196
+						},
+						{
+							"type": "file",
+							"name": "bgn.svg",
+							"hash": "bCRcAghfM8qGMSFAB6ToSKfpYiwwOfCnI+5TQtwmJAM=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 237
+						},
+						{
+							"type": "file",
+							"name": "brl.svg",
+							"hash": "f6aI3kemhFCFgkfApIoPwONWYCpJKV0ZfNyz5HPyPg0=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 473
+						},
+						{
+							"type": "file",
+							"name": "cad.svg",
+							"hash": "AruEOnrejaVDlYggkpQBj20XIKUe1iO2FEmKxPHsVYI=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 1313
+						},
+						{
+							"type": "file",
+							"name": "chf.svg",
+							"hash": "F74aNZHIWuhWW8JZ7kU7KtqFPiLQRtrRZxgGESo0zMg=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 432
+						},
+						{
+							"type": "file",
+							"name": "clp.svg",
+							"hash": "L5o/eHiNsw238Js1O06khb9R4YHAFIz8pSK78IL9+hQ=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 450
+						},
+						{
+							"type": "file",
+							"name": "cny.svg",
+							"hash": "tQWq6GLID9o4DFYSV3C2IawEvyUVr/l6Ad4zdKwqKb0=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 761
+						},
+						{
+							"type": "file",
+							"name": "crc.svg",
+							"hash": "UnVTUaeSK/nye9FfybZ2PffCMv5zK4+0zSuBTtAOcGg=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 396
+						},
+						{
+							"type": "file",
+							"name": "czk.svg",
+							"hash": "72UFzKx5ayP2mGoQr1Xn3BK0m/n4qQJQBAjsirYrTus=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 362
+						},
+						{
+							"type": "file",
+							"name": "dkk.svg",
+							"hash": "xITeKSRhSxK5I+/ObKyhVifxJFiX8Ni3bQnTuatZkM0=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 430
+						},
+						{
+							"type": "file",
+							"name": "egp.svg",
+							"hash": "z8Q4nmNPKCtAosmlgWy0oOnAT4bJqpGz+R+JIw0kuY4=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 27276
+						},
+						{
+							"type": "file",
+							"name": "eur.svg",
+							"hash": "NbfrKno5kpbS/aznMGYsz8UrmvdFFTxwI4ElVbvz9oM=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 2389
+						},
+						{
+							"type": "file",
+							"name": "gbp.svg",
+							"hash": "0gAiR1Mff54/Tek6Oa5lTKddGgE/0SyJWCxrAhs/iuI=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 1570
+						},
+						{
+							"type": "file",
+							"name": "gel.svg",
+							"hash": "VXxydVPKd1nH4HdP+/LBbTPlS12WrNzbRu6cH9LX+S0=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 689
+						},
+						{
+							"type": "file",
+							"name": "ghs.svg",
+							"hash": "QjxrpeeP+aTcR3Rmp5EJiXD9z3SubesQCGuyk0kD4fM=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 410
+						},
+						{
+							"type": "file",
+							"name": "hkd.svg",
+							"hash": "dM8BNl9qBAhTnTxVcH71eRHpinkzoPLDdEdc9X/T/Fk=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 4258
+						},
+						{
+							"type": "file",
+							"name": "hrk.svg",
+							"hash": "wateBesUMp7vWzzHkj5J0sNOJrOb49FWFeSCY+QsPQM=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 238459
+						},
+						{
+							"type": "file",
+							"name": "huf.svg",
+							"hash": "OTDIChjckprszbFhpUrkz/p6hoY9rjxG5XqQokeurCY=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 237
+						},
+						{
+							"type": "file",
+							"name": "idr.svg",
+							"hash": "4dg9brmAoxMezpM3jMsiuliKACxqW0yEMDZ1TyP4yww=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 269
+						},
+						{
+							"type": "file",
+							"name": "ils.svg",
+							"hash": "LE2wLKHFp1rk5ssBVIYSGf6IolDhfjYtAe+zF0xPhXY=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 397
+						},
+						{
+							"type": "file",
+							"name": "inr.svg",
+							"hash": "2d2HHFcNhVWRwzORJxsCIqbVCzSfJfEKPoyigQcuMiY=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 639
+						},
+						{
+							"type": "file",
+							"name": "jpy.svg",
+							"hash": "3hSUelB0Kw2wsfFiUcCfXehO0rWoPYgcjmHLjyTOrRo=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 292
+						},
+						{
+							"type": "file",
+							"name": "kes.svg",
+							"hash": "H0Fs/Se4Q1q0en1VmgPSt91MAwzI2Hza48Z7dC9GzAI=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 2972
+						},
+						{
+							"type": "file",
+							"name": "krw.svg",
+							"hash": "az2Chc9gtu7s/F0onihmLnHJnDyyisN0CyNgc9rbPZw=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 2398
+						},
+						{
+							"type": "file",
+							"name": "lkr.svg",
+							"hash": "aKFENDHVr4kCcPhD6+PhGxbHNkZSgPUKcyovI5nFLjU=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 52784
+						},
+						{
+							"type": "file",
+							"name": "mad.svg",
+							"hash": "BVMX9OQ4G+aEGPhK3PbgZSFUQD5rISASvOrRToYCFBg=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 308
+						},
+						{
+							"type": "file",
+							"name": "mxn.svg",
+							"hash": "GzIO8CFmQMwiaUuz810wZugEjhkkYACmXnoqlRjEBkE=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 391267
+						},
+						{
+							"type": "file",
+							"name": "myr.svg",
+							"hash": "48guPKTGi1s7t3drbuoQBxH2B+kCrPkiK35Bro+5mUY=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 1309
+						},
+						{
+							"type": "file",
+							"name": "ngn.svg",
+							"hash": "L2vc0GJSUMNo+LRWzXBwN3occMoefeqq1RDdoYI/r/Q=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 246
+						},
+						{
+							"type": "file",
+							"name": "nok.svg",
+							"hash": "Cj1UgqjHIAJ0sWs1hON9yKPa7fpIi2USKNq3w0b6opQ=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 466
+						},
+						{
+							"type": "file",
+							"name": "npr.svg",
+							"hash": "Bi1UzyMwPQT9+9luYWsy5xL6ZL+3PNqQRBxHVXlo8kQ=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 2903
+						},
+						{
+							"type": "file",
+							"name": "nzd.svg",
+							"hash": "evQbTZmv5reSBMucUbDv6OVY28dD8y57BJ7TKOwE1fE=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 1689
+						},
+						{
+							"type": "file",
+							"name": "pen.svg",
+							"hash": "G1d1fSafR4XELNAuJUY7RDS0vGEUmmeVzlGXjg5s6vM=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 330714
+						},
+						{
+							"type": "file",
+							"name": "php.svg",
+							"hash": "4MmtVt3QSAQTqkByvsQ/yW5ZYU608VupKiKAjBNXbn0=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 3258
+						},
+						{
+							"type": "file",
+							"name": "pkr.svg",
+							"hash": "3GqRGYLEVWy5ZCRIADLaBeMoe7WDunuaIjXBDt2bKmE=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 692
+						},
+						{
+							"type": "file",
+							"name": "pln.svg",
+							"hash": "VGITsjZGnImZmgtLrv+cLGnQWzE7LYnVtC1bmp6ec7s=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 191
+						},
+						{
+							"type": "file",
+							"name": "ron.svg",
+							"hash": "wPBsLxxUGPUJ7jp+uZeTQYn4/uMGF8pG1d1Ljh9j+/U=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 237
+						},
+						{
+							"type": "file",
+							"name": "rub.svg",
+							"hash": "179reAL6Cp04oaUx+dz2x6zr2jURK10b6u5a0bvSfbU=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 237
+						},
+						{
+							"type": "file",
+							"name": "sek.svg",
+							"hash": "QUVPUs3EqivzzFX6BEBBVZTVuYrtO4cI0/gW6IsUOYc=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 432
+						},
+						{
+							"type": "file",
+							"name": "sgd.svg",
+							"hash": "OR1JZhkDqxE8w5avHJfQwY9XCC1RSh9x+VLfErK4ySc=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 977
+						},
+						{
+							"type": "file",
+							"name": "thb.svg",
+							"hash": "HWr+PwnqxmLQxqTGAiRc1ni8A7eEsago7qn5UEAgGtw=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 367
+						},
+						{
+							"type": "file",
+							"name": "try.svg",
+							"hash": "O5aCghTbwhkVIILccy/8oHtkl7TyytBR87Itx8ZhKz4=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 775
+						},
+						{
+							"type": "file",
+							"name": "tzs.svg",
+							"hash": "2rAWzRr/ARwvFn4ASuxAs/1YANHROBlJI9TZIX7eyyw=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 505
+						},
+						{
+							"type": "file",
+							"name": "uah.svg",
+							"hash": "8swZYczPdShBG/QNj7SKGmQ+EJKG+QRY2wMsdkkq/74=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 195
+						},
+						{
+							"type": "file",
+							"name": "ugx.svg",
+							"hash": "f8qVsflBlcoIvR+rhtSxWXioH7VWZn+GRCEQSKfkfTk=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 6211
+						},
+						{
+							"type": "file",
+							"name": "usd.svg",
+							"hash": "Z3rAcabO5ileLjbBJXHDJwBZdI9JFYY/CPwLioBOF/w=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 8181
+						},
+						{
+							"type": "file",
+							"name": "ved.svg",
+							"hash": "BYyzgjg1NA81Wog4XYf5TF01iXLlOrZSMbfr7pGSric=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 313
+						},
+						{
+							"type": "file",
+							"name": "xof.svg",
+							"hash": "ZPkFPA7r6m/J86JRyZmmLNrWcu5w+1Xgu21z6y+JbAc=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 503
+						},
+						{
+							"type": "file",
+							"name": "zar.svg",
+							"hash": "Ok4gBKBReqmQgLUgyq+2g7c9+2FhtTWIpiII5ee3FSk=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 774
+						}
+					]
+				},
+				{
+					"type": "file",
+					"name": "currency-flags.css",
+					"hash": "PE2iZ1Or8BwQ2Cvig3t1FR1KMxCvw43y9wg/PRYSzqo=",
+					"time": "1985-10-26T08:15:00.000Z",
+					"size": 169603
+				},
+				{
+					"type": "file",
+					"name": "currency-flags.min.css",
+					"hash": "LJDm7ZyndRxMVIz85614duGg/IZTiwaH/QZ50shD9JM=",
+					"time": "1985-10-26T08:15:00.000Z",
+					"size": 168935
+				}
+			]
+		},
+		{
+			"type": "file",
+			"name": "CHANGELOG.md",
+			"hash": "1dnm6pqgep2YFrJD01gDiLh69xxcfibgOTa1xsYiSUI=",
+			"time": "1985-10-26T08:15:00.000Z",
+			"size": 1864
+		},
+		{
+			"type": "file",
+			"name": "LICENSE",
+			"hash": "QiHwWRBJnOmb4LwPBrar8G5IEMXP1U2ECzbDoZHB9C8=",
+			"time": "1985-10-26T08:15:00.000Z",
+			"size": 1084
+		},
+		{
+			"type": "file",
+			"name": "package.json",
+			"hash": "zHbXpTgRPwhR85VIGjCS8v2hqlLqMg5IP282YXD0+g4=",
+			"time": "1985-10-26T08:15:00.000Z",
+			"size": 1455
+		},
+		{
+			"type": "file",
+			"name": "README.md",
+			"hash": "veDpAI0FCmcj79vwnKrWAOMLormzTwrshIaRR8fQolg=",
+			"time": "1985-10-26T08:15:00.000Z",
+			"size": 1406
+		}
+	]
+}
