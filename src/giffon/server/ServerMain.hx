@@ -1054,6 +1054,8 @@ class ServerMain {
                 case Production: true;
                 case _: false;
             },
+            httpOnly: true,
+            sameSite: "lax",
         };
         if (base != null) {
             cookieSetting.domain = base.substr(base.indexOf("//")+2);
@@ -1183,7 +1185,10 @@ class ServerMain {
                         user_name: user.user_name,
                         user_primary_email: user.user_primary_email,
                         user_profile_url: user.user_profile_url,
-                    }));
+                    }), {
+                        httpOnly: false, // it will be used by client side JS
+                        sameSite: "strict",
+                    });
                     res.redirect(redirectTo);
                 });
             })(req, res, next);
