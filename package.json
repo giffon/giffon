@@ -61,7 +61,7 @@
     "react-datepicker": "2.9.6",
     "react-dom": "16.10.2",
     "react-giphy-component": "1.0.5",
-    "react-stripe-elements": "5.0.1",
+    "react-stripe-elements": "5.1.0",
     "source-map-support": "0.5.13",
     "stripe": "7.10.0",
     "validator": "11.1.0"
