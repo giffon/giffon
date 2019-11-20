@@ -6,5 +6,6 @@
 	"postCreateCommand": "pip3 install -r src/test/requirements.txt && npm install",
 	"extensions": [
 		"nadako.vshaxe"
-	]
+	],
+	"appPort": [ 3000, 3306, 5900 ]
 }

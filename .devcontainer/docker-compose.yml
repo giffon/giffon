@@ -3,7 +3,7 @@ services:
   local.giffon.io:
     build: .
     volumes:
-      - ..:/workspace
+      - ..:/workspace:cached
       - /workspace/node_modules/
       - /workspace/.haxelib/
     user: user
