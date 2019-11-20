@@ -457,6 +457,7 @@ class _PledgeForm extends ReactComponent {
                                 <PayPalButton
                                     amount=${props.values.pledge_amount}
                                     currency=${wish_currency.getName()}
+                                    shippingPreference="NO_SHIPPING"
                                     createOrder=${createOrder}
                                     onSuccess=${onSuccess}
                                     onError=${() -> props.setSubmitting(false)}
