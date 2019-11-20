@@ -306,9 +306,9 @@
 						{
 							"type": "file",
 							"name": "sgd.svg",
-							"hash": "OR1JZhkDqxE8w5avHJfQwY9XCC1RSh9x+VLfErK4ySc=",
+							"hash": "xUDlZukQcxFSo8Djnncs2s9xzfKsrx8G/HxUpFSssOo=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 977
+							"size": 858
 						},
 						{
 							"type": "file",
@@ -378,25 +378,25 @@
 				{
 					"type": "file",
 					"name": "currency-flags.css",
-					"hash": "PE2iZ1Or8BwQ2Cvig3t1FR1KMxCvw43y9wg/PRYSzqo=",
+					"hash": "944pEL/LWyyd0JCDHmiNX8VO6w2tAs6O8DxeDegECRY=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 169603
+					"size": 169595
 				},
 				{
 					"type": "file",
 					"name": "currency-flags.min.css",
-					"hash": "LJDm7ZyndRxMVIz85614duGg/IZTiwaH/QZ50shD9JM=",
+					"hash": "O/2sNbMRZSHNPz7EtDZuPAHOKQ3dnj4839CRQAwSVQ8=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 168935
+					"size": 168927
 				}
 			]
 		},
 		{
 			"type": "file",
 			"name": "CHANGELOG.md",
-			"hash": "1dnm6pqgep2YFrJD01gDiLh69xxcfibgOTa1xsYiSUI=",
+			"hash": "rpsdCIoaOFwnEEGF6858CDAP3/S/wJp6H/nZnW2URH0=",
 			"time": "1985-10-26T08:15:00.000Z",
-			"size": 1864
+			"size": 1894
 		},
 		{
 			"type": "file",
@@ -408,16 +408,16 @@
 		{
 			"type": "file",
 			"name": "package.json",
-			"hash": "zHbXpTgRPwhR85VIGjCS8v2hqlLqMg5IP282YXD0+g4=",
+			"hash": "kP4XxqOa60fTV3w01WYhH9et6KWwFx+WljMjHsFxN64=",
 			"time": "1985-10-26T08:15:00.000Z",
 			"size": 1455
 		},
 		{
 			"type": "file",
 			"name": "README.md",
-			"hash": "veDpAI0FCmcj79vwnKrWAOMLormzTwrshIaRR8fQolg=",
+			"hash": "Jd5EOr+/QVU+eAkg0NxvuNjcKjsvoEs4P9jnneRTk+U=",
 			"time": "1985-10-26T08:15:00.000Z",
-			"size": 1406
+			"size": 1370
 		}
 	]
 }

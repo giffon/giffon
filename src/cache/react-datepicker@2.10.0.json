@@ -6,46 +6,66 @@
 			"name": "dist",
 			"files": [
 				{
+					"type": "directory",
+					"name": "es",
+					"files": [
+						{
+							"type": "file",
+							"name": "index.js",
+							"hash": "rpKnMofqo69DV8bPGou0vZwKCZlD0WrK7tW2Q5fKEpA=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 61482
+						}
+					]
+				},
+				{
+					"type": "file",
+					"name": "index.js",
+					"hash": "kKpucLK1KOM6KqAEfHZ+Pl1HetzpWW/NqrqfY4H01dg=",
+					"time": "1985-10-26T08:15:00.000Z",
+					"size": 74991
+				},
+				{
 					"type": "file",
 					"name": "react-datepicker.css",
-					"hash": "LgAFbUGTP+sQY8VqwdPZk+gasLu1NAwrwvafij8e4I0=",
+					"hash": "+w4nLZ2unvsC6fDAZ3sYV3dcU2JQKsocV7+c27GagMw=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 22423
+					"size": 22619
 				},
 				{
 					"type": "file",
 					"name": "react-datepicker.js",
-					"hash": "Af2jYrbE7GWggwqfP/xlasKTaDn4v/N1CalY1MYQEkc=",
+					"hash": "ZrX2jjQDYM3jgSK2EdXATZV1E/1/V3Hp1i+0fzcXyjM=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 65107
+					"size": 66340
 				},
 				{
 					"type": "file",
 					"name": "react-datepicker.min.css",
-					"hash": "yySl4qcUS7M+bpiq/+Ns5KR/oL7UiobOWIKzJ2ejSR8=",
+					"hash": "TFwc7chdkdgZnJnf9Y/BkDCP1YkPdiLqFyCkYf+jM9Q=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 20409
+					"size": 20591
 				},
 				{
 					"type": "file",
 					"name": "react-datepicker.min.js",
-					"hash": "Af2jYrbE7GWggwqfP/xlasKTaDn4v/N1CalY1MYQEkc=",
+					"hash": "ZrX2jjQDYM3jgSK2EdXATZV1E/1/V3Hp1i+0fzcXyjM=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 65107
+					"size": 66340
 				},
 				{
 					"type": "file",
 					"name": "react-datepicker-cssmodules.css",
-					"hash": "7wlpaK9l0OxdttMZMrbF5RfD4CJKWs/x35l4aAm4UHE=",
+					"hash": "7Lhsa4MFlVmqgyl2wBahqpCccX7xaRtcPXESB03x5L8=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 24467
+					"size": 24679
 				},
 				{
 					"type": "file",
 					"name": "react-datepicker-cssmodules.min.css",
-					"hash": "CfF9Ks5pdoOFulIblDt8t9Oa7TzW2OUr4YwoFznP+OM=",
+					"hash": "r+q2MeSOyYuJ11D0mCIDZty6vW48eLQAV4PDGxwySUE=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 22454
+					"size": 22652
 				}
 			]
 		},
@@ -56,22 +76,9 @@
 				{
 					"type": "file",
 					"name": "index.js",
-					"hash": "Ln4loBIvn0AwCdXJSAUCsytDhBPG+5BdHgOuIgCN55k=",
+					"hash": "MMPfHWMEITXI/HKEe9H6QFC9YKM+MsEoOgmNr0nVCCY=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 60363
-				}
-			]
-		},
-		{
-			"type": "directory",
-			"name": "lib",
-			"files": [
-				{
-					"type": "file",
-					"name": "index.js",
-					"hash": "yWfN27kYv5XyUCpnyhvAZTRH0VUriPLufh+7ycpY+iQ=",
-					"time": "1985-10-26T08:15:00.000Z",
-					"size": 73642
+					"size": 108219
 				}
 			]
 		},
@@ -86,9 +93,9 @@
 						{
 							"type": "file",
 							"name": "datepicker.scss",
-							"hash": "7w8xFOkyNUZWB//qFLGScVhLGOBCt/dPXweBUaR9Tq0=",
+							"hash": "bwrz4lFdG9CoFB3z50Ov9iJNlG6crA9Q277vXCMek6c=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 14204
+							"size": 14354
 						},
 						{
 							"type": "file",
@@ -139,16 +146,16 @@
 		{
 			"type": "file",
 			"name": "package.json",
-			"hash": "mJkTwdxPhWnXngZqaxpPO8zFcoGOu601RlFpwlHPYtk=",
+			"hash": "dYCeK9cfyF3DF76+9d7inFWTAxrAJ4oG9jtTVek4H4g=",
 			"time": "1985-10-26T08:15:00.000Z",
-			"size": 4714
+			"size": 4745
 		},
 		{
 			"type": "file",
 			"name": "README.md",
-			"hash": "W7Oe4xCqTzORXzKEYJI6lGYUjko4cXc9VkaouwxTjbI=",
+			"hash": "5Pk5p1w+z7njx4QDT9aVK8RYnZv5g84OCfwyUiO7sEk=",
 			"time": "1985-10-26T08:15:00.000Z",
-			"size": 7218
+			"size": 7320
 		},
 		{
 			"type": "file",

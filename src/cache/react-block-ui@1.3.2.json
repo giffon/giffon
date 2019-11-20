@@ -22,9 +22,9 @@
 				{
 					"type": "file",
 					"name": "reactblockui.d.ts",
-					"hash": "AASJ7In8xMMoUIkqZ+++0ZpUAk42JG4AFnEN3miBKxc=",
+					"hash": "Z8QnJ3uKkHJSBymwVIpT2zxePoxMxuPbKJWQR4B8kEg=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 1214
+					"size": 1206
 				},
 				{
 					"type": "file",
@@ -128,9 +128,9 @@
 		{
 			"type": "file",
 			"name": "CHANGELOG.md",
-			"hash": "xR2Xo597x8hRHiT+NMTnbxwh23G471DK0BALRNCNxcw=",
+			"hash": "fxIQXx7pnOkQnYZ/p96UilvsxmpufaD6nCMK6qa6uys=",
 			"time": "1985-10-26T08:15:00.000Z",
-			"size": 4686
+			"size": 4802
 		},
 		{
 			"type": "file",
@@ -142,7 +142,7 @@
 		{
 			"type": "file",
 			"name": "package.json",
-			"hash": "jTqyvJ96WfFI1o+dhCNThH6kZ8o+hrzd7Y7oFGJ/BbY=",
+			"hash": "3xsdci0JCAF8xuJvY7tEIX5E1GWgeNMwhq4z3kxNDWM=",
 			"time": "1985-10-26T08:15:00.000Z",
 			"size": 4544
 		},
