@@ -33,6 +33,12 @@ class Privacy extends Page {
 
             <p>Additionally when you make a purchase or attempt to make a purchase through the Site, we collect certain information from you, including your name, billing address, shipping address, payment information (including credit card numbers and others), email address, and phone number.  We refer to this information as “Order Information.”</p>
 
+            <p>
+                When you connect your Giffon account to YouTube, we use <a href="https://developers.google.com/youtube/terms/developer-policies#definition-youtube-api-services" target="_blank" rel="noopener">YouTube API Services</a> to obtain certain YouTube data from you, including your YouTube user name and profile link address. 
+                You are subject to the <a href="http://www.google.com/policies/privacy" target="_blank" rel="noopener">Google Privacy Policy</a>. 
+                You can revoke Giffon\'s access to your data via the <a href="https://security.google.com/settings/security/permissions" target="_blank" rel="noopener">Google security settings page</a>.
+            </p>
+
             <p>When we talk about “Personal Information” in this Privacy Policy, we are talking both about Device Information and Order Information.</p>
 
             <h2>HOW DO WE USE YOUR PERSONAL INFORMATION?</h2>
@@ -44,9 +50,13 @@ class Privacy extends Page {
 
             <p>We use the Device Information that we collect to help us screen for potential risk and fraud (in particular, your IP address), and more generally to improve and optimize our Site (for example, by generating analytics about how our customers browse and interact with the Site, and to assess the success of our marketing and advertising campaigns).</p>
 
+            <p>We use the collected YouTube data to verify your YouTube identidy, allows you to optionally display a badge about your YouTube profile in your public Giffon profile page.</p>
+
             <h2>SHARING YOUR PERSONAL INFORMATION</h2>
 
             <p>We share your Personal Information with third parties to help us use your Personal Information, as described above.  For example, we use Google Analytics to help us understand how our customers use the Site--you can read more about how Google uses your Personal Information here:  https://www.google.com/intl/en/policies/privacy/.  You can also opt-out of Google Analytics here:  https://tools.google.com/dlpage/gaoptout.</p>
+
+            <p>We do not share your YouTube data with any external parties.</p>
 
             <p>Finally, we may also share your Personal Information to comply with applicable laws and regulations, to respond to a subpoena, search warrant or other lawful request for information we receive, or to otherwise protect our rights.</p>
 

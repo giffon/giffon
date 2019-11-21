@@ -97,6 +97,7 @@ class Terms extends Page {
 
             <p>We may also, in the future, offer new services and/or features through the website (including, the release of new tools and resources). Such new features and/or services shall also be subject to these Terms of Service.</p>
 
+            <p>When you connect your Giffon account with YouTube, you acknowledge and are agreeing to be bound by the <a href="https://www.youtube.com/t/terms" target="_blank" rel="noopener">YouTube Terms of Service</a>.</p>
 
             <h2>SECTION 8 - THIRD-PARTY LINKS</h2>
 
