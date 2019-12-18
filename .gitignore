@@ -21,3 +21,7 @@ test/errorShots/
 .env
 
 dev/ssl/keytmp.pem
+
+.DS_Store
+
+dump/decoding_error.txt
