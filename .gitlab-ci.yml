@@ -10,7 +10,6 @@ stages:
     # only checkout the submodules under lib, because MRs don't have access to private
     - git submodule sync lib
     - git submodule update --init lib
-    - npm install -g rimraf # https://github.com/Luehang/react-paypal-button-v2/issues/27
     - npm install --unsafe-perm
     - npm run-script build-vendor
     - haxelib list
