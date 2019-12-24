@@ -18,8 +18,8 @@ RUN apt-get update \
     #
     # Verify git and needed tools are installed
     && apt-get install -y git iproute2 procps sudo bash-completion build-essential python3-pip \
-    && curl -sL https://deb.nodesource.com/setup_10.x | bash - \
-    && apt-get install -y nodejs=10.* \
+    && curl -sL https://deb.nodesource.com/setup_12.x | bash - \
+    && apt-get install -y nodejs=12.* \
     #
     # Clean up
     && apt-get autoremove -y \
@@ -28,9 +28,6 @@ RUN apt-get update \
 
 # Install test dependencies
 RUN pip3 install html5validator
-
-# https://github.com/Luehang/react-paypal-button-v2/issues/27
-RUN npm install -g rimraf
 
 # Create a non-root user to use
 RUN groupadd --gid $USER_GID $USERNAME \
