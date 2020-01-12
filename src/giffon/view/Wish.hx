@@ -444,18 +444,18 @@ class Wish extends Page {
         <Fragment>
             <div></div>
             <div className="detail_banner position-relative" style=${bannerStyle()}>
-                <a href=${wish.wish_owner.user_profile_url}><div className="wish-owner-avatar position-absolute rounded-circle shadow" style=${userAvatarStyle(wish.wish_owner)} /></a>
+                <a href=${wish.wish_owner.user_profile_url}><div className="wish-owner-avatar position-absolute rounded-circle" style=${userAvatarStyle(wish.wish_owner)} /></a>
             </div>
 
             <div className="pt-5 pb-3 pb-md-5 text-center">
                 <a className="font_xs_l font_md_xl text-dark" href=${wish.wish_owner.user_profile_url}>${wish.wish_owner.user_name}</a>
             </div>
 
-            <div className="container-fluid">
+            <div className="container-fluid bg-letters">
                 <div className="row justify-content-center">      
                     <div className="col-12 col-md-9">
                     
-                        <div className="bg_white p-3 pt-md-5 px-md-5 pb-md-4 text-center">
+                        <div className="bg_white p-3 pt-md-5 px-md-5 pb-md-4 text-center rounded-10-t">
                             ${wishBadge(wish, language)}
                             <div className="font_xs_l font_md_xl">${wish.wish_title}</div>
                             <div className="copy-link-button-root" />
@@ -465,10 +465,10 @@ class Wish extends Page {
                         
                         <div className="bg_white p-3 pt-md-4 px-md-5 font_xs_s font_md_m text-center-justify wish-description">${wish.wish_description}</div>
 
-                        <div className="d-flex">
-                            <div className="custom-border col">&nbsp;</div>
+                        <div className="d-flex bg-white">
+                            <div className="bg-curve col">&nbsp;</div>
                             <div className="bg_white px-3 font_xs_s font_md_m">${language.iWant()}</div>
-                            <div className="custom-border col">&nbsp;</div>
+                            <div className="bg-curve col">&nbsp;</div>
                         </div>
 
                         <div className="bg_white p-3 px-md-5 font_xs_m font_md_l text-center">

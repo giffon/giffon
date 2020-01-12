@@ -290,33 +290,33 @@ class Page extends ReactComponent {
             ${gtmBody()}
             <div className="content">
                 <nav className="navbar navbar-light navbar-expand-md font_xs_s font_md_m">
-                    <a className="navbar-brand mr-0" href="" style=${{backgroundImage: 'url(${R("/images/logo-blue.svg")})'}}>
-                        Giffon
-                    </a>
-                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
-                        <span className="navbar-toggler-icon" />
-                    </button>
-                    <div className="collapse navbar-collapse" id="navbarsExample04">
-                        <ul className="navbar-nav mr-auto">
-                            <li className="nav-item">
-                                <a className="nav-link" href="make-a-wish">${language.makeAWish()}</a>
-                            </li>
-                            <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" href="#" id="navbarUseCasesDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    ${language.useCases()}
-                                </a>
-                                <div className="dropdown-menu" aria-labelledby="navbarUseCasesDropdownMenuLink">
-                                    <a className="dropdown-item" href="use-cases/video-creators">${language.forVideoCreators()}</a>
-                                    <a className="dropdown-item" href="use-cases/oss-developers">${language.forOpenSourceDevelopers()}</a>
-                                </div>
-                            </li>
-                        </ul>
-                        ${navbarSignIn()}
-                    </div>
+                        <a className="navbar-brand mr-0" href="" style=${{backgroundImage: 'url(${R("/images/logo-blue.svg")})'}}>
+                            Giffon
+                        </a>
+                        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
+                            <span className="navbar-toggler-icon" />
+                        </button>
+                        <div className="collapse navbar-collapse" id="navbarsExample04">
+                            <ul className="navbar-nav mr-auto">
+                                <li className="nav-item">
+                                    <a className="nav-link" href="make-a-wish">${language.makeAWish()}</a>
+                                </li>
+                                <li className="nav-item dropdown">
+                                    <a className="nav-link dropdown-toggle" href="#" id="navbarUseCasesDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        ${language.useCases()}
+                                    </a>
+                                    <div className="dropdown-menu" aria-labelledby="navbarUseCasesDropdownMenuLink">
+                                        <a className="dropdown-item" href="use-cases/video-creators">${language.forVideoCreators()}</a>
+                                        <a className="dropdown-item" href="use-cases/oss-developers">${language.forOpenSourceDevelopers()}</a>
+                                    </div>
+                                </li>
+                            </ul>
+                            ${navbarSignIn()}
+                        </div>
                 </nav>
                 ${bodyContent()}
             </div>
-            <footer className="p-0 bg_grey_900 color_grey_400 font_xs_xs font_md_s mt-5">
+            <footer className="p-0 bg-dotted-pattern-grey font_xs_xs font_md_s mt-5">
                 <div className="container py-4 py-sm-5">
                     <div className="row">
                         <div className="col-12 col-sm-4 mb-4 mb-sm-0">
@@ -346,7 +346,7 @@ class Page extends ReactComponent {
                         </div>
                     </div>
                 </div>
-                <div className="p-3 bg_black d-md-flex">
+                <div className="p-3 bg-dotted-pattern-grey d-md-flex">
                     <div className="col p-0 m-0">Giffon © 2019</div>
                     <div>
                         <a className="pr-2" href="terms">${language.termsAndConditions()}</a>

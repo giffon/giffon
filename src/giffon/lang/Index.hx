@@ -13,58 +13,87 @@ class Index {
         case Chinese: "任何人都可以上來許願, 讓朋友湊錢買禮物送你的禮物眾籌平台.";
     }
 
-    static public function title(lang:Language) return switch (lang) {
-        case English: "Your crowd-gifting platform to gain love and trust";
-        case Cantonese: "幫你眾籌愛心和信任既禮物平台";
-        case Chinese: "幫你眾籌愛心和信任的禮物平台";
+    static public function slogan(lang:Language) return switch (lang) {
+        case English: "All About Trust";
+        case Cantonese: "講個信字";
+        case Chinese: "講個信字";
     }
 
+    static public function title(lang:Language) return switch (lang) {
+        case English: "Crowd-funding platform\nthat tells the way\nmoney is really spent.";
+        case Cantonese: "會話你知錢去左邊既眾籌平台";
+        case Chinese: "會告訴你錢去哪了的眾籌平台";
+    }
+
+    static public function browseAllWishes(lang:Language) return switch (lang) {
+        case English: "Browse All Wishes";
+        case Cantonese: "睇晒所有願望";
+        case Chinese: "瀏覽所有願望";
+    }
+
+    static public function honestyLyrics(lang:Language) return switch (lang) {
+        case English : "Honesty is hardly ever heard\nAnd mostly what I need from you ♪";
+        case Cantonese | Chinese : "請相信我哋\n請珍惜我哋\n來年多點人情味 ♪";
+    }
+    
     static public function desp(lang:Language) return switch (lang) {
-        case English: "We hope gifting is not just about spending money, but building relationships.";
-        case Cantonese: "我地希望送贈禮物唔單止係一種消費行為，而更加重視建立人與人之間既關係。";
-        case Chinese: "我們希望送贈禮物不單是一種消費行為，而更加重視建立人與人之間的關係。";
+        case English: "Whenever people talk about charities and crowd-funding, they often hesitate about donation. The reason is that there are too many scandals around tech startups and non-profits, like Kickstarter campaigns not able to fulfill product delivery and their founders disappeared, or charities took a cut too much for “operational costs”. It is similar to how Hong Kong pedestrians avoid flag-sellers because they know too little about the flag-selling organizations.\n\n";
+        case Cantonese: "每當有人討論慈善團體或者眾籌，都會猶豫捐唔捐錢。最主要既原因，係因為以往有好多關於初創公司同非牟利團體既醜聞，例如 Kickstarter 走數事件，或者慈善機構的大額營運成本。最貼近生活既例子，就係平日街上見到賣旗活動，行人都會因為團體不明來歷而避開唔買。";
+        case Chinese: "每當有人討論慈善團體或者眾籌，都會猶豫捐唔捐錢。最主要既原因，係因為以往有好多關於初創公司同非牟利團體既醜聞，例如 Kickstarter 走數事件，或者慈善機構的大額營運成本。最貼近生活既例子，就係平日街上見到賣旗活動，行人都會因為團體不明來歷而避開唔買。";
+    }
+
+    static public function despBold(lang:Language) return switch (lang) {
+        case English: "\nWe come up with a solution to tackle this problem of trust.";
+        case Cantonese: "為左解決信任既問題，我地諗左個辦法。";
+        case Chinese: "為左解決信任既問題，我地諗左個辦法。";
     }
 
     static public function howToStart(lang:Language) return switch (lang) {
-        case English: "How it Works";
-        case Cantonese: "Giffon 點用?";
-        case Chinese: "Giffon 怎用?";
+        case English: "How Giffon Works";
+        case Cantonese: "點樣用 Giffon?";
+        case Chinese: "怎樣用 Giffon?";
+    }
+
+    static public function howToDesp(lang:Language) return switch (lang) {
+        case English: "As simple as 🎂";
+        case Cantonese: "食件餅咁簡單";
+        case Chinese: "就是小菜一碟";
     }
 
     static public function howToStep1Title(lang:Language) return switch (lang) {
-        case English: "Browse items you need";
-        case Cantonese: "搵你需要既野";
-        case Chinese: "尋找你需要的物件";
+        case English: "1. Create a Wish";
+        case Cantonese: "1. 創造你既願望";
+        case Chinese: "1. 創造你的願望";
     }
 
     static public function howToStep1(lang:Language) return switch (lang) {
-        case English: "Is it for you or your friends? or even furry friends? You decide!";
-        case Cantonese: "幫自己定朋友買禮物，你話事!";
-        case Chinese: "幫自己或朋友買禮物，你決定!";
+        case English: "User creates a wish on Giffon, states the exact items in need.";
+        case Cantonese: "用戶許一個願望，要寫明需要既物品";
+        case Chinese: "用戶許一個願望，要寫明需要的物品";
     }
 
     static public function howToStep2Title(lang:Language) return switch (lang) {
-        case English: "Create your wish";
-        case Cantonese: "創造你既願望";
-        case Chinese: "創造你的願望";
+        case English: "2. Find Supporters";
+        case Cantonese: "2. 搵人幫下手";
+        case Chinese: "2. 尋找支持者";
     }
 
     static public function howToStep2(lang:Language) return switch (lang) {
-        case English: "Tell us about your story, why you would need some help? Anything you can help in return?";
-        case Cantonese: "你可以寫低啲小故事，點解你需要幫助呢?會唔會你都可以提供其他幫助/回禮呢?";
-        case Chinese: "你可以寫下一些小故事，為什麼你需要幫助呢?會不會你也可以提供其他幫助/回禮呢?";
+        case English: "User can write their stores behind, find supporters to chip in, with no fixed amount.";
+        case Cantonese: "用戶可以寫低背後既小故事，請廣傳搵人夾份，金額不限";
+        case Chinese: "用戶可以寫下背後的小故事，尋找支持者湊錢，金額不限";
     }
 
     static public function howToStep3Title(lang:Language) return switch (lang) {
-        case English: "Spread your words";
-        case Cantonese: "請廣傳請廣傳";
-        case Chinese: "請廣傳請廣傳";
+        case English: "3. Reach the Goal";
+        case Cantonese: "3. 願望成真";
+        case Chinese: "3. 願望成真";
     }
 
     static public function howToStep3(lang:Language) return switch (lang) {
-        case English: "Let your friends know and come to Giffon to chip in, make it quicker for dreams come true.";
-        case Cantonese: "等你班朋友一齊泥 Giffon 夾份，快啲願望成真。";
-        case Chinese: "等你的朋友一起來 Giffon 湊錢，快點願望成真。";
+        case English: "Once suceeded, Giffon will order and send the items to user.";
+        case Cantonese: "願望成真個陣，Giffon 會立即安排送出禮物!";
+        case Chinese: "當願望成真，Giffon 會立即安排送出禮物!";
     }
 
     static public function wishSucceed(lang:Language) return switch (lang) {
@@ -76,7 +105,7 @@ class Index {
     static public function whyGiffon(lang:Language) return switch (lang) {
         case English: "Why Giffon?";
         case Cantonese: "點解用 Giffon?";
-        case Chinese: "為什麼用 Giffon?";
+        case Chinese: "為何用 Giffon?";
     }
 
     static public function note1Title(lang:Language) return switch (lang) {
