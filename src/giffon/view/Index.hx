@@ -95,8 +95,8 @@ class Index extends Page {
                     <div className="bbanner rounded-10" data-section="intro">
                         <div className="container p-0 d-md-flex">
                         <div className="intro-title p-4 p-lg-5 mb-md-5 bg-dotted-pattern rounded-md-0 rounded-10">
-                            <h1 className="font_xs_xl font_md_3xl fontw-700 mb-5 color_white white-space-prewrap">${language.title()}</h1>
-                            <button className="btn btn-primary col col-md-auto">${language.browseAllWishes()}</button>
+                            <h1 className="intro-title-text font_xs_xl font_md_3xl fontw-700 mb-5 color_white white-space-prewrap">${language.title()}</h1>
+                            <a className="btn btn-primary col col-md-auto" href="make-a-wish">${language.makeAWishNow()}</a>
                         </div>
                         </div>
                     </div>
@@ -119,7 +119,7 @@ class Index extends Page {
                                 <div className="flex_1 p-3">
                                     <h1 className="font_xs_xl font_md_3xl fontw-700 pt-3 pt-md-0">${language.howToStart()}</h1>
                                     <p>${language.howToDesp()}</p>
-                                    <button className="d-none d-md-block btn btn-primary" href="make-a-wish">${language.makeAWishNow()}</button>
+                                    <a className="d-none d-md-inline btn btn-primary" href="make-a-wish">${language.makeAWishNow()}</a>
                                 </div>
 
                                 <div className="flex_1">
@@ -158,7 +158,7 @@ class Index extends Page {
                                     </div>
                                 </div>
                             </div>
-                            <div className="d-block d-md-none p-3"><button className="btn btn-primary w-100">${language.makeAWishNow()}</button></div>
+                            <div className="d-block d-md-none p-3"><a className="btn btn-primary w-100" href="make-a-wish">${language.makeAWishNow()}</a></div>
                         </div>
                     </div>
 

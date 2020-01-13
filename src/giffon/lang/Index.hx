@@ -91,7 +91,7 @@ class Index {
     }
 
     static public function howToStep3(lang:Language) return switch (lang) {
-        case English: "Once suceeded, Giffon will order and send the items to user.";
+        case English: "Once succeeded, Giffon will order and send the items to user.";
         case Cantonese: "願望成真個陣，Giffon 會立即安排送出禮物!";
         case Chinese: "當願望成真，Giffon 會立即安排送出禮物!";
     }
@@ -161,7 +161,7 @@ class Index {
 
 
     static public function makeAWishNow(lang:Language) return switch (lang) {
-        case English: "Make a Wish Now";
+        case English: "Make a Wish";
         case Cantonese | Chinese: "立即許願";
     }
 
