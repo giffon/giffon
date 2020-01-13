@@ -38,14 +38,14 @@ class Index {
     
     static public function desp(lang:Language) return switch (lang) {
         case English: "Whenever people talk about charities and crowd-funding, they often hesitate about donation. The reason is that there are too many scandals around tech startups and non-profits, like Kickstarter campaigns not able to fulfill product delivery and their founders disappeared, or charities took a cut too much for “operational costs”. It is similar to how Hong Kong pedestrians avoid flag-sellers because they know too little about the flag-selling organizations.\n\n";
-        case Cantonese: "每當有人討論慈善團體或者眾籌，都會猶豫捐唔捐錢。最主要既原因，係因為以往有好多關於初創公司同非牟利團體既醜聞，例如 Kickstarter 走數事件，或者慈善機構的大額營運成本。最貼近生活既例子，就係平日街上見到賣旗活動，行人都會因為團體不明來歷而避開唔買。";
-        case Chinese: "每當有人討論慈善團體或者眾籌，都會猶豫捐唔捐錢。最主要既原因，係因為以往有好多關於初創公司同非牟利團體既醜聞，例如 Kickstarter 走數事件，或者慈善機構的大額營運成本。最貼近生活既例子，就係平日街上見到賣旗活動，行人都會因為團體不明來歷而避開唔買。";
+        case Cantonese: "每當有人討論慈善團體或者眾籌，都會猶豫捐唔捐錢。最主要既原因，係因為以往有好多關於初創公司同非牟利團體既醜聞，例如 Kickstarter 走數事件，或者慈善機構的大額營運成本。最貼近生活既例子，就係平日街上見到賣旗活動，行人都會因為團體不明來歷而避開唔買。\n\n";
+        case Chinese: "每當有人討論慈善團體或眾籌，都會猶豫說應不應該捐錢。最主要的原因，是因為以往有很多關於初創公司和非牟利團體的醜聞，例如 Kickstarter 走數事件，或者是慈善機構的大額營運成本。最貼近生活的例子，就是平日在街上見到賣旗活動，行人都會因為團體不明來歷而不買旗。\n\n";
     }
 
     static public function despBold(lang:Language) return switch (lang) {
-        case English: "\nWe come up with a solution to tackle this problem of trust.";
-        case Cantonese: "為左解決信任既問題，我地諗左個辦法。";
-        case Chinese: "為左解決信任既問題，我地諗左個辦法。";
+        case English: "To tackle this problem of trust, we built a crowd-funding platform with new mechanism.";
+        case Cantonese: "為左解決信任既問題，我地建立一個新模式的眾籌平台。";
+        case Chinese: "為了解決信任的問題，我們建立一個新模式的眾籌平台。";
     }
 
     static public function howToStart(lang:Language) return switch (lang) {

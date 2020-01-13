@@ -107,7 +107,7 @@ class Index extends Page {
                                 <div className="px-3 pt-4 py-lg-5 col">
                                     <h1 className="font_xs_xl font_md_3xl fontw-700 white-space-prewrap">${language.honestyLyrics()}</h1>
                                 </div>
-                                <div className="p-3 p-lg-5 col"><p>${language.desp()}<b>${language.despBold()}</b></p>
+                                <div className="p-3 p-lg-5 col white-space-prewrap"><p>${language.desp()}<b>${language.despBold()}</b></p>
                                 </div>
                             </div>
                         </div>
