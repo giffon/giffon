@@ -28,6 +28,7 @@ class Spellcheck {
         "USD",
         "PayPal",
         "Instagram",
+        "Kickstarter"
     ];
 
     static function main():Void {
