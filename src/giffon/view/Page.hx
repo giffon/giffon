@@ -199,9 +199,6 @@ class Page extends ReactComponent {
             <script
                 src=${R("/js/vendor.js")}
             ></script>
-            <script
-                src=${R("/js/rellax.min.js")}
-            ></script>
         </Fragment>
     ');
 
