@@ -69,9 +69,6 @@ class Index extends Page {
                             </div>
                             <div className="wish-description text-left font_xs_s">${wish.wish_description}</div>
                         </div>
-                        <div className="progress rounded-0">
-                            <div className="progress-bar bg-warning progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
                     </div>
                 </div>
                 </a>
