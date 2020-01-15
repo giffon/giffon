@@ -5,8 +5,10 @@ import react.ReactMacro.jsx;
 import haxe.io.*;
 import giffon.R.*;
 import giffon.server.ServerMain.*;
+import giffon.db.WishProgress;
 using giffon.lang.Index;
 using thx.Arrays;
+
 
 class Index extends Page {
     override function title() return language.htmlTitle();
@@ -23,6 +25,21 @@ class Index extends Page {
 
         return {
             backgroundImage: 'url("${user.user_avatar}")',
+        }
+    }
+
+    function progressBarStyle(status:WishProgress) {
+        switch (status) {
+            case None:
+                return { width: '0' };
+            case Started:
+                return { width: '10%' };
+            case Halfway:
+                return { width: '50%' };
+            case Almost:
+                return { width: '80%' };
+            case Done:
+                return { width: '100%' };
         }
     }
 
@@ -69,6 +86,9 @@ class Index extends Page {
                             </div>
                             <div className="wish-description text-left font_xs_s">${wish.wish_description}</div>
                         </div>
+                    </div>
+                    <div className="progress">
+                        <div className="progress-bar bg-warning" role="progressbar" aria-valuemin="0" aria-valuemax="100" style=${progressBarStyle(wish.wish_progress)} ></div>
                     </div>
                 </div>
                 </a>

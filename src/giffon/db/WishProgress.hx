@@ -13,7 +13,9 @@ class WishProgressTools {
         if (current == null) current = thx.Decimal.zero;
         if (totalNeeded <= 0) return Almost;
         var percent = (current / totalNeeded) * 100;
-        return if (percent >= 85)
+        return if (percent >= 100)
+            Done; 
+        else if (percent >= 85)
             Almost;
         else if (percent >= 50)
             Halfway;
