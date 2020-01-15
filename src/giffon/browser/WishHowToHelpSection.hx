@@ -57,7 +57,7 @@ class WishHowToHelpSection extends ReactComponent {
         var plainLink = plainLinkEle.href;
 
         return jsx('
-            <div className="bg6 p-3 px-md-5 pb-md-5 mb-md-5">
+            <div className="bg6 rounded-10-b p-3 px-md-5 pb-md-5 mb-md-5">
                 <div className="text-center pb-3">
                     <img className="width_xs_15 mb-2" src=${R("/images/motivation.svg")}/>
                     <div className="font_xs_l font_md_xl">${language.howCanYouSupport()}</div>

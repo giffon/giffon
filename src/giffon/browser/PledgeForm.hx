@@ -336,7 +336,7 @@ class _PledgeForm extends ReactComponent {
                     </div>
                 </div>
 
-                <button type="submit" className="btn btn-primary rounded-0" disabled={props.isSubmitting}>
+                <button type="submit" className="btn btn-primary" disabled={props.isSubmitting}>
                     ${language.submit()}
                 </button>
             </Fragment>

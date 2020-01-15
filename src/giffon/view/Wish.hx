@@ -120,12 +120,12 @@ class Wish extends Page {
         }
 
         return jsx('
-            <div className="bg6 p-3 px-md-5 pb-md-5 mb-md-5">
+            <div className="bg6 rounded-10-b p-3 px-md-5 pb-md-5 mb-md-5">
                 <div className="text-center pb-3">
                     <img className="width_xs_15 mb-2" src=${R("/images/motivation.svg")}/>
-                    <div className="font_xs_l font_md_xl">${language.supportTheWish()}</div>
+                    <div className="font_xs_l font_md_xl fontw-700">${language.supportTheWish()}</div>
                 </div>
-                <div id="pledge-form-root" className="p-3 bg_white font_xs_xs font_md_s"></div>
+                <div id="pledge-form-root" className="p-3 bg_white rounded-10 font_xs_xs font_md_s"></div>
             </div>
         ');
     }
@@ -139,10 +139,10 @@ class Wish extends Page {
         }
 
         return jsx('
-            <div className="py-3 px-2 p-md-3 mb-3 mb-md-0 bg_white col ml-sm-3">
+            <div className="py-3 px-2 p-md-3 mb-3 mb-md-0 bg_white rounded-10 col ml-sm-3">
                 <h4 className="font_xs_m font_md_l">${language.editWish()}</h4>
                 <p className="font_xs_xs font_md_s">${language.editWishNote()}</p>
-                <a className="edit-wish-btn btn btn-primary rounded-0" href=${Path.join([path(), "edit"])}>${language.editWish()}</a>
+                <a className="edit-wish-btn btn btn-primary" href=${Path.join([path(), "edit"])}>${language.editWish()}</a>
             </div>
         ');
     }
@@ -156,10 +156,10 @@ class Wish extends Page {
         }
 
         return jsx('
-            <div className="py-3 px-2 p-md-3 mb-3 mb-md-0 bg_white col ml-sm-3">
+            <div className="py-3 px-2 p-md-3 mb-3 mb-md-0 bg_white rounded-10 col ml-sm-3">
                 <h4 className="font_xs_m font_md_l">${language.cancelTheWish()} ;(</h4>
                 <p className="font_xs_xs font_md_s">${language.cancelWishNote()}</p>
-                <button className="cancel-wish-btn btn btn-light rounded-0">${language.cancelWish()}</button>
+                <button className="cancel-wish-btn btn btn-light">${language.cancelWish()}</button>
             </div>
         ');
     }
@@ -174,7 +174,7 @@ class Wish extends Page {
 
         if (wish.appliedCoupons.length <= 0) {
             return jsx('
-                <div className="py-3 px-2 p-md-3 mb-3 mb-md-0 bg_white col">
+                <div className="py-3 px-2 p-md-3 mb-3 mb-md-0 bg_white rounded-10 col">
                     <h4 className="font_xs_m font_md_l">${language.useACoupon()}</h4>
                     <p className="font_xs_xs font_md_s">${language.useAnyCouponCodeYouReceived()}</p>
                     <form className="input-group font_xs_s font_md_m apply-coupon-form">
@@ -234,7 +234,7 @@ class Wish extends Page {
         
         return jsx('
             <div className=" p-3 px-md-0 pb-md-5 mb-md-5">
-                <h3 className="text-center pb-3 font_xs_l font_md_xxl">${language.wishSettings()}</h3>
+                <h3 className="text-center pb-3 font_xs_l font_md_xxl fontw-700">${language.wishSettings()}</h3>
                 <div className="d-sm-flex mb-3">
                     ${couponControl()}
                     ${editWishControl()}
@@ -372,10 +372,10 @@ class Wish extends Page {
             case Succeed:
                 return jsx('
                     <Fragment>
-                        <div className="bg6 p-3 px-md-5 pb-md-5 mb-md-5">
+                        <div className="bg6 rounded-10-b p-3 px-md-5 pb-md-5 mb-md-5">
                             <div className="text-center">
                                  <img className="width_xs_15 mb-2" src=${R("/images/celebration.svg")}/>
-                                <h3 className="font_xs_l font_md_xl">${language.bibbidiBobbidiBoom()}<br/>${language.wishFulfilled()} ${language.greatThanksForTheFollowingFriends()}</h3>
+                                <h3 className="font_xs_l font_md_xl fontw-700">${language.bibbidiBobbidiBoom()}<br/>${language.wishFulfilled()} ${language.greatThanksForTheFollowingFriends()}</h3>
                             </div>
                             ${supporterListSection(true)}
                             ${supporterListSection(false)}
@@ -447,47 +447,49 @@ class Wish extends Page {
                 <a href=${wish.wish_owner.user_profile_url}><div className="wish-owner-avatar position-absolute rounded-circle" style=${userAvatarStyle(wish.wish_owner)} /></a>
             </div>
 
-            <div className="pt-5 pb-3 pb-md-5 text-center">
-                <a className="font_xs_l font_md_xl text-dark" href=${wish.wish_owner.user_profile_url}>${wish.wish_owner.user_name}</a>
-            </div>
+            <div className="bg-letters">
+                <div className="pt-5 pb-3 pb-md-5 text-center">
+                    <a className="font_xs_l font_md_xl text-dark" href=${wish.wish_owner.user_profile_url}>${wish.wish_owner.user_name}</a>
+                </div>
 
-            <div className="container-fluid bg-letters">
-                <div className="row justify-content-center">      
-                    <div className="col-12 col-md-9">
-                    
-                        <div className="bg_white p-3 pt-md-5 px-md-5 pb-md-4 text-center rounded-10-t">
-                            ${wishBadge(wish, language)}
-                            <div className="font_xs_l font_md_xl">${wish.wish_title}</div>
-                            <div className="copy-link-button-root" />
-                        </div>
-
-                        ${wishState()}
+                <div className="container-fluid">
+                    <div className="row justify-content-center">      
+                        <div className="col-12 col-md-9">
                         
-                        <div className="bg_white p-3 pt-md-4 px-md-5 font_xs_s font_md_m text-center-justify wish-description">${wish.wish_description}</div>
-
-                        <div className="d-flex bg-white">
-                            <div className="bg-curve col">&nbsp;</div>
-                            <div className="bg_white px-3 font_xs_s font_md_m">${language.iWant()}</div>
-                            <div className="bg-curve col">&nbsp;</div>
-                        </div>
-
-                        <div className="bg_white p-3 px-md-5 font_xs_m font_md_l text-center">
-                            <ul className="list-group list-group-flush">
-                                ${wishItems()}
-                            </ul>
-                        </div>
-
-                        <div className="pb-4" style=${wishTotalBg()}>
-                            <div className="p-2 bg_white shadow text-center font_xs_m font_md_l">
-                                    ${language.total()}: <span className="wish-total" data-toggle="tooltip" title=${wish.wish_total_needed.breakdown}>${currencyFlag(wish.wish_currency)} ${wish.wish_currency.getName()} ${wish.wish_total_needed.amount.toString()} <i className="fas fa-info-circle"></i></span>
+                            <div className="bg_white p-3 pt-md-5 px-md-5 pb-md-4 text-center rounded-10-t">
+                                ${wishBadge(wish, language)}
+                                <div className="font_xs_l font_md_xl fontw-700">${wish.wish_title}</div>
+                                <div className="copy-link-button-root" />
                             </div>
+
+                            ${wishState()}
+                            
+                            <div className="bg_white p-3 pt-md-4 px-md-5 font_xs_s font_md_m text-center-justify wish-description">${wish.wish_description}</div>
+
+                            <div className="d-flex bg-white">
+                                <div className="bg-curve col">&nbsp;</div>
+                                <div className="bg_white px-3 font_xs_s font_md_m">${language.iWant()}</div>
+                                <div className="bg-curve col">&nbsp;</div>
+                            </div>
+
+                            <div className="bg_white p-3 px-md-5 font_xs_m font_md_l text-center">
+                                <ul className="list-group list-group-flush">
+                                    ${wishItems()}
+                                </ul>
+                            </div>
+
+                            <div className="pb-4" style=${wishTotalBg()}>
+                                <div className="p-2 bg-dotted-pattern-yellow text-center font_xs_m font_md_l">
+                                        ${language.total()}: <span className="wish-total" data-toggle="tooltip" title=${wish.wish_total_needed.breakdown}>${currencyFlag(wish.wish_currency)} ${wish.wish_currency.getName()} ${wish.wish_total_needed.amount.toString()} <i className="fas fa-info-circle"></i></span>
+                                </div>
+                            </div>
+
+                            ${wishSupporterList()}
+                            ${wishSettings()}
+                            ${howToHelpSection()}
+                            ${pledgeForm()}
+
                         </div>
-
-                        ${wishSupporterList()}
-                        ${wishSettings()}
-                        ${howToHelpSection()}
-                        ${pledgeForm()}
-
                     </div>
                 </div>
             </div>

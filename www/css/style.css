@@ -371,6 +371,8 @@ img.emoji, .inline-icon {
 
 .page-user .user-description {
     white-space: pre-wrap;
+    text-align: left;
+    text-align-last: center;
 }
 
 .page-user .user-social-accounts .btn.disabled {
@@ -765,10 +767,6 @@ a.btn.signInBtn:hover {
     border:3px solid #FFF;
 }
 
-.page-user .user-info .user-name {
-    font-size: 1.5em;
-}
-
 .page-wish .wish-item {
     /* font-size: 1.5em; */
     background: none;
@@ -1071,6 +1069,10 @@ a.unstyled, a:hover.unstyled {
     border-radius: 1rem 1rem 0 0;
 }
 
+.rounded-10-b {
+    border-radius: 0 0 1rem 1rem;
+}
+
 .intro-title-text {
     text-shadow: 2px 2px 1px #000;
 }
@@ -1096,6 +1098,13 @@ a.unstyled, a:hover.unstyled {
      data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAHElEQVQYV2M8c+bMfxMTE0YGKIAzMARgKjFUAABgFQgF5F4SdQAAAABJRU5ErkJggg== 
     ) repeat;
  }
+
+.bg-dotted-pattern-yellow {
+    background: url(
+        data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAASklEQVQoU2P8////fwYc4NcDHQY2hStgWUZiFDKCADaFIJPQAVEmEm01ikJkh2PzG9xqmEJc7mb8eV8bI3hgQYJsMoaJuMKUaIUAe2NF7cMV/FgAAAAASUVORK5CYII=
+    ) repeat;
+}
+
  .bg-organic-1 {
     background-image: url('../images/bg-organic-5.svg');
     background-repeat: no-repeat;
@@ -1154,4 +1163,5 @@ a.unstyled, a:hover.unstyled {
 
 .progress {
     background-color: #dfdfdf;
+    height: 0.5rem !important;
 }
