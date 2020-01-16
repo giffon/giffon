@@ -154,7 +154,7 @@ class Index extends Page {
                                 <div className="flex_1">
                                     <div className="d-flex d-md-block text-md-center mb-3 mb-md-0" >
                                         <div className="how-to-icon mx-md-auto">
-                                            <img className="w-75" src=${R("/images/advertising.svg")} alt="advertising"/>
+                                            <img className="w-75" src=${R("/images/a.svg")} alt="advertising"/>
                                         </div>
                                         <div className="col pl-2 m-0">
                                             <h3 className="font_xs_m font_md_xl fontw-700 pt-2">${language.howToStep2Title()}</h3>
