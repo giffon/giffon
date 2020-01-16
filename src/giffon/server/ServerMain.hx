@@ -429,7 +429,13 @@ class ServerMain {
         return (@await getWish([for (wish in wish_results) wish.wish_id])).array();
     }
 
-    static public function userAvatarStyle(user:giffon.db.User) {
+    static public function userAvatarStyle(user:giffon.db.User):Dynamic {
+        if ( user == null ) {
+            return { 
+                backgroundImage: 'url(https://media.giphy.com/media/xUOxfjsW9fWPqEWouI/giphy.gif)',
+            };
+        }
+        
         if (user.user_avatar == null) {
             return {};
         }

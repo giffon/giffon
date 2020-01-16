@@ -271,7 +271,7 @@ class Wish extends Page {
                 <p className="text-muted font_xs_xs font_md_s text-center mb-1">
                     ${info}
                 </p>
-                <div className="bg_white row mx-0 justify-content-center p-3 font_xs_s font_md_m">
+                <div className="row mx-0 justify-content-center p-3 font_xs_s font_md_m">
                     ${list}
                 </div>
             </div>
@@ -287,7 +287,7 @@ class Wish extends Page {
                 jsx('
                     <div className="col-6 col-md-4 text-center" key=${supporter.user.user_id}>
                         <a href=${supportNameIsVisible ? supporter.user.user_profile_url : null} className="py-3">
-                            <div className="supporter-avatar rounded-circle shadow mx-auto mb-2" style=${supportNameIsVisible ? userAvatarStyle(supporter.user) : null} />
+                            <div className="supporter-avatar rounded-circle mx-auto mb-2" style=${supportNameIsVisible ? userAvatarStyle(supporter.user) : userAvatarStyle(null)} />
                             <div className="">${supportNameIsVisible ? supporter.user.user_name : "?"}${supportAmount(supporter)}</div>
                         </a>
                     </div>
