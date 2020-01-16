@@ -344,7 +344,7 @@ class Page extends ReactComponent {
                     </div>
                 </div>
                 <div className="p-3 bg-dotted-pattern-grey d-md-flex">
-                    <div className="col p-0 m-0">Giffon © 2019</div>
+                    <div className="col p-0 m-0">Giffon © 2019-2020</div>
                     <div>
                         <a className="pr-2" href="terms">${language.termsAndConditions()}</a>
                         <a href="privacy">${language.privacyPolicy()}</a>
