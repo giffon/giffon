@@ -33,7 +33,7 @@ class WishHowToHelpSection extends ReactComponent {
             language.pledgeBelow();
         };
         return jsx('
-            <a className="btn btn-success w-100 rounded-0" href=${href}>${label}</a>
+            <a className="btn btn-primary w-100" href=${href}>${label}</a>
         ');
     }
 
@@ -65,7 +65,7 @@ class WishHowToHelpSection extends ReactComponent {
 
                 <div className="d-md-flex">
 
-                    <div className="p-3 p-md-4 mb-3 mb-md-0 bg_white col">
+                    <div className="p-3 p-md-4 mb-3 mb-md-0 bg_white rounded-10 col">
                         <div className="pb-3 font_xs_s font_md_l flex-grow-2">
                             ${language.shareTheWishWithYourFriends()}
                         </div>
@@ -78,14 +78,14 @@ class WishHowToHelpSection extends ReactComponent {
                             <Clipboard
                                 className="w-100 p-1"
                                 data-clipboard-text=${plainLink}
-                                button-className=${state.copySucceed ? "btn btn-outline-primary col-auto rounded-0" : "btn btn-success col-auto rounded-0"}
+                                button-className=${state.copySucceed ? "btn btn-outline-primary col-auto rounded-0" : "btn btn-primary col-auto rounded-0"}
                                 onSuccess=${onCopySuccess}
                             >
                                 ${state.copySucceed ? language.copied() : language.copy()}
                             </Clipboard>
                         </div>
                     </div>
-                    <div className="p-3 p-md-4 ml-md-3 bg_white col">
+                    <div className="p-3 p-md-4 ml-md-3 bg_white rounded-10 col">
                         <div className="pb-3 font_xs_s font_md_l">
                             ${language.pledgeTheWishSinceEveryDollarMatters()}
                         </div>

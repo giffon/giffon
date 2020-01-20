@@ -458,7 +458,7 @@ class Wish extends Page {
                         
                             <div className="bg_white p-3 pt-md-5 px-md-5 pb-md-4 text-center rounded-10-t">
                                 ${wishBadge(wish, language)}
-                                <div className="font_xs_l font_md_xl fontw-700">${wish.wish_title}</div>
+                                <div className="font_xs_l font_md_xxl fontw-700">${wish.wish_title}</div>
                                 <div className="copy-link-button-root" />
                             </div>
 
