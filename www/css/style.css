@@ -371,7 +371,7 @@ img.emoji, .inline-icon {
 
 .page-user .user-description {
     white-space: pre-wrap;
-    text-align: left;
+    text-align: justify;
     text-align-last: center;
 }
 

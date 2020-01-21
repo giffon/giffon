@@ -6,6 +6,7 @@ import react.*;
 import react.ReactMacro.jsx;
 import haxe.io.*;
 import giffon.server.ServerMain.*;
+import giffon.db.WishProgress;
 using giffon.lang.User;
 
 class User extends Page {
@@ -48,7 +49,7 @@ class User extends Page {
             case Twitch: 'https://www.twitch.tv/${profile.login}';
         }
 
-        var classes = ["btn", "btn-link"];
+        var classes = ["btn", "btn-link" , "text-dark"];
         if (href == null)
             classes.push("disabled");
         
@@ -74,19 +75,37 @@ class User extends Page {
         }
 
         return jsx('
-            <a className=${classes.join(" ")} href=${href} target="_blank" rel="noopener"><i className=${iconClasses.join(" ")}> ${text}</i></a>
+            <a className=${classes.join(" ")} href=${href} target="_blank" rel="noopener"><i className=${iconClasses.join(" ")}></i> ${text}</a>
         ');
+    }
+
+    function progressBarStyle(status:WishProgress) {
+        switch (status) {
+            case None:
+                return { width: '0' };
+            case Started:
+                return { width: '10%' };
+            case Halfway:
+                return { width: '50%' };
+            case Almost:
+                return { width: '80%' };
+            case Done:
+                return { width: '100%' };
+        }
     }
 
     function renderWish(wish:giffon.db.Wish) {
         return jsx('
             <div key=${wish.wish_id} className="col-12 col-md-4 mb-3">
                 <a className="text-dark" href=${Path.join(["wish", wish.wish_hashid])}>
-                <div className="wish-box shadow">
-                    <div className="wish-banner" style=${Index.wishBannerStyle(wish)}></div>
-                    <div className="bg_white p-3">
-                        <div className="wish-title text-truncate font_xs_m font_md_l">${wish.wish_title}</div>
+                <div className="wish-box bg_grey_100">
+                    <div className="wish-banner rounded-10-t" style=${Index.wishBannerStyle(wish)}></div>
+                    <div className="bg-dotted-pattern-grey p-3">
+                        <span className="wish-title text-truncate font_xs_m font_md_l">${wish.wish_title}</span> ${Wish.wishBadge(wish, language)}
                         <div className="font_xs_s wish-description">${wish.wish_description}</div>
+                    </div>
+                    <div className="progress">
+                        <div className="progress-bar bg-warning" role="progressbar" aria-valuemin="0" aria-valuemax="100" style=${progressBarStyle(wish.wish_progress)} ></div>
                     </div>
                 </div>
                 </a>
@@ -135,14 +154,14 @@ class User extends Page {
                 var makeWishHint = if (user != null && user.user_id == pageUser.user_id) {
                     jsx('
                         <Fragment>
-                            <a className="font_xs_xs font_md_s" href="make-a-wish">${language.makeOneNow()}</a>.
+                            <a href="make-a-wish">${language.makeOneNow()}</a>.
                         </Fragment>
                     ');
                 } else {
                     null;
                 };
                 jsx('
-                    <p className="font_xs_xs font_md_s">${language.noWishesInProgress()}. ${makeWishHint}</p>
+                    <p>${language.noWishesInProgress()}. ${makeWishHint}</p>
                 ');
             case wishes:
                 wishesList(wishes);
@@ -150,7 +169,7 @@ class User extends Page {
 
         return jsx('
             <Fragment>
-                <h3 className="pt-5 pb-1 pb-md-3 font_xs_l font_md_xl">${language.wishesInProgress()}</h3>
+                <h3 className="bg-curve text-center py-3 py-md-5 font_xs_xl font_md_xxl fontw-700">${language.wishesInProgress()}</h3>
                 ${list}
             </Fragment>
         ');
@@ -160,7 +179,7 @@ class User extends Page {
         var list = switch (wishes.filter(isCompleted)) {
             case []:
                 jsx('
-                    <p className="font_xs_xs font_md_s">${language.noCompletedWishes()}</p>
+                    <p>${language.noCompletedWishes()}</p>
                 ');
             case wishes:
                 wishesList(wishes);
@@ -168,7 +187,7 @@ class User extends Page {
 
         return jsx('
             <Fragment>
-                <h3 className="pt-5 pb-1 pb-md-3 font_xs_l font_md_xl">${language.completedWishes()}</h3>
+                <h3 className="bg-curve text-center py-3 py-md-5 font_xs_xl font_md_xxl fontw-700">${language.completedWishes()}</h3>
                 ${list}
             </Fragment>
         ');
@@ -182,7 +201,7 @@ class User extends Page {
         var list = switch (wishes.filter(isCancelled)) {
             case []:
                 jsx('
-                    <p className="font_xs_xs font_md_s">${language.noCancelledWishes()}</p>
+                    <p>${language.noCancelledWishes()}</p>
                 ');
             case wishes:
                 wishesList(wishes);
@@ -190,8 +209,8 @@ class User extends Page {
 
         return jsx('
             <Fragment>
-                <h3 className="pt-5 pb-1 pb-md-3 font_xs_l font_md_xl">${language.cancelledWishes()}</h3>
-                <p className="font_xs_xs font_md_s">${language.cancelledWishesNote()}</p>
+                <h3 className="bg-curve text-center py-3 py-md-5 font_xs_xl font_md_xxl fontw-700">${language.cancelledWishes()}</h3>
+                <p>${language.cancelledWishesNote()}</p>
                 ${list}
             </Fragment>
         ');
@@ -202,8 +221,8 @@ class User extends Page {
             return null;
 
         return jsx('
-            <div className="user-info row justify-content-center">
-                <div className="col user-description">
+            <div className="user-info row justify-content-center py-3">
+                <div className="col col-md-6 user-description">
                     ${pageUser.user_description}
                 </div>
             </div>
@@ -211,28 +230,32 @@ class User extends Page {
     }
 
     override function bodyContent() return jsx('
-        <div className="container">
-            <div className="user-info row justify-content-center">
-                <div className="col-md-4">
-                    <div className="user-avatar rounded-circle mx-auto shadow" style=${userAvatarStyle(pageUser)} />
-                    <h1 className="user-name text-center font_xs_l font_md_xl">${pageUser.user_name}</h1>
+        <div className="bg-letters">
+            <div className="container">
+            
+                <div className="user-info row justify-content-center">
+                    <div className="col-md-4">
+                        <div className="user-avatar rounded-circle mx-auto" style=${userAvatarStyle(pageUser)} />
+                        <h1 className="user-name text-center font_xs_l font_md_xxl fontw-700">${pageUser.user_name}</h1>
+                    </div>
                 </div>
-            </div>
-            <div className="row user-social-accounts">
-                <div className="col text-center">
-                    ${socialProfile(Facebook)}
-                    ${socialProfile(Twitter)}
-                    ${socialProfile(Google)}
-                    ${socialProfile(GitHub)}
-                    ${socialProfile(GitLab)}
-                    ${socialProfile(YouTube)}
-                    ${socialProfile(Twitch)}
+                <div className="row user-social-accounts justify-content-center">
+                    <div className="col col-md-6 text-center">
+                        ${socialProfile(Facebook)}
+                        ${socialProfile(Twitter)}
+                        ${socialProfile(Google)}
+                        ${socialProfile(GitHub)}
+                        ${socialProfile(GitLab)}
+                        ${socialProfile(YouTube)}
+                        ${socialProfile(Twitch)}
+                    </div>
                 </div>
+                ${sectionDescription()}
+            
+                ${sectionInProgress()}
+                ${sectionCompleted()}
+                ${sectionCancelled()}
             </div>
-            ${sectionDescription()}
-            ${sectionInProgress()}
-            ${sectionCompleted()}
-            ${sectionCancelled()}
         </div>
     ');
 }
