@@ -1165,3 +1165,7 @@ a.unstyled, a:hover.unstyled {
     background-color: #dfdfdf;
     height: 0.5rem !important;
 }
+
+.dropdown-menu{
+    border: 0;
+}

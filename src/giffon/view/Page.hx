@@ -302,7 +302,7 @@ class Page extends ReactComponent {
                                     <a className="nav-link dropdown-toggle" href="#" id="navbarUseCasesDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         ${language.useCases()}
                                     </a>
-                                    <div className="dropdown-menu" aria-labelledby="navbarUseCasesDropdownMenuLink">
+                                    <div className="dropdown-menu rounded-10" aria-labelledby="navbarUseCasesDropdownMenuLink">
                                         <a className="dropdown-item" href="use-cases/video-creators">${language.forVideoCreators()}</a>
                                         <a className="dropdown-item" href="use-cases/oss-developers">${language.forOpenSourceDevelopers()}</a>
                                     </div>
