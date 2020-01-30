@@ -27,7 +27,7 @@ class UseCasesVideoCreators {
                     Let your fans help you to cut your cost, and to produce better videos <span className="ec ec-video-camera"></span>.
                 </p>
                 <p>
-                    <a href="make-a-wish">Make a wish</a> in Giffon and let the community buy you a gift!
+                    Make a wish in Giffon and let the community buy you a gift!
                 </p>
             </Fragment>
         ');
@@ -40,7 +40,7 @@ class UseCasesVideoCreators {
                     你話如果俾個機會你嘅fans幫輕吓, 等你可以出條高質啲嘅片<span className="ec ec-video-camera"></span>, 大家都開心!
                 </p>
                 <p>
-                    而家就喺Giffon<a href="make-a-wish">許願</a>講低你需要啲咩, 等大家夾份買俾你!
+                    而家就喺Giffon許願講低你需要啲咩, 等大家夾份買俾你!
                 </p>
             </Fragment>
         ');
@@ -53,7 +53,7 @@ class UseCasesVideoCreators {
                     試想給你的粉絲一個機會資助一下, 讓你可以製作出一段高質的影片<span className="ec ec-video-camera"></span>, 大家都開心!
                 </p>
                 <p>
-                    現在就在Giffon<a href="make-a-wish">許願</a>說出你的需要, 讓大家湊錢買給你!
+                    現在就在Giffon許願說出你的需要, 讓大家湊錢買給你!
                 </p>
             </Fragment>
         ');

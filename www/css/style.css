@@ -875,7 +875,7 @@ a.btn.signInBtn:hover {
     background-position-y: 60%;
 }
 
-.page-use-cases .card-header .logo {
+.page-use-cases .logo {
     object-fit: contain;
     height: 5em;
     max-width: 100%;
@@ -1061,6 +1061,14 @@ a.unstyled, a:hover.unstyled {
     background-position: center;
 }
 
+.bbanner[data-section='video'] {
+    background-image: url('https://media.giphy.com/media/i8zBxesbduoh2/giphy.gif');
+    background-size: 50%;
+    background-position: center;
+}
+
+
+
 .rounded-10 {
     border-radius: 1rem;
 }
@@ -1125,6 +1133,11 @@ a.unstyled, a:hover.unstyled {
         background-position: center;
         background-repeat: repeat-x;
   }
+
+  .bg-curve-2 {
+    background: url('../images/bg-curve.svg');
+    background-size: 10%;
+}
 
 .bg-letters {
     background-image: url('../images/bg-logo-2.svg');
