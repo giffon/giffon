@@ -139,9 +139,9 @@ class UseCasesVideoCreators extends Page {
             
                         <div className="row">
                             <div className="col-12 col-sm-6 col-md mb-4">
-                                <div className="bg-dotted-pattern-grey">
+                                <div className="">
                                     <div className="card-img-top rounded-10-t" style=${bgStyle("https://media.giphy.com/media/L4gKRkblWlYoE/giphy.gif")} />
-                                    <div className="card-body">
+                                    <div className="card-body bg-dotted-pattern-grey">
                                         <h5 className="card-title font_xs_m font_md_xl fontw-700">${language.studioMicrophone()} <span className="ec ec-microphone"></span></h5>
                                         <p className="card-text">${language.studioMicrophoneDescription()}</p>
                                         <a className="btn btn-primary col col-md-auto" href="make-a-wish">${language.makeAWishNow()}</a>
@@ -149,9 +149,9 @@ class UseCasesVideoCreators extends Page {
                                 </div>
                             </div>
                             <div className="col-12 col-sm-6 col-md mb-4">
-                                <div className="bg-dotted-pattern-grey">
+                                <div className="">
                                     <div className="card-img-top rounded-10-t" style=${bgStyle("https://media.giphy.com/media/6nZR9Hl2e716wWvwBb/giphy.gif")} />
-                                    <div className="card-body">
+                                    <div className="card-body bg-dotted-pattern-grey">
                                         <h5 className="card-title font_xs_m font_md_xl fontw-700">${language.actionCamera()} <span className="ec ec-camera"></span></h5>
                                         <p className="card-text">${language.actionCameraDescription()}</p>
                                         <a className="btn btn-primary col col-md-auto" href="make-a-wish">${language.makeAWishNow()}</a>
@@ -159,9 +159,9 @@ class UseCasesVideoCreators extends Page {
                                 </div>
                             </div>
                             <div className="col-12 col-sm-6 col-md mb-4">
-                                <div className="bg-dotted-pattern-grey">
+                                <div className="">
                                     <div className="card-img-top rounded-10-t" style=${bgStyle("https://media.giphy.com/media/gK0Lv2068NnAD8zkDU/giphy.gif")} />
-                                    <div className="card-body">
+                                    <div className="card-body bg-dotted-pattern-grey">
                                         <h5 className="card-title font_xs_m font_md_xl fontw-700">${language.multimediaSoftware()} <span className="ec ec-computer"></span></h5>
                                         <p className="card-text">${language.multimediaSoftwareDescription()}</p>
                                         <a className="btn btn-primary col col-md-auto" href="make-a-wish">${language.makeAWishNow()}</a>
