@@ -1141,6 +1141,7 @@ a.unstyled, a:hover.unstyled {
   .bg-curve-2 {
     background: url('../images/bg-curve.svg');
     background-size: 10%;
+    background-repeat: space;
 }
 
 .bg-letters {
