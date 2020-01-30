@@ -35,9 +35,9 @@ class UseCasesOssDevs extends Page {
                             </div>
                         </div>
                     </div>
-                    <div className="bg-curve-2 rounded-10 mt-3 pt-3 pt-md-5">
+                    <div className="bg-curve-2 rounded-10 mt-3 py-3 py-md-5">
                         <div className="container">
-                            <h1 className="py-5 font_xs_xl font_md_3xl fontw-700">${language.howDoesGiffonCompareToOtherServices()}</h1>
+                            <h1 className="py-3 py-md-5 font_xs_xl font_md_3xl fontw-700">${language.howDoesGiffonCompareToOtherServices()}</h1>
                             <div className="row">
                                 <div className="col-12 col-md-6 col-lg-4 mb-4">
                                     <div className="bg_green_600 rounded-10">
