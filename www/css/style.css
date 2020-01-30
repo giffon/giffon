@@ -1067,7 +1067,11 @@ a.unstyled, a:hover.unstyled {
     background-position: center;
 }
 
-
+.bbanner[data-section='developer'] {
+    background-image: url('https://media.giphy.com/media/ukMiDlCmdv2og/giphy.gif');
+    background-size: cover;
+    background-position: center;
+}
 
 .rounded-10 {
     border-radius: 1rem;

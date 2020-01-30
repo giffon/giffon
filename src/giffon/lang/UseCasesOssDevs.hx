@@ -30,7 +30,7 @@ class UseCasesOssDevs {
                     The open source community as a whole can keep the good vibes, avoid developer burnout, and build the next-big-thing together <span className="ec ec-dark-sunglasses"></span>.
                 </p>
                 <p>
-                    <a href="make-a-wish">Make a wish</a> in Giffon and let the community buy you a gift!
+                    Make a wish in Giffon and let the community buy you a gift!
                 </p>
             </Fragment>
         ');
@@ -46,7 +46,7 @@ class UseCasesOssDevs {
                     整個開源社群可以透過互相送禮維持一個良好嘅氣氛, 一齊去開發同維護各個好玩又有用嘅項目 <span className="ec ec-dark-sunglasses"></span>.
                 </p>
                 <p>
-                    而家就喺Giffon<a href="make-a-wish">許願</a>講低你需要啲咩, 等大家夾份買俾你!
+                    而家就喺Giffon許願講低你需要啲咩, 等大家夾份買俾你!
                 </p>
             </Fragment>
         ');
@@ -62,7 +62,7 @@ class UseCasesOssDevs {
                     整個開源社群可以透過互相送禮維持一個良好氣氛, 一齊去開發和維護各個好玩又有用的項目 <span className="ec ec-dark-sunglasses"></span>.
                 </p>
                 <p>
-                    現在就在Giffon<a href="make-a-wish">許願</a>說出你的需要, 讓大家湊錢買給你!
+                    現在就在Giffon許願說出你的需要, 讓大家湊錢買給你!
                 </p>
             </Fragment>
         ');
