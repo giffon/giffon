@@ -63,7 +63,7 @@
     "react-giphy-component": "1.1.0",
     "react-stripe-elements": "6.0.1",
     "source-map-support": "0.5.16",
-    "stripe": "8.8.1",
+    "stripe": "8.10.0",
     "validator": "12.2.0"
   },
   "devDependencies": {
