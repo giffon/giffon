@@ -86,7 +86,7 @@
     "serverless": "1.70.0",
     "slick-carousel": "1.8.1",
     "spellchecker": "3.7.0",
-    "uglify-js": "3.8.0",
+    "uglify-js": "3.9.2",
     "uglifyify": "5.0.2"
   }
 }
