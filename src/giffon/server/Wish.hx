@@ -254,7 +254,7 @@ class Wish {
 
     @await static function handlePledge(req:Request, res:Response, next:Dynamic){
         var pledgeFormData:giffon.db.PledgeFormData = try {
-            dataclass.JsonConverter.fromJson(giffon.db.PledgeFormData, req.body);
+            new giffon.db.PledgeFormData(req.body);
         } catch (err:Dynamic) {
             trace(haxe.Json.stringify(err));
             res.sendPlainError(err, BadRequest);
