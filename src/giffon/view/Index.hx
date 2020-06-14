@@ -81,7 +81,7 @@ class Index extends Page {
                         <div className="p-3 text-center">
                             <div className="pt-5 pb-2 wish-owner-name font_xs_m font_md_l">${wish.wish_owner.user_name}</div>
                             <div className="d-flex align-items-center text-left">
-                                <span className="wish-title text-truncate font_xs_m font_md_l">${wish.wish_title}</span>
+                                <h3 className="wish-title text-truncate m-0 font_xs_m font_md_l">${wish.wish_title}</h3>
                                 ${Wish.wishBadge(wish, language)}
                             </div>
                             <div className="wish-description text-left font_xs_s">${wish.wish_description}</div>
