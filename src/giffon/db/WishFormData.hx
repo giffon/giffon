@@ -4,6 +4,8 @@ import thx.Decimal;
 using StringTools;
 using Lambda;
 using js.npm.validator.Validator;
+import giffon.db.WishFormData.WishItemDataConst.*;
+import giffon.db.WishFormData.WishFormDataConst.*;
 
 typedef WishFormValues = {
     acceptTerms:Bool,
@@ -25,28 +27,9 @@ typedef WishFormValues = {
     wish_banner_url:Null<String>,
 }
 
-class WishItemData implements DataClass {
-    static public final item_price_max = 200000;
-    static public final item_quantity_max = 100;
-
-    @validate(_ >= -1)
-    public var item_id:Int;
-
-    @validate(validateItemUrl(_))
-    public var item_url:String;
-
-    @validate(StringTools.trim(_).length > 0)
-    public var item_name:String;
-
-    @validate(_ > 0 && _ <= item_price_max)
-    public var item_price:Float;
-
-    @validate(_ > 0 && _ <= item_quantity_max)
-    public var item_quantity:Int;
-
-    public var item_icon_url:Null<String>;
-    public var item_icon_label:Null<String>;
-
+class WishItemDataConst {
+    static public final item_price_max:Int = 200000;
+    static public final item_quantity_max:Int = 100;
     static public function validateItemUrl(v:String):Bool {
         if (!v.isURL({
             protocols: ["https", "http"],
@@ -59,36 +42,28 @@ class WishItemData implements DataClass {
     }
 }
 
-class WishFormData implements DataClass {
-    static public final items_max = 20;
+class WishItemData implements DataClass {
+    @:validate(_ >= -1)
+    public final item_id:Int;
 
-    @validate(StringTools.trim(_).length > 0)
-    public var wish_title:String;
+    @:validate(validateItemUrl(_))
+    public final item_url:String;
 
-    @validate(StringTools.trim(_).length > 0)
-    public var wish_description:String;
+    @:validate(StringTools.trim(_).length > 0)
+    public final item_name:String;
 
-    @validate(Type.allEnums(giffon.db.Currency).exists(function(c) return c.getName() == _))
-    public var wish_currency:String;
+    @:validate(_ > 0 && _ <= item_price_max)
+    public final item_price:Float;
 
-    @validate(_.getTime() > Date.now().getTime())
-    public var wish_target_date:Null<Date>;
+    @:validate(_ > 0 && _ <= item_quantity_max)
+    public final item_quantity:Int;
 
-    @validate(validateBannerUrl(_))
-    public var wish_banner_url:Null<String>;
+    public final item_icon_url:Null<String>;
+    public final item_icon_label:Null<String>;
+}
 
-    @validate(_.length > 0 && _.length <= items_max)
-    public var items:Array<WishItemData>;
-
-    @validate(_.length <= 128)
-    public var wish_additional_cost_description:String;
-
-    @validate(_ >= 0 && _ <= WishItemData.item_price_max)
-    public var wish_additional_cost_amount:Float;
-
-    @validate(_ == true)
-    public var acceptTerms:Bool;
-
+class WishFormDataConst {
+    static public final items_max:Int = 20;
     static public function validateBannerUrl(v:String):Bool {
         if (!v.isURL({
             protocols: ["https"],
@@ -99,4 +74,33 @@ class WishFormData implements DataClass {
 
         return true;
     }
+}
+
+class WishFormData implements DataClass {
+    @:validate(StringTools.trim(_).length > 0)
+    public final wish_title:String;
+
+    @:validate(StringTools.trim(_).length > 0)
+    public final wish_description:String;
+
+    @:validate(Type.allEnums(giffon.db.Currency).exists(function(c) return c.getName() == _))
+    public final wish_currency:String;
+
+    @:validate(_ == null || _.getTime() > Date.now().getTime())
+    public final wish_target_date:Null<Date>;
+
+    @:validate(_ == null || validateBannerUrl(_))
+    public final wish_banner_url:Null<String>;
+
+    @:validate(_.length > 0 && _.length <= items_max)
+    public final items:Array<WishItemData>;
+
+    @:validate(_.length <= 128)
+    public final wish_additional_cost_description:String;
+
+    @:validate(_ >= 0 && _ <= WishItemDataConst.item_price_max)
+    public final wish_additional_cost_amount:Float;
+
+    @:validate(_ == true)
+    public final acceptTerms:Bool;
 }

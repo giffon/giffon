@@ -601,7 +601,7 @@ class Wish {
         }
 
         var wishData:giffon.db.WishFormData = try {
-            dataclass.JsonConverter.fromJson(giffon.db.WishFormData, req.body);
+            new giffon.db.WishFormData(req.body);
         } catch (err:Dynamic) {
             trace(haxe.Json.stringify(err));
             res.sendPlainError(err, BadRequest);

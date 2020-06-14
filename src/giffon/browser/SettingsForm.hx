@@ -116,7 +116,7 @@ class SettingsForm extends ReactComponent {
                         <Field
                             className="form-control" id="user_name"
                             name="user_name"
-                            maxLength=${SettingsFormData.user_name_max}
+                            maxLength=${SettingsFormDataConst.user_name_max}
                             required=${true}
                         />
                     </div>
@@ -129,8 +129,8 @@ class SettingsForm extends ReactComponent {
                             <Field
                                 className="form-control" id="user_url"
                                 name="user_url"
-                                minLength=${SettingsFormData.user_url_min}
-                                maxLength=${SettingsFormData.user_url_max}
+                                minLength=${SettingsFormDataConst.user_url_min}
+                                maxLength=${SettingsFormDataConst.user_url_max}
                             />
                         </div>
                         <small className="text-muted">${language.customProfileUrlNote()} ${language.availableCharacters()}: <pre className="d-inline">A-Z a-z 0-9 _</pre></small>
@@ -143,7 +143,7 @@ class SettingsForm extends ReactComponent {
                             className="form-control" id="user_primary_email"
                             name="user_primary_email"
                             type="email"
-                            maxLength=${SettingsFormData.user_primary_email_max}
+                            maxLength=${SettingsFormDataConst.user_primary_email_max}
                         />
                         <small className="text-muted">${language.emailNote()}</small>
                     </div>
@@ -155,11 +155,11 @@ class SettingsForm extends ReactComponent {
                             component="textarea"
                             className="form-control" id="user_description"
                             name="user_description"
-                            maxLength=${SettingsFormData.user_description_max}
+                            maxLength=${SettingsFormDataConst.user_description_max}
                             rows="3"
                             placeholder=${language.iAm()}
                         />
-                        <small className="text-muted float-right">${props.values.user_description.length} / ${SettingsFormData.user_description_max}</small>
+                        <small className="text-muted float-right">${props.values.user_description.length} / ${SettingsFormDataConst.user_description_max}</small>
                     </div>
                     <div className="form-group">
                         <label htmlFor="user_avatar">

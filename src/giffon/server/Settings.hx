@@ -1,7 +1,6 @@
 package giffon.server;
 
 import giffon.db.SettingsFormData;
-import dataclass.JsonConverter;
 import js.npm.express.*;
 import js.npm.mysql2.*;
 import js.moment.Moment;
@@ -34,7 +33,7 @@ class Settings {
 
     @await static function socialSetVisible(req:Request, res:Response, next:Dynamic) {
         var data:SocialSetVisibleData = try {
-            JsonConverter.fromJson(SocialSetVisibleData, req.body);
+            new SocialSetVisibleData(req.body);
         } catch (err:Dynamic) {
             trace(haxe.Json.stringify(err));
             res.sendPlainError(err, BadRequest);
@@ -62,7 +61,7 @@ class Settings {
 
     @await static function handlePost(req:Request, res:Response, next:Dynamic){
         var settingsFormData:giffon.db.SettingsFormData = try {
-            dataclass.JsonConverter.fromJson(giffon.db.SettingsFormData, req.body);
+            new giffon.db.SettingsFormData(req.body);
         } catch (err:Dynamic) {
             trace(haxe.Json.stringify(err));
             res.sendPlainError(err, BadRequest);

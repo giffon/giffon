@@ -188,7 +188,7 @@ class WishForm extends ReactComponent {
                                                     name=${'items[$idx].item_price'}
                                                     id=${'items[$idx].item_price'}
                                                     type="number"
-                                                    min="0.01" max=${WishItemData.item_price_max} step="0.01"
+                                                    min="0.01" max=${WishItemDataConst.item_price_max} step="0.01"
                                                     required=${true}
                                                     disabled=${wish != null}
                                                 />
@@ -206,7 +206,7 @@ class WishForm extends ReactComponent {
                                                     name=${'items[$idx].item_quantity'}
                                                     id=${'items[$idx].item_quantity'}
                                                     type="number"
-                                                    min="1" max=${wish == null ? WishItemData.item_quantity_max : wish.items[idx].item_quantity} step="1"
+                                                    min="1" max=${wish == null ? WishItemDataConst.item_quantity_max : wish.items[idx].item_quantity} step="1"
                                                     required=${true}
                                                     disabled=${wish != null}
                                                 />
@@ -284,7 +284,7 @@ class WishForm extends ReactComponent {
                             type="button"
                             className="btn btn-link"
                             onClick=${function(){ arrayHelpers.push(initialValues.items[0]); }}
-                            disabled=${wish != null || props.values.items.length >= WishFormData.items_max}
+                            disabled=${wish != null || props.values.items.length >= WishFormDataConst.items_max}
                         >
                             ${language.addItem()}
                         </button>
@@ -317,7 +317,7 @@ class WishForm extends ReactComponent {
                                         name="wish_additional_cost_amount"
                                         id="wish_additional_cost_amount"
                                         type="number"
-                                        min="0.00" max=${WishItemData.item_price_max} step="0.01"
+                                        min="0.00" max=${WishItemDataConst.item_price_max} step="0.01"
                                         required=${true}
                                     />
                                 </div>
