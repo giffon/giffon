@@ -736,7 +736,7 @@ class ServerMain {
 
         var sms:Dynamic = require("source-map-support");
         sms.install();
-        haxe.CallStack.wrapCallSite = sms.wrapCallSite;
+        haxe.NativeStackTrace.wrapCallSite = sms.wrapCallSite;
     }
 
     @await static function passportHandler(req:Request, accessToken, refreshToken, profile:js.npm.passport.Profile, done:Function) {
