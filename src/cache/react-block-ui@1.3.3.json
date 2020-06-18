@@ -128,9 +128,9 @@
 		{
 			"type": "file",
 			"name": "CHANGELOG.md",
-			"hash": "fxIQXx7pnOkQnYZ/p96UilvsxmpufaD6nCMK6qa6uys=",
+			"hash": "iJOsW9NkPd/tIgrJK2Un03BqFLv+qz8X2AjXJENXJnY=",
 			"time": "1985-10-26T08:15:00.000Z",
-			"size": 4802
+			"size": 4916
 		},
 		{
 			"type": "file",
@@ -142,9 +142,9 @@
 		{
 			"type": "file",
 			"name": "package.json",
-			"hash": "3xsdci0JCAF8xuJvY7tEIX5E1GWgeNMwhq4z3kxNDWM=",
+			"hash": "EQiPKw1pXCDwhX14rg5SVca6kflHbRZnEU04Y/8Qm0U=",
 			"time": "1985-10-26T08:15:00.000Z",
-			"size": 4544
+			"size": 4546
 		},
 		{
 			"type": "file",
