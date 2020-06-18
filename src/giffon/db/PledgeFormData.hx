@@ -4,7 +4,6 @@ import thx.Decimal;
 using StringTools;
 using Lambda;
 using js.npm.validator.Validator;
-import giffon.db.PledgeFormData.PledgeFormDataConst.*;
 
 typedef PledgeFormValues = {
     acceptTerms:Bool,
@@ -15,12 +14,10 @@ typedef PledgeFormValues = {
     pledge_name_visibility:String,
 }
 
-class PledgeFormDataConst {
+class PledgeFormData implements DataClass {
     static public final pledge_amount_min:Int = 1;
     static public final pledge_amount_max:Int = 500000;
-}
 
-class PledgeFormData implements DataClass {
     @:validate(_ >= pledge_amount_min && _ <= pledge_amount_max)
     public final pledge_amount:Float;
 

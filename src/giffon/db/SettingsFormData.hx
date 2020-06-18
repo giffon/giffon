@@ -4,7 +4,6 @@ import thx.Decimal;
 using StringTools;
 using Lambda;
 using js.npm.validator.Validator;
-import giffon.db.SettingsFormData.SettingsFormDataConst.*;
 
 typedef SettingsFormValues = {
     user_name:String,
@@ -14,16 +13,13 @@ typedef SettingsFormValues = {
     user_avatar:Null<String>,
 }
 
-class SettingsFormDataConst {
+class SettingsFormData implements DataClass {
     static public final user_name_max:Int = 64;
     static public final user_primary_email_max:Int = 128;
     static public final user_description_max:Int = 300;
     static public final user_url_min:Int = 4;
     static public final user_url_max:Int = 64;
 
-}
-
-class SettingsFormData implements DataClass {
     @:validate(_.length > 0 && _.length <= user_name_max)
     public final user_name:String;
 

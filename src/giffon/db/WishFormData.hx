@@ -4,8 +4,6 @@ import thx.Decimal;
 using StringTools;
 using Lambda;
 using js.npm.validator.Validator;
-import giffon.db.WishFormData.WishItemDataConst.*;
-import giffon.db.WishFormData.WishFormDataConst.*;
 
 typedef WishFormValues = {
     acceptTerms:Bool,
@@ -27,7 +25,7 @@ typedef WishFormValues = {
     wish_banner_url:Null<String>,
 }
 
-class WishItemDataConst {
+class WishItemData implements DataClass {
     static public final item_price_max:Int = 200000;
     static public final item_quantity_max:Int = 100;
     static public function validateItemUrl(v:String):Bool {
@@ -40,9 +38,7 @@ class WishItemDataConst {
 
         return true;
     }
-}
 
-class WishItemData implements DataClass {
     @:validate(_ >= -1)
     public final item_id:Int;
 
@@ -62,7 +58,7 @@ class WishItemData implements DataClass {
     public final item_icon_label:Null<String>;
 }
 
-class WishFormDataConst {
+class WishFormData implements DataClass {
     static public final items_max:Int = 20;
     static public function validateBannerUrl(v:String):Bool {
         if (!v.isURL({
@@ -74,9 +70,7 @@ class WishFormDataConst {
 
         return true;
     }
-}
 
-class WishFormData implements DataClass {
     @:validate(StringTools.trim(_).length > 0)
     public final wish_title:String;
 
@@ -98,7 +92,7 @@ class WishFormData implements DataClass {
     @:validate(_.length <= 128)
     public final wish_additional_cost_description:String;
 
-    @:validate(_ >= 0 && _ <= WishItemDataConst.item_price_max)
+    @:validate(_ >= 0 && _ <= WishItemData.item_price_max)
     public final wish_additional_cost_amount:Float;
 
     @:validate(_ == true)

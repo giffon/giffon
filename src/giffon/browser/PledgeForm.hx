@@ -258,7 +258,7 @@ class _PledgeForm extends ReactComponent {
                 if (user_support != null && user_support.pledge_amount > 0)
                     user_support.pledge_amount
                 else
-                    Math.min(Math.max(PledgeFormDataConst.pledge_amount_min, Math.ceil(wish_total_needed * 0.1)), wish_total_needed.toFloat()),
+                    Math.min(Math.max(PledgeFormData.pledge_amount_min, Math.ceil(wish_total_needed * 0.1)), wish_total_needed.toFloat()),
             pledge_data: null,
             pledge_visibility: giffon.db.PledgeVisibility.HiddenFromAll.getName(),
             pledge_name_visibility: giffon.db.PledgeVisibility.VisibleToWishOwner.getName(),
@@ -490,7 +490,7 @@ class _PledgeForm extends ReactComponent {
                                 name="pledge_amount"
                                 id="pledge_amount"
                                 type="number"
-                                min=${PledgeFormDataConst.pledge_amount_min} max=${Math.min(PledgeFormDataConst.pledge_amount_max, wish_total_needed.toFloat())} step="0.01"
+                                min=${PledgeFormData.pledge_amount_min} max=${Math.min(PledgeFormData.pledge_amount_max, wish_total_needed.toFloat())} step="0.01"
                                 required=${true}
                             />
                         </div>
