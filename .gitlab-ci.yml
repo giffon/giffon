@@ -6,7 +6,7 @@ stages:
 .build:
   stage: build
   script:
-    - apk add nodejs npm make g++ git curl
+    - apk add nodejs npm python3 make g++ git curl
     # only checkout the submodules under lib, because MRs don't have access to private
     - git submodule sync lib
     - git submodule update --init lib
