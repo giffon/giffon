@@ -64,7 +64,7 @@
     "react-stripe-elements": "6.1.0",
     "source-map-support": "0.5.16",
     "stripe": "8.50.0",
-    "validator": "12.2.0"
+    "validator": "13.1.1"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "5.13.0",
