@@ -49,7 +49,7 @@
     "passport-github": "1.1.0",
     "passport-gitlab2": "5.0.0",
     "passport-google-oauth20": "2.0.0",
-    "passport-twitch.js": "0.0.7",
+    "passport-twitch.js": "0.0.9",
     "passport-twitter": "1.0.4",
     "passport-youtube-v3": "2.1.0",
     "pino": "6.2.1",
