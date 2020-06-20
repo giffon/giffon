@@ -968,13 +968,6 @@ class ServerMain {
         }
 
         app.use(require("helmet")({
-            featurePolicy: {
-                features: {
-                    camera: ["'none'"],
-                    accelerometer: ["'none'"],
-                    microphone: ["'none'"],
-                },
-            },
             referrerPolicy: {
                 policy: "strict-origin-when-cross-origin",
             },
