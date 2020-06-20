@@ -1,5 +1,5 @@
 {
-	"default": "/dist/js/bootstrap",
+	"default": "/dist/js/bootstrap.min.js",
 	"files": [
 		{
 			"type": "directory",
@@ -16,102 +16,102 @@
 								{
 									"type": "file",
 									"name": "sanitizer.js",
-									"hash": "yPkA11DG55kcbiwBMQTTpZs6JKcm8lATZgVKlCO6OT8=",
+									"hash": "Uw+ASvh+RSfPTKYfntLCFRClspylIQF1GnEBTBTcr/w=",
 									"time": "1985-10-26T08:15:00.000Z",
-									"size": 3361
+									"size": 3374
 								}
 							]
 						},
 						{
 							"type": "file",
 							"name": "alert.js",
-							"hash": "HR4vahxYtKsC42rYMmGYiQESEmM9l+b5iaFEsGv2JQ4=",
+							"hash": "pJvm5rV5salwGeTNXrW+Ks9qGTQ84lsChUeJ93kcR4M=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 3877
+							"size": 3903
 						},
 						{
 							"type": "file",
 							"name": "button.js",
-							"hash": "K/6g+SaTNXSBjD0L+xbdGQdBGQTBRe34zdaZuPImqRk=",
+							"hash": "k2JWP0k7/1I8PtsuYvMYwMIsBtV7vFKIUG0vpZVSBMQ=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 6227
+							"size": 6348
 						},
 						{
 							"type": "file",
 							"name": "carousel.js",
-							"hash": "uJYHgsNowqy7Upkkcgx9nx9CBlrBMCE/gYDramZyThc=",
+							"hash": "YlnN/f+zZzqdm05eEznXM6S5T3Jro6g3cAHAswsT5B0=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 16543
+							"size": 16807
 						},
 						{
 							"type": "file",
 							"name": "collapse.js",
-							"hash": "MVlupwkCKenNyP88k5+F/IEaBJNpJ1gb4PS22nFpQQY=",
+							"hash": "D0SIdfKHZZjPhbFY1zgXKLo0LgjB2abQklSW4k5cL+Y=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 10403
+							"size": 10495
 						},
 						{
 							"type": "file",
 							"name": "dropdown.js",
-							"hash": "uKjM6GlSbotN0ksyzsrX+MTjwo3qG4fFtnA7S2hrH/w=",
+							"hash": "pxk73OCsWHGJ5imKu9KFk4ZgJ9jxtk9SrpE5eu/E+4s=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 15049
+							"size": 15124
 						},
 						{
 							"type": "file",
 							"name": "index.js",
-							"hash": "cDtOalS1rJJ0nX49ZIWqQ0LZwnFMDJAHkanMk3b9PbA=",
+							"hash": "mmcMMpkIKNAA44XQj/VSvGJ67Ic1u4uqMy36g9KKNzk=",
 							"time": "1985-10-26T08:15:00.000Z",
 							"size": 775
 						},
 						{
 							"type": "file",
 							"name": "modal.js",
-							"hash": "xUpOE8Sp2e5TFOQTrUYHDlKw6AIirsEecu4DQ6BjVyU=",
+							"hash": "PWZQIHbZOqDBZDrI6FjEHYY5XUa/oWvzSi4GPFbBxmc=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 17053
+							"size": 17435
 						},
 						{
 							"type": "file",
 							"name": "popover.js",
-							"hash": "bLA0K/IvTlIOtr9a6DA23zgBAR8iOsvPQqpmIq6IilE=",
+							"hash": "HYM9Rx9U6AnQm9kKpJMsRMesz0QcpEBDXihOifYzPrg=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 4374
+							"size": 4387
 						},
 						{
 							"type": "file",
 							"name": "scrollspy.js",
-							"hash": "Yxdc7x8uBFhkoLKckzL6x7/KEJT1o8G3BoafiXiA6Z8=",
+							"hash": "cvmi0TVSwA0f557sGcGhf+by+mij94FyI3Z6Wh+Opt0=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 8908
+							"size": 8967
 						},
 						{
 							"type": "file",
 							"name": "tab.js",
-							"hash": "Btw+gNiNDrulRaX5/JIHR5ocKqq3UV2jFm4ZAKxHT+w=",
+							"hash": "x84CoO4FuxqEksdt9zetzKisQBx5tXjJ4gJ14MzkQJU=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 6664
+							"size": 6816
 						},
 						{
 							"type": "file",
 							"name": "toast.js",
-							"hash": "iIq4GgoSWyvImGFoAw3+y1j4cLfXqH7zgpotGx94PtA=",
+							"hash": "Rw37cYZ7EgOE6Ic/GIoNKBN7vxKjXlXaxjFf+0AoecQ=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 5185
+							"size": 5226
 						},
 						{
 							"type": "file",
 							"name": "tooltip.js",
-							"hash": "kieDitlwQkAYbsymwg6p8CwYlm+zzlkRJ5aSUjyR2bM=",
+							"hash": "p1YqndYGJVfWDD0dCr+R/HbLIqyMuUTZ2XKEjG+ZpCU=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 19214
+							"size": 19089
 						},
 						{
 							"type": "file",
 							"name": "util.js",
-							"hash": "L3V02OIVE+21zwtkGq1rGfXHHK9gQclkdjItgv8isLo=",
+							"hash": "09h/IEyGiisLiNt0fWSV4Y9uLXuO17AiVdQRYFXG4+A=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 5377
+							"size": 5417
 						}
 					]
 				},
@@ -122,72 +122,72 @@
 						{
 							"type": "file",
 							"name": "alert.js",
-							"hash": "tN2CjBwatA75Ku45hvZJc/XgORy/6kGFDhX63P9/gRA=",
+							"hash": "OvQbq2pep1Gbp8CNHCXYRrRXLr1oXoFutRgi0vv9y64=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 5520
+							"size": 5578
 						},
 						{
 							"type": "file",
 							"name": "alert.js.map",
-							"hash": "VOdMAdQ3pAA366QTIdmGvJS9eBgrDY5IbpBk08oBta8=",
+							"hash": "ol9Y9d26pn42O3WyUO9wMif3vwCaiaXrN4m52NVzKZQ=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 8139
+							"size": 8041
 						},
 						{
 							"type": "file",
 							"name": "button.js",
-							"hash": "szmwwCr99AJOFK+qmjwjz+O7O9kMUVtlO69QxgiZFf8=",
+							"hash": "Sp5sbJVogmqAlsLPsEHKOoEzOnEBqv8PH2m3o0zhXdk=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 7573
+							"size": 7695
 						},
 						{
 							"type": "file",
 							"name": "button.js.map",
-							"hash": "ISBxHGOLaOhHNsWHBq6jrchd5QI+rP+FlR9qQNt2UIc=",
+							"hash": "hJra8KU0nj+OnIEfuRPyyobMcqfLAq/K1NpdRc2ItFo=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 13047
+							"size": 12901
 						},
 						{
 							"type": "file",
 							"name": "carousel.js",
-							"hash": "RPfcmOqi7WIZDX3gJeqitYcd45ErHd1LIkHRO+2LDcg=",
+							"hash": "cIQoUgHkftQz+y6MVk5lBgdr3jcRSuY1rf4Q7wPBIn4=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 20686
+							"size": 21048
 						},
 						{
 							"type": "file",
 							"name": "carousel.js.map",
-							"hash": "udOzQMedan7CjeJbl/ayFfoLAIFysvlvuplr/Ux63CA=",
+							"hash": "C41v9V+QK5iREGc4RMUCMSz61z7LBn75p5v9BQLsKwA=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 36104
+							"size": 36018
 						},
 						{
 							"type": "file",
 							"name": "collapse.js",
-							"hash": "doM4Y0r/ZwU0uEsIGUsMvLiVfMqkJYqTIqlF7r17W1A=",
+							"hash": "4C5HuoTgE8YKI7lsUceBxOx2EmGSGUqF03eHcK39uHo=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 13669
+							"size": 13848
 						},
 						{
 							"type": "file",
 							"name": "collapse.js.map",
-							"hash": "bC2w2eR8BjjGcNENdok3xBioAr4/nuxDQWGpQ3NrtDg=",
+							"hash": "YfRALhiTAl+ybCHAIIdcDlOkNV7bd1QmjH200rJ4Mb4=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 22845
+							"size": 22593
 						},
 						{
 							"type": "file",
 							"name": "dropdown.js",
-							"hash": "k+MvLnVVD+7jgjA2r/BVM93T2MrvABLPpTqDNkojZ/I=",
+							"hash": "9cjY7OeVaWj5M802VzUHMoYtbx2L6NZbzK0fWLDxqcQ=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 18754
+							"size": 18912
 						},
 						{
 							"type": "file",
 							"name": "dropdown.js.map",
-							"hash": "TeME2pt544Gy3+gBGd+iKAwq1jsEsA4PYNZ9HjtPPXk=",
+							"hash": "/dVinwb53uLmZZdxXrDJayADkSI6HKX5iwixgdlsKYU=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 31744
+							"size": 31203
 						},
 						{
 							"type": "file",
@@ -206,100 +206,100 @@
 						{
 							"type": "file",
 							"name": "modal.js",
-							"hash": "dofhbzb6jjTWb+2JtKQJIegpYySCRGQHogk5wRhJUyc=",
+							"hash": "awHnjWtoIENLRJbm5agTRrMbzl8RDf1b9yiVSW+idzI=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 21298
+							"size": 21776
 						},
 						{
 							"type": "file",
 							"name": "modal.js.map",
-							"hash": "/UXNAtIXHMBX/VL5DKyKW1sg3di0HCMAEzcQLIRHlME=",
+							"hash": "pc6hcgu8VxRGRBNeHfVfxz/F9O2EpAXQHY/9vuNrFPA=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 36926
+							"size": 37124
 						},
 						{
 							"type": "file",
 							"name": "popover.js",
-							"hash": "3GQyZTaZcuU4wBAOHAdm5vg+E0jzraCOPmnLeKgs/Os=",
+							"hash": "cMdGu+sGdBNXh9eRm0zVSYPa3T49bP8S9XlK9EwdYto=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 7879
+							"size": 7967
 						},
 						{
 							"type": "file",
 							"name": "popover.js.map",
-							"hash": "y5/Dz51GsG0/tA71jFjANCB9NhEZMquQx++LPyfwPPQ=",
+							"hash": "gOTs59iIlmGleN66bM3TbsrLVdFqpDjKyKmdSRBxbFM=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 8962
+							"size": 8894
 						},
 						{
 							"type": "file",
 							"name": "scrollspy.js",
-							"hash": "RaYnFWflwRStfVzl17tjm6WHlCElQEFeuT/WlLzx1hM=",
+							"hash": "tkT4DUpZJ2A6hoT+ZTzEL71ueL5fJNb5psoYIsY3/jA=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 12123
+							"size": 12177
 						},
 						{
 							"type": "file",
 							"name": "scrollspy.js.map",
-							"hash": "A79qO6Ga/mW2MShfKwrrrgg4zcRCchzi2QN19eBxQuI=",
+							"hash": "JdJ5ouM5Nda8osKBhPg3GngwQcx59OTVIAyWX/5nX9s=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 19318
+							"size": 19015
 						},
 						{
 							"type": "file",
 							"name": "tab.js",
-							"hash": "p5C5QbMgrY/UPvw1jBSPHqTMyNpXmgEsFL9s5f34JDU=",
+							"hash": "UmQXNMj+92Vp/dtTnpupdxbrIufOGLnlQd5an17tM1k=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 8173
+							"size": 8357
 						},
 						{
 							"type": "file",
 							"name": "tab.js.map",
-							"hash": "FsdcamMLNF1lB7h6Nts10o9b+aU3kR06fvA9WdHUpzI=",
+							"hash": "IQqX8U8Qavv/urJATeEPkkpYSmMrW0m2oyADzEhynkI=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 14579
+							"size": 14543
 						},
 						{
 							"type": "file",
 							"name": "toast.js",
-							"hash": "PucueDrD72zanvu3B/rUg0lJIo7T8M70qD9jjfQAq8s=",
+							"hash": "F04RUQ2PWMczjjkxzWLyDev4zyVUVgjM+4UZcQVT/iM=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 8290
+							"size": 8411
 						},
 						{
 							"type": "file",
 							"name": "toast.js.map",
-							"hash": "VP5yBYTe2zm70h9b7oVuJfWQO2xkqNua/1xjiRPrJI0=",
+							"hash": "watThghpcACVD1DiKiQICLCuRoU8hPx9tLnyGhH+FD0=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 11316
+							"size": 11168
 						},
 						{
 							"type": "file",
 							"name": "tooltip.js",
-							"hash": "hGDaAvqbXKsP2xUgwfA3K2kZeEkpTFG8QvGj698ZS3s=",
+							"hash": "Pt0mKe7EhXcwh64R479WX/iPfJWD+yT90x1GqjvUSTQ=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 27211
+							"size": 27338
 						},
 						{
 							"type": "file",
 							"name": "tooltip.js.map",
-							"hash": "DlCiPzizMSnWWYSQbX+64le0kAFHiq2cicXnnN1Z/Hw=",
+							"hash": "8e47Bfy2YF2ZWUaSouUZinve+3FDO5JVXHbAi0SsDV8=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 50097
+							"size": 49522
 						},
 						{
 							"type": "file",
 							"name": "util.js",
-							"hash": "F+qCG4GXRX9CzGZ2Zkb5slzZvqH879KIbAKqfUUNybI=",
+							"hash": "f5n+hVBf5MJKxUGGEvAw+cIa78tS5fTUuS0NLE8m/Xs=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 6585
+							"size": 6656
 						},
 						{
 							"type": "file",
 							"name": "util.js.map",
-							"hash": "cZRCQ6b4sKXZ3S/eA6x8Vsz1zoafpwscyLIEyN+UAYc=",
+							"hash": "9oHUD9Pwrr8Kwfhdi/CCYCUJSc/CY8mMza2/o4bN+Gs=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 11534
+							"size": 11641
 						}
 					]
 				}
@@ -316,58 +316,58 @@
 						{
 							"type": "file",
 							"name": "bootstrap.bundle.js",
-							"hash": "Z1t+wxZ7Eh5T1sK6aePWMhEQOghR4jZVLwjwrUZAReE=",
+							"hash": "Bu2KGZCt5rR0kU0i5x8rQx5lUEWxa5aurmdDGPpM5kY=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 227980
+							"size": 229201
 						},
 						{
 							"type": "file",
 							"name": "bootstrap.bundle.js.map",
-							"hash": "MZA+0J30/EBY/lIz2VtRKMdEorsbIe2k7WS/jv7XTHg=",
+							"hash": "TXaapJpKp6oMccLBXzrsbFoOW7HFtTe201J9DJyWATE=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 410007
+							"size": 409130
 						},
 						{
 							"type": "file",
 							"name": "bootstrap.bundle.min.js",
-							"hash": "OUFW7hFO0/r5aEGTQOz9F/aXQOt+TwqI1Z4fbVvww04=",
+							"hash": "Xt8pc4G0CdcRvI0nZ2lRpZ4VHng0EoUDMlGcBSQ9HiQ=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 80698
+							"size": 81084
 						},
 						{
 							"type": "file",
 							"name": "bootstrap.bundle.min.js.map",
-							"hash": "ATbmdLkt5D+8ZF364IaCLq7w+x1fZ38gry+Aw17Qocw=",
+							"hash": "5WAvE5ZcNUMCu4HYEc0Gv2Gd+EFykkbDvJYJwQ7Mvh0=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 318045
+							"size": 315300
 						},
 						{
 							"type": "file",
 							"name": "bootstrap.js",
-							"hash": "66f6uQTQkvHF8jpniLWJjnteEfmQaC/tATFew/nTBA8=",
+							"hash": "i/Jq6Tc8SbPMBrnvq/sOTfH81hW5emVa4OzZPqhcwtI=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 135079
+							"size": 136323
 						},
 						{
 							"type": "file",
 							"name": "bootstrap.js.map",
-							"hash": "FUPJLg0ukkpKtsGVOE30OFyp8jFEMgqzGaBPLYPe+gQ=",
+							"hash": "5SIq5DmM5XNNMpgU1BSytMiN5i4e3aKsoQxfFmrGAto=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 256099
+							"size": 253935
 						},
 						{
 							"type": "file",
 							"name": "bootstrap.min.js",
-							"hash": "WqU1JavFxSAMcLP2WIOI+GB2zWmShMI82mTpLDcqFUg=",
+							"hash": "OFRAJNoaD8L3Br5lglV7VyLRf0itmoBzWUoM+Sji4/8=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 60010
+							"size": 60174
 						},
 						{
 							"type": "file",
 							"name": "bootstrap.min.js.map",
-							"hash": "F9K+Fx+uA/7x9dexmlkYOiihS8oNbqOjYfPvhgs19Us=",
+							"hash": "siwXRKyZwzTwuqSpkGzWliC5eilXfXwyGsNVjNxfT7k=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 194435
+							"size": 191486
 						}
 					]
 				},
@@ -378,86 +378,86 @@
 						{
 							"type": "file",
 							"name": "bootstrap.css",
-							"hash": "A47OwxL/nAN0ydiDFTSGX7ftbfTJTKgiJ0zqCuTPDh4=",
+							"hash": "1hm7xPFY4HL/GPfWz595kcNLVmuMC43nPagoQhWTb58=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 197170
+							"size": 198313
 						},
 						{
 							"type": "file",
 							"name": "bootstrap.css.map",
-							"hash": "d6gZH09U0l7HXf/YDvuhR/F0Pb0FGEDEC5odrmo/56Y=",
+							"hash": "mXPO1k4qC18bmyrZGIGaAouoHqKBEWK0nJsuUfFqofE=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 504418
+							"size": 508232
 						},
 						{
 							"type": "file",
 							"name": "bootstrap.min.css",
-							"hash": "L/W5Wfqfa0sdBNIKN9cG6QA5F2qx4qICmU2VgLruv9Y=",
+							"hash": "aAr2Zpq8MZ+YA/D6JtRD3xtrwpEz2IqOS+pWD/7XKIw=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 159515
+							"size": 160403
 						},
 						{
 							"type": "file",
 							"name": "bootstrap.min.css.map",
-							"hash": "jHgU12LiLOiM/9lbDcvvEk20pgpAHhIKPeGcIiYyEFg=",
+							"hash": "0lS26Jnk44zm8jeCs+kutUt9wdfwM5ALQDJDLbrxX54=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 641867
+							"size": 646432
 						},
 						{
 							"type": "file",
 							"name": "bootstrap-grid.css",
-							"hash": "ioAA5G7gdssuN24SL2ByxTMiyg5m5PnP3I4TS5hNIYA=",
+							"hash": "PM4GO42KoMjqwoXyG9KN7R68yxVdOLsFbTbV6T970+k=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 67871
+							"size": 67959
 						},
 						{
 							"type": "file",
 							"name": "bootstrap-grid.css.map",
-							"hash": "BBNUXl+MGbSMSgOvOkx+lss3OvmxFCsTywTCujSC5zA=",
+							"hash": "Ih1sfbw7LZU7Rc2h3U1ndg2Qm0CC+twQThtxxNTPIQI=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 157964
+							"size": 158858
 						},
 						{
 							"type": "file",
 							"name": "bootstrap-grid.min.css",
-							"hash": "UQsknf/mQPLQ3ybNMD/V2mKe4JGc7KuYUxOhjQW0P18=",
+							"hash": "4hb0ms2+lEuANNAyOsA8sVYq2208vHZ76+gepW4dpgM=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 50935
+							"size": 50995
 						},
 						{
 							"type": "file",
 							"name": "bootstrap-grid.min.css.map",
-							"hash": "3gQqPuDIuhYVYHmbim1j5moZ6jMVltiyvt+n6Tc4rjU=",
+							"hash": "BtW0sP7Y61JDcSnlFg3alKLlevlmcMZzxLl1Z+a6i5s=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 115021
+							"size": 115803
 						},
 						{
 							"type": "file",
 							"name": "bootstrap-reboot.css",
-							"hash": "85C3a9zSi7fgJ3oaIOIMFz+DNYvAgEE9QEKix2mzvzk=",
+							"hash": "51QrAVIhLXt+SoOxWeVXN1prxWamwam/xojOiZ9kV9M=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 4793
+							"size": 4740
 						},
 						{
 							"type": "file",
 							"name": "bootstrap-reboot.css.map",
-							"hash": "NxP5UTL7VML8IB1n9uM4+J4Ta+5COdQi6WMkOHSwT34=",
+							"hash": "iNRTn+n7P3ZKIKv62TdaHuFZGZBlSUDMry81yVqe3DM=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 77346
+							"size": 77337
 						},
 						{
 							"type": "file",
 							"name": "bootstrap-reboot.min.css",
-							"hash": "pTFzHsh1e+rz97pjNUpygMbwPzZM3iI3jPd9k4PBTko=",
+							"hash": "xYVniYXUBtVTE4ja+KwHMJju/nGqmLCOJxoKGhnkspU=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 3927
+							"size": 3879
 						},
 						{
 							"type": "file",
 							"name": "bootstrap-reboot.min.css.map",
-							"hash": "eZHe0sTnRF6yo370FD/6yAlMzziyMngqmC4x5k0ETyc=",
+							"hash": "FODw8k8W/CcV6GSJ/y3Q3b2qfCrcQ0wmDxAnAgN/ErU=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 32546
+							"size": 32286
 						}
 					]
 				}
@@ -481,9 +481,9 @@
 						{
 							"type": "file",
 							"name": "_background-variant.scss",
-							"hash": "bvrtO0o0WVDStOi5EDrgFQAMO3LNL21JU/4LDhEkggg=",
+							"hash": "ilI4Nz5oHNMWKoOXUMcoSu+0Rpx/nIAqso4vSmkEq2U=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 581
+							"size": 695
 						},
 						{
 							"type": "file",
@@ -495,9 +495,9 @@
 						{
 							"type": "file",
 							"name": "_border-radius.scss",
-							"hash": "R5ARNOGdpda7DtQ1BDMORxeWJksIRhZ1q/hCV5TnZfs=",
+							"hash": "45wJ2zeg/heeKRot8oKauwCoiI4r09mT8XvwB9Dhthg=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 1340
+							"size": 1822
 						},
 						{
 							"type": "file",
@@ -516,9 +516,9 @@
 						{
 							"type": "file",
 							"name": "_buttons.scss",
-							"hash": "eWXD/ERe5mHhkJq/+kiu5Jl24mv9qygMT4mMFwrV3DM=",
+							"hash": "bxtNEi/jA37xD8arNNHSvZ+v52gV+4yAZvAENUWcKsc=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 3492
+							"size": 3525
 						},
 						{
 							"type": "file",
@@ -551,9 +551,9 @@
 						{
 							"type": "file",
 							"name": "_forms.scss",
-							"hash": "5Ie7Uvkq5eNQxGjoyPBWpCla7CZLV9Y+Wuv0J3qBxBk=",
+							"hash": "1yHVQX3v/0KCuWyiG35mVHsbIi5s51jcnjLMSO68Eik=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 5094
+							"size": 5105
 						},
 						{
 							"type": "file",
@@ -572,9 +572,9 @@
 						{
 							"type": "file",
 							"name": "_grid-framework.scss",
-							"hash": "sCsLxeReyxpnwW6v6DS95ZLUTfejHfJdBRSXo++oUsY=",
+							"hash": "QPybnOd5j0BdUhqAK798cUFzVUbRYHOSn51johQnw8k=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 1901
+							"size": 2163
 						},
 						{
 							"type": "file",
@@ -677,9 +677,9 @@
 						{
 							"type": "file",
 							"name": "_transition.scss",
-							"hash": "vhjV69WuiJRQy3ouTzgGzphsL7UIW7KfQEnFT4BJ+kk=",
+							"hash": "jXr0g6tzwNv/w0aBijhFx9PngFe3mP2plNjr0HpNt1M=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 364
+							"size": 675
 						},
 						{
 							"type": "file",
@@ -704,9 +704,9 @@
 						{
 							"type": "file",
 							"name": "_background.scss",
-							"hash": "IqqsFrLvKVmbeu9qu51m+1fsLWYiZ+qpN8ARvu2DodM=",
+							"hash": "LwYIpjMB3qCIvCj7K6EPTV6MdgMupVnlHVNWdjDmYqY=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 403
+							"size": 409
 						},
 						{
 							"type": "file",
@@ -749,6 +749,13 @@
 							"hash": "7ifsNuyjJOS/CacHjYVparpqTTRtDYPghhX+li2Wulo=",
 							"time": "1985-10-26T08:15:00.000Z",
 							"size": 376
+						},
+						{
+							"type": "file",
+							"name": "_interactions.scss",
+							"hash": "Ty3A0vvrhpI0g2sTAfqNV10m5ytfGcwMlY47RfrJiuM=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 142
 						},
 						{
 							"type": "file",
@@ -802,9 +809,9 @@
 						{
 							"type": "file",
 							"name": "_text.scss",
-							"hash": "Wp5P59rpHTue8DRqgrn+WUjeFFezo3lTBUTOi7XONG0=",
+							"hash": "rLLUMQwIoe88PppnF1wJxnf1ixixdbILgo6bJTy8L3s=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 2018
+							"size": 1959
 						},
 						{
 							"type": "file",
@@ -845,9 +852,9 @@
 				{
 					"type": "file",
 					"name": "_breadcrumb.scss",
-					"hash": "NIni/N2vTCtj25I+11yZ9gg230hFmC1IV7qLJk0TQ5c=",
+					"hash": "JQ8SIctVME/eBsRb/OIhq+ND3Gl8+Abei9NA4YqGvAg=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 1335
+					"size": 1353
 				},
 				{
 					"type": "file",
@@ -859,16 +866,16 @@
 				{
 					"type": "file",
 					"name": "_buttons.scss",
-					"hash": "zkzNvXAQkVFLjDVFk+VNueB+KTW0Fc2q5LJ/A6rbsZ8=",
+					"hash": "pM9XD6GzJUKoYooqsCsMBufdCX3PJMATWI4ZVGLVjlo=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 2649
+					"size": 2685
 				},
 				{
 					"type": "file",
 					"name": "_card.scss",
-					"hash": "HCzZtQkN9xsyfWgg4Vc6O1s1Anomv38k8jYExbk1+dQ=",
+					"hash": "ge+1gs20Sv86ws5urYpwf8U3W2MaUFNyHYb+Is2kneU=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 5616
+					"size": 5691
 				},
 				{
 					"type": "file",
@@ -880,9 +887,9 @@
 				{
 					"type": "file",
 					"name": "_close.scss",
-					"hash": "HCoFulB6yy9NoLyy9QoyXrdiZXaq5eRZYl44hqciD94=",
+					"hash": "5INFKPFZTw/IV5hXz7ahW+sDm3jJAtkWthCy7eh0pnM=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 960
+					"size": 940
 				},
 				{
 					"type": "file",
@@ -894,37 +901,37 @@
 				{
 					"type": "file",
 					"name": "_custom-forms.scss",
-					"hash": "tA+pX0yiF72qZnWAu71PDkF8UTkk6/XEO0TLMfrb6sI=",
+					"hash": "BbgtLotQg0BMM9FrK1/mQCL/rOPQeDoy9hmt2NMsfno=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 15445
+					"size": 15525
 				},
 				{
 					"type": "file",
 					"name": "_dropdown.scss",
-					"hash": "yY8B1lmBDESOM3/B/RqahMJ0Rgrxd0Fg9Ip8+25R9D8=",
+					"hash": "A6B/xWqVyoEUPyXoK+ozgJc+CGIp8/kH4Ju0/uWtC4E=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 4373
+					"size": 4414
 				},
 				{
 					"type": "file",
 					"name": "_forms.scss",
-					"hash": "hS9o9LiqSNqTWxUoWlzEzTeY6S3kL6nqO3G9FKEE2DQ=",
+					"hash": "gB44Cx6t72UNnGinq49d1v9H7stTLCFatWrqr6wOOfw=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 9058
+					"size": 9242
 				},
 				{
 					"type": "file",
 					"name": "_functions.scss",
-					"hash": "9FDzfeCVCPttB018gTUlr5gJkp+7ueGEPeYi5dVHuk8=",
+					"hash": "gZxhLWjcAo8bQ6osbAk1vTzjPNV0Bz5t2JSyd3Ueo/Q=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 3896
+					"size": 4129
 				},
 				{
 					"type": "file",
 					"name": "_grid.scss",
-					"hash": "HLGXS0iXE8Wt8jM9exI/NaabGcZtlt53WEWFa8z/gzQ=",
+					"hash": "ZTtz+rYR6CcqCjc3acN/jIcng3RZLnGjYg6Yb/AiBRw=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 1583
+					"size": 1824
 				},
 				{
 					"type": "file",
@@ -936,9 +943,9 @@
 				{
 					"type": "file",
 					"name": "_input-group.scss",
-					"hash": "3jUkxMjAR4Reppi86OyyOzCwEBIMy7M8FihzKBuCElM=",
+					"hash": "BJcMIZc5ZvLmfBiAdZ7nVXk2ywcqEWhtEVET1D4D1F4=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 5787
+					"size": 5804
 				},
 				{
 					"type": "file",
@@ -950,9 +957,9 @@
 				{
 					"type": "file",
 					"name": "_list-group.scss",
-					"hash": "4t1I3wogucXFv7+WvskNyuYHtpV69+s4u4+jaOm3Fts=",
+					"hash": "ny23omfCdaFbLxCZgJHvNksX1MKR/sxKQYuQ4MeXkec=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 3886
+					"size": 3872
 				},
 				{
 					"type": "file",
@@ -971,16 +978,16 @@
 				{
 					"type": "file",
 					"name": "_modal.scss",
-					"hash": "SuPNNQd2lMes/NAVaQYuGVvCeuoKyEdnqBKwnhfDrUg=",
+					"hash": "6Idv2PVO7GOYF3h3irhxwzXvIY4cL5ghnSeF4eCngq8=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 6278
+					"size": 6364
 				},
 				{
 					"type": "file",
 					"name": "_nav.scss",
-					"hash": "UtjRRZGuvi3BjtIkAD+FQMmdlFAYDZAVCmeUXXvlfPI=",
+					"hash": "QW8HOYJC9DQ+WpoXM5TgrBE2maNzXctXvTF9FKRyUYs=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 2082
+					"size": 2143
 				},
 				{
 					"type": "file",
@@ -992,9 +999,9 @@
 				{
 					"type": "file",
 					"name": "_pagination.scss",
-					"hash": "wmDuoYTW5nySpEgOtVC8LxKOgbGjrS+AHNkhtnvXWx0=",
+					"hash": "mx5AD599JfQZ/wDFclGVQAD58CMe6foLxDe8xSlpapE=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 1740
+					"size": 1801
 				},
 				{
 					"type": "file",
@@ -1013,16 +1020,16 @@
 				{
 					"type": "file",
 					"name": "_progress.scss",
-					"hash": "iDUZwRgYKK5mwwvpp4GHubQRI64S9K3GcwimbcHioR8=",
+					"hash": "zDCDDPd3I2c4VohmL7Uf4USD1wAN5rBvb1f5eXG/JvU=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 1153
+					"size": 1171
 				},
 				{
 					"type": "file",
 					"name": "_reboot.scss",
-					"hash": "U93OMD7KT2t+M1N9Rtp9vEfmsa62T33+GFufRaXIlmA=",
+					"hash": "q8gwrs8cpUDJCwws73gCVGgFRVIUEMh21vdIJpK1nro=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 11504
+					"size": 11383
 				},
 				{
 					"type": "file",
@@ -1034,9 +1041,9 @@
 				{
 					"type": "file",
 					"name": "_spinners.scss",
-					"hash": "O6xtGtdMe9sVbp6Vq5YTBp3VRRxpCx4yuJZ4Pq11BmA=",
+					"hash": "UCwmHJCfCWiqmEoWj80c0JdBvaoKrOmByVhWgj9+59s=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 1051
+					"size": 1072
 				},
 				{
 					"type": "file",
@@ -1076,35 +1083,35 @@
 				{
 					"type": "file",
 					"name": "_utilities.scss",
-					"hash": "KkPUR7Jluyo+OMBFF+WC94nxYCrFiPTIvORgyqtnPIU=",
+					"hash": "BdSpD4wQpsL97FWBunP57KaT7CFq2pTsNjY4KJwvyGM=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 502
+					"size": 536
 				},
 				{
 					"type": "file",
 					"name": "_variables.scss",
-					"hash": "i20+tucbG5LulCp3YEsGhKABxFGDsskRgTLLmeTJMuY=",
+					"hash": "kvJh0fc1qx5MxsbjHB3k9LC3Qu8QTG/b362RnWhoVtA=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 48459
+					"size": 48621
 				},
 				{
 					"type": "file",
 					"name": "bootstrap.scss",
-					"hash": "3V1BAbcbWKhG9cJNnWT0wuBhkhiHZZ4zKY88SgWspO0=",
+					"hash": "OlfrltFLNoy7UM9xiVmpIQ56CyvdLiSw84C2Trzl3Jw=",
 					"time": "1985-10-26T08:15:00.000Z",
 					"size": 920
 				},
 				{
 					"type": "file",
 					"name": "bootstrap-grid.scss",
-					"hash": "KcMawiaiIcTpFBQWSAS2oHMv3Mj/j6L2ydZopVz946o=",
+					"hash": "zieTJAsHp95Qxdj2r+AESS5+2SfQcN0OYBXmqHs1LY8=",
 					"time": "1985-10-26T08:15:00.000Z",
 					"size": 572
 				},
 				{
 					"type": "file",
 					"name": "bootstrap-reboot.scss",
-					"hash": "+/ATzUj9nY5Na4nAD0GdR4t7sLuCmgr85EdAvi8d9Sg=",
+					"hash": "aYco1b4QOhGr8ekBJmnvaVA9iRem2LM4VU8BPnWLKIE=",
 					"time": "1985-10-26T08:15:00.000Z",
 					"size": 411
 				}
@@ -1113,23 +1120,23 @@
 		{
 			"type": "file",
 			"name": "LICENSE",
-			"hash": "B02ZuMJdE2SdrFIICQDujI0jc9B+o/T7Z70r95qozHI=",
+			"hash": "uunJtY5PqFdBggL7t4JIXPsTUExdWf4eu0i882swmJ4=",
 			"time": "1985-10-26T08:15:00.000Z",
 			"size": 1153
 		},
 		{
 			"type": "file",
 			"name": "package.json",
-			"hash": "0qrjrK3Vt0mzwtAk5691IbAxHpaRbHwgz6b8yCJOHYg=",
+			"hash": "X8p8+zlSXDi4GJIlwfXey3AeEt4sG25dexgPYaJcY50=",
 			"time": "1985-10-26T08:15:00.000Z",
-			"size": 10165
+			"size": 10249
 		},
 		{
 			"type": "file",
 			"name": "README.md",
-			"hash": "XHNbOUeXPg5ANcs8bpeJ2/3OBtlWkEiFFV1DDu3IegA=",
+			"hash": "iiYytJ+T7lCPehV9q4xcmZH8um6fTDPsN7VN/Fq6mDs=",
 			"time": "1985-10-26T08:15:00.000Z",
-			"size": 11952
+			"size": 11991
 		}
 	]
 }

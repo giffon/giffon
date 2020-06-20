@@ -53,6 +53,13 @@
 						},
 						{
 							"type": "file",
+							"name": "bwp.svg",
+							"hash": "BkHcZWMSkaA2ennLtYFJfx6Hsk2J+VR66qFabefAoz8=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 382
+						},
+						{
+							"type": "file",
 							"name": "cad.svg",
 							"hash": "AruEOnrejaVDlYggkpQBj20XIKUe1iO2FEmKxPHsVYI=",
 							"time": "1985-10-26T08:15:00.000Z",
@@ -354,7 +361,7 @@
 						},
 						{
 							"type": "file",
-							"name": "ved.svg",
+							"name": "vnd.svg",
 							"hash": "BYyzgjg1NA81Wog4XYf5TF01iXLlOrZSMbfr7pGSric=",
 							"time": "1985-10-26T08:15:00.000Z",
 							"size": 313
@@ -394,9 +401,9 @@
 		{
 			"type": "file",
 			"name": "CHANGELOG.md",
-			"hash": "rpsdCIoaOFwnEEGF6858CDAP3/S/wJp6H/nZnW2URH0=",
+			"hash": "Qzgh8YcNILKx+fSXt+w2jFCSltZ819fuuHW9HZ+PFYA=",
 			"time": "1985-10-26T08:15:00.000Z",
-			"size": 1894
+			"size": 1927
 		},
 		{
 			"type": "file",
@@ -408,7 +415,7 @@
 		{
 			"type": "file",
 			"name": "package.json",
-			"hash": "kP4XxqOa60fTV3w01WYhH9et6KWwFx+WljMjHsFxN64=",
+			"hash": "tHUuA2dx9SUkV6nQ8+d8rPErav4RK7G1xGy/pU1R4aM=",
 			"time": "1985-10-26T08:15:00.000Z",
 			"size": 1455
 		},

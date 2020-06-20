@@ -7,52 +7,45 @@
 			"files": [
 				{
 					"type": "file",
-					"name": "core.js",
-					"hash": "36hEPcG8mKookfvUVvEqRkpdYV1unP6wvxIqbgdeVhk=",
-					"time": "1985-10-26T08:15:00.000Z",
-					"size": 9165
-				},
-				{
-					"type": "file",
 					"name": "jquery.js",
-					"hash": "WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=",
+					"hash": "QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 280364
+					"size": 287630
 				},
 				{
 					"type": "file",
 					"name": "jquery.min.js",
-					"hash": "CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=",
+					"hash": "9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 88145
+					"size": 89476
 				},
 				{
 					"type": "file",
 					"name": "jquery.min.map",
-					"hash": "216gdJ9jyl9OLrNNj28ZfQS92h9jPHKgx3y0us/UhLE=",
+					"hash": "PVB97BePQ5JED6qSU7EvSun5iseF5FinCKtqsv5X9uA=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 136397
+					"size": 137974
 				},
 				{
 					"type": "file",
 					"name": "jquery.slim.js",
-					"hash": "BTlTdQO9/fascB1drekrDVkaKd9PkwBymMlHOiG+qLI=",
+					"hash": "DrT5NfxfbHvMHux31Lkhxg42LY6of8TaYyK50jnxRnM=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 227022
+					"size": 234458
 				},
 				{
 					"type": "file",
 					"name": "jquery.slim.min.js",
-					"hash": "pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=",
+					"hash": "4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 71037
+					"size": 72380
 				},
 				{
 					"type": "file",
 					"name": "jquery.slim.min.map",
-					"hash": "mkFzDPrhy67J6+u0ZJ5/YWI2tRKsN8EQepzr5Alu3jw=",
+					"hash": "S2HeKRockqXRdtAyW27zc+B1Fc/MQcaM5InawBgdJs4=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 108757
+					"size": 110370
 				}
 			]
 		},
@@ -71,23 +64,23 @@
 								{
 									"type": "file",
 									"name": "sizzle.js",
-									"hash": "5oJ2RZA6adsiQeDuJpmp6lrN9PlkzoDzacwafQBqna0=",
+									"hash": "17BkQBrjNQ+gO+y4nFHEQ0Dw6JmMwJLnbodGGfCfeBg=",
 									"time": "1985-10-26T08:15:00.000Z",
-									"size": 65666
+									"size": 70539
 								},
 								{
 									"type": "file",
 									"name": "sizzle.min.js",
-									"hash": "sAaRsUlzG5WiDvqUf48qsdg3SDYDjhh9z0aN8vvsk/g=",
+									"hash": "TKLF9tmzik/CIYp0O02bVJa8YX+Tftzh5L8j+jqae1Q=",
 									"time": "1985-10-26T08:15:00.000Z",
-									"size": 19841
+									"size": 20239
 								},
 								{
 									"type": "file",
 									"name": "sizzle.min.map",
-									"hash": "BVsXOGgp6GNBqoPdJG42G2SqlkGCHg8PWpIm1d+7TEU=",
+									"hash": "KGT3856v0l/7pW/rkDzdFONPBbPKUfRiVaAx8tSq35o=",
 									"time": "1985-10-26T08:15:00.000Z",
-									"size": 30740
+									"size": 31100
 								}
 							]
 						},
@@ -124,9 +117,9 @@
 								{
 									"type": "file",
 									"name": "nonce.js",
-									"hash": "HzElH0ZgKBO0nJ6KzAB+OnYMJ6ik6Hg10mQb8K+wrmw=",
+									"hash": "QRkQqlaDsTyB9RjVD6CwFxRIvWQDiz6N6UsIkdHbuBA=",
 									"time": "1985-10-26T08:15:00.000Z",
-									"size": 62
+									"size": 72
 								},
 								{
 									"type": "file",
@@ -140,9 +133,9 @@
 						{
 							"type": "file",
 							"name": "jsonp.js",
-							"hash": "tVTBERQnmWMG6tnXVXE+GTdkXymdOoW5EdqbjGPBUuc=",
+							"hash": "VhbXyUs7CVi4zkt2vsJZQDrYL/fa97hPMmjk0U2+0SY=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 2748
+							"size": 2753
 						},
 						{
 							"type": "file",
@@ -150,13 +143,6 @@
 							"hash": "E/w7IKRRf7ScdUBFu4bqMuHTSoqbfR9n1oWWpe9pacM=",
 							"time": "1985-10-26T08:15:00.000Z",
 							"size": 1904
-						},
-						{
-							"type": "file",
-							"name": "parseXML.js",
-							"hash": "OwiKK9msu9NcXZcM5SKxFnNuZjui8VTEJlhfO1nG/Kc=",
-							"time": "1985-10-26T08:15:00.000Z",
-							"size": 559
 						},
 						{
 							"type": "file",
@@ -181,9 +167,9 @@
 						{
 							"type": "file",
 							"name": "attr.js",
-							"hash": "qHbjXd7D00NHzu/va0PXjR/VjLhO5BOwh0cOwz8B3WE=",
+							"hash": "59feTynWAT7CgZSWhHSyic7628bGiEUAS1bCKnK/+hg=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 3271
+							"size": 3272
 						},
 						{
 							"type": "file",
@@ -235,16 +221,16 @@
 						{
 							"type": "file",
 							"name": "access.js",
-							"hash": "sYep2bgaUBYBHApUR2v4pxDpoK7K72kqM0aQRKP3Taw=",
+							"hash": "1429n6JnJucIsNp3c6Vv+Kl4A6M3Xx/1BKkYUO4zHgE=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 1311
+							"size": 1312
 						},
 						{
 							"type": "file",
 							"name": "camelCase.js",
-							"hash": "u1m3RokLYLL1vyZxtd7uagI8RR3af+CKygaC2uAqidE=",
+							"hash": "sRjg8BlXav8IZfTFjeJEdiJNh7G+bknpGcMyB+QfZgI=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 545
+							"size": 546
 						},
 						{
 							"type": "file",
@@ -280,6 +266,13 @@
 							"hash": "wodUQ/n+zMpSiZPrEfVSdjYmFPztugB/fZ3yyg7+aeo=",
 							"time": "1985-10-26T08:15:00.000Z",
 							"size": 1604
+						},
+						{
+							"type": "file",
+							"name": "parseXML.js",
+							"hash": "OwiKK9msu9NcXZcM5SKxFnNuZjui8VTEJlhfO1nG/Kc=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 559
 						},
 						{
 							"type": "file",
@@ -371,9 +364,9 @@
 								{
 									"type": "file",
 									"name": "swap.js",
-									"hash": "TSqE/YDEj/3RqDqsgldEGeVLLg8Me+JjJSviHxW7AOk=",
+									"hash": "rnYr9PTTnladiC6GDyNB1IWx8lHf/zTCuv+ecEzH58A=",
 									"time": "1985-10-26T08:15:00.000Z",
-									"size": 520
+									"size": 501
 								}
 							]
 						},
@@ -422,9 +415,9 @@
 						{
 							"type": "file",
 							"name": "support.js",
-							"hash": "GZVPCt3uYyg5PWYcD5Nqoiv8D2Tq6erj0fqDXcWrOBs=",
+							"hash": "V0JVTIevwxMH+WYkSLQfrswY+UwEI+mqxAg1hOFnwkk=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 3070
+							"size": 4093
 						}
 					]
 				},
@@ -483,6 +476,26 @@
 				},
 				{
 					"type": "directory",
+					"name": "deprecated",
+					"files": [
+						{
+							"type": "file",
+							"name": "ajax-event-alias.js",
+							"hash": "LGMmobvS65SYvJ3qxWY4+PHlGJU/o7B0tzulUOMT0iA=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 296
+						},
+						{
+							"type": "file",
+							"name": "event.js",
+							"hash": "yDb5+EZq4pu2JSddOIE70Yee+kwEYqS0fkManRcOkvo=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 1139
+						}
+					]
+				},
+				{
+					"type": "directory",
 					"name": "effects",
 					"files": [
 						{
@@ -507,24 +520,10 @@
 					"files": [
 						{
 							"type": "file",
-							"name": "ajax.js",
-							"hash": "ArU6C4c9SE15bNJMxrDBJwSwFyDdCGggaMVOXLBqCsM=",
-							"time": "1985-10-26T08:15:00.000Z",
-							"size": 346
-						},
-						{
-							"type": "file",
-							"name": "alias.js",
-							"hash": "Gv5HahNRZIX7/QvLceQUe7EYzsAwJsyv+BajYusVXnE=",
-							"time": "1985-10-26T08:15:00.000Z",
-							"size": 649
-						},
-						{
-							"type": "file",
 							"name": "focusin.js",
-							"hash": "Y3VPyZhTYSMZu9AaKo8Rq5Akx4Ik9NLULVC1Ne6EaqI=",
+							"hash": "a+xyQIusmICMhtUFqmcWAf0zGxU+A/Qw5Sy/2XB4F3s=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 1512
+							"size": 1665
 						},
 						{
 							"type": "file",
@@ -536,9 +535,9 @@
 						{
 							"type": "file",
 							"name": "trigger.js",
-							"hash": "IKgonWWEoWhVUbBpAruZcFZti9xgO3mE9UZTWK64c3M=",
+							"hash": "duV6l/uo0d0S3fkLHWMVGGceK3nTbhHl7jMJzRFbF44=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 5407
+							"size": 5435
 						}
 					]
 				},
@@ -556,9 +555,9 @@
 						{
 							"type": "file",
 							"name": "global.js",
-							"hash": "rHosNaT5dmyhSmObrJZx/ZNuz0nJ6aw9SwqVDxSR2qA=",
+							"hash": "0gkJFEUOjO75likoApzzvw0T+OhWpktpGPMck2knhF0=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 608
+							"size": 620
 						}
 					]
 				},
@@ -589,9 +588,9 @@
 						{
 							"type": "file",
 							"name": "_evalUrl.js",
-							"hash": "oWcwK4NLjcpNY8cs/pVf9+zHrCalWoGDI3yQjGg6ddI=",
+							"hash": "MSm8lidjXsHCKpftqTiXMOa+oa/RVxVwMB9FdCeV9oc=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 676
+							"size": 686
 						},
 						{
 							"type": "file",
@@ -617,16 +616,16 @@
 						{
 							"type": "file",
 							"name": "support.js",
-							"hash": "mwFmv1jIK7oxXl0EAIfURUqh8q2V3hGhRfSGIWpN3Dc=",
+							"hash": "AH6RZZcWrDujK95ZZPrcl5kC8OMwk7a+zZH5jvbFEKs=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 1034
+							"size": 1236
 						},
 						{
 							"type": "file",
 							"name": "wrapMap.js",
-							"hash": "AHGuue6dHLKu390mSw+QONln7rk/ltXLfg33P9JkxwA=",
+							"hash": "xJtAwpxzFN7MxtUYo1eXO3PKZXS3t1Odn7rlmoQt4Po=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 798
+							"size": 819
 						}
 					]
 				},
@@ -703,13 +702,6 @@
 						},
 						{
 							"type": "file",
-							"name": "concat.js",
-							"hash": "h+LQycndEDGbgbbXw5+XPh/unyHIw/LkaFA2c3D72Vo=",
-							"time": "1985-10-26T08:15:00.000Z",
-							"size": 81
-						},
-						{
-							"type": "file",
 							"name": "document.js",
 							"hash": "+gND7PEyGjy4zMBPzDjNx5L80bv+rMbglBOyjehkLEc=",
 							"time": "1985-10-26T08:15:00.000Z",
@@ -721,6 +713,13 @@
 							"hash": "UGnuEkSzjDDd72APy/FSv8HCuN4a6f/C3wXPIG0J6UQ=",
 							"time": "1985-10-26T08:15:00.000Z",
 							"size": 105
+						},
+						{
+							"type": "file",
+							"name": "flat.js",
+							"hash": "1nOV9o4uzd1Wwp2V0cKm2MaYNXf7zOmZjV1rUanE4zY=",
+							"time": "1985-10-26T08:15:00.000Z",
+							"size": 372
 						},
 						{
 							"type": "file",
@@ -831,17 +830,10 @@
 				},
 				{
 					"type": "file",
-					"name": ".eslintrc.json",
-					"hash": "ZDKr9Lt5usKACYHa3v5/OdQ5aM46ErbDTJWZEXTCMmw=",
-					"time": "1985-10-26T08:15:00.000Z",
-					"size": 156
-				},
-				{
-					"type": "file",
 					"name": "ajax.js",
-					"hash": "fEifAWGZW3BEE/Cy245zpg1KWq13b4+EtzodN7wY5lQ=",
+					"hash": "XvwXaPBxgh7i0H/ab1McgUKQVv1YaCHok1UcUgBEFzY=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 22463
+					"size": 22820
 				},
 				{
 					"type": "file",
@@ -860,16 +852,16 @@
 				{
 					"type": "file",
 					"name": "core.js",
-					"hash": "36hEPcG8mKookfvUVvEqRkpdYV1unP6wvxIqbgdeVhk=",
+					"hash": "uBpA8DOj+qmFHmETlJz87YrFLG5kB91Fh2pncoV09d0=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 9165
+					"size": 9179
 				},
 				{
 					"type": "file",
 					"name": "css.js",
-					"hash": "cko5Pfoz+8fbgmdz35rYP8RXdo1RRbh2lQU3c3p54Mc=",
+					"hash": "EzRFh9RzXdQxDaXO1lHsuJT8Pdg3/2JWBJtsyu3qQcQ=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 13828
+					"size": 14170
 				},
 				{
 					"type": "file",
@@ -881,16 +873,16 @@
 				{
 					"type": "file",
 					"name": "deferred.js",
-					"hash": "Kd+auRXZfDCYZhD61224u4QZqBLaK7+ZK8prJapeP94=",
+					"hash": "lmFpDuI2E35qWjy/SIFwW9wzsfStGPI2m7ZA+t29xSU=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 10997
+					"size": 10998
 				},
 				{
 					"type": "file",
 					"name": "deprecated.js",
-					"hash": "aAEeWMa5fB6vbILFB8fM9nYFB6ppuo+e5lLJEPCPAz8=",
+					"hash": "q/dQeYhpgEVfMZpXdeuLmvWV0ibbEXvIGxvpgkYuHp4=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 2467
+					"size": 2227
 				},
 				{
 					"type": "file",
@@ -902,37 +894,37 @@
 				{
 					"type": "file",
 					"name": "effects.js",
-					"hash": "yLUjrXFvh9KfR5QNQQjS3b68Bz6H9y7r2XwySiiWMXw=",
+					"hash": "oF4ExtNWwl3ltCZi0p993jg629ZbRjg5AXJ0LSZr5Aw=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 17455
+					"size": 17413
 				},
 				{
 					"type": "file",
 					"name": "event.js",
-					"hash": "IMxXyiWCE5YgT9lW43Qw6pzJAt/gg1yVOUKsr6LTW+g=",
+					"hash": "o5vF+3g5fpM9fAtRWGigUPUj/oHm5/hdkW/hIAnjNtE=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 24516
+					"size": 24579
 				},
 				{
 					"type": "file",
 					"name": "jquery.js",
-					"hash": "1J//37dUFd4Bl8WCE2NJx8Yhn4/76ufIZ9BgRlfBiec=",
+					"hash": "2T6Zw2SFqHlSeyDc1lUIfirDqIi/icjAIW1onq5IN+A=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 622
+					"size": 646
 				},
 				{
 					"type": "file",
 					"name": "manipulation.js",
-					"hash": "r3Ff7WoJaQ74p1vaXsN86JIZqdOexJEQkhOgQh3ZSYk=",
+					"hash": "LTb+GRm99L2I4ORzQeYrLtTHim8VIp4liDEYjZ3HnXc=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 12643
+					"size": 12318
 				},
 				{
 					"type": "file",
 					"name": "offset.js",
-					"hash": "7/5Q6xqAWgDcDhdaJzbqtxqZl0DYDRAIS5qn6rouZOM=",
+					"hash": "tlBEdcKTZ8n5eOPoPFvvclIP8ZzsL9C2bgiotQ3E/Y0=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 6868
+					"size": 6970
 				},
 				{
 					"type": "file",
@@ -951,9 +943,9 @@
 				{
 					"type": "file",
 					"name": "selector-native.js",
-					"hash": "gGuuEQzYbSpPrnQ8XFU2iYJwJff5DrFi2nXhyL3+BEs=",
+					"hash": "XKKGFhquzpjKrFR7qK3wuOSOANGU798tsbbRVAFbIAM=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 6394
+					"size": 6459
 				},
 				{
 					"type": "file",
@@ -965,16 +957,16 @@
 				{
 					"type": "file",
 					"name": "serialize.js",
-					"hash": "i/NzH1HOImX1JwkGM2wPxZ4gZ6pTmVDpqirRXJnqOLo=",
+					"hash": "iEWn0bHXDMS12uauXtNPdITwa3/3LQkSlCkSP8dZGGI=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 3241
+					"size": 3242
 				},
 				{
 					"type": "file",
 					"name": "traversing.js",
-					"hash": "En7l8DU43hqfJqIvt7r9uL/qRbK0OZuift9VsTSJ5II=",
+					"hash": "OLFn5XjEiUTBDHCWRrxn51OKNGwt7psV9O2mV3GW/d0=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 4500
+					"size": 4692
 				},
 				{
 					"type": "file",
@@ -988,9 +980,9 @@
 		{
 			"type": "file",
 			"name": "AUTHORS.txt",
-			"hash": "0mea7ZMUKe+4c8dB5fgWqq26DUcIkt6qXZYW2p/hIOc=",
+			"hash": "ylZ+aqv/XzZA+vw1A/P8GL7HYuZpsw5j602V27vfz24=",
 			"time": "1985-10-26T08:15:00.000Z",
-			"size": 11945
+			"size": 12245
 		},
 		{
 			"type": "file",
@@ -1009,16 +1001,16 @@
 		{
 			"type": "file",
 			"name": "package.json",
-			"hash": "VJHeNepqrhaxVjvoUN4snG8O4Ib4mD3pNuOsycPEZWU=",
+			"hash": "X/HUaxp6tESZN9nHDXryoAeFTAHFWLmSDLVfxLT0bVM=",
 			"time": "1985-10-26T08:15:00.000Z",
-			"size": 2870
+			"size": 3274
 		},
 		{
 			"type": "file",
 			"name": "README.md",
-			"hash": "aj52mbwipl4jM8KQlR3OLl6WpLUepbPMhoji0wptwNY=",
+			"hash": "BDCRyYegEcPxQYM28W8IwtCFbNSdDctV+849FZVNF4o=",
 			"time": "1985-10-26T08:15:00.000Z",
-			"size": 2054
+			"size": 2016
 		}
 	]
 }
