@@ -933,6 +933,7 @@ class ServerMain {
 
         stripe = new Stripe(StripeInfo.apiSecKey, {
             timeout: 10 * 1000, //10 seconds
+            maxNetworkRetries: 3,
         });
 
         var paypalEnv:Dynamic = switch (Stage.stage) {
