@@ -9,7 +9,7 @@ import haxe.Constraints;
 
 @:jsRequire("stripe")
 extern class Stripe {
-    public function new(apiKey:String):Void;
+    public function new(apiKey:String, ?config:Dynamic):Void;
 
     public var customers(default, null):{
         > Resources<Customer>,

@@ -931,8 +931,9 @@ class ServerMain {
             connectTimeout: 10.0 * 1000.0, //10 seconds
         };
 
-        stripe = new Stripe(StripeInfo.apiSecKey);
-        stripe.setTimeout(10 * 1000); //10 seconds
+        stripe = new Stripe(StripeInfo.apiSecKey, {
+            timeout: 10 * 1000, //10 seconds
+        });
 
         var paypalEnv:Dynamic = switch (Stage.stage) {
             case Production | Master:
