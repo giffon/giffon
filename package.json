@@ -75,7 +75,7 @@
     "dotenv-cli": "3.2.0",
     "emoji.css": "1.0.4",
     "envify": "4.1.0",
-    "formik-material-ui": "2.0.0",
+    "formik-material-ui": "2.0.1",
     "jquery": "3.5.1",
     "js-cookie": "2.2.1",
     "nodemon": "2.0.4",
