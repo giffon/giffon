@@ -67,7 +67,7 @@
     "validator": "13.1.1"
   },
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "5.13.1",
+    "@fortawesome/fontawesome-free": "5.14.0",
     "@material-ui/core": "4.11.0",
     "bootstrap": "4.5.0",
     "browserify": "16.5.1",
