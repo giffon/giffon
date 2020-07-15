@@ -34,7 +34,7 @@
     "express-mysql-session": "2.1.4",
     "express-pino-logger": "5.0.0",
     "express-session": "1.17.1",
-    "formik": "2.1.4",
+    "formik": "2.1.5",
     "helmet": "3.23.3",
     "httpolyglot": "0.1.2",
     "image-data-uri": "2.0.1",
