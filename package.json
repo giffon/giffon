@@ -52,7 +52,7 @@
     "passport-twitch.js": "0.0.9",
     "passport-twitter": "1.0.4",
     "passport-youtube-v3": "2.1.0",
-    "pino": "6.4.0",
+    "pino": "6.4.1",
     "pino-multi-stream": "5.1.1",
     "pino-papertrail": "2.0.0",
     "pino-pretty": "4.0.3",
