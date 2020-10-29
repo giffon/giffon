@@ -68,7 +68,7 @@
   "devDependencies": {
     "@fortawesome/fontawesome-free": "5.14.0",
     "@material-ui/core": "4.11.0",
-    "bootstrap": "4.5.0",
+    "bootstrap": "4.5.3",
     "browserify": "16.5.1",
     "currency-flags": "2.1.2",
     "dotenv-cli": "3.2.0",
