@@ -3,9 +3,15 @@
 	"dockerComposeFile": "docker-compose.yml",
 	"service": "local.giffon.io",
 	"workspaceFolder": "/workspace",
+	"remoteEnv": {
+		"DOCKER_CONFIG": "${containerWorkspaceFolder}/.devcontainer/.docker"
+	},
 	"postCreateCommand": "pip3 install -r src/test/requirements.txt && npm install",
 	"extensions": [
-		"nadako.vshaxe"
+		"nadako.vshaxe",
+		"earthly.earthfile-syntax-highlighting",
+		"ms-azuretools.vscode-docker",
 	],
-	"appPort": [ 3000, 3306, 5900 ]
+	"appPort": [ 3000, 3306, 5900 ],
+	"remoteUser": "vscode",
 }

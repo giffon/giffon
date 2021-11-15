@@ -1,30 +1,33 @@
 version: '3'
 services:
   local.giffon.io:
-    build: .
+    image: registry.gitlab.com/giffon.io/giffon/devcontainer:20211115172627
+    init: true
     volumes:
       - ..:/workspace:cached
       - /workspace/node_modules/
       - /workspace/.haxelib/
-    user: user
+      # Forwards the local Docker socket to the container.
+      - /var/run/docker.sock:/var/run/docker-host.sock
+    user: vscode
     environment:
-      - HOME=/home/user
+      - EARTHLY_BUILDKIT_HOST=tcp://earthly:8372
       - DB_HOST=mysql
       - DB_USER=root
       - DB_PASSWORD=devroot
       - HUB_HOST=selenium
       - BROWSER_NAME=chrome
       - WEB_HOST=local.giffon.io
-    ports:
-      - "3000:3000"
+    expose:
+      - 3000
     command: sleep infinity
   mysql:
     image: mysql:5.7
     environment:
       - MYSQL_ROOT_PASSWORD=devroot
       - MYSQL_DATABASE=giffon
-    ports:
-      - "3306:3306"
+    expose:
+      - 3306
     volumes:
       - ../dev/initdb:/docker-entrypoint-initdb.d
     restart: unless-stopped
@@ -32,8 +35,20 @@ services:
     image: selenium/standalone-chrome-debug:3.141.59-radium
     environment:
       - VNC_NO_PASSWORD=1
-    ports:
-      - "5900:5900"
+    expose:
+      - 5900
     volumes:
       - /dev/shm:/dev/shm
     restart: unless-stopped
+  earthly:
+    image: earthly/buildkitd:v0.5.24
+    privileged: true
+    environment:
+      - BUILDKIT_TCP_TRANSPORT_ENABLED=true
+    expose:
+      - 8372
+    volumes:
+      # https://docs.earthly.dev/docs/guides/using-the-earthly-docker-images/buildkit-standalone#earthly_tmp_dir
+      - earthly-tmp:/tmp/earthly:rw
+volumes:
+  earthly-tmp:
