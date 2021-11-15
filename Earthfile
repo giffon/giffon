@@ -1,6 +1,6 @@
 VERSION 0.5
 FROM busybox:1.34
-ARG DEVCONTAINER_IMAGE_NAME=registry.gitlab.com/giffon.io/giffon/devcontainer
+ARG DEVCONTAINER_IMAGE_NAME=giffon/giffon_devcontainer
 WORKDIR /tmp
 
 image:
