@@ -1,7 +1,7 @@
 version: '3'
 services:
   local.giffon.io:
-    image: registry.gitlab.com/giffon.io/giffon/devcontainer:20211115172627
+    image: giffon/giffon_devcontainer:20211115180507
     init: true
     volumes:
       - ..:/workspace:cached
