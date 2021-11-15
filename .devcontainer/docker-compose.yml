@@ -26,8 +26,9 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=devroot
       - MYSQL_DATABASE=giffon
-    expose:
-      - 3306
+    # expose:
+    #   - 3306
+    network_mode: service:local.giffon.io
     volumes:
       - ../dev/initdb:/docker-entrypoint-initdb.d
     restart: unless-stopped
@@ -35,8 +36,9 @@ services:
     image: selenium/standalone-chrome-debug:3.141.59-radium
     environment:
       - VNC_NO_PASSWORD=1
-    expose:
-      - 5900
+    # expose:
+    #   - 5900
+    network_mode: service:local.giffon.io
     volumes:
       - /dev/shm:/dev/shm
     restart: unless-stopped
