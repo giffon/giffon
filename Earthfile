@@ -55,6 +55,7 @@ devcontainer-build:
             python3-setuptools \
             python3-wheel \
             python3-dev \
+            default-jre \
         # Install haxe
         && add-apt-repository ppa:haxe/haxe4.1 \
         && apt-get -y install --no-install-recommends haxe=1:4.1.* \
@@ -73,7 +74,7 @@ devcontainer-build:
     RUN earthly bootstrap --no-buildkit --with-autocomplete
 
     # Install test dependencies
-    RUN pip3 install html5validator
+    RUN pip3 install html5validator==0.3.3
     COPY src/test/requirements.txt /tmp/requirements.txt
     RUN pip3 install -r /tmp/requirements.txt
 

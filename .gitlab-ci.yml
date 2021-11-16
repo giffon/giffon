@@ -63,7 +63,7 @@ test-spellcheck:
     # test (validation)
     - npm start &
     - sleep 3 # allow displaying some server init messages
-    - pip3 install html5validator
+    - pip3 install html5validator==0.3.3
     - html5validator --html http://localhost:3000
     - html5validator --css www/css/*.css
     - html5validator --svg --errors-only www/images/*.svg
