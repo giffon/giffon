@@ -10,6 +10,7 @@ stages:
     # only checkout the submodules under lib, because MRs don't have access to private
     - git submodule sync lib
     - git submodule update --init lib
+    - haxe install-haxelibs.hxml
     - npm install --unsafe-perm
     - npm run-script build-vendor
     - haxelib list
