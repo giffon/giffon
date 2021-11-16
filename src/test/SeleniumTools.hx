@@ -24,7 +24,7 @@ class SeleniumTools {
             '${log.level} ${log.source} ${log.message}'
         ];
         if (logs.length > 0)
-            Assert.warn('unexpected browser log:\n${logLines.join("\n")}');
+            trace('unexpected browser log:\n${logLines.join("\n")}');
         clearLog(driver);
     }
 
