@@ -2,6 +2,7 @@ stages:
   - build
   - test
   - deploy
+  - verify
 
 .build:
   stage: build
@@ -119,3 +120,19 @@ deploy-serverless:
     - tags
     - schedules
     - merge_requests
+
+verify-master:
+  stage: verify
+  image: giffon/giffon_devcontainer:20211116102757
+  script:
+    - curl -sSLf -o /dev/null https://master.giffon.io?nocache=$RANDOM
+  only:
+    - master
+
+verify-production:
+  stage: verify
+  image: giffon/giffon_devcontainer:20211116102757
+  script:
+    - curl -sSLf -o /dev/null https://giffon.io?nocache=$RANDOM
+  only:
+    - production

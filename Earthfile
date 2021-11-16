@@ -117,6 +117,7 @@ devcontainer-update-refs:
     BUILD \
         --build-arg DEVCONTAINER_IMAGE_TAG="$DEVCONTAINER_IMAGE_TAG" \
         --build-arg FILE='./.devcontainer/docker-compose.yml' \
+        --build-arg FILE='./.gitlab-ci.yml' \
         +devcontainer-update-ref
 
 devcontainer-update-ref:
