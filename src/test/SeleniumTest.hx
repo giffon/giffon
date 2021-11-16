@@ -267,7 +267,9 @@ class SeleniumTest extends utest.Test {
         // coupon
 
         var couponBtn:WebElement = driver.find_visible_elements_by_css_selector("button.apply-coupon-btn")[0];
+        Assert.notNull(couponBtn);
         var couponInput:WebElement = driver.find_visible_elements_by_css_selector("input[name='coupon_code']")[0];
+        Assert.notNull(couponInput);
 
         // an expired coupon
         couponInput.clearInput();
