@@ -3,11 +3,11 @@
 -cmd haxelib install hashids --always
 -cmd haxelib install tink_await --always
 -cmd haxelib install tink_syntaxhub --always
--cmd haxelib dev tink_await lib/tink_await
--cmd haxelib dev hxnodejs lib/hxnodejs
--cmd haxelib dev hxnodelibs lib/hxnodelibs
--cmd haxelib dev extern-js lib/extern-js
--cmd haxelib dev extern-js-moment lib/extern-js-moment
--cmd haxelib dev utest lib/utest
--cmd haxelib dev thx.core lib/thx.core
--cmd haxelib dev react lib/haxe-react
+-cmd mkdir -p lib/tink_await && haxelib dev tink_await lib/tink_await
+-cmd mkdir -p lib/hxnodejs && haxelib dev hxnodejs lib/hxnodejs
+-cmd mkdir -p lib/hxnodelibs && haxelib dev hxnodelibs lib/hxnodelibs
+-cmd mkdir -p lib/extern-js && haxelib dev extern-js lib/extern-js
+-cmd mkdir -p lib/extern-js-moment && haxelib dev extern-js-moment lib/extern-js-moment
+-cmd mkdir -p lib/utest && haxelib dev utest lib/utest
+-cmd mkdir -p lib/thx.core && haxelib dev thx.core lib/thx.core
+-cmd mkdir -p lib/haxe-react && haxelib dev react lib/haxe-react

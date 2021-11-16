@@ -82,10 +82,18 @@ devcontainer-build:
     RUN mkdir -m 777 "/workspace"
     USER $USERNAME
     WORKDIR /workspace
+
+    # Install node deps
     COPY package.json package-lock.json .
     RUN npm install
-    RUN mkdir -p /workspace/.haxelib
-    VOLUME /workspace/node_modules /workspace/.haxelib
+    VOLUME /workspace/node_modules
+
+    # Install haxelibs
+    COPY *.hxml .
+    RUN haxe install-haxelibs.hxml
+    VOLUME /workspace/.haxelib
+
+    USER root
 
     # Switch back to dialog for any ad-hoc use of apt-get
     ENV DEBIAN_FRONTEND=

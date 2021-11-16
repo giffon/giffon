@@ -6,7 +6,7 @@
 	"remoteEnv": {
 		"DOCKER_CONFIG": "${containerWorkspaceFolder}/.devcontainer/.docker"
 	},
-	"postCreateCommand": "haxe install-haxelibs.hxml && npm run-script build-vendor",
+	"postCreateCommand": "npm run-script build-vendor",
 	"extensions": [
 		"nadako.vshaxe",
 		"earthly.earthfile-syntax-highlighting",
