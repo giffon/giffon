@@ -12,6 +12,9 @@
 		"earthly.earthfile-syntax-highlighting",
 		"ms-azuretools.vscode-docker",
 	],
-	"forwardPorts": [ 3000, 3306, 5900 ],
-	"remoteUser": "vscode",
+	"forwardPorts": [
+		"mysql:3600",
+		"selenium:5900",
+	],
+	"remoteUser": "vscode"
 }

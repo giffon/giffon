@@ -12,10 +12,10 @@ services:
     user: vscode
     environment:
       - EARTHLY_BUILDKIT_HOST=tcp://earthly:8372
-      - DB_HOST=localhost
+      - DB_HOST=mysql
       - DB_USER=root
       - DB_PASSWORD=devroot
-      - HUB_HOST=localhost
+      - HUB_HOST=selenium
       - BROWSER_NAME=chrome
       - WEB_HOST=local.giffon.io
     expose:
@@ -26,9 +26,8 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=devroot
       - MYSQL_DATABASE=giffon
-    # expose:
-    #   - 3306
-    network_mode: service:local.giffon.io
+    expose:
+      - 3306
     volumes:
       - ../dev/initdb:/docker-entrypoint-initdb.d
     restart: unless-stopped
@@ -36,9 +35,8 @@ services:
     image: selenium/standalone-chrome-debug:3.141.59-radium
     environment:
       - VNC_NO_PASSWORD=1
-    # expose:
-    #   - 5900
-    network_mode: service:local.giffon.io
+    expose:
+      - 5900
     volumes:
       - /dev/shm:/dev/shm
     restart: unless-stopped
