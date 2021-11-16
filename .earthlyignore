@@ -1,0 +1,6 @@
+**/.git
+**/node_modules
+**/.haxelib
+
+# https://github.com/direnv/direnv
+**/.envrc
