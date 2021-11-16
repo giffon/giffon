@@ -23,7 +23,9 @@ class SeleniumTools {
             for (log in (logs.map(python.Lib.dictAsAnon):Array<BrowserLog>))
             '${log.level} ${log.source} ${log.message}'
         ];
-        Assert.equals(0, logs.length, 'unexpected browser log:\n${logLines.join("\n")}', pos);
+        if (logs.length > 0)
+            Assert.warn('unexpected browser log:\n${logLines.join("\n")}');
+        clearLog(driver);
     }
 
     static public function clearLog(driver:Remote):Void {
