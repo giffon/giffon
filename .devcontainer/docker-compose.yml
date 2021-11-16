@@ -12,10 +12,10 @@ services:
     user: vscode
     environment:
       - EARTHLY_BUILDKIT_HOST=tcp://earthly:8372
-      - DB_HOST=mysql
+      - DB_HOST=localhost
       - DB_USER=root
       - DB_PASSWORD=devroot
-      - HUB_HOST=selenium
+      - HUB_HOST=localhost
       - BROWSER_NAME=chrome
       - WEB_HOST=local.giffon.io
     expose:
