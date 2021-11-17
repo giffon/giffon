@@ -30,7 +30,7 @@ devcontainer-build:
     ARG USERNAME=vscode
     ARG USER_UID=1000
     ARG USER_GID=$USER_UID
-    COPY ./.devcontainer/library-scripts/*.sh /tmp/library-scripts/
+    COPY .devcontainer/library-scripts/*.sh /tmp/library-scripts/
     RUN apt-get update \
         && /bin/bash /tmp/library-scripts/common-debian.sh "${INSTALL_ZSH}" "${USERNAME}" "${USER_UID}" "${USER_GID}" "${UPGRADE_PACKAGES}" "true" "true" \
         # Use Docker script from script library to set things up
@@ -47,6 +47,7 @@ devcontainer-build:
         && apt-get -y install --no-install-recommends \
             sudo \
             git \
+            direnv \
             bash-completion \
             software-properties-common \
             make \
@@ -68,6 +69,13 @@ devcontainer-build:
         && apt-get clean -y \
         && rm -rf /var/lib/apt/lists/*
 
+    # Install AWS cli
+    RUN cd / \
+        && curl -fsSL -o awscliv2.zip "https://awscli.amazonaws.com/awscli-exe-linux-$(uname -m).zip" \
+        && unzip -qq awscliv2.zip \
+        && ./aws/install \
+        && rm -rf ./aws awscliv2.zip
+
     # Install earthly
     RUN curl -fsSL https://github.com/earthly/earthly/releases/download/v0.5.24/earthly-linux-${TARGETARCH} -o /usr/local/bin/earthly \
         && chmod +x /usr/local/bin/earthly
@@ -78,11 +86,13 @@ devcontainer-build:
     COPY src/test/requirements.txt /tmp/requirements.txt
     RUN pip3 install -r /tmp/requirements.txt
 
-    ENV YARN_CACHE_FOLDER=/yarn
-    RUN mkdir -m 777 "$YARN_CACHE_FOLDER"
     RUN mkdir -m 777 "/workspace"
     USER $USERNAME
     WORKDIR /workspace
+
+    # Setup direnv
+    RUN echo 'eval "$(direnv hook bash)"' >> /home/$USERNAME/.bashrc
+    COPY .devcontainer/direnv.toml /home/$USERNAME/.config/direnv/config.toml
 
     # Install node deps
     COPY package.json package-lock.json .

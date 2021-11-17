@@ -19,6 +19,7 @@ test/*.js
 test/errorShots/
 
 .env
+.envrc
 
 dev/ssl/keytmp.pem
 
@@ -28,3 +29,5 @@ dump/decoding_error.txt
 
 # docker config, which may contain auth tokens
 .devcontainer/.docker
+
+.tmp-earthly-out
