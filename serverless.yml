@@ -1,24 +1,6 @@
-# Welcome to Serverless!
-#
-# This file is the main config file for your service.
-# It's very minimal at this point and uses default values.
-# You can always add more config options for more control.
-# We've included some commented out config examples here.
-# Just uncomment any of them to get that config option.
-#
-# For full config options, check the docs:
-#    docs.serverless.com
-#
-# Happy Coding!
-
-service: giffon-web # NOTE: update this with your service name
+service: giffon-web
 
 app: giffon
-tenant: giffonio
-
-# You can pin your service to only deploy with a specific Serverless version
-# Check out our docs for more details
-# frameworkVersion: "=X.X.X"
 
 provider:
   name: aws
@@ -34,8 +16,8 @@ provider:
     SESSION_SECRET: ${ssm:SESSION_SECRET}
     FACEBOOK_CLIENT_ID: ${ssm:FACEBOOK_CLIENT_ID}
     FACEBOOK_APP_SECRET: ${ssm:FACEBOOK_APP_SECRET}
-    GITHUB_CLIENT_ID: ${ssm:GITHUB_CLIENT_ID_${opt:stage, 'dev'}}
-    GITHUB_CLIENT_SECRET: ${ssm:GITHUB_CLIENT_SECRET_${opt:stage, 'dev'}}
+    GITHUB_CLIENT_ID: ${ssm:GITHUB_CLIENT_ID_${opt:stage, 'master'}}
+    GITHUB_CLIENT_SECRET: ${ssm:GITHUB_CLIENT_SECRET_${opt:stage, 'master'}}
     TWITTER_CONSUMER_KEY: ${ssm:TWITTER_CONSUMER_KEY}
     TWITTER_CONSUMER_SECRET: ${ssm:TWITTER_CONSUMER_SECRET}
     GITLAB_APP_ID: ${ssm:GITLAB_APP_ID}
@@ -58,16 +40,18 @@ provider:
         - "s3:PutObject"
       Resource: "arn:aws:s3:::giffon-user/*"
 
-# you can overwrite defaults here
-#  stage: dev
-#  region: us-east-1
-
 package:
-  exclude:
-    - chrome/**
-    - www/**
-    - private/**
-    - test/**
+  patterns:
+    - '!.envrc'
+    - '!.devcontainer/**'
+    - '!.haxelib/**'
+    - '!chrome/**'
+    - '!www/**'
+    - '!private/**'
+    - '!lib/**'
+    - '!src/**'
+    - '!test/**'
+    - '!*.hxml'
 
 functions:
   express:
@@ -81,48 +65,3 @@ functions:
           method: ANY
           path: '{proxy+}'
           cors: true
-
-#    The following are a few example events you can configure
-#    NOTE: Please make sure to change your handler code to work with those events
-#    Check the event documentation for details
-#    events:
-#      - http:
-#          path: users/create
-#          method: get
-#      - s3: ${env:BUCKET}
-#      - schedule: rate(10 minutes)
-#      - sns: greeter-topic
-#      - stream: arn:aws:dynamodb:region:XXXXXX:table/foo/stream/1970-01-01T00:00:00.000
-#      - alexaSkill: amzn1.ask.skill.xx-xx-xx-xx
-#      - alexaSmartHome: amzn1.ask.skill.xx-xx-xx-xx
-#      - iot:
-#          sql: "SELECT * FROM 'some_topic'"
-#      - cloudwatchEvent:
-#          event:
-#            source:
-#              - "aws.ec2"
-#            detail-type:
-#              - "EC2 Instance State-change Notification"
-#            detail:
-#              state:
-#                - pending
-#      - cloudwatchLog: '/aws/lambda/hello'
-#      - cognitoUserPool:
-#          pool: MyUserPool
-#          trigger: PreSignUp
-
-#    Define function environment variables here
-#    environment:
-#      variable2: value2
-
-# you can add CloudFormation resource templates here
-#resources:
-#  Resources:
-#    NewResource:
-#      Type: AWS::S3::Bucket
-#      Properties:
-#        BucketName: my-new-bucket
-#  Outputs:
-#     NewOutput:
-#       Description: "Description for the output"
-#       Value: "Some output value"
