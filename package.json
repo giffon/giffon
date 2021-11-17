@@ -72,7 +72,6 @@
     "bootstrap": "4.5.3",
     "browserify": "16.5.1",
     "currency-flags": "2.1.2",
-    "dotenv-cli": "3.2.0",
     "emoji.css": "1.0.5",
     "envify": "4.1.0",
     "formik-material-ui": "2.0.1",
