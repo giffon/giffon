@@ -22,7 +22,7 @@
   },
   "homepage": "https://gitlab.com/giffon.io/giffon#README",
   "dependencies": {
-    "@paypal/checkout-server-sdk": "1.0.2",
+    "@paypal/checkout-server-sdk": "1.0.3",
     "amazon-helpers": "0.2.0",
     "amazon-product-api": "0.4.4",
     "aws-sdk": "2.781.0",
@@ -63,7 +63,7 @@
     "react-giphy-component": "1.1.0",
     "react-stripe-elements": "6.1.2",
     "source-map-support": "0.5.19",
-    "stripe": "8.71.0",
+    "stripe": "8.189.0",
     "validator": "13.1.17"
   },
   "devDependencies": {
