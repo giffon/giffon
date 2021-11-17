@@ -37,23 +37,23 @@
 		{
 			"type": "file",
 			"name": "LICENSE",
-			"hash": "yU/Eb9Z4z9tDAx9ujfdniuEKE1cnyaUCGteqlJ0ssrw=",
+			"hash": "aA051OCkzitxqECN8fLwxag8gx9NTBVGXCFdY/tlwuY=",
 			"time": "1985-10-26T08:15:00.000Z",
 			"size": 1134
 		},
 		{
 			"type": "file",
 			"name": "package.json",
-			"hash": "brN51HYWPQWnPmzkqfJTAJW/hpFUZ9rULrxgkZAQVGg=",
+			"hash": "Dbw+Un+PvhIRmMcOBlil6pUjTNO/sBf1xzCGi7VizqQ=",
 			"time": "1985-10-26T08:15:00.000Z",
 			"size": 1167
 		},
 		{
 			"type": "file",
 			"name": "README.md",
-			"hash": "YVUjen3iScjE4ko51lIW1g5NKQpwUGOzIqLBjxzoFvk=",
+			"hash": "4WyNTAzAYOPqfDka+6EYBJTITjrxp6ghCKtkSk6PNBE=",
 			"time": "1985-10-26T08:15:00.000Z",
-			"size": 3125
+			"size": 3483
 		}
 	]
 }

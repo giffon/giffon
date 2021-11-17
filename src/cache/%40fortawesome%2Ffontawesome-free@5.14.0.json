@@ -92,42 +92,42 @@
 				{
 					"type": "file",
 					"name": "_variables.less",
-					"hash": "U4dxmqmlihuw1+TP7E7hKiycrT5WOp6HCZl+SGn0zHY=",
+					"hash": "Z/ZVIDxpfF/KCZyUG7JCWTmpJZgUCWgSGqKMR1XC6wg=",
 					"time": "1985-10-26T08:15:00.000Z",
 					"size": 41538
 				},
 				{
 					"type": "file",
 					"name": "brands.less",
-					"hash": "g+yND7jLTObZ8Je0/tAw4UzIto/S6ikxEHWXrhnKoU0=",
+					"hash": "rIJWyrTiKlNVmzjN5Nnj3HRd/QayuFV3pyldPuEdTp0=",
 					"time": "1985-10-26T08:15:00.000Z",
 					"size": 811
 				},
 				{
 					"type": "file",
 					"name": "fontawesome.less",
-					"hash": "imySmQ2AsFAeGVtfjie+EIe3FUDMtSfyJ/IwH3IY81s=",
+					"hash": "FATorzCFWsT20tRMDOK8o/0U2W3DDPx2Iiuf856hTJY=",
 					"time": "1985-10-26T08:15:00.000Z",
 					"size": 505
 				},
 				{
 					"type": "file",
 					"name": "regular.less",
-					"hash": "JFUBPYDfUEPqSYTmokguccTKj19kKpdJ7urgSuxbMlQ=",
+					"hash": "7RcMbkd5NE7EM1re3WsqEpHFofhxUgiU17o13TzKxGA=",
 					"time": "1985-10-26T08:15:00.000Z",
 					"size": 813
 				},
 				{
 					"type": "file",
 					"name": "solid.less",
-					"hash": "3OXnJDV1zkkIVr+6aJ7kSq8pW7R6uEm/UzXc+6aLTZ8=",
+					"hash": "QXTJUh2UZbr/vRzlOlmuVL8B4nnOGdqldAorX7Io7pU=",
 					"time": "1985-10-26T08:15:00.000Z",
 					"size": 806
 				},
 				{
 					"type": "file",
 					"name": "v4-shims.less",
-					"hash": "KCpSk/QHwwUsMiwU+arvAs48AHKujXNWbXOtWu9p/uo=",
+					"hash": "jbLu8ooAJylWGoaKuR/9rvFV7hNX757TCSYEqfp2pwc=",
 					"time": "1985-10-26T08:15:00.000Z",
 					"size": 236
 				}
@@ -140,98 +140,98 @@
 				{
 					"type": "file",
 					"name": "all.js",
-					"hash": "JfWCayeZmYGqJAc5zj3X+e+d1GJnXcw2TcKppBzlEeU=",
+					"hash": "IasgWQjaTzbrqBuuI49GNlHsvp10n/gLVzfhWqlaEgM=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 1248390
+					"size": 1248517
 				},
 				{
 					"type": "file",
 					"name": "all.min.js",
-					"hash": "HkXXtFRaflZ7gjmpjGQBENGnq8NIno4SDNq/3DbkMgo=",
+					"hash": "uNYoXefWRqv+PsIF/OflNmwtKM4lStn9yrz2gVl6ymo=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 1182553
+					"size": 1182680
 				},
 				{
 					"type": "file",
 					"name": "brands.js",
-					"hash": "DK71mSjngTEpQOdS5Q+kW4/UQX1bGbNH53sB6+XejCQ=",
+					"hash": "R9RPk920veMwt7UXTAOQIVI6e+jX53IVAG9q4spotwo=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 445294
+					"size": 445312
 				},
 				{
 					"type": "file",
 					"name": "brands.min.js",
-					"hash": "3BA6xWa1FeDcSEwmQoNByCbhEsVHGXCUCs8SZty9tYM=",
+					"hash": "AhrSr3uZzE1d4ANPyM0LamleeG7YMDq+UWRQZpUB2to=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 438090
+					"size": 438108
 				},
 				{
 					"type": "file",
 					"name": "conflict-detection.js",
-					"hash": "2Tjki++cCN/VBHdoJT/dP43McsHLjF9jxL1zqOH1fZg=",
+					"hash": "/LABUC/oYQakDD0Hu8Jg0Gfb9O8alukLadxD6OlimwI=",
 					"time": "1985-10-26T08:15:00.000Z",
 					"size": 33929
 				},
 				{
 					"type": "file",
 					"name": "conflict-detection.min.js",
-					"hash": "QbJirEPD7ksCl1Kqpm5lzuU4O25EUIK/MlRkvCKWvI4=",
+					"hash": "tN7/fXdydginPOiLGE5rAjW1O01pPw6w2k7FTEq0I9Q=",
 					"time": "1985-10-26T08:15:00.000Z",
 					"size": 13502
 				},
 				{
 					"type": "file",
 					"name": "fontawesome.js",
-					"hash": "BVzGl3SQcW6kO8XlJIaWjaPNardCfsEdabdxS+uGWyk=",
+					"hash": "n5ucbgC/fF2ZovSheSJI0sFmZaqYIY0N6e0LjewX+Tw=",
 					"time": "1985-10-26T08:15:00.000Z",
 					"size": 79139
 				},
 				{
 					"type": "file",
 					"name": "fontawesome.min.js",
-					"hash": "fjQmECvnpgwxO4TyEkO7CJeu97Lu+JKoGDCNEVDs7X0=",
+					"hash": "dNZKI9qQEpJG03MLdR2Rg9Dva1o+50fN3zmlDP+3I+Y=",
 					"time": "1985-10-26T08:15:00.000Z",
 					"size": 37191
 				},
 				{
 					"type": "file",
 					"name": "regular.js",
-					"hash": "YEewwL5BC03D3cBhs26+wYIm6hxUznPoQU9yYLmB9Hs=",
+					"hash": "uLCRoM2Sauos345GNMBBNTVrMGFL3rp1Eg7n0MSC9Ig=",
 					"time": "1985-10-26T08:15:00.000Z",
 					"size": 107110
 				},
 				{
 					"type": "file",
 					"name": "regular.min.js",
-					"hash": "4jY/uatieB6FvW0xx4YIHjwtTwVkVC4MwQ3DdL6KmTo=",
+					"hash": "rILEjGt+/R5DdxC1lDz5Lplwe9GKs+rwf9tXTRFJq/s=",
 					"time": "1985-10-26T08:15:00.000Z",
 					"size": 103386
 				},
 				{
 					"type": "file",
 					"name": "solid.js",
-					"hash": "SzXKtk7fmtzolEdUK42sK51WXcjt1aoI1sEyf7cUVOQ=",
+					"hash": "l20EA72oOrVeZDcSbFto3NOzwEp/m4XfaTs0UV7CgaA=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 617405
+					"size": 617514
 				},
 				{
 					"type": "file",
 					"name": "solid.min.js",
-					"hash": "dZ49SCY0uwpmcNbNELm76kOjzs/mWMeYTTnZ7IwIgcw=",
+					"hash": "clZECmEOvMRIs/DU0BljuZNXGx3KUamdwMcTdIwqpGo=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 604447
+					"size": 604556
 				},
 				{
 					"type": "file",
 					"name": "v4-shims.js",
-					"hash": "dQfi+Anm9TWr+oFBKiYEW68uuWETgG83gBMJcImDV+w=",
+					"hash": "dXyq3MdRHcj6HE/tXbb0TuavLJ70QEd1v6yCLXtFjUw=",
 					"time": "1985-10-26T08:15:00.000Z",
 					"size": 17459
 				},
 				{
 					"type": "file",
 					"name": "v4-shims.min.js",
-					"hash": "ci9IJPF/dDisKtmmIQdmAHI5GnVMIqSpUMP74X3CAVA=",
+					"hash": "KgfF5OAYzh8ivZkdWW8I58tENA6IcgFKXm6LvF1+z/o=",
 					"time": "1985-10-26T08:15:00.000Z",
 					"size": 15055
 				}
@@ -244,98 +244,98 @@
 				{
 					"type": "file",
 					"name": "all.css",
-					"hash": "Uwy0wptETcid1zpOCBL4A76Y00SKSO3Kiq/bxVoLl+s=",
+					"hash": "HmKKK3VimMDCOGPTx1mp/5Iaip6BWMZy5HMhLc+4o9E=",
 					"time": "1985-10-26T08:15:00.000Z",
 					"size": 73117
 				},
 				{
 					"type": "file",
 					"name": "all.min.css",
-					"hash": "2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=",
+					"hash": "FMvZuGapsJLjouA6k7Eo2lusoAX9i0ShlWFG6qt7SLc=",
 					"time": "1985-10-26T08:15:00.000Z",
 					"size": 58935
 				},
 				{
 					"type": "file",
 					"name": "brands.css",
-					"hash": "Ed/uYKLwfXgenusfWRmMnjUz5V78bqZw+bd2d2xMTFE=",
+					"hash": "od+5GiKnDVNmdLCLPwpYZPCot2fRpHWtNRL2LvTgucY=",
 					"time": "1985-10-26T08:15:00.000Z",
 					"size": 732
 				},
 				{
 					"type": "file",
 					"name": "brands.min.css",
-					"hash": "MnIZ8H4TXxgXdU8usWtMrYok4iBfhbw3fW61zXaWXhY=",
+					"hash": "xN44ju35FR+kTO/TP/UkqrVbM3LpqUI1VJCWDGbG1ew=",
 					"time": "1985-10-26T08:15:00.000Z",
 					"size": 675
 				},
 				{
 					"type": "file",
 					"name": "fontawesome.css",
-					"hash": "4k3HDr3W78hOQIfDj/6kg/vKw+QA8ya6BYz/6835iCY=",
+					"hash": "BOAG+FRWFdheRgSH34Fp1QY2nH+vrHIn0pbk50kCH8o=",
 					"time": "1985-10-26T08:15:00.000Z",
 					"size": 71482
 				},
 				{
 					"type": "file",
 					"name": "fontawesome.min.css",
-					"hash": "80fAXabaQMIQSB79XD5pFt2eVZuI12D3yF6/FAkbO8E=",
+					"hash": "7YMlwkILTJEm0TSengNDszUuNSeZu4KTN3z7XrhUQvc=",
 					"time": "1985-10-26T08:15:00.000Z",
 					"size": 57503
 				},
 				{
 					"type": "file",
 					"name": "regular.css",
-					"hash": "0IP8JMmY9sbavIpKXoUbNEJHzOKw3A2qrIwCSuSO2sQ=",
+					"hash": "oupG5xdQ6jMnVtpDHZxv7kzed5pBASN9Mix54H8G0fg=",
 					"time": "1985-10-26T08:15:00.000Z",
 					"size": 734
 				},
 				{
 					"type": "file",
 					"name": "regular.min.css",
-					"hash": "9JN6GUreivUUdA+JsWia8lyR9nO1U6PsjqB31r7LhZw=",
+					"hash": "FAKIbnpfWhK6v5Re+NAi9n+5+dXanJvXVFohtH6WAuw=",
 					"time": "1985-10-26T08:15:00.000Z",
 					"size": 677
 				},
 				{
 					"type": "file",
 					"name": "solid.css",
-					"hash": "gwBwUQWVxdtJtUPw8N2td7d6Vfv1eSbbD4ANkRZGDpI=",
+					"hash": "GoP0kjAL/eaFVPqPXapYhTfnth9NAnVzrkV3e/8uics=",
 					"time": "1985-10-26T08:15:00.000Z",
 					"size": 727
 				},
 				{
 					"type": "file",
 					"name": "solid.min.css",
-					"hash": "EykeDBUB7g2D5PjMR0Ql9SdPsPNB5ASVQl89hxWRiL0=",
+					"hash": "s0DhrAmIsT5gZ3X4f+9wIXUbH52CMiqFAwgqCmdPoec=",
 					"time": "1985-10-26T08:15:00.000Z",
 					"size": 669
 				},
 				{
 					"type": "file",
 					"name": "svg-with-js.css",
-					"hash": "DrRM2oyxOc6MtEK3CI1Cp4RxZsL52WjSP1ttoDwRa9U=",
+					"hash": "2o50dFNOhHEW7Q2VYnIIZfEqdys69EWa2hqXAvTB42E=",
 					"time": "1985-10-26T08:15:00.000Z",
 					"size": 8077
 				},
 				{
 					"type": "file",
 					"name": "svg-with-js.min.css",
-					"hash": "SavI/SwU5ZyVTg9q8POBOZnAOu3B6jbY2V7TEU+gMmI=",
+					"hash": "/UgkAnLoK01NHLpXJHXWItHP4oVLjgTPUsalJr3ozek=",
 					"time": "1985-10-26T08:15:00.000Z",
 					"size": 6359
 				},
 				{
 					"type": "file",
 					"name": "v4-shims.css",
-					"hash": "/HFqHAzkyBxEvYTD0eNVp8yioZNnz6l5r+rDFiDfvrk=",
+					"hash": "K06WFaOnRCyK02YNLAAcPDR0ACl/w/UN5iTujm2EmpA=",
 					"time": "1985-10-26T08:15:00.000Z",
 					"size": 41312
 				},
 				{
 					"type": "file",
 					"name": "v4-shims.min.css",
-					"hash": "Z0q0SC5btB++zKW3hkb8YXTNFd7Oz2kY2wXgjylZlxE=",
+					"hash": "dDujvW7I1QbI1s+Nv1S/bU1HwIkAaQMW4BDX7y+UnLQ=",
 					"time": "1985-10-26T08:15:00.000Z",
 					"size": 26702
 				}
@@ -355,9 +355,9 @@
 				{
 					"type": "file",
 					"name": "icons.yml",
-					"hash": "4RprjzIIu3WChHXWqaio1rweuGN4oQkcra//OrJhMiU=",
+					"hash": "aW22sBZ4EprjyDD/9zftKw3B2mBY5nM0Y4rjvSYNeo0=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 294348
+					"size": 294972
 				},
 				{
 					"type": "file",
@@ -466,42 +466,42 @@
 				{
 					"type": "file",
 					"name": "_variables.scss",
-					"hash": "rVOs/+qHtKt6rgEWhVVEhXy5ek0mbuhQoVer52j++5s=",
+					"hash": "ST6ZkF1m+tZ68MVHSXSHAmkxYnYDCTMfUrBGi3Q0xqo=",
 					"time": "1985-10-26T08:15:00.000Z",
 					"size": 38869
 				},
 				{
 					"type": "file",
 					"name": "brands.scss",
-					"hash": "cIvN7NhiXTQ4Dt5y9mqZN9lE1lw5jM48uCivmtj2iSo=",
+					"hash": "3GYw+USVYinmh2nlxujTDR3Fbs5KdTJ6OUaxpKX4/Zc=",
 					"time": "1985-10-26T08:15:00.000Z",
 					"size": 803
 				},
 				{
 					"type": "file",
 					"name": "fontawesome.scss",
-					"hash": "vtcDNOMJN5uUD5P/vVuMPIvwo5L4UNDwA0Sq5uJv2X0=",
+					"hash": "kUq74IPvtTDy1GSvcd7SnrTiShWR89URTafdcMwPjQY=",
 					"time": "1985-10-26T08:15:00.000Z",
 					"size": 433
 				},
 				{
 					"type": "file",
 					"name": "regular.scss",
-					"hash": "J/7SAB6KScSaIfYhgYGzD0Csrb8movUqwTpPDrZy7Vo=",
+					"hash": "jcFQ44Ymyf/IaN+2lrOJWec5APP024o4/huOPqtYzPs=",
 					"time": "1985-10-26T08:15:00.000Z",
 					"size": 805
 				},
 				{
 					"type": "file",
 					"name": "solid.scss",
-					"hash": "9ViJP3Tj4Zh54IRmeB099Rrh2+d3QTXIF2Z3Dq4iYdY=",
+					"hash": "Wf11nv20UcQCVy12lCAUBYPQ5Eyc/BAPc/5+s6efDU4=",
 					"time": "1985-10-26T08:15:00.000Z",
 					"size": 798
 				},
 				{
 					"type": "file",
 					"name": "v4-shims.scss",
-					"hash": "Ukeys2ddaHpYRfF+2NZZQLakh1gSdePSKmoLsIQSnac=",
+					"hash": "dM2Q2e7e3s6xp/brzfvTLOdX9ZDYkQsbJu9s0dVLZZU=",
 					"time": "1985-10-26T08:15:00.000Z",
 					"size": 224
 				}
@@ -514,23 +514,23 @@
 				{
 					"type": "file",
 					"name": "brands.svg",
-					"hash": "LVXxh1lSUKMFTAuTIAg32e3pzhEZY7s/5kv3iKvmt5g=",
+					"hash": "0eHV9LSwMX16qZS4yJ7x4a9LhST8c3cyaIxyPip3cp0=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 458988
+					"size": 459006
 				},
 				{
 					"type": "file",
 					"name": "regular.svg",
-					"hash": "iwZScTGVInbQhAQmKvjX2pBnsXNhr9l5W3aBIMTZD4Q=",
+					"hash": "eKdSsEUxN6zEDopy85AOkiZVihuGcBV8grEO5EtNSnM=",
 					"time": "1985-10-26T08:15:00.000Z",
 					"size": 109518
 				},
 				{
 					"type": "file",
 					"name": "solid.svg",
-					"hash": "eU9If8m4bSavmfvGwSd0uIomeDyf293JrSRFGUjuKXw=",
+					"hash": "ToEOfrvCRIe7MxJXgf0xns6v4oramu7aPZsqHVoQvGQ=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 652037
+					"size": 652146
 				}
 			]
 		},
@@ -3492,9 +3492,9 @@
 						{
 							"type": "file",
 							"name": "hand-holding-usd.svg",
-							"hash": "kwhLgmF0BKC6L6nGe8fClauGF28Xsd1+bzTS5piZXNg=",
+							"hash": "Oktw4Ilolct4DfRX0jOC8McRukoiyil6agROrDPmWjI=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 1078
+							"size": 1077
 						},
 						{
 							"type": "file",
@@ -5718,9 +5718,9 @@
 						{
 							"type": "file",
 							"name": "shapes.svg",
-							"hash": "2tuDSiyzKUA32o1w2x9FSaVDzpOvTvmNY2ssufBtKPY=",
+							"hash": "g7WK56BDqNwm6lcMq7qdIcb6nQugmPyA+nEkyD0pO/k=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 373
+							"size": 372
 						},
 						{
 							"type": "file",
@@ -6432,9 +6432,9 @@
 						{
 							"type": "file",
 							"name": "swatchbook.svg",
-							"hash": "012YN8GboQaK5AcqH80ZpooA8eqxF9baU8EDwJgmsT8=",
+							"hash": "WjFIYrQS1QlaoJkVeuQoUNmpcKtpDI9hiZ76Z6nb0Es=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 454
+							"size": 451
 						},
 						{
 							"type": "file",
@@ -7321,9 +7321,9 @@
 						{
 							"type": "file",
 							"name": "virus-slash.svg",
-							"hash": "t7JzJndcKRgACKIFqvkAzuF1nJ8MjIq0DArzIUYxn6E=",
+							"hash": "ufFs5NcWmW2UTn6tEfTNBf+Ub9P7retyqTnAJFK9IU8=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 945
+							"size": 1055
 						},
 						{
 							"type": "file",
@@ -9076,9 +9076,9 @@
 						{
 							"type": "file",
 							"name": "chromecast.svg",
-							"hash": "CkAtCjMRKXylwY+F7ZxrUbQjOylcXX4mPgDdTF1bA2I=",
+							"hash": "kVwBEcTDkrtr+hJNaiegi7Nt6/KW1sV4hYgvVWt0V/I=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 474
+							"size": 483
 						},
 						{
 							"type": "file",
@@ -10231,9 +10231,9 @@
 						{
 							"type": "file",
 							"name": "laravel.svg",
-							"hash": "YI6tED7OpCZJL7Vbz4bxtq1kqHhlgS6yYYC38hYY4vk=",
+							"hash": "XbIyTK4gd70Lh1V8hWla7RJuZqbMgtVSruC0fJCsGS8=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 1710
+							"size": 1709
 						},
 						{
 							"type": "file",
@@ -10658,7 +10658,7 @@
 						{
 							"type": "file",
 							"name": "pied-piper.svg",
-							"hash": "t9zy8L3i6yNzsnf9hV1qoEaVfrBSgTjErLI3mxn0ARA=",
+							"hash": "bMcmSHR9wkpq5EJSYR6/jQJwiiAejXEKMsUa+6FqikQ=",
 							"time": "1985-10-26T08:15:00.000Z",
 							"size": 629
 						},
@@ -10903,9 +10903,9 @@
 						{
 							"type": "file",
 							"name": "safari.svg",
-							"hash": "I+xzwhUNH68vRFvBXGCCwtIffYBvHBG2zTejwQZCHfY=",
+							"hash": "dafDBTXSTm8pwK4R8S1Y8oBnf7oePv6BKNJoTT+DZsI=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 1696
+							"size": 1695
 						},
 						{
 							"type": "file",
@@ -11323,9 +11323,9 @@
 						{
 							"type": "file",
 							"name": "tripadvisor.svg",
-							"hash": "OSJB/VQIcGIeMrYqLcs0daN7LjCwmHnRz0u4QbWLJII=",
+							"hash": "0i/D5CLMBtWHNRMaa5ZH5U2EOaNFk/TUn237gyKT7v0=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 655
+							"size": 665
 						},
 						{
 							"type": "file",
@@ -11344,9 +11344,9 @@
 						{
 							"type": "file",
 							"name": "twitch.svg",
-							"hash": "mB3KeyeX4w1rlj8ElAkH56waua+QsqNipbLLSVwx4t8=",
+							"hash": "W6ChAxVK+FroEvyVsNVEfslOBkQNPmmwadxapnANepU=",
 							"time": "1985-10-26T08:15:00.000Z",
-							"size": 281
+							"size": 280
 						},
 						{
 							"type": "file",
@@ -11772,107 +11772,107 @@
 				{
 					"type": "file",
 					"name": "fa-brands-400.eot",
-					"hash": "fxAxAfBrbvlpWXdVC6mHAybczWd1YXsWdCZJSN+/NeI=",
+					"hash": "ODsnYVFywVDzy4WpfUgl1F6qi0QreB6eg1Hn6DS4cG0=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 134878
+					"size": 134622
 				},
 				{
 					"type": "file",
 					"name": "fa-brands-400.svg",
-					"hash": "uHRaalMIQe+7r6mlxbFhSHeLrb8QkZXFhNQFj2LyBu0=",
+					"hash": "BPBzGq2T7J7Fv6moVf7hWBIgfkvjCrHANcwhhkeK02k=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 729325
+					"size": 730302
 				},
 				{
 					"type": "file",
 					"name": "fa-brands-400.ttf",
-					"hash": "Xkg7MwKhOaGPfctgB+5HIt2aVK2VV/WshoL3QTcr+HE=",
+					"hash": "B1BGgPiGZZsPDYU5rlwBMkuI8wOHYJaHwvKgBQkovd8=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 134572
+					"size": 134316
 				},
 				{
 					"type": "file",
 					"name": "fa-brands-400.woff",
-					"hash": "40W3yS2agdU5ww3CtbXaiYCE56wv9jNkp++9PRZ4pbo=",
+					"hash": "4BAp8yePxicM0xpf51PL2mlPu3d+4w6PahOQkIcXiYg=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 90872
+					"size": 90672
 				},
 				{
 					"type": "file",
 					"name": "fa-brands-400.woff2",
-					"hash": "6Yrj/5NrRyPNiiN30sVJpmfOh+gSAexJlcwBvTdMEog=",
+					"hash": "HIfSsm3n1VxmA3kWu7TLpseR2g4q36N4MyZ4/xPhLZ0=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 77444
+					"size": 77400
 				},
 				{
 					"type": "file",
 					"name": "fa-regular-400.eot",
-					"hash": "ZoQGswgTWuLoZ9L0vRqTSp5dcvU2GsPwYkaCfsO5qx8=",
+					"hash": "xPcnFCIQCPW9/MkIIczYNczpUkx+yZrV2UdIiTD+FiM=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 34390
+					"size": 34350
 				},
 				{
 					"type": "file",
 					"name": "fa-regular-400.svg",
-					"hash": "Kt/yIY7MrDfTceYHHzIrnfKDl55iT9yzdJsMYJRecBc=",
+					"hash": "QNo8rzBIxO/4oaV4DLuJxd7D55coULqdw98L6wchugU=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 144322
+					"size": 144715
 				},
 				{
 					"type": "file",
 					"name": "fa-regular-400.ttf",
-					"hash": "V0DAzSTV2qST/mOhFp8RyYRdZwnFlun+SrkuANSTLF0=",
+					"hash": "peFYCswdP70tIEWyqFvbgpHEdZOenLSAA6/FAkmbPy4=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 34092
+					"size": 34052
 				},
 				{
 					"type": "file",
 					"name": "fa-regular-400.woff",
-					"hash": "9gKdkkMlXhrlgBpoouD6H22eBFxPl+BCSHJ7ZcFi7Dw=",
+					"hash": "L6Nthp214NinUr1KOx2zXSVlXheaMd5roz5FaAF+Zvk=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 16800
+					"size": 16780
 				},
 				{
 					"type": "file",
 					"name": "fa-regular-400.woff2",
-					"hash": "3l+0DgaJ8VSQIhNSd4HC+4PN3L+PYioThPHip+dpOyE=",
+					"hash": "JFgYsi0exIkvy3IkN+MoiOl/Y6Axa9Iqr59EzeAfTJE=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 13596
+					"size": 13600
 				},
 				{
 					"type": "file",
 					"name": "fa-solid-900.eot",
-					"hash": "hiUh/eQfCrSbn8RLa3rvy3wzdZ85Wf6a2+1OO02bWLg=",
+					"hash": "XET52GjFWRPKWH4Dmfxt8Y8VfFRKCzZq5USoPTLwV9U=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 204866
+					"size": 204266
 				},
 				{
 					"type": "file",
 					"name": "fa-solid-900.svg",
-					"hash": "fO+qlfIzgKxv+ftEIwk9DSlU6LJXgsQoZOmSgciCw5U=",
+					"hash": "9jUkWbQwy9NW0b9edvo8sOADSIY97n/vs40QWMqumvs=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 910710
+					"size": 914125
 				},
 				{
 					"type": "file",
 					"name": "fa-solid-900.ttf",
-					"hash": "nsNWsg9YMOD89lutgbZsOMF68HgN4Uoi+WuJQY9RAtg=",
+					"hash": "r4SZUuiBuSz3IGVAqRxf7v4j/1kQr4MJfLsur/YUuiA=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 204580
+					"size": 203980
 				},
 				{
 					"type": "file",
 					"name": "fa-solid-900.woff",
-					"hash": "CjNrYcv7uasJ84DkK+W0Qnhyfrw18V9kDpT8eoYlaVQ=",
+					"hash": "xwTZ5ne3KFnSnd1zoqY+OxW1pNuQPP9ks8KaBZ4YCHE=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 104252
+					"size": 104004
 				},
 				{
 					"type": "file",
 					"name": "fa-solid-900.woff2",
-					"hash": "C/G42KwbTvDK6g24y+G2o1+KhKL1//okIZNswRoakfw=",
+					"hash": "z+O3OC5HcFnaEb4gmZFLlPDipPCCQMYFQsN2lXuNllg=",
 					"time": "1985-10-26T08:15:00.000Z",
-					"size": 80328
+					"size": 80148
 				}
 			]
 		},
@@ -11886,7 +11886,7 @@
 		{
 			"type": "file",
 			"name": "package.json",
-			"hash": "luyKYX8BPxMh7HbtXMNx9Cw0BGm8FFCWwLQcpc7GRlE=",
+			"hash": "8JhyzSahSd+MTQtvIPPNkrrJ0Zw4vw5f3UxC+O0Ut6A=",
 			"time": "1985-10-26T08:15:00.000Z",
 			"size": 1213
 		}
