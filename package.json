@@ -25,13 +25,13 @@
     "@paypal/checkout-server-sdk": "1.0.3",
     "amazon-helpers": "0.2.0",
     "amazon-product-api": "0.4.4",
-    "aws-sdk": "2.781.0",
+    "aws-sdk": "2.1030.0",
     "aws-serverless-express": "3.3.8",
     "body-parser": "1.19.0",
     "cookie-parser": "1.4.5",
     "dotenv": "8.2.0",
     "express": "4.17.1",
-    "express-mysql-session": "2.1.4",
+    "express-mysql-session": "2.1.7",
     "express-pino-logger": "5.0.0",
     "express-session": "1.17.1",
     "formik": "2.1.5",
@@ -64,7 +64,7 @@
     "react-stripe-elements": "6.1.2",
     "source-map-support": "0.5.19",
     "stripe": "8.189.0",
-    "validator": "13.1.17"
+    "validator": "13.7.0"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "5.14.0",
