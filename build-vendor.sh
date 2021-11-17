@@ -1,3 +1,4 @@
+set -ex
 browserify \
     -r react \
     -r react-dom \

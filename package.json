@@ -4,6 +4,7 @@
   "description": "crowd-gifting",
   "main": "index.js",
   "scripts": {
+    "postinstall": "npm run-script build-vendor",
     "build-vendor": "sh build-vendor.sh",
     "build": "haxe build.hxml",
     "start": "nodemon -L ServerMain.js | pino-pretty",

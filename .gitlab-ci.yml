@@ -13,7 +13,6 @@ stages:
     - git submodule update --init lib
     - haxe install-haxelibs.hxml
     - npm install --unsafe-perm
-    - npm run-script build-vendor
     - haxelib list
     - haxe build.hxml
     - haxe build-test.hxml

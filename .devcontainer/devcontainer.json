@@ -6,7 +6,7 @@
 	"remoteEnv": {
 		"DOCKER_CONFIG": "${containerWorkspaceFolder}/.devcontainer/.docker"
 	},
-	"postCreateCommand": "npm run-script build-vendor",
+	"postCreateCommand": "npm install",
 	"extensions": [
 		"nadako.vshaxe",
 		"earthly.earthfile-syntax-highlighting",
