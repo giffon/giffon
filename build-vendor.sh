@@ -1,4 +1,7 @@
 set -ex
+
+mkdir -p www/js/
+
 browserify \
     -r react \
     -r react-dom \

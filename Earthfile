@@ -43,6 +43,13 @@ devcontainer-build:
     ENTRYPOINT [ "/usr/local/share/docker-init.sh" ]
     CMD [ "sleep", "infinity" ]
 
+    # https://github.com/docker-library/mysql/blob/master/5.7/Dockerfile.debian
+    # apt-key adv --keyserver ha.pool.sks-keyservers.net --recv-keys A4A9406876FCBD3C456770C88C718D3B5072E1F5 || \
+    # apt-key adv --keyserver pgp.mit.edu --recv-keys A4A9406876FCBD3C456770C88C718D3B5072E1F5 || \
+    # apt-key adv --keyserver keyserver.pgp.com --recv-keys A4A9406876FCBD3C456770C88C718D3B5072E1F5
+    COPY .devcontainer/mysql-public-key /tmp/mysql-public-key
+    RUN apt-key add /tmp/mysql-public-key
+
     RUN apt-get update \
         && apt-get -y install --no-install-recommends \
             sudo \
@@ -63,6 +70,16 @@ devcontainer-build:
         # Install node
         && curl -sL https://deb.nodesource.com/setup_12.x | bash - \
         && apt-get install -y nodejs=12.* \
+        # Install terraform
+        && curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add - \
+        && apt-add-repository "deb [arch=$(dpkg --print-architecture)] https://apt.releases.hashicorp.com $(lsb_release -cs) main" \
+        && apt-get -y install --no-install-recommends terraform=1.0.11 terraform-ls \
+        && echo 'complete -C /usr/bin/terraform terraform' >> /etc/bash.bashrc \
+        # Install mysql-client
+        # https://github.com/docker-library/mysql/blob/master/5.7/Dockerfile.debian
+        && echo 'deb http://repo.mysql.com/apt/ubuntu/ bionic mysql-5.7' > /etc/apt/sources.list.d/mysql.list \
+        && apt-get update \
+        && apt-get -y install mysql-client=5.7.* \
         #
         # Clean up
         && apt-get autoremove -y \
@@ -95,7 +112,7 @@ devcontainer-build:
     COPY .devcontainer/direnv.toml /home/$USERNAME/.config/direnv/config.toml
 
     # Install node deps
-    COPY package.json package-lock.json .
+    COPY package.json package-lock.json build-vendor.sh .
     RUN npm install
     VOLUME /workspace/node_modules
 
