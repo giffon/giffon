@@ -6,11 +6,17 @@
 	"remoteEnv": {
 		"DOCKER_CONFIG": "${containerWorkspaceFolder}/.devcontainer/.docker"
 	},
+	"settings": {
+		"terraform.languageServer": {
+			"pathToBinary": "/usr/bin/terraform-ls"
+		},
+	},
 	"postCreateCommand": "npm install",
 	"extensions": [
 		"nadako.vshaxe",
 		"earthly.earthfile-syntax-highlighting",
 		"ms-azuretools.vscode-docker",
+		"hashicorp.terraform",
 	],
 	"forwardPorts": [
 		"mysql:3600",
