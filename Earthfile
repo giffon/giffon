@@ -152,4 +152,4 @@ devcontainer-update-ref:
     ARG FILE
     COPY "$FILE" file.src
     RUN sed -e "s#$DEVCONTAINER_IMAGE_NAME:[a-z0-9]*#$DEVCONTAINER_IMAGE_NAME:$DEVCONTAINER_IMAGE_TAG#g" file.src > file.out
-    SAVE ARTIFACT file.out $FILE AS LOCAL $FILE
+    SAVE ARTIFACT --keep-ts file.out $FILE AS LOCAL $FILE
