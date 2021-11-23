@@ -1,8 +1,8 @@
--- MySQL dump 10.16  Distrib 10.3.9-MariaDB, for Win64 (AMD64)
+-- MySQL dump 10.13  Distrib 5.7.36, for Linux (x86_64)
 --
 -- Host: giffon.czhm2i8itlng.us-east-1.rds.amazonaws.com    Database: giffon
 -- ------------------------------------------------------
--- Server version	5.7.25-log
+-- Server version	5.7.33-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -14,11 +14,24 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+SET @MYSQLDUMP_TEMP_LOG_BIN = @@SESSION.SQL_LOG_BIN;
+SET @@SESSION.SQL_LOG_BIN= 0;
+
+--
+-- Current Database: `giffon`
+--
+
+/*!40000 DROP DATABASE IF EXISTS `giffon`*/;
+
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `giffon` /*!40100 DEFAULT CHARACTER SET latin1 */;
+
+USE `giffon`;
 
 --
 -- Table structure for table `coupon`
 --
 
+DROP TABLE IF EXISTS `coupon`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `coupon` (
@@ -34,13 +47,14 @@ CREATE TABLE `coupon` (
   UNIQUE KEY `coupon_UN` (`coupon_code`),
   KEY `coupon_user_FK` (`coupon_creator_id`),
   CONSTRAINT `coupon_user_FK` FOREIGN KEY (`coupon_creator_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `item`
 --
 
+DROP TABLE IF EXISTS `item`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `item` (
@@ -53,13 +67,14 @@ CREATE TABLE `item` (
   `item_time_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `item_currency` varchar(16) COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`item_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `pledge`
 --
 
+DROP TABLE IF EXISTS `pledge`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pledge` (
@@ -78,13 +93,14 @@ CREATE TABLE `pledge` (
   KEY `pledge_wish_FK` (`wish_id`),
   CONSTRAINT `pledge_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE,
   CONSTRAINT `pledge_wish_FK` FOREIGN KEY (`wish_id`) REFERENCES `wish` (`wish_id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `pledge_coupon`
 --
 
+DROP TABLE IF EXISTS `pledge_coupon`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pledge_coupon` (
@@ -101,6 +117,7 @@ CREATE TABLE `pledge_coupon` (
 -- Table structure for table `pledge_paypal`
 --
 
+DROP TABLE IF EXISTS `pledge_paypal`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pledge_paypal` (
@@ -116,6 +133,7 @@ CREATE TABLE `pledge_paypal` (
 -- Table structure for table `pledge_stripe`
 --
 
+DROP TABLE IF EXISTS `pledge_stripe`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pledge_stripe` (
@@ -131,6 +149,7 @@ CREATE TABLE `pledge_stripe` (
 -- Table structure for table `sessions`
 --
 
+DROP TABLE IF EXISTS `sessions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sessions` (
@@ -145,6 +164,7 @@ CREATE TABLE `sessions` (
 -- Table structure for table `user`
 --
 
+DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user` (
@@ -161,13 +181,14 @@ CREATE TABLE `user` (
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_hashid` (`user_hashid`),
   KEY `user_primary_email` (`user_primary_email`)
-) ENGINE=InnoDB AUTO_INCREMENT=108 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `user_facebook`
 --
 
+DROP TABLE IF EXISTS `user_facebook`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user_facebook` (
@@ -185,6 +206,7 @@ CREATE TABLE `user_facebook` (
 -- Table structure for table `user_github`
 --
 
+DROP TABLE IF EXISTS `user_github`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user_github` (
@@ -202,6 +224,7 @@ CREATE TABLE `user_github` (
 -- Table structure for table `user_gitlab`
 --
 
+DROP TABLE IF EXISTS `user_gitlab`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user_gitlab` (
@@ -219,6 +242,7 @@ CREATE TABLE `user_gitlab` (
 -- Table structure for table `user_google`
 --
 
+DROP TABLE IF EXISTS `user_google`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user_google` (
@@ -236,6 +260,7 @@ CREATE TABLE `user_google` (
 -- Table structure for table `user_role`
 --
 
+DROP TABLE IF EXISTS `user_role`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user_role` (
@@ -250,6 +275,7 @@ CREATE TABLE `user_role` (
 -- Table structure for table `user_stripe`
 --
 
+DROP TABLE IF EXISTS `user_stripe`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user_stripe` (
@@ -265,6 +291,7 @@ CREATE TABLE `user_stripe` (
 -- Table structure for table `user_twitch`
 --
 
+DROP TABLE IF EXISTS `user_twitch`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user_twitch` (
@@ -282,6 +309,7 @@ CREATE TABLE `user_twitch` (
 -- Table structure for table `user_twitter`
 --
 
+DROP TABLE IF EXISTS `user_twitter`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user_twitter` (
@@ -299,6 +327,7 @@ CREATE TABLE `user_twitter` (
 -- Table structure for table `user_url`
 --
 
+DROP TABLE IF EXISTS `user_url`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user_url` (
@@ -316,6 +345,7 @@ CREATE TABLE `user_url` (
 -- Table structure for table `user_youtube`
 --
 
+DROP TABLE IF EXISTS `user_youtube`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user_youtube` (
@@ -333,6 +363,7 @@ CREATE TABLE `user_youtube` (
 -- Table structure for table `wish`
 --
 
+DROP TABLE IF EXISTS `wish`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `wish` (
@@ -355,13 +386,14 @@ CREATE TABLE `wish` (
   UNIQUE KEY `wish_hashid` (`wish_hashid`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `wish_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Table structure for table `wish_charge`
 --
 
+DROP TABLE IF EXISTS `wish_charge`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `wish_charge` (
@@ -384,6 +416,7 @@ CREATE TABLE `wish_charge` (
 -- Table structure for table `wish_item`
 --
 
+DROP TABLE IF EXISTS `wish_item`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `wish_item` (
@@ -398,5 +431,18 @@ CREATE TABLE `wish_item` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping routines for database 'giffon'
+-- GTID state at the end of the backup 
 --
+
+SET @@GLOBAL.GTID_PURGED='';
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2021-11-23 10:45:16

@@ -153,3 +153,18 @@ devcontainer-update-ref:
     COPY "$FILE" file.src
     RUN sed -e "s#$DEVCONTAINER_IMAGE_NAME:[a-z0-9]*#$DEVCONTAINER_IMAGE_NAME:$DEVCONTAINER_IMAGE_TAG#g" file.src > file.out
     SAVE ARTIFACT --keep-ts file.out $FILE AS LOCAL $FILE
+
+# Example usage:
+# earthly --secret MYSQL_CONFIG="$(<dev/mysql.conf)" +mysql-dump-schema
+mysql-dump-schema:
+    FROM +devcontainer
+    ARG MYSQL_DATABASES=giffon
+    RUN \
+        --mount type=secret,target=mysql.conf,id=+secrets/MYSQL_CONFIG \
+        mysqldump \
+            --defaults-extra-file="mysql.conf" \
+            --databases "$MYSQL_DATABASES" \
+            --no-data \
+            --add-drop-database \
+            | sed 's/ AUTO_INCREMENT=[0-9]*//g' > 01_giffon.sql
+    SAVE ARTIFACT --keep-ts 01_giffon.sql AS LOCAL dev/initdb/01_giffon.sql
