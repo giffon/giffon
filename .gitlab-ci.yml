@@ -81,7 +81,7 @@ test-haxe4-chrome:
     - build-haxe4
   stage: test
   services:
-    - mysql:5.7
+    - mysql:8.0
     - selenium/standalone-chrome:3.141.59-radium
   variables:
     BROWSER_NAME: chrome
@@ -122,7 +122,7 @@ deploy-serverless:
 
 verify-master:
   stage: verify
-  image: giffon/giffon_devcontainer:20211117113914
+  image: giffon/giffon_devcontainer:20211128104919
   script:
     - curl -sSLf -o /dev/null https://master.giffon.io?nocache=$RANDOM
   only:
@@ -130,7 +130,7 @@ verify-master:
 
 verify-production:
   stage: verify
-  image: giffon/giffon_devcontainer:20211117113914
+  image: giffon/giffon_devcontainer:20211128104919
   script:
     - curl -sSLf -o /dev/null https://giffon.io?nocache=$RANDOM
   only:

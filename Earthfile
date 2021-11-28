@@ -76,10 +76,10 @@ devcontainer-build:
         && apt-get -y install --no-install-recommends terraform=1.0.11 terraform-ls \
         && echo 'complete -C /usr/bin/terraform terraform' >> /etc/bash.bashrc \
         # Install mysql-client
-        # https://github.com/docker-library/mysql/blob/master/5.7/Dockerfile.debian
-        && echo 'deb http://repo.mysql.com/apt/ubuntu/ bionic mysql-5.7' > /etc/apt/sources.list.d/mysql.list \
+        # https://github.com/docker-library/mysql/blob/master/8.0/Dockerfile.debian
+        && echo 'deb http://repo.mysql.com/apt/ubuntu/ focal mysql-8.0' > /etc/apt/sources.list.d/mysql.list \
         && apt-get update \
-        && apt-get -y install mysql-client=5.7.* \
+        && apt-get -y install mysql-client=8.0.* \
         #
         # Clean up
         && apt-get autoremove -y \
@@ -94,9 +94,15 @@ devcontainer-build:
         && rm -rf ./aws awscliv2.zip
 
     # Install earthly
-    RUN curl -fsSL https://github.com/earthly/earthly/releases/download/v0.5.24/earthly-linux-${TARGETARCH} -o /usr/local/bin/earthly \
+    RUN curl -fsSL https://github.com/earthly/earthly/releases/download/v0.6.0/earthly-linux-${TARGETARCH} -o /usr/local/bin/earthly \
         && chmod +x /usr/local/bin/earthly
     RUN earthly bootstrap --no-buildkit --with-autocomplete
+
+    # Install planetscale cli
+    ARG PSCALE_VERSION=0.85.0
+    RUN curl -fsSL https://github.com/planetscale/cli/releases/download/v${PSCALE_VERSION}/pscale_${PSCALE_VERSION}_linux_${TARGETARCH}.deb -o pscale.deb \
+        && apt-get -y install --no-install-recommends ./pscale.deb \
+        && rm ./pscale.deb
 
     # Install test dependencies
     RUN pip3 install html5validator==0.3.3

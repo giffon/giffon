@@ -1,7 +1,7 @@
 version: '3'
 services:
   local.giffon.io:
-    image: giffon/giffon_devcontainer:20211117113914
+    image: giffon/giffon_devcontainer:20211128104919
     init: true
     volumes:
       - ..:/workspace:cached
@@ -11,6 +11,7 @@ services:
       - /var/run/docker.sock:/var/run/docker-host.sock
     user: vscode
     environment:
+      - TZ=Asia/Hong_Kong
       - EARTHLY_BUILDKIT_HOST=tcp://earthly:8372
       - DB_HOST=mysql
       - DB_USER=root
@@ -22,8 +23,9 @@ services:
       - 3000
     command: sleep infinity
   mysql:
-    image: mysql:5.7
+    image: mysql:8.0
     environment:
+      - TZ=UTC
       - MYSQL_ROOT_PASSWORD=devroot
       - MYSQL_DATABASE=giffon
     expose:
