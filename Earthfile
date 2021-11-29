@@ -138,11 +138,10 @@ devcontainer-build:
 devcontainer-rebuild:
     RUN --no-cache date +%Y%m%d%H%M%S | tee buildtime
     BUILD \
-        --platform=linux/amd64 \
-        --build-arg DEVCONTAINER_IMAGE_TAG="$(cat buildtime)" \
+        --build-arg "DEVCONTAINER_IMAGE_TAG=$(cat buildtime)" \
         +devcontainer-build
     BUILD \
-        --build-arg DEVCONTAINER_IMAGE_TAG="$(cat buildtime)" \
+        --build-arg "DEVCONTAINER_IMAGE_TAG=$(cat buildtime)" \
         +devcontainer-update-refs
 
 devcontainer-update-refs:
