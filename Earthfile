@@ -163,7 +163,8 @@ devcontainer-update-ref:
 # Example usage:
 # earthly --secret MYSQL_CONFIG="$(<dev/mysql.conf)" +mysql-dump-schema
 mysql-dump-schema:
-    FROM +devcontainer
+    ARG MYSQL_VERSION=8.0
+    FROM mysql:$MYSQL_VERSION
     ARG MYSQL_DATABASES=giffon
     RUN \
         --mount type=secret,target=mysql.conf,id=+secrets/MYSQL_CONFIG \
@@ -174,3 +175,34 @@ mysql-dump-schema:
             --add-drop-database \
             | sed 's/ AUTO_INCREMENT=[0-9]*//g' > 01_giffon.sql
     SAVE ARTIFACT --keep-ts 01_giffon.sql AS LOCAL dev/initdb/01_giffon.sql
+
+# Example usage:
+# earthly --secret MYSQL_CONFIG="$(<dev/mysql.conf)" +mysql-dump-data
+mysql-dump-data:
+    ARG MYSQL_VERSION=8.0
+    FROM mysql:$MYSQL_VERSION
+    ARG MYSQL_DATABASES=giffon
+    RUN \
+        --mount type=secret,target=mysql.conf,id=+secrets/MYSQL_CONFIG \
+        mysqldump \
+            --defaults-extra-file="mysql.conf" \
+            --no-create-db \
+            --no-create-info \
+            --skip-extended-insert \
+            "$MYSQL_DATABASES" \
+            > 02_giffon.sql
+    SAVE ARTIFACT --keep-ts 02_giffon.sql AS LOCAL dev/initdb/02_giffon.sql
+
+# Example usage:
+# earthly --secret MYSQL_CONFIG="$(<dev/mysql.conf)" +mysql-restore-schema
+mysql-restore-schema:
+    ARG MYSQL_VERSION=8.0
+    FROM mysql:$MYSQL_VERSION
+    COPY dev/initdb/01_giffon.sql 01_giffon.sql
+    ARG MYSQL_DATABASES=giffon
+    RUN --no-cache \
+        --mount type=secret,target=mysql.conf,id=+secrets/MYSQL_CONFIG \
+        mysql \
+            --defaults-extra-file="mysql.conf" \
+            "$MYSQL_DATABASES" \
+            < 01_giffon.sql
