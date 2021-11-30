@@ -11,7 +11,5 @@ CREATE TABLE `pledge` (
   `pledge_name_visibility` varchar(32) COLLATE utf8mb4_bin NOT NULL DEFAULT 'VisibleToWishOwner',
   PRIMARY KEY (`pledge_id`),
   KEY `user_id` (`user_id`),
-  KEY `pledge_wish_FK` (`wish_id`),
-  CONSTRAINT `pledge_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE,
-  CONSTRAINT `pledge_wish_FK` FOREIGN KEY (`wish_id`) REFERENCES `wish` (`wish_id`) ON UPDATE CASCADE
+  KEY `pledge_wish_FK` (`wish_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;

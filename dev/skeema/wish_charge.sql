@@ -8,7 +8,5 @@ CREATE TABLE `wish_charge` (
   `charge_currency` varchar(16) COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`charge_id`),
   KEY `charge_user_FK` (`user_id`),
-  KEY `charge_wish_FK` (`wish_id`),
-  CONSTRAINT `charge_user_FK` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE,
-  CONSTRAINT `charge_wish_FK` FOREIGN KEY (`wish_id`) REFERENCES `wish` (`wish_id`) ON UPDATE CASCADE
+  KEY `charge_wish_FK` (`wish_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;

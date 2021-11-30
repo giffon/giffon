@@ -9,6 +9,5 @@ CREATE TABLE `coupon` (
   `coupon_social` json DEFAULT NULL,
   PRIMARY KEY (`coupon_id`),
   UNIQUE KEY `coupon_UN` (`coupon_code`),
-  KEY `coupon_user_FK` (`coupon_creator_id`),
-  CONSTRAINT `coupon_user_FK` FOREIGN KEY (`coupon_creator_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
+  KEY `coupon_user_FK` (`coupon_creator_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;

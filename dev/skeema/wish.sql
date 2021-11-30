@@ -16,6 +16,5 @@ CREATE TABLE `wish` (
   `wish_featured` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`wish_id`),
   UNIQUE KEY `wish_hashid` (`wish_hashid`),
-  KEY `user_id` (`user_id`),
-  CONSTRAINT `wish_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
+  KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;

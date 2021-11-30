@@ -4,6 +4,5 @@ CREATE TABLE `user_url` (
   `time_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `is_latest` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`user_url`),
-  KEY `user_url_user_FK` (`user_id`),
-  CONSTRAINT `user_url_user_FK` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
+  KEY `user_url_user_FK` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;

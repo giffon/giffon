@@ -4,6 +4,5 @@ CREATE TABLE `user_gitlab` (
   `passport_profile` json NOT NULL,
   `visible` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`user_id`),
-  UNIQUE KEY `user_gitlab_UN` (`gitlab_id`),
-  CONSTRAINT `user_gitlab_FK` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
+  UNIQUE KEY `user_gitlab_UN` (`gitlab_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;

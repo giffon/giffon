@@ -3,4 +3,4 @@ CREATE TABLE `sessions` (
   `expires` int(11) unsigned NOT NULL,
   `data` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin,
   PRIMARY KEY (`session_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
