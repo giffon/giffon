@@ -23,7 +23,7 @@ SET @@SESSION.SQL_LOG_BIN= 0;
 
 /*!40000 DROP DATABASE IF EXISTS `giffon`*/;
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `giffon` /*!40100 DEFAULT CHARACTER SET latin1 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `giffon` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_bin */;
 
 USE `giffon`;
 
@@ -35,7 +35,7 @@ DROP TABLE IF EXISTS `coupon`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `coupon` (
-  `coupon_id` int(11) NOT NULL AUTO_INCREMENT,
+  `coupon_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `coupon_creator_id` int(11) DEFAULT NULL,
   `coupon_code` varchar(32) COLLATE utf8mb4_bin DEFAULT NULL,
   `coupon_value_HKD` decimal(16,4) DEFAULT NULL,
@@ -45,8 +45,7 @@ CREATE TABLE `coupon` (
   `coupon_social` json DEFAULT NULL,
   PRIMARY KEY (`coupon_id`),
   UNIQUE KEY `coupon_UN` (`coupon_code`),
-  KEY `coupon_user_FK` (`coupon_creator_id`),
-  CONSTRAINT `coupon_user_FK` FOREIGN KEY (`coupon_creator_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
+  KEY `coupon_user_FK` (`coupon_creator_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -81,7 +80,7 @@ DROP TABLE IF EXISTS `item`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `item` (
-  `item_id` int(11) NOT NULL AUTO_INCREMENT,
+  `item_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `item_url` varchar(1024) COLLATE utf8mb4_bin NOT NULL,
   `item_url_screenshot` longblob,
   `item_name` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
@@ -101,7 +100,7 @@ DROP TABLE IF EXISTS `pledge`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pledge` (
-  `pledge_id` int(11) NOT NULL AUTO_INCREMENT,
+  `pledge_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `wish_id` int(11) NOT NULL,
   `pledge_amount` decimal(16,4) NOT NULL,
@@ -113,9 +112,7 @@ CREATE TABLE `pledge` (
   `pledge_name_visibility` varchar(32) COLLATE utf8mb4_bin NOT NULL DEFAULT 'VisibleToWishOwner',
   PRIMARY KEY (`pledge_id`),
   KEY `user_id` (`user_id`),
-  KEY `pledge_wish_FK` (`wish_id`),
-  CONSTRAINT `pledge_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE,
-  CONSTRAINT `pledge_wish_FK` FOREIGN KEY (`wish_id`) REFERENCES `wish` (`wish_id`) ON UPDATE CASCADE
+  KEY `pledge_wish_FK` (`wish_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -130,9 +127,7 @@ CREATE TABLE `pledge_coupon` (
   `pledge_id` int(11) NOT NULL,
   `coupon_id` int(11) NOT NULL,
   PRIMARY KEY (`pledge_id`),
-  KEY `pledge_coupon_coupon_FK` (`coupon_id`),
-  CONSTRAINT `pledge_coupon_coupon_FK` FOREIGN KEY (`coupon_id`) REFERENCES `coupon` (`coupon_id`) ON UPDATE CASCADE,
-  CONSTRAINT `pledge_coupon_pledge_FK` FOREIGN KEY (`pledge_id`) REFERENCES `pledge` (`pledge_id`) ON UPDATE CASCADE
+  KEY `pledge_coupon_coupon_FK` (`coupon_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -147,8 +142,7 @@ CREATE TABLE `pledge_paypal` (
   `pledge_id` int(11) NOT NULL,
   `paypal_order_id` varchar(64) COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`pledge_id`),
-  UNIQUE KEY `pledge_paypal_UN` (`paypal_order_id`),
-  CONSTRAINT `pledge_paypal_FK` FOREIGN KEY (`pledge_id`) REFERENCES `pledge` (`pledge_id`) ON UPDATE CASCADE
+  UNIQUE KEY `pledge_paypal_UN` (`paypal_order_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -163,8 +157,7 @@ CREATE TABLE `pledge_stripe` (
   `pledge_id` int(11) NOT NULL,
   `stripe_charge_id` varchar(64) COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`pledge_id`),
-  UNIQUE KEY `pledge_stripe_UN` (`stripe_charge_id`),
-  CONSTRAINT `pledge_stripe_pledge_FK` FOREIGN KEY (`pledge_id`) REFERENCES `pledge` (`pledge_id`) ON UPDATE CASCADE
+  UNIQUE KEY `pledge_stripe_UN` (`stripe_charge_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -177,10 +170,10 @@ DROP TABLE IF EXISTS `sessions`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sessions` (
   `session_id` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
-  `expires` int(11) unsigned NOT NULL,
+  `expires` int(10) unsigned NOT NULL,
   `data` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin,
   PRIMARY KEY (`session_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -191,7 +184,7 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user` (
-  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_hashid` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
   `user_primary_email` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
   `user_name` varchar(64) COLLATE utf8mb4_bin DEFAULT NULL,
@@ -220,8 +213,7 @@ CREATE TABLE `user_facebook` (
   `passport_profile` json DEFAULT NULL,
   `visible` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`user_id`),
-  UNIQUE KEY `user_facebook_UN` (`facebook_id`),
-  CONSTRAINT `user_facebook_FK` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
+  UNIQUE KEY `user_facebook_UN` (`facebook_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -238,8 +230,7 @@ CREATE TABLE `user_github` (
   `passport_profile` json DEFAULT NULL,
   `visible` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`user_id`),
-  UNIQUE KEY `user_github_UN` (`github_id`),
-  CONSTRAINT `user_github_FK` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
+  UNIQUE KEY `user_github_UN` (`github_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -256,8 +247,7 @@ CREATE TABLE `user_gitlab` (
   `passport_profile` json NOT NULL,
   `visible` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`user_id`),
-  UNIQUE KEY `user_gitlab_UN` (`gitlab_id`),
-  CONSTRAINT `user_gitlab_FK` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
+  UNIQUE KEY `user_gitlab_UN` (`gitlab_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -274,8 +264,7 @@ CREATE TABLE `user_google` (
   `passport_profile` json NOT NULL,
   `visible` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`user_id`),
-  UNIQUE KEY `user_google_UN` (`google_id`),
-  CONSTRAINT `user_google_FK` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
+  UNIQUE KEY `user_google_UN` (`google_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -289,8 +278,7 @@ DROP TABLE IF EXISTS `user_role`;
 CREATE TABLE `user_role` (
   `user_id` int(11) NOT NULL,
   `user_role` varchar(11) COLLATE utf8mb4_bin NOT NULL,
-  PRIMARY KEY (`user_id`,`user_role`),
-  CONSTRAINT `user_role_FK` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
+  PRIMARY KEY (`user_id`,`user_role`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -305,8 +293,7 @@ CREATE TABLE `user_stripe` (
   `user_id` int(11) NOT NULL,
   `stripe_customer_id` varchar(64) COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`user_id`,`stripe_customer_id`),
-  UNIQUE KEY `user_stripe_UN` (`stripe_customer_id`),
-  CONSTRAINT `user_stripe_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
+  UNIQUE KEY `user_stripe_UN` (`stripe_customer_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -323,8 +310,7 @@ CREATE TABLE `user_twitch` (
   `passport_profile` json NOT NULL,
   `visible` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`user_id`),
-  UNIQUE KEY `user_twitch_UN` (`twitch_id`),
-  CONSTRAINT `user_twitch_user_FK` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
+  UNIQUE KEY `user_twitch_UN` (`twitch_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -341,8 +327,7 @@ CREATE TABLE `user_twitter` (
   `passport_profile` json NOT NULL,
   `visible` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`user_id`),
-  UNIQUE KEY `user_twitter_UN` (`twitter_id`),
-  CONSTRAINT `user_twitter_FK` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
+  UNIQUE KEY `user_twitter_UN` (`twitter_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -359,8 +344,7 @@ CREATE TABLE `user_url` (
   `time_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `is_latest` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`user_url`),
-  KEY `user_url_user_FK` (`user_id`),
-  CONSTRAINT `user_url_user_FK` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
+  KEY `user_url_user_FK` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -377,8 +361,7 @@ CREATE TABLE `user_youtube` (
   `passport_profile` json NOT NULL,
   `visible` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`user_id`),
-  UNIQUE KEY `user_youtube_UN` (`youtube_id`),
-  CONSTRAINT `user_youtube_user_FK` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
+  UNIQUE KEY `user_youtube_UN` (`youtube_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -390,7 +373,7 @@ DROP TABLE IF EXISTS `wish`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `wish` (
-  `wish_id` int(11) NOT NULL AUTO_INCREMENT,
+  `wish_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `wish_hashid` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
   `user_id` int(11) NOT NULL COMMENT 'owner',
   `wish_time_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -407,8 +390,7 @@ CREATE TABLE `wish` (
   `wish_featured` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`wish_id`),
   UNIQUE KEY `wish_hashid` (`wish_hashid`),
-  KEY `user_id` (`user_id`),
-  CONSTRAINT `wish_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
+  KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -420,7 +402,7 @@ DROP TABLE IF EXISTS `wish_charge`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `wish_charge` (
-  `charge_id` int(11) NOT NULL AUTO_INCREMENT,
+  `charge_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `charge_amount` decimal(16,4) NOT NULL,
   `charge_note` text COLLATE utf8mb4_bin,
   `charge_time_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -429,9 +411,7 @@ CREATE TABLE `wish_charge` (
   `charge_currency` varchar(16) COLLATE utf8mb4_bin NOT NULL,
   PRIMARY KEY (`charge_id`),
   KEY `charge_user_FK` (`user_id`),
-  KEY `charge_wish_FK` (`wish_id`),
-  CONSTRAINT `charge_user_FK` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE,
-  CONSTRAINT `charge_wish_FK` FOREIGN KEY (`wish_id`) REFERENCES `wish` (`wish_id`) ON UPDATE CASCADE
+  KEY `charge_wish_FK` (`wish_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -447,9 +427,7 @@ CREATE TABLE `wish_item` (
   `item_id` int(11) NOT NULL,
   `item_quantity` tinyint(3) unsigned NOT NULL,
   PRIMARY KEY (`wish_id`,`item_id`),
-  KEY `wish_item_item_FK` (`item_id`),
-  CONSTRAINT `wish_item_item_FK` FOREIGN KEY (`item_id`) REFERENCES `item` (`item_id`) ON UPDATE CASCADE,
-  CONSTRAINT `wish_item_wish_FK` FOREIGN KEY (`wish_id`) REFERENCES `wish` (`wish_id`) ON UPDATE CASCADE
+  KEY `wish_item_item_FK` (`item_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -457,7 +435,7 @@ CREATE TABLE `wish_item` (
 -- GTID state at the end of the backup 
 --
 
-SET @@GLOBAL.GTID_PURGED='9bf286fd-4f63-11e9-956f-160e248ab144:1-1033';
+SET @@GLOBAL.GTID_PURGED='9bf286fd-4f63-11e9-956f-160e248ab144:1-1802';
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -468,4 +446,4 @@ SET @@GLOBAL.GTID_PURGED='9bf286fd-4f63-11e9-956f-160e248ab144:1-1033';
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-11-30  5:45:25
+-- Dump completed on 2021-11-30  9:37:32
