@@ -93,6 +93,12 @@ devcontainer-build:
         && ./aws/install \
         && rm -rf ./aws awscliv2.zip
 
+    # Install flyway
+    ARG FLYWAY_VERSION=8.1.0
+    RUN cd / \
+        && wget -qO- https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/${FLYWAY_VERSION}/flyway-commandline-${FLYWAY_VERSION}-linux-x64.tar.gz | tar xvz && sudo ln -s `pwd`/flyway-${FLYWAY_VERSION}/flyway /usr/local/bin \
+        && chmod a+x /usr/local/bin/flyway
+
     # Install earthly
     RUN curl -fsSL https://github.com/earthly/earthly/releases/download/v0.6.0/earthly-linux-${TARGETARCH} -o /usr/local/bin/earthly \
         && chmod +x /usr/local/bin/earthly
@@ -165,7 +171,7 @@ mysql-dump-schema:
     ARG MYSQL_VERSION=8.0
     FROM mysql:$MYSQL_VERSION
     ARG MYSQL_DATABASES=giffon
-    RUN \
+    RUN --no-cache \
         --mount type=secret,target=mysql.conf,id=+secrets/MYSQL_CONFIG \
         mysqldump \
             --defaults-extra-file="mysql.conf" \
@@ -192,16 +198,37 @@ mysql-dump-data:
             > 02_giffon.sql
     SAVE ARTIFACT --keep-ts 02_giffon.sql AS LOCAL dev/initdb/02_giffon.sql
 
-# Example usage:
-# earthly --secret MYSQL_CONFIG="$(<dev/mysql.conf)" +mysql-restore-schema
-mysql-restore-schema:
+mysql-run-file:
     ARG MYSQL_VERSION=8.0
     FROM mysql:$MYSQL_VERSION
-    COPY dev/initdb/01_giffon.sql 01_giffon.sql
-    ARG MYSQL_DATABASES=giffon
+    ARG SQL_FILE
+    ARG MYSQL_DATABASE=giffon
+    COPY "$SQL_FILE" "${MYSQL_DATABASE}.sql"
     RUN --no-cache \
         --mount type=secret,target=mysql.conf,id=+secrets/MYSQL_CONFIG \
         mysql \
             --defaults-extra-file="mysql.conf" \
-            "$MYSQL_DATABASES" \
-            < 01_giffon.sql
+            "$MYSQL_DATABASE" \
+            < "${MYSQL_DATABASE}.sql"
+
+# Example usage:
+# earthly --secret MYSQL_CONFIG="$(<dev/mysql.conf)" +mysql-restore-schema
+mysql-restore-schema:
+    ARG MYSQL_VERSION=8.0
+    ARG MYSQL_DATABASE=giffon
+    FROM \
+        --build-arg MYSQL_VERSION="$MYSQL_VERSION" \
+        --build-arg MYSQL_DATABASE="$MYSQL_DATABASE" \
+        --build-arg SQL_FILE="dev/initdb/01_giffon.sql" \
+        +mysql-run-file
+
+# Example usage:
+# earthly --secret MYSQL_CONFIG="$(<dev/mysql.conf)" +mysql-restore-data
+mysql-restore-data:
+    ARG MYSQL_VERSION=8.0
+    ARG MYSQL_DATABASE=giffon
+    FROM \
+        --build-arg MYSQL_VERSION="$MYSQL_VERSION" \
+        --build-arg MYSQL_DATABASE="$MYSQL_DATABASE" \
+        --build-arg SQL_FILE="dev/initdb/02_giffon.sql" \
+        +mysql-run-file
