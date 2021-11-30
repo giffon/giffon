@@ -1,0 +1,21 @@
+CREATE TABLE `wish` (
+  `wish_id` int(11) NOT NULL AUTO_INCREMENT,
+  `wish_hashid` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
+  `user_id` int(11) NOT NULL COMMENT 'owner',
+  `wish_time_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `wish_time_publish` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `wish_description` text COLLATE utf8mb4_bin,
+  `wish_state` varchar(64) COLLATE utf8mb4_bin NOT NULL DEFAULT 'created',
+  `wish_note` text COLLATE utf8mb4_bin,
+  `wish_title` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
+  `wish_target_date` timestamp NULL DEFAULT NULL,
+  `wish_currency` varchar(16) COLLATE utf8mb4_bin NOT NULL,
+  `wish_banner_url` varchar(1024) COLLATE utf8mb4_bin DEFAULT NULL,
+  `wish_additional_cost_amount` decimal(16,4) DEFAULT NULL,
+  `wish_additional_cost_description` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
+  `wish_featured` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`wish_id`),
+  UNIQUE KEY `wish_hashid` (`wish_hashid`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `wish_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;

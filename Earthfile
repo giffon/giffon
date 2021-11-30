@@ -99,6 +99,11 @@ devcontainer-build:
         && wget -qO- https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/${FLYWAY_VERSION}/flyway-commandline-${FLYWAY_VERSION}-linux-x64.tar.gz | tar xvz && sudo ln -s `pwd`/flyway-${FLYWAY_VERSION}/flyway /usr/local/bin \
         && chmod a+x /usr/local/bin/flyway
 
+    # install skeema
+    RUN curl -fsSL -o skeema_amd64.deb https://github.com/skeema/skeema/releases/download/v1.6.0/skeema_amd64.deb \
+        && apt-get install -y ./skeema_amd64.deb \
+        && rm ./skeema_amd64.deb
+
     # Install earthly
     RUN curl -fsSL https://github.com/earthly/earthly/releases/download/v0.6.0/earthly-linux-${TARGETARCH} -o /usr/local/bin/earthly \
         && chmod +x /usr/local/bin/earthly

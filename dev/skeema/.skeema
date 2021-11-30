@@ -1,0 +1,10 @@
+default-character-set=latin1
+default-collation=latin1_swedish_ci
+generator=skeema:1.6.0-community
+
+[rds]
+flavor=mysql:5.7
+host=giffon.czhm2i8itlng.us-east-1.rds.amazonaws.com
+port=3306
+schema=giffon
+user=master

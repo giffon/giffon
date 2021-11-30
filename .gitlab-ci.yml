@@ -123,7 +123,7 @@ deploy-serverless:
 
 verify-master:
   stage: verify
-  image: giffon/giffon_devcontainer:20211128104919
+  image: giffon/giffon_devcontainer:20211130055449
   script:
     - curl -sSLf -o /dev/null https://master.giffon.io?nocache=$RANDOM
   only:
@@ -131,7 +131,7 @@ verify-master:
 
 verify-production:
   stage: verify
-  image: giffon/giffon_devcontainer:20211128104919
+  image: giffon/giffon_devcontainer:20211130055449
   script:
     - curl -sSLf -o /dev/null https://giffon.io?nocache=$RANDOM
   only:
