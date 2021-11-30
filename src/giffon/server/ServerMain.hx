@@ -929,6 +929,9 @@ class ServerMain {
             database: DBInfo.database,
             charset: DBInfo.charset,
             connectTimeout: 10.0 * 1000.0, //10 seconds
+            ssl: {
+                rejectUnauthorized: false,
+            },
         };
 
         stripe = new Stripe(StripeInfo.apiSecKey, {
