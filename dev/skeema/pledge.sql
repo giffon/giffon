@@ -1,5 +1,5 @@
 CREATE TABLE `pledge` (
-  `pledge_id` int(11) NOT NULL AUTO_INCREMENT,
+  `pledge_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `wish_id` int(11) NOT NULL,
   `pledge_amount` decimal(16,4) NOT NULL,
