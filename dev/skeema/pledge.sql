@@ -1,7 +1,7 @@
 CREATE TABLE `pledge` (
-  `pledge_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `wish_id` int(11) NOT NULL,
+  `pledge_id` int unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `wish_id` int NOT NULL,
   `pledge_amount` decimal(16,4) NOT NULL,
   `pledge_time_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `pledge_method` varchar(64) COLLATE utf8mb4_bin NOT NULL,

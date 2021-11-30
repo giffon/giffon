@@ -1,7 +1,7 @@
 CREATE TABLE `wish` (
-  `wish_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `wish_id` int unsigned NOT NULL AUTO_INCREMENT,
   `wish_hashid` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
-  `user_id` int(11) NOT NULL COMMENT 'owner',
+  `user_id` int NOT NULL COMMENT 'owner',
   `wish_time_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `wish_time_publish` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `wish_description` text COLLATE utf8mb4_bin,

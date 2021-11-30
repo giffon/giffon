@@ -1,5 +1,5 @@
 CREATE TABLE `user_github` (
-  `user_id` int(11) NOT NULL,
+  `user_id` int NOT NULL,
   `github_id` varchar(64) COLLATE utf8mb4_bin NOT NULL,
   `passport_profile` json DEFAULT NULL,
   `visible` tinyint(1) NOT NULL DEFAULT '1',

@@ -1,5 +1,5 @@
 CREATE TABLE `user_twitter` (
-  `user_id` int(11) NOT NULL,
+  `user_id` int NOT NULL,
   `twitter_id` varchar(64) COLLATE utf8mb4_bin NOT NULL,
   `passport_profile` json NOT NULL,
   `visible` tinyint(1) NOT NULL DEFAULT '1',

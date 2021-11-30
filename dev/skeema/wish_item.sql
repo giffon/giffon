@@ -1,6 +1,6 @@
 CREATE TABLE `wish_item` (
-  `wish_id` int(11) NOT NULL,
-  `item_id` int(11) NOT NULL,
+  `wish_id` int NOT NULL,
+  `item_id` int NOT NULL,
   `item_quantity` tinyint(3) unsigned NOT NULL,
   PRIMARY KEY (`wish_id`,`item_id`),
   KEY `wish_item_item_FK` (`item_id`)

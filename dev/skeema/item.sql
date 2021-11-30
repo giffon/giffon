@@ -1,5 +1,5 @@
 CREATE TABLE `item` (
-  `item_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `item_id` int unsigned NOT NULL AUTO_INCREMENT,
   `item_url` varchar(1024) COLLATE utf8mb4_bin NOT NULL,
   `item_url_screenshot` longblob,
   `item_name` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,

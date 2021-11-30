@@ -1,5 +1,5 @@
 CREATE TABLE `user` (
-  `user_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int unsigned NOT NULL AUTO_INCREMENT,
   `user_hashid` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
   `user_primary_email` varchar(128) COLLATE utf8mb4_bin DEFAULT NULL,
   `user_name` varchar(64) COLLATE utf8mb4_bin DEFAULT NULL,

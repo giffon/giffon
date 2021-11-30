@@ -1,5 +1,5 @@
 CREATE TABLE `user_url` (
-  `user_id` int(11) NOT NULL,
+  `user_id` int NOT NULL,
   `user_url` varchar(64) CHARACTER SET utf8mb4 NOT NULL,
   `time_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `is_latest` tinyint(1) NOT NULL DEFAULT '1',
