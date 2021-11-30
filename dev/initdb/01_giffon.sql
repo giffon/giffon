@@ -50,29 +50,6 @@ CREATE TABLE `coupon` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `flyway_schema_history`
---
-
-DROP TABLE IF EXISTS `flyway_schema_history`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `flyway_schema_history` (
-  `installed_rank` int(11) NOT NULL,
-  `version` varchar(50) DEFAULT NULL,
-  `description` varchar(200) NOT NULL,
-  `type` varchar(20) NOT NULL,
-  `script` varchar(1000) NOT NULL,
-  `checksum` int(11) DEFAULT NULL,
-  `installed_by` varchar(100) NOT NULL,
-  `installed_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `execution_time` int(11) NOT NULL,
-  `success` tinyint(1) NOT NULL,
-  PRIMARY KEY (`installed_rank`),
-  KEY `flyway_schema_history_s_idx` (`success`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Table structure for table `item`
 --
 
@@ -435,7 +412,7 @@ CREATE TABLE `wish_item` (
 -- GTID state at the end of the backup 
 --
 
-SET @@GLOBAL.GTID_PURGED='9bf286fd-4f63-11e9-956f-160e248ab144:1-1802';
+SET @@GLOBAL.GTID_PURGED='9bf286fd-4f63-11e9-956f-160e248ab144:1-1860';
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -446,4 +423,4 @@ SET @@GLOBAL.GTID_PURGED='9bf286fd-4f63-11e9-956f-160e248ab144:1-1802';
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-11-30  9:37:32
+-- Dump completed on 2021-11-30  9:44:46
